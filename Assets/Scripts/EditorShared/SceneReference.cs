@@ -1,3 +1,7 @@
+//
+// Author: Jonatan Johansson
+//
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
