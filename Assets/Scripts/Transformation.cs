@@ -4,44 +4,44 @@ using UnityEngine;
 
 public class Transformation : MonoBehaviour {
 
-    [SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
+	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
-    private SpriteRenderer mySpriteRend;
+	private SpriteRenderer mySpriteRend;
 
 	private TransformationStates transStates;
 
-    private Color humanColor = Color.white, wolfColor = Color.black, transformingColor = Color.grey;
+	private Color humanColor = Color.white, wolfColor = Color.black, transformingColor = Color.grey;
 
 	private float transTimer, humanFormTimer;
 
 
-    private void Start() {
+	private void Start() {
 		mySpriteRend = gameObject.GetComponent<SpriteRenderer>();
-    }
+	}
 
 
-    private void Update() {
+	private void Update() {
 		if (Input.GetKeyDown(KeyCode.R) && transStates == TransformationStates.Wolf) {
-            StartCoroutine(CoTransforming());
-        }
+			StartCoroutine(CoTransforming());
+		}
 		else if (Input.GetKeyDown(KeyCode.R) && transStates != TransformationStates.Wolf) {
 		}
 
-        if (transStates == TransformationStates.Human) {
+		if (transStates == TransformationStates.Human) {
 			mySpriteRend.color = humanColor;
-        }
+		}
 		else if (transStates == TransformationStates.Transforming) {
 			mySpriteRend.color = transformingColor;
 		}
-        else if (transStates == TransformationStates.Wolf) {
+		else if (transStates == TransformationStates.Wolf) {
 			mySpriteRend.color = wolfColor;
-        }
-    }
+		}
+	}
 
 
 	private IEnumerator CoTransforming() {
 		transStates = TransformationStates.Transforming;
-    
+	
 		for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
 			if (Input.GetKeyUp(KeyCode.R) && transStates == TransformationStates.Transforming) {
 				transStates = TransformationStates.Wolf;
@@ -50,7 +50,7 @@ public class Transformation : MonoBehaviour {
 			yield return null;
 		}
 
-    	if (transStates == TransformationStates.Transforming) {
+		if (transStates == TransformationStates.Transforming) {
 			TransformToHuman();
 			StartCoroutine(CoHumanFormDuration());
 		}
