@@ -30,36 +30,25 @@ public class Transformation : MonoBehaviour {
 
 
 	private IEnumerator CoTransforming() {
-		if (transStates == TransformationStates.Wolf) {
+		mySpriteRend.color = transformingColor;
 
-			mySpriteRend.color = transformingColor;
-	
-			for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
-				if (Input.GetKeyUp(KeyCode.R)) {
+		for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
+			if (Input.GetKeyUp(KeyCode.R)) {
+				if (transStates == TransformationStates.Wolf) {
 					mySpriteRend.color = wolfColor;
-					yield break;
 				}
-			yield return null;
-			}
-		}
-		else if (transStates == TransformationStates.Human) {
-
-			mySpriteRend.color = transformingColor;
-
-			for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
-				if (Input.GetKeyUp(KeyCode.R)) {
+				else if (transStates == TransformationStates.Human) {
 					mySpriteRend.color = humanColor;
-					yield break;
 				}
-				yield return null;
+				yield break;
 			}
+			yield return null;
 		}
 
 		if (transStates == TransformationStates.Wolf) {
 			TransformToHuman();
 			StartCoroutine(CoHumanFormDuration());
 		}
-
 		else if (transStates == TransformationStates.Human) {
 			TransformToWolf();
 		}
