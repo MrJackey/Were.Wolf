@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D boxCollider;
+	private LayerMask groundLayer;
 	private Vector2 velocity;
 
 	private bool doJump = false;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
 		boxCollider = GetComponent<BoxCollider2D>();
+		groundLayer = LayerMask.GetMask("Ground");
 	}
 
 	private void Update() {
@@ -56,12 +58,11 @@ public class PlayerController : MonoBehaviour {
 	private bool CheckIfGrounded() {
 		Vector3 position = transform.position;
 
-		int floorLayer = LayerMask.GetMask("Ground");
 		Vector2 rayStartPosition = new Vector2(position.x, position.y - boxCollider.bounds.extents.y);
 		float rayDistance = 0.05f;
 
-		RaycastHit2D hit = Physics2D.Raycast(rayStartPosition,Vector2.down, rayDistance, floorLayer);
+		RaycastHit2D hit = Physics2D.Raycast(rayStartPosition,Vector2.down, rayDistance, groundLayer);
 
-		return hit.collider;
+		return hit.collider != null;
 	}
 }
