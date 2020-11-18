@@ -14,44 +14,46 @@ public class Transformation : MonoBehaviour {
 
 	private float transTimer, humanFormTimer;
 
-	private bool isTransforming = false;
-
 
 	private void Start() {
 		mySpriteRend = gameObject.GetComponent<SpriteRenderer>();
+
+		mySpriteRend.color = wolfColor;
 	}
 
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.R) && transStates == TransformationStates.Wolf) {
+		if (Input.GetKeyDown(KeyCode.R)) {
 			StartCoroutine(CoTransforming());
-		}
-
-		if (transStates == TransformationStates.Human) {
-			mySpriteRend.color = humanColor;
-		}
-		else if (isTransforming) {
-			mySpriteRend.color = transformingColor;
-		}
-		else if (transStates == TransformationStates.Wolf) {
-			mySpriteRend.color = wolfColor;
 		}
 	}
 
 
 	private IEnumerator CoTransforming() {
-		isTransforming = true;
-	
-		for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
-			if (Input.GetKeyUp(KeyCode.R) && isTransforming) {
-				isTransforming = false;
-				transStates = TransformationStates.Wolf;
-				yield break;
-			}
-			yield return null;
-		}
+		if (transStates == TransformationStates.Wolf) {
 
-		isTransforming = false;
+			mySpriteRend.color = transformingColor;
+	
+			for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
+				if (Input.GetKeyUp(KeyCode.R)) {
+					mySpriteRend.color = wolfColor;
+					yield break;
+				}
+			yield return null;
+			}
+		}
+		else if (transStates == TransformationStates.Human) {
+
+			mySpriteRend.color = transformingColor;
+
+			for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
+				if (Input.GetKeyUp(KeyCode.R)) {
+					mySpriteRend.color = humanColor;
+					yield break;
+				}
+				yield return null;
+			}
+		}
 
 		if (transStates == TransformationStates.Wolf) {
 			TransformToHuman();
@@ -73,15 +75,17 @@ public class Transformation : MonoBehaviour {
 
 	public void TransformToHuman() {
 		transStates = TransformationStates.Human;
+		mySpriteRend.color = humanColor;
 	}
+
 
 	public void TransformToWolf() {
 		transStates = TransformationStates.Wolf;
+		mySpriteRend.color = wolfColor;
 	}
 }
 
 enum TransformationStates {
 	Wolf,
-	Transforming,
 	Human,	
 }
