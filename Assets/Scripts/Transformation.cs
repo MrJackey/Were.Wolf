@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transformation : MonoBehaviour
-{
-    //[SerializeField] private bool isTransformed = false;
+public class Transformation : MonoBehaviour {
 
     [SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
@@ -12,7 +10,7 @@ public class Transformation : MonoBehaviour
 
 	private TransformationStates transStates;
 
-    private Color humanColor = Color.white, wolfColor = Color.black;
+    private Color humanColor = Color.white, wolfColor = Color.black, transformingColor = Color.grey;
 
 	private float transTimer, humanFormTimer;
 
@@ -25,15 +23,16 @@ public class Transformation : MonoBehaviour
     private void Update() {
 		if (Input.GetKeyDown(KeyCode.R) && transStates == TransformationStates.Wolf) {
             StartCoroutine(CoTransforming());
-			Debug.Log("Transformation process Charging...");
         }
 		else if (Input.GetKeyDown(KeyCode.R) && transStates != TransformationStates.Wolf) {
-			Debug.Log("Already transformed to Human - cannot cancel human-form at the moment.");
 		}
 
         if (transStates == TransformationStates.Human) {
-			  mySpriteRend.color = humanColor;
+			mySpriteRend.color = humanColor;
         }
+		else if (transStates == TransformationStates.Transforming) {
+			mySpriteRend.color = transformingColor;
+		}
         else if (transStates == TransformationStates.Wolf) {
 			mySpriteRend.color = wolfColor;
         }
@@ -41,18 +40,19 @@ public class Transformation : MonoBehaviour
 
 
 	private IEnumerator CoTransforming() {
+		transStates = TransformationStates.Transforming;
     
 		for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
-			if (Input.GetKeyUp(KeyCode.R) && transStates == TransformationStates.Wolf) {
-				Debug.Log("Transformation process interrupted");
+			if (Input.GetKeyUp(KeyCode.R) && transStates == TransformationStates.Transforming) {
+				transStates = TransformationStates.Wolf;
 				yield break;
 			}
 			yield return null;
 		}
 
-    	if (transStates == TransformationStates.Wolf) {
+    	if (transStates == TransformationStates.Transforming) {
 			TransformToHuman();
-			StartCoroutine(HumanFormDuration());
+			StartCoroutine(CoHumanFormDuration());
 		}
 		else if (transStates == TransformationStates.Human) {
 			TransformToWolf();
@@ -60,9 +60,7 @@ public class Transformation : MonoBehaviour
 	}
 
 
-	private IEnumerator HumanFormDuration() {
-		Debug.Log("Starting countdown for the human-form duration " + humanFormDuration);
-
+	private IEnumerator CoHumanFormDuration() {
 		yield return new WaitForSeconds(humanFormDuration);
 
 		TransformToWolf();
@@ -71,16 +69,15 @@ public class Transformation : MonoBehaviour
 
 	public void TransformToHuman() {
 		transStates = TransformationStates.Human;
-		Debug.Log("Transforming to Human");
 	}
 
 	public void TransformToWolf() {
 		transStates = TransformationStates.Wolf;
-		Debug.Log("Transforming back to Wolf");
 	}
 }
 
 enum TransformationStates {
 	Wolf,
+	Transforming,
 	Human,	
 }
