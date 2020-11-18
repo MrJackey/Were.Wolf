@@ -8,7 +8,7 @@ public class ObstacleSpike : MonoBehaviour {
 
 		if (collision.gameObject.CompareTag("Player")) {
 			Scene currentScene = SceneManager.GetActiveScene();
-			SceneManager.LoadScene(currentScene.name);
+			SceneManager.LoadScene(currentScene.buildIndex);
 		}
 	}
 }
