@@ -14,6 +14,8 @@ public class Transformation : MonoBehaviour {
 
 	private float transTimer, humanFormTimer;
 
+	private bool isTransforming = false;
+
 
 	private void Start() {
 		mySpriteRend = gameObject.GetComponent<SpriteRenderer>();
@@ -24,13 +26,11 @@ public class Transformation : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.R) && transStates == TransformationStates.Wolf) {
 			StartCoroutine(CoTransforming());
 		}
-		else if (Input.GetKeyDown(KeyCode.R) && transStates != TransformationStates.Wolf) {
-		}
 
 		if (transStates == TransformationStates.Human) {
 			mySpriteRend.color = humanColor;
 		}
-		else if (transStates == TransformationStates.Transforming) {
+		else if (isTransforming) {
 			mySpriteRend.color = transformingColor;
 		}
 		else if (transStates == TransformationStates.Wolf) {
@@ -40,20 +40,24 @@ public class Transformation : MonoBehaviour {
 
 
 	private IEnumerator CoTransforming() {
-		transStates = TransformationStates.Transforming;
+		isTransforming = true;
 	
 		for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
-			if (Input.GetKeyUp(KeyCode.R) && transStates == TransformationStates.Transforming) {
+			if (Input.GetKeyUp(KeyCode.R) && isTransforming) {
+				isTransforming = false;
 				transStates = TransformationStates.Wolf;
 				yield break;
 			}
 			yield return null;
 		}
 
-		if (transStates == TransformationStates.Transforming) {
+		isTransforming = false;
+
+		if (transStates == TransformationStates.Wolf) {
 			TransformToHuman();
 			StartCoroutine(CoHumanFormDuration());
 		}
+
 		else if (transStates == TransformationStates.Human) {
 			TransformToWolf();
 		}
