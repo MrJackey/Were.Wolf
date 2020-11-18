@@ -10,6 +10,8 @@ public class Transformation : MonoBehaviour {
 
 	private TransformationStates transStates;
 
+	private Coroutine humanFormDurationCoroutine;
+
 	private Color humanColor = Color.white, wolfColor = Color.black, transformingColor = Color.grey;
 
 	private float transTimer, humanFormTimer;
@@ -45,9 +47,13 @@ public class Transformation : MonoBehaviour {
 			yield return null;
 		}
 
+		if (humanFormDurationCoroutine != null) {
+			StopCoroutine(humanFormDurationCoroutine);
+		}
+
 		if (transStates == TransformationStates.Wolf) {
 			TransformToHuman();
-			StartCoroutine(CoHumanFormDuration());
+			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		else if (transStates == TransformationStates.Human) {
 			TransformToWolf();
