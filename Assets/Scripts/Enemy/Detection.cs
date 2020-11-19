@@ -29,8 +29,13 @@ public class Detection : MonoBehaviour {
 			float angle = -visionConeAngle / 2f + angleStep * i;
 			Vector2 direction = Quaternion.AngleAxis(angle, Vector3.forward) * forward;
 
-			if (DoSingleRaycast(eyePosition, direction))
+			if (DoSingleRaycast(eyePosition, direction)) {
+			#if UNITY_EDITOR
+				if (!Application.isPlaying) continue;
+			#endif
+
 				return true;
+			}
 		}
 
 		return false;
@@ -63,5 +68,7 @@ public class Detection : MonoBehaviour {
 
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(eyePosition, 0.2f);
+
+		CheckPlayerVisible();
 	}
 }
