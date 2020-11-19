@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Transformation : MonoBehaviour {
 
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
+	[SerializeField] private UnityEvent onTransform;
+
 	private SpriteRenderer mySpriteRend;
+
+	private PlayerController playerController;
 
 	private TransformationStates transformationState;
 
@@ -16,26 +21,31 @@ public class Transformation : MonoBehaviour {
 
 	public TransformationStates TransformationState => transformationState;
 
-	
+
 	private void Start() {
 		mySpriteRend = gameObject.GetComponent<SpriteRenderer>();
+		playerController = GetComponent<PlayerController>();
 
 		mySpriteRend.color = wolfColor;
 	}
 
 
 	private void Update() {
-		if (Input.GetButtonDown("Transformation") && transformationState == TransformationStates.Wolf) {
+		if (Input.GetButtonDown("Transformation") && playerController.IsGrounded && transformationState == TransformationStates.Wolf) {
 			TransformToHuman();
 		}
 	}
 
 
 	private IEnumerator CoTransforming(TransformationStates newState, Color newColor) {
+		onTransform.Invoke();
 		mySpriteRend.color = transformingColor;
+		playerController.AllowControls = false;
 
 		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
 			if (Input.GetButtonUp("Transformation") && transformationState == TransformationStates.Wolf) {
+				playerController.AllowControls = true;
+
 				if (transformationState == TransformationStates.Wolf) {
 					mySpriteRend.color = wolfColor;
 				}
@@ -50,12 +60,13 @@ public class Transformation : MonoBehaviour {
 		mySpriteRend.color = newColor;
 
 		if (newState == TransformationStates.Human) {
-			if (humanFormDurationCoroutine != null) 
+			if (humanFormDurationCoroutine != null)
 				StopCoroutine(humanFormDurationCoroutine);
-			
+
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		transformationState = newState;
+		playerController.AllowControls = true;
 	}
 
 
@@ -78,5 +89,5 @@ public class Transformation : MonoBehaviour {
 
 public enum TransformationStates {
 	Wolf,
-	Human,	
+	Human,
 }
