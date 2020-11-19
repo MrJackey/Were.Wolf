@@ -74,7 +74,8 @@ public class PlayerController : MonoBehaviour {
 		if (xInput != 0) {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
 			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
-		} else if (allowControls || isGrounded) {
+		}
+		else if (allowControls || isGrounded) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
@@ -98,8 +99,10 @@ public class PlayerController : MonoBehaviour {
 		else if (doAirJump)
 			Jump(airJumpCurve, airJumpEndTime);
 
-		if (Mathf.Abs(rb2D.velocity.y) < 0.01f)
+		if (Mathf.Abs(rb2D.velocity.y) < 0.01f) {
 			doJump = false;
+			doAirJump = false;
+		}
 
 		if (!doJump || !doAirJump)
 			rb2D.velocity = new Vector2(velocity.x, rb2D.velocity.y + gravity * Time.deltaTime);
