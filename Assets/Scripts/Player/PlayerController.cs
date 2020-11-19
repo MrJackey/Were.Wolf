@@ -16,13 +16,14 @@ public class PlayerController : MonoBehaviour {
 	[Header("Jumping")]
 	[SerializeField] private float groundedDistance = 0.05f;
 	[SerializeField] private AnimationCurve jumpCurve = null;
+	[SerializeField] private int airJumpsAllowed = 1;
 	[SerializeField] private bool useSameCurve;
 	[SerializeField, EnableIf(nameof(useSameCurve), Not = true)]
-	private AnimationCurve doubleJumpCurve = null;
+	private AnimationCurve airJumpCurve = null;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
-	[SerializeField] private UnityEvent onDoubleJump;
+	[SerializeField] private UnityEvent onAirJump;
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D boxCollider;
@@ -32,9 +33,9 @@ public class PlayerController : MonoBehaviour {
 	private bool allowControls = true;
 	private bool doJump = false;
 	private float jumpEndTime;
-	private bool doDoubleJump = false;
-	private bool doubleJumpUsed = false;
-	private float doubleJumpEndTime;
+	private bool doAirJump = false;
+	private int airJumpsUsed = 0;
+	private float airJumpEndTime;
 	private float jumpTimer = 0f;
 	private bool isGrounded = false;
 
@@ -48,14 +49,14 @@ public class PlayerController : MonoBehaviour {
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
 
 		if (useSameCurve)
-			doubleJumpCurve = jumpCurve;
-		doubleJumpEndTime = doubleJumpCurve.keys[doubleJumpCurve.length - 1].time;
+			airJumpCurve = jumpCurve;
+		airJumpEndTime = airJumpCurve.keys[airJumpCurve.length - 1].time;
 	}
 
 	private void Update() {
 		isGrounded = CheckIfGrounded();
 		if (isGrounded)
-			doubleJumpUsed = false;
+			airJumpsUsed = 0;
 
 		float xInput = allowControls ? Input.GetAxisRaw("Horizontal") : 0;
 
@@ -74,11 +75,11 @@ public class PlayerController : MonoBehaviour {
 				BeginJump(onJump);
 				doJump = true;
 			}
-			else if (!doubleJumpUsed) {
-				BeginJump(onDoubleJump);
-				doubleJumpUsed = true;
+			else if (airJumpsUsed < airJumpsAllowed) {
+				BeginJump(onAirJump);
 				doJump = false;
-				doDoubleJump = true;
+				airJumpsUsed++;
+				doAirJump = true;
 			}
 		}
 	}
@@ -86,13 +87,13 @@ public class PlayerController : MonoBehaviour {
 	private void FixedUpdate() {
 		if (doJump)
 			Jump(jumpCurve, jumpEndTime);
-		else if (doDoubleJump)
-			Jump(doubleJumpCurve, doubleJumpEndTime);
+		else if (doAirJump)
+			Jump(airJumpCurve, airJumpEndTime);
 
 		if (Mathf.Abs(rb2D.velocity.y) < 0.01f)
 			doJump = false;
 
-		if (!doJump || !doDoubleJump)
+		if (!doJump || !doAirJump)
 			rb2D.velocity = new Vector2(velocity.x, rb2D.velocity.y + gravity * Time.deltaTime);
 	}
 
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (jumpTimer >= endTime) {
 			doJump = false;
-			doDoubleJump = false;
+			doAirJump = false;
 		}
 	}
 }
