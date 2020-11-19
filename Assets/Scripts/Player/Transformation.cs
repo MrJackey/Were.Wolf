@@ -7,7 +7,13 @@ public class Transformation : MonoBehaviour {
 
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
-	[SerializeField] private UnityEvent onTransform;
+	[Header("Events")]
+	[SerializeField] private UnityEvent onTransformStart;
+
+	[SerializeField] private UnityEvent onTransformInterrupt;
+
+	[SerializeField] private UnityEvent onTransformEnd;
+
 
 	private SpriteRenderer mySpriteRend;
 
@@ -38,13 +44,12 @@ public class Transformation : MonoBehaviour {
 
 
 	private IEnumerator CoTransforming(TransformationStates newState, Color newColor) {
-		onTransform.Invoke();
+		onTransformStart.Invoke();
 		mySpriteRend.color = transformingColor;
-		playerController.AllowControls = false;
 
 		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
 			if (Input.GetButtonUp("Transformation") && transformationState == TransformationStates.Wolf) {
-				playerController.AllowControls = true;
+				onTransformInterrupt.Invoke();
 
 				if (transformationState == TransformationStates.Wolf) {
 					mySpriteRend.color = wolfColor;
@@ -66,7 +71,7 @@ public class Transformation : MonoBehaviour {
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		transformationState = newState;
-		playerController.AllowControls = true;
+		onTransformEnd.Invoke();
 	}
 
 
