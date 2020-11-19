@@ -23,10 +23,10 @@ public class Detection : MonoBehaviour {
 	private bool CheckPlayerVisible() {
 		Vector2 eyePosition = transform.TransformPoint(eyeOffset);
 		Vector2 forward = transform.right * facing;
-		float angleStep = visionConeAngle / visionRayCount;
+		float angleStep = visionConeAngle / (visionRayCount - 1);
 
 		for (int i = 0; i < visionRayCount; i++) {
-			float angle = -visionConeAngle / 2f + angleStep * i + angleStep / 2f;
+			float angle = -visionConeAngle / 2f + angleStep * i;
 			Vector2 direction = Quaternion.AngleAxis(angle, Vector3.forward) * forward;
 
 			if (DoSingleRaycast(eyePosition, direction))
