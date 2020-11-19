@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour {
 	[Header("Constants")]
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 	[Header("Jumping")]
 	[SerializeField] private AnimationCurve jumpCurve = null;
+	[SerializeField] private UnityEvent onJump;
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D boxCollider;
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (Input.GetButtonDown("Jump") && isGrounded)
-			doJump = true;
+			BeginJump();
 	}
 
 	private void FixedUpdate() {
@@ -75,6 +77,12 @@ public class PlayerController : MonoBehaviour {
 		return hit.collider != null;
 	}
 
+	private void BeginJump() {
+		doJump = true;
+		jumpTimer = 0f;
+		onJump.Invoke();
+	}
+
 	private void Jump() {
 		jumpTimer += Time.deltaTime;
 		float derivative =
@@ -85,7 +93,6 @@ public class PlayerController : MonoBehaviour {
 
 		if (jumpTimer >= jumpEndTime) {
 			doJump = false;
-			jumpTimer = 0f;
 		}
 	}
 }
