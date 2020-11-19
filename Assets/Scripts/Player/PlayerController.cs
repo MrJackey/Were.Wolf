@@ -14,8 +14,16 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float maxSpeed = 3;
 
 	[Header("Jumping")]
+	[SerializeField] private float groundedDistance = 0.05f;
 	[SerializeField] private AnimationCurve jumpCurve = null;
+	[SerializeField] private int airJumpsAllowed = 1;
+	[SerializeField] private bool useSameCurve;
+	[SerializeField, EnableIf(nameof(useSameCurve), Not = true)]
+	private AnimationCurve airJumpCurve = null;
+
+	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
+	[SerializeField] private UnityEvent onAirJump;
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D boxCollider;
@@ -24,8 +32,11 @@ public class PlayerController : MonoBehaviour {
 
 	private bool allowControls = true;
 	private bool doJump = false;
-	private float jumpTimer = 0f;
 	private float jumpEndTime;
+	private bool doAirJump = false;
+	private int airJumpsUsed = 0;
+	private float airJumpEndTime;
+	private float jumpTimer = 0f;
 	private bool isGrounded = false;
 
 	public bool AllowControls { set => allowControls = value; }
@@ -36,11 +47,25 @@ public class PlayerController : MonoBehaviour {
 		boxCollider = GetComponent<BoxCollider2D>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
+
+		if (useSameCurve)
+			airJumpCurve = jumpCurve;
+		airJumpEndTime = airJumpCurve.keys[airJumpCurve.length - 1].time;
 	}
 
 	private void Update() {
 		isGrounded = CheckIfGrounded();
+		if (isGrounded)
+			airJumpsUsed = 0;
+
 		float xInput = allowControls ? Input.GetAxisRaw("Horizontal") : 0;
+
+		Vector3 scale = transform.localScale;
+		if (xInput > 0)
+			scale.x = 1;
+		else if (xInput < 0)
+			scale.x = -1;
+		transform.localScale = scale;
 
 		if (rb2D.velocity.x == 0)
 			velocity.x = 0;
@@ -48,53 +73,69 @@ public class PlayerController : MonoBehaviour {
 		if (xInput != 0) {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
 			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
-		} else if (allowControls || isGrounded) {
+		}
+		else if (allowControls || isGrounded) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
-		if (Input.GetButtonDown("Jump") && isGrounded && allowControls)
-			BeginJump();
+		if (Input.GetButtonDown("Jump") && allowControls) {
+			if (isGrounded) {
+				BeginJump(onJump);
+				doJump = true;
+			}
+			else if (airJumpsUsed < airJumpsAllowed) {
+				BeginJump(onAirJump);
+				doJump = false;
+				airJumpsUsed++;
+				doAirJump = true;
+			}
+		}
 	}
 
 	private void FixedUpdate() {
-		if (doJump) {
-			Jump();
+		if (doJump)
+			Jump(jumpCurve, jumpEndTime);
+		else if (doAirJump)
+			Jump(airJumpCurve, airJumpEndTime);
+
+		if (Mathf.Abs(rb2D.velocity.y) < 0.01f) {
+			doJump = false;
+			doAirJump = false;
 		}
 
-		if (Mathf.Abs(rb2D.velocity.y) < 0.01f)
-			doJump = false;
-
-		if (!doJump)
+		if (!doJump || !doAirJump)
 			rb2D.velocity = new Vector2(velocity.x, rb2D.velocity.y + gravity * Time.deltaTime);
 	}
 
 	private bool CheckIfGrounded() {
-		Vector3 position = transform.position;
+		Vector2 colliderPosition = (Vector2)transform.position + boxCollider.offset;
+		Vector2 rayStartPosition = new Vector2(colliderPosition.x, colliderPosition.y - boxCollider.bounds.extents.y);
 
-		Vector2 rayStartPosition = new Vector2(position.x, position.y - boxCollider.bounds.extents.y);
-		float rayDistance = 0.05f;
+		RaycastHit2D hit = Physics2D.Raycast(rayStartPosition,Vector2.down, groundedDistance, groundLayer);
 
-		RaycastHit2D hit = Physics2D.Raycast(rayStartPosition,Vector2.down, rayDistance, groundLayer);
+	#if UNITY_EDITOR
+		Debug.DrawRay(rayStartPosition, Vector3.down * groundedDistance, Color.red);
+	#endif
 
 		return hit.collider != null;
 	}
 
-	private void BeginJump() {
-		doJump = true;
+	private void BeginJump(UnityEvent e) {
 		jumpTimer = 0f;
-		onJump.Invoke();
+		e.Invoke();
 	}
 
-	private void Jump() {
+	private void Jump(AnimationCurve curve, float endTime) {
 		jumpTimer += Time.deltaTime;
 		float derivative =
-			(jumpCurve.Evaluate(jumpTimer + Time.deltaTime) -
-			 jumpCurve.Evaluate(jumpTimer - Time.deltaTime)) / (2 * Time.deltaTime);
+			(curve.Evaluate(jumpTimer + Time.deltaTime) -
+			 curve.Evaluate(jumpTimer - Time.deltaTime)) / (2 * Time.deltaTime);
 
 		rb2D.velocity = new Vector2(velocity.x, derivative);
 
-		if (jumpTimer >= jumpEndTime) {
+		if (jumpTimer >= endTime) {
 			doJump = false;
+			doAirJump = false;
 		}
 	}
 }
