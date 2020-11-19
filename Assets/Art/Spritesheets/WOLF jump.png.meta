@@ -1,34 +1,31 @@
 fileFormatVersion: 2
-guid: 4b0f8609b911b6f4299a31dd487206d6
+guid: 3e3bc65f961d43247b46c388782ba170
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7780457138796303151
-    second: Human Running Animation_0
+      213: 852251915836630864
+    second: WOLF jump_0
   - first:
-      213: 2076089634815212691
-    second: Human Running Animation_1
+      213: -2791369625713119750
+    second: WOLF jump_1
   - first:
-      213: -3516143823525242996
-    second: Human Running Animation_2
+      213: 4745153837810652291
+    second: WOLF jump_2
   - first:
-      213: 1286567256507695624
-    second: Human Running Animation_3
+      213: -6552131783927598461
+    second: WOLF jump_3
   - first:
-      213: 7960350904989500621
-    second: Human Running Animation_4
+      213: -3882048595830777271
+    second: WOLF jump_4
   - first:
-      213: 1358921697467181809
-    second: Human Running Animation_5
+      213: 5022691867285272151
+    second: WOLF jump_5
   - first:
-      213: -6172329660668902615
-    second: Human Running Animation_6
+      213: 8412317346991434540
+    second: WOLF jump_6
   - first:
-      213: -475763956234503872
-    second: Human Running Animation_7
-  - first:
-      213: -7862678438016208754
-    second: Human Running Animation_8
+      213: -1707985142433223143
+    second: WOLF jump_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Human Running Animation_0
+      name: WOLF jump_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,20 +127,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f231b1c8b8cb9fb60800000000000000
-      internalID: 7780457138796303151
+      spriteID: 057a69e1a9ec3db00800000000000000
+      internalID: 852251915836630864
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Human Running Animation_1
+      name: WOLF jump_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 60
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,20 +148,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39cf705f580cfcc10800000000000000
-      internalID: 2076089634815212691
+      spriteID: afded8e5d101349d0800000000000000
+      internalID: -2791369625713119750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Human Running Animation_2
+      name: WOLF jump_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 120
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c87189362d5243fc0800000000000000
-      internalID: -3516143823525242996
+      spriteID: 384194b464c2ad140800000000000000
+      internalID: 4745153837810652291
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Human Running Animation_3
+      name: WOLF jump_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 180
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +190,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8024acf6a1ecad110800000000000000
-      internalID: 1286567256507695624
+      spriteID: 382f2717bd62215a0800000000000000
+      internalID: -6552131783927598461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Human Running Animation_4
+      name: WOLF jump_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 240
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -214,20 +211,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc4cb5be8f8d87e60800000000000000
-      internalID: 7960350904989500621
+      spriteID: 94ad3bcbe51302ac0800000000000000
+      internalID: -3882048595830777271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Human Running Animation_5
+      name: WOLF jump_5
       rect:
         serializedVersion: 2
-        x: 160
+        x: 300
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,20 +232,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1fa2a1f751cdbd210800000000000000
-      internalID: 1358921697467181809
+      spriteID: 75638c554af24b540800000000000000
+      internalID: 5022691867285272151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Human Running Animation_6
+      name: WOLF jump_6
       rect:
         serializedVersion: 2
-        x: 192
+        x: 360
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,20 +253,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 923093340ea775aa0800000000000000
-      internalID: -6172329660668902615
+      spriteID: c2be7458e0e8eb470800000000000000
+      internalID: 8412317346991434540
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Human Running Animation_7
+      name: WOLF jump_7
       rect:
         serializedVersion: 2
-        x: 224
+        x: 420
         y: 0
-        width: 32
-        height: 32
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,8 +274,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04935b7d33fb569f0800000000000000
-      internalID: -475763956234503872
+      spriteID: 91e6f9fef840c48e0800000000000000
+      internalID: -1707985142433223143
       vertices: []
       indices: 
       edges: []
