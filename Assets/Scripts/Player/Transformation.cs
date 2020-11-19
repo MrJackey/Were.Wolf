@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Transformation : MonoBehaviour {
+	// TODO: Find out a good way to get this value.
+	private const float TransformationAnimationLength = 1.5f;
+
+	private static readonly int transformSpeedId = Animator.StringToHash("transformSpeed");
+	private static readonly int isTransformingId = Animator.StringToHash("isTransforming");
+	private static readonly int isHumanId = Animator.StringToHash("isHuman");
 
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
@@ -15,24 +21,20 @@ public class Transformation : MonoBehaviour {
 	[SerializeField] private UnityEvent onTransformEnd;
 
 
-	private SpriteRenderer mySpriteRend;
-
 	private PlayerController playerController;
+
+	private Animator animator;
 
 	private TransformationStates transformationState;
 
 	private Coroutine humanFormDurationCoroutine;
 
-	private Color humanColor = Color.white, wolfColor = Color.black, transformingColor = Color.grey;
-
 	public TransformationStates TransformationState => transformationState;
 
 
 	private void Start() {
-		mySpriteRend = gameObject.GetComponent<SpriteRenderer>();
 		playerController = GetComponent<PlayerController>();
-
-		mySpriteRend.color = wolfColor;
+		animator = GetComponent<Animator>();
 	}
 
 
@@ -43,26 +45,24 @@ public class Transformation : MonoBehaviour {
 	}
 
 
-	private IEnumerator CoTransforming(TransformationStates newState, Color newColor) {
+	private IEnumerator CoTransforming(TransformationStates newState) {
 		onTransformStart.Invoke();
-		mySpriteRend.color = transformingColor;
+
+		animator.SetFloat(transformSpeedId, 1f / (transDuration / TransformationAnimationLength));
+		animator.SetBool(isTransformingId, true);
+		animator.SetBool(isHumanId, newState == TransformationStates.Human);
 
 		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
 			if (Input.GetButtonUp("Transformation") && transformationState == TransformationStates.Wolf) {
 				onTransformInterrupt.Invoke();
 
-				if (transformationState == TransformationStates.Wolf) {
-					mySpriteRend.color = wolfColor;
-				}
-				else if (transformationState == TransformationStates.Human) {
-					mySpriteRend.color = humanColor;
-				}
+				animator.SetBool(isTransformingId, false);
+				animator.SetBool(isHumanId, transformationState == TransformationStates.Human);
+
 				yield break;
 			}
 			yield return null;
 		}
-
-		mySpriteRend.color = newColor;
 
 		if (newState == TransformationStates.Human) {
 			if (humanFormDurationCoroutine != null)
@@ -78,17 +78,17 @@ public class Transformation : MonoBehaviour {
 	private IEnumerator CoHumanFormDuration() {
 		yield return new WaitForSeconds(humanFormDuration);
 
-		StartCoroutine(CoTransforming(TransformationStates.Wolf, wolfColor));
+		StartCoroutine(CoTransforming(TransformationStates.Wolf));
 	}
 
 
 	public void TransformToHuman() {
-		StartCoroutine(CoTransforming(TransformationStates.Human, humanColor));
+		StartCoroutine(CoTransforming(TransformationStates.Human));
 	}
 
 
 	public void TransformToWolf() {
-		StartCoroutine(CoTransforming(TransformationStates.Wolf, wolfColor));
+		StartCoroutine(CoTransforming(TransformationStates.Wolf));
 	}
 }
 

@@ -5,6 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour {
+	// TODO: Find out a good way to get this value.
+	private const float JumpAnimationLength = 0.8f;
+
+	private static readonly int jumpSpeedId = Animator.StringToHash("jumpSpeed");
+	private static readonly int speedId = Animator.StringToHash("speed");
+	private static readonly int jumpId = Animator.StringToHash("jump");
+
 	[Header("Constants")]
 	[SerializeField] private float gravity = -9.82f;
 
@@ -27,6 +34,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D boxCollider;
+	private Animator animator;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 
@@ -45,6 +53,7 @@ public class PlayerController : MonoBehaviour {
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
 		boxCollider = GetComponent<BoxCollider2D>();
+		animator = GetComponent<Animator>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
 
@@ -80,16 +89,22 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetButtonDown("Jump") && allowControls) {
 			if (isGrounded) {
+				animator.SetFloat(jumpSpeedId, 1f / (jumpEndTime / JumpAnimationLength));
+
 				BeginJump(onJump);
 				doJump = true;
 			}
 			else if (airJumpsUsed < airJumpsAllowed) {
+				animator.SetFloat(jumpSpeedId, 1f / (airJumpEndTime / JumpAnimationLength));
+
 				BeginJump(onAirJump);
 				doJump = false;
 				airJumpsUsed++;
 				doAirJump = true;
 			}
 		}
+
+		animator.SetFloat(speedId, Mathf.Abs(xInput));
 	}
 
 	private void FixedUpdate() {
@@ -123,6 +138,8 @@ public class PlayerController : MonoBehaviour {
 	private void BeginJump(UnityEvent e) {
 		jumpTimer = 0f;
 		e.Invoke();
+
+		animator.SetTrigger(jumpId);
 	}
 
 	private void Jump(AnimationCurve curve, float endTime) {
