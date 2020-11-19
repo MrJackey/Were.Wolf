@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D boxCollider;
+	private SpriteRenderer spriteRenderer;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 
@@ -59,6 +60,13 @@ public class PlayerController : MonoBehaviour {
 			airJumpsUsed = 0;
 
 		float xInput = allowControls ? Input.GetAxisRaw("Horizontal") : 0;
+
+		Vector3 scale = transform.localScale;
+		if (xInput > 0)
+			scale.x = 1;
+		else if (xInput < 0)
+			scale.x = -1;
+		transform.localScale = scale;
 
 		if (rb2D.velocity.x == 0)
 			velocity.x = 0;
