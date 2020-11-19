@@ -8,15 +8,15 @@ public class SnappingCamera : MonoBehaviour {
 	[SerializeField] private float transitionDuration = 0.15f;
 
 	private new Camera camera;
-	private Vector3 startPosition;
 	private Vector3 currentVelocity;
+	private Vector2 gridOrigin;
 
 	private void Start() {
 		camera = GetComponent<Camera>();
-		startPosition = transform.position;
+		gridOrigin = GetCameraWorldRect(camera).min;
 
 		if (!camera.orthographic)
-			Debug.LogWarning($"{nameof(SnappingCamera)} only works on orthographic cameras!");
+			Debug.LogError($"{nameof(SnappingCamera)} only works on orthographic cameras!");
 	}
 
 	private void LateUpdate() {
@@ -30,12 +30,10 @@ public class SnappingCamera : MonoBehaviour {
 
 	private Vector3 CalculateTargetPosition() {
 		Rect cameraRect = GetCameraWorldRect(camera);
-		Vector2 targetPositionInGrid = (Vector2)target.position + cameraRect.size / 2f;
-		Vector2 gridCell = new Vector2(
-			Mathf.Floor(targetPositionInGrid.x / cameraRect.size.x),
-			Mathf.Floor(targetPositionInGrid.y / cameraRect.size.y));
+		Vector2 targetPositionInGrid = ((Vector2)target.position - gridOrigin) / cameraRect.size;
+		Vector2 gridCell = new Vector2(Mathf.Floor(targetPositionInGrid.x), Mathf.Floor(targetPositionInGrid.y));
 
-		return startPosition + (Vector3)(gridCell * cameraRect.size);
+		return gridOrigin + gridCell * cameraRect.size + cameraRect.size / 2;
 	}
 
 	private static Rect GetCameraWorldRect(Camera camera) {
