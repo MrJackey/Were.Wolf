@@ -8,13 +8,11 @@ public class Transformation : MonoBehaviour {
 
 	private SpriteRenderer mySpriteRend;
 
-	private TransformationStates transStates;
+	private TransformationStates transformationState;
 
 	private Coroutine humanFormDurationCoroutine;
 
 	private Color humanColor = Color.white, wolfColor = Color.black, transformingColor = Color.grey;
-
-	private float transTimer, humanFormTimer;
 
 
 	private void Start() {
@@ -25,21 +23,21 @@ public class Transformation : MonoBehaviour {
 
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.R)) {
-			StartCoroutine(CoTransforming());
+		if (Input.GetButtonDown("Transformation") && transformationState == TransformationStates.Wolf) {
+			TransformToHuman();
 		}
 	}
 
 
-	private IEnumerator CoTransforming() {
+	private IEnumerator CoTransforming(TransformationStates newState, Color newColor) {
 		mySpriteRend.color = transformingColor;
 
-		for (transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
-			if (Input.GetKeyUp(KeyCode.R)) {
-				if (transStates == TransformationStates.Wolf) {
+		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
+			if (Input.GetButtonUp("Transformation") && transformationState == TransformationStates.Wolf) {
+				if (transformationState == TransformationStates.Wolf) {
 					mySpriteRend.color = wolfColor;
 				}
-				else if (transStates == TransformationStates.Human) {
+				else if (transformationState == TransformationStates.Human) {
 					mySpriteRend.color = humanColor;
 				}
 				yield break;
@@ -47,36 +45,32 @@ public class Transformation : MonoBehaviour {
 			yield return null;
 		}
 
-		if (humanFormDurationCoroutine != null) {
-			StopCoroutine(humanFormDurationCoroutine);
-		}
+		mySpriteRend.color = newColor;
 
-		if (transStates == TransformationStates.Wolf) {
-			TransformToHuman();
+		if (newState == TransformationStates.Human) {
+			if (humanFormDurationCoroutine != null) 
+				StopCoroutine(humanFormDurationCoroutine);
+			
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
-		else if (transStates == TransformationStates.Human) {
-			TransformToWolf();
-		}
+		transformationState = newState;
 	}
 
 
 	private IEnumerator CoHumanFormDuration() {
 		yield return new WaitForSeconds(humanFormDuration);
 
-		TransformToWolf();
+		StartCoroutine(CoTransforming(TransformationStates.Wolf, wolfColor));
 	}
 
 
 	public void TransformToHuman() {
-		transStates = TransformationStates.Human;
-		mySpriteRend.color = humanColor;
+		StartCoroutine(CoTransforming(TransformationStates.Human, humanColor));
 	}
 
 
 	public void TransformToWolf() {
-		transStates = TransformationStates.Wolf;
-		mySpriteRend.color = wolfColor;
+		StartCoroutine(CoTransforming(TransformationStates.Wolf, wolfColor));
 	}
 }
 
