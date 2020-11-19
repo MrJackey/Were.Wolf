@@ -14,7 +14,9 @@ public class Transformation : MonoBehaviour {
 
 	private Color humanColor = Color.white, wolfColor = Color.black, transformingColor = Color.grey;
 
+	public TransformationStates TransformationState => transformationState;
 
+	
 	private void Start() {
 		mySpriteRend = gameObject.GetComponent<SpriteRenderer>();
 
@@ -74,7 +76,7 @@ public class Transformation : MonoBehaviour {
 	}
 }
 
-enum TransformationStates {
+public enum TransformationStates {
 	Wolf,
 	Human,	
 }
