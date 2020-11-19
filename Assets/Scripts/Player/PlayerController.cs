@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D boxCollider;
-	private SpriteRenderer spriteRenderer;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 
@@ -109,11 +108,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private bool CheckIfGrounded() {
-		Vector3 position = transform.position;
-
-		Vector2 rayStartPosition = new Vector2(position.x, position.y - boxCollider.bounds.extents.y);
+		Vector2 colliderPosition = (Vector2)transform.position + boxCollider.offset;
+		Vector2 rayStartPosition = new Vector2(colliderPosition.x, colliderPosition.y - boxCollider.bounds.extents.y);
 
 		RaycastHit2D hit = Physics2D.Raycast(rayStartPosition,Vector2.down, groundedDistance, groundLayer);
+
+	#if UNITY_EDITOR
+		Debug.DrawRay(rayStartPosition, Vector3.down * groundedDistance, Color.red);
+	#endif
 
 		return hit.collider != null;
 	}

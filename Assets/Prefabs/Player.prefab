@@ -174,8 +174,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  useSameCurve: 0
-  doubleJumpCurve:
+  airJumpsAllowed: 1
+  useSameCurve: 1
+  airJumpCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -184,7 +185,7 @@ MonoBehaviour:
   onJump:
     m_PersistentCalls:
       m_Calls: []
-  onDoubleJump:
+  onAirJump:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1729414150543403562
