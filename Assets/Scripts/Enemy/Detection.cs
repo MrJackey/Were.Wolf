@@ -1,10 +1,7 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SimpleEnemy : MonoBehaviour {
-	[Header("Detection")]
+public class Detection : MonoBehaviour {
 	[SerializeField] private Vector2 eyeOffset = Vector2.zero;
 	[SerializeField] private float visionConeAngle = 30f;
 	[SerializeField] private float visionDistance = 4f;
@@ -13,21 +10,14 @@ public class SimpleEnemy : MonoBehaviour {
 	[SerializeField] private LayerMask raycastLayers = -1;
 	[SerializeField] private bool restartOnDetection = true;
 
-	[Header("Patrolling")]
-	[SerializeField] private bool enablePatrolling = false;
-	[SerializeField] private Transform point1 = null, point2 = null;
-	[SerializeField, Range(0, 20)]
-	private float speed = 5f;
-
 	private bool isPlayerInVisionCone;
 	private float facing = 1;
 
 	private void Update() {
-		Vector3 scale = transform.localScale;
-		facing = Mathf.Sign(scale.x);
+		facing = Mathf.Sign(transform.localScale.x);
 
-		if (CheckPlayerVisible()) OnDetected();
-		if (enablePatrolling) UpdatePatrolling();
+		if (CheckPlayerVisible())
+			OnDetected();
 	}
 
 	private bool CheckPlayerVisible() {
@@ -68,40 +58,10 @@ public class SimpleEnemy : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
-	private void UpdatePatrolling() {
-		Vector3 position = transform.position;
-		Vector3 p1 = point1.position;
-		Vector3 p2 = point2.position;
-
-		position.x += facing * speed * Time.deltaTime;
-
-		if (facing > 0) {
-			if (position.x >= p2.x) FlipDirection();
-		}
-		else {
-			if (position.x <= p1.x) FlipDirection();
-		}
-
-		transform.position = position;
-	}
-
-	private void FlipDirection() {
-		facing = facing > 0 ? -1f : 1f;
-
-		Vector3 scale = transform.localScale;
-		scale.x = facing;
-		transform.localScale = scale;
-	}
-
 	private void OnDrawGizmos() {
 		Vector3 eyePosition = transform.TransformPoint(eyeOffset);
 
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(eyePosition, 0.2f);
-
-		if (enablePatrolling && point1 != null && point2 != null) {
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawLine(point1.position, point2.position);
-		}
 	}
 }
