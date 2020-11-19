@@ -22,11 +22,13 @@ public class PlayerController : MonoBehaviour {
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 
+	private bool allowControls = true;
 	private bool doJump = false;
 	private float jumpTimer = 0f;
 	private float jumpEndTime;
 	private bool isGrounded = false;
 
+	public bool AllowControls { set => allowControls = value; }
 	public bool IsGrounded => isGrounded;
 
 	private void Start() {
@@ -38,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Update() {
 		isGrounded = CheckIfGrounded();
-		float xInput = Input.GetAxisRaw("Horizontal");
+		float xInput = allowControls ? Input.GetAxisRaw("Horizontal") : 0;
 
 		if (rb2D.velocity.x == 0)
 			velocity.x = 0;
@@ -46,11 +48,11 @@ public class PlayerController : MonoBehaviour {
 		if (xInput != 0) {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
 			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
-		} else {
+		} else if (allowControls || isGrounded) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
-		if (Input.GetButtonDown("Jump") && isGrounded)
+		if (Input.GetButtonDown("Jump") && isGrounded && allowControls)
 			BeginJump();
 	}
 

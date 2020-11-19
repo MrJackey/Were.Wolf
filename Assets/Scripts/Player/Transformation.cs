@@ -1,12 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Transformation : MonoBehaviour {
 
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
+	[Header("Events")]
+	[SerializeField] private UnityEvent onTransformStart;
+
+	[SerializeField] private UnityEvent onTransformInterrupt;
+
+	[SerializeField] private UnityEvent onTransformEnd;
+
+
 	private SpriteRenderer mySpriteRend;
+
+	private PlayerController playerController;
 
 	private TransformationStates transformationState;
 
@@ -16,26 +27,30 @@ public class Transformation : MonoBehaviour {
 
 	public TransformationStates TransformationState => transformationState;
 
-	
+
 	private void Start() {
 		mySpriteRend = gameObject.GetComponent<SpriteRenderer>();
+		playerController = GetComponent<PlayerController>();
 
 		mySpriteRend.color = wolfColor;
 	}
 
 
 	private void Update() {
-		if (Input.GetButtonDown("Transformation") && transformationState == TransformationStates.Wolf) {
+		if (Input.GetButtonDown("Transformation") && playerController.IsGrounded && transformationState == TransformationStates.Wolf) {
 			TransformToHuman();
 		}
 	}
 
 
 	private IEnumerator CoTransforming(TransformationStates newState, Color newColor) {
+		onTransformStart.Invoke();
 		mySpriteRend.color = transformingColor;
 
 		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
 			if (Input.GetButtonUp("Transformation") && transformationState == TransformationStates.Wolf) {
+				onTransformInterrupt.Invoke();
+
 				if (transformationState == TransformationStates.Wolf) {
 					mySpriteRend.color = wolfColor;
 				}
@@ -50,12 +65,13 @@ public class Transformation : MonoBehaviour {
 		mySpriteRend.color = newColor;
 
 		if (newState == TransformationStates.Human) {
-			if (humanFormDurationCoroutine != null) 
+			if (humanFormDurationCoroutine != null)
 				StopCoroutine(humanFormDurationCoroutine);
-			
+
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		transformationState = newState;
+		onTransformEnd.Invoke();
 	}
 
 
@@ -78,5 +94,5 @@ public class Transformation : MonoBehaviour {
 
 public enum TransformationStates {
 	Wolf,
-	Human,	
+	Human,
 }
