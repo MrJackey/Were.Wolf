@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3326305250810700159}
   - component: {fileID: 3326305250810700144}
   - component: {fileID: 1729414150543403562}
+  - component: {fileID: 2404461756686760454}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -93,13 +94,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3326305250810700147}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.60402584}
+  m_Offset: {x: 0.016548276, y: -0.60008836}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -110,8 +111,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.71567535}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.53002715, y: 0.6191344}
+  m_EdgeRadius: 0.09
 --- !u!50 &3326305250810700159
 Rigidbody2D:
   serializedVersion: 4
@@ -265,3 +266,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!70 &2404461756686760454
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326305250810700147}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029449463, y: -0.600671}
+  m_Size: {x: 0.7084856, y: 0.80071247}
+  m_Direction: 1
