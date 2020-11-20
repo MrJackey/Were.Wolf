@@ -4,13 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Transformation : MonoBehaviour {
-	// TODO: Find out a good way to get this value.
-	private const float TransformationAnimationLength = 1.5f;
-
-	private static readonly int transformSpeedId = Animator.StringToHash("transformSpeed");
-	private static readonly int isTransformingId = Animator.StringToHash("isTransforming");
-	private static readonly int isHumanId = Animator.StringToHash("isHuman");
-
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
 	[Header("Events")]

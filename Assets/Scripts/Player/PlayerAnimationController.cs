@@ -44,6 +44,4 @@ public class PlayerAnimationController : MonoBehaviour {
 	public void TransformInterrupt() {
 		animator.SetBool(isHumanHash, transformation.TransformationState == TransformationStates.Human);
 	}
-
-	public void TransformEnd() { }
 }

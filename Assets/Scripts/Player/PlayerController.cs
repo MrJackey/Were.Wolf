@@ -5,10 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour {
-	// TODO: Find out a good way to get this value.
-	private const float JumpAnimationLength = 0.6f;
-
-	private static readonly int jumpSpeedId = Animator.StringToHash("jumpSpeed");
 	private static readonly int speedId = Animator.StringToHash("speed");
 
 	[Header("Constants")]
