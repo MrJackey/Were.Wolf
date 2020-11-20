@@ -23,18 +23,17 @@ public class Transformation : MonoBehaviour {
 
 	private PlayerController playerController;
 
-	private Animator animator;
-
 	private TransformationStates transformationState;
 
 	private Coroutine humanFormDurationCoroutine;
 
 	public TransformationStates TransformationState => transformationState;
 
+	public float TransformDuration => transDuration;
+
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
-		animator = GetComponent<Animator>();
 	}
 
 
@@ -48,16 +47,9 @@ public class Transformation : MonoBehaviour {
 	private IEnumerator CoTransforming(TransformationStates newState) {
 		onTransformStart.Invoke();
 
-		animator.SetFloat(transformSpeedId, 1f / (transDuration / TransformationAnimationLength));
-		animator.SetBool(isTransformingId, true);
-		animator.SetBool(isHumanId, newState == TransformationStates.Human);
-
 		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
 			if (Input.GetButtonUp("Transformation") && transformationState == TransformationStates.Wolf) {
 				onTransformInterrupt.Invoke();
-
-				animator.SetBool(isTransformingId, false);
-				animator.SetBool(isHumanId, transformationState == TransformationStates.Human);
 
 				yield break;
 			}

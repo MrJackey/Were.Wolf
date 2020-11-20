@@ -1,39 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour {
-	private static readonly int speedHash = Animator.StringToHash("speed");
-	private static readonly int transformStartHash = Animator.StringToHash("transformStart");
-	private static readonly int transformInterruptHash = Animator.StringToHash("transformInterrupt");
-	private static readonly int transformEndHash = Animator.StringToHash("transformEnd");
 	private static readonly int jumpHash = Animator.StringToHash("jump");
+	private static readonly int isGroundedHash = Animator.StringToHash("isGrounded");
+	private static readonly int isHumanHash = Animator.StringToHash("isHuman");
+	private static readonly int transformSpeedHash = Animator.StringToHash("transformSpeed");
+	private static readonly int jumpSpeedHash = Animator.StringToHash("jumpSpeed");
+
+	[SerializeField] private AnimationClip transformAnimation;
+	[SerializeField] private AnimationClip jumpAnimation;
 
 	private Animator animator;
-	private Rigidbody2D rb2D;
+	private PlayerController playerController;
+	private Transformation transformation;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
-		rb2D = GetComponent<Rigidbody2D>();
+		playerController = GetComponent<PlayerController>();
+		transformation = GetComponent<Transformation>();
 	}
 
 	private void Update() {
-		animator.SetFloat(speedHash, Mathf.Abs(rb2D.velocity.x));
+		animator.SetBool(isGroundedHash, playerController.IsGrounded);
 	}
 
 	public void JumpStart() {
+		animator.SetFloat(jumpSpeedHash, 1f / (playerController.JumpLength / jumpAnimation.length));
+		animator.SetTrigger(jumpHash);
+	}
+
+	public void AirJumpStart() {
+		animator.SetFloat(jumpSpeedHash, 1f / (playerController.AirJumpLength / jumpAnimation.length));
 		animator.SetTrigger(jumpHash);
 	}
 
 	public void TransformStart() {
-		animator.SetTrigger(transformStartHash);
+		animator.SetFloat(transformSpeedHash, 1f / (transformation.TransformDuration / transformAnimation.length));
+		animator.SetBool(isHumanHash, transformation.TransformationState != TransformationStates.Human);
 	}
 
 	public void TransformInterrupt() {
-		animator.SetTrigger(transformInterruptHash);
+		animator.SetBool(isHumanHash, transformation.TransformationState == TransformationStates.Human);
 	}
 
-	public void TransformEnd() {
-		animator.SetTrigger(transformEndHash);
-	}
+	public void TransformEnd() { }
 }

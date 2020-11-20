@@ -6,11 +6,10 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour {
 	// TODO: Find out a good way to get this value.
-	private const float JumpAnimationLength = 0.8f;
+	private const float JumpAnimationLength = 0.6f;
 
 	private static readonly int jumpSpeedId = Animator.StringToHash("jumpSpeed");
 	private static readonly int speedId = Animator.StringToHash("speed");
-	private static readonly int jumpId = Animator.StringToHash("jump");
 
 	[Header("Constants")]
 	[SerializeField] private float gravity = -9.82f;
@@ -49,6 +48,8 @@ public class PlayerController : MonoBehaviour {
 
 	public bool AllowControls { set => allowControls = value; }
 	public bool IsGrounded => isGrounded;
+	public float JumpLength => jumpEndTime;
+	public float AirJumpLength => airJumpEndTime;
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
@@ -89,14 +90,10 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetButtonDown("Jump") && allowControls) {
 			if (isGrounded) {
-				animator.SetFloat(jumpSpeedId, 1f / (jumpEndTime / JumpAnimationLength));
-
 				BeginJump(onJump);
 				doJump = true;
 			}
 			else if (airJumpsUsed < airJumpsAllowed) {
-				animator.SetFloat(jumpSpeedId, 1f / (airJumpEndTime / JumpAnimationLength));
-
 				BeginJump(onAirJump);
 				doJump = false;
 				airJumpsUsed++;
@@ -138,8 +135,6 @@ public class PlayerController : MonoBehaviour {
 	private void BeginJump(UnityEvent e) {
 		jumpTimer = 0f;
 		e.Invoke();
-
-		animator.SetTrigger(jumpId);
 	}
 
 	private void Jump(AnimationCurve curve, float endTime) {
