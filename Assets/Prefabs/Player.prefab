@@ -177,10 +177,28 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   airJumpsAllowed: 1
-  useSameCurve: 1
+  useSameCurve: 0
   airJumpCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 9.478935
+      outSlope: 9.478935
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.047727264
+    - serializedVersion: 3
+      time: 0.5
+      value: 2
+      inSlope: 0.19937815
+      outSlope: 0.19937815
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.118182
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

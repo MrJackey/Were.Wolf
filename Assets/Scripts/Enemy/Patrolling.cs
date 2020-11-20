@@ -37,7 +37,7 @@ public class Patrolling : MonoBehaviour {
 	}
 
 	private void OnDrawGizmos() {
-		if (point1 != null && point2 != null) {
+		if (enabled && point1 != null && point2 != null) {
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawLine(point1.position, point2.position);
 		}

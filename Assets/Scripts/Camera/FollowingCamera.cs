@@ -9,6 +9,14 @@ public class FollowingCamera : MonoBehaviour {
 	private Vector2 currentVelocity;
 
 	private void Start() {
+		if (target == null) {
+			GameObject go = GameObject.FindWithTag("Player");
+			if (go != null) target = go.transform;
+		}
+
+		if (target == null)
+			Debug.LogError($"{nameof(FollowingCamera)} has no target.");
+
 		offset = transform.position - target.position;
 	}
 
