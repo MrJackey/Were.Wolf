@@ -42,7 +42,9 @@ public class SnappingCamera : MonoBehaviour {
 		Vector2 targetPositionInGrid = ((Vector2)target.position - gridOrigin) / cameraRect.size;
 		Vector2 gridCell = new Vector2(Mathf.Floor(targetPositionInGrid.x), Mathf.Floor(targetPositionInGrid.y));
 
-		return gridOrigin + gridCell * cameraRect.size + cameraRect.size / 2;
+		Vector3 targetPosition = gridOrigin + gridCell * cameraRect.size + cameraRect.size / 2;
+		targetPosition.z = transform.position.z;
+		return targetPosition;
 	}
 
 	private static Rect GetCameraWorldRect(Camera camera) {
