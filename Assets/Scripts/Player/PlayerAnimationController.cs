@@ -2,7 +2,7 @@
 
 public class PlayerAnimationController : MonoBehaviour {
 	private static readonly int jumpHash = Animator.StringToHash("jump");
-	private static readonly int isGroundedHash = Animator.StringToHash("isGrounded");
+	private static readonly int speedYHash = Animator.StringToHash("speedY");
 	private static readonly int isHumanHash = Animator.StringToHash("isHuman");
 	private static readonly int transformSpeedHash = Animator.StringToHash("transformSpeed");
 	private static readonly int jumpSpeedHash = Animator.StringToHash("jumpSpeed");
@@ -11,17 +11,19 @@ public class PlayerAnimationController : MonoBehaviour {
 	[SerializeField] private AnimationClip jumpAnimation;
 
 	private Animator animator;
+	private Rigidbody2D rb2D;
 	private PlayerController playerController;
 	private Transformation transformation;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+		rb2D = GetComponent<Rigidbody2D>();
 		playerController = GetComponent<PlayerController>();
 		transformation = GetComponent<Transformation>();
 	}
 
 	private void Update() {
-		animator.SetBool(isGroundedHash, playerController.IsGrounded);
+		animator.SetFloat(speedYHash, Mathf.Abs(rb2D.velocity.y));
 	}
 
 	public void JumpStart() {
