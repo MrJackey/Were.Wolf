@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour {
+	private static readonly int speedId = Animator.StringToHash("speed");
+
 	[Header("Constants")]
 	[SerializeField] private float gravity = -9.82f;
 
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D rb2D;
 	private BoxCollider2D playerCollider;
+	private Animator animator;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 
@@ -41,10 +44,13 @@ public class PlayerController : MonoBehaviour {
 
 	public bool AllowControls { set => allowControls = value; }
 	public bool IsGrounded => isGrounded;
+	public float JumpLength => jumpEndTime;
+	public float AirJumpLength => airJumpEndTime;
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
 		playerCollider = GetComponent<BoxCollider2D>();
+		animator = GetComponent<Animator>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
 
@@ -90,6 +96,8 @@ public class PlayerController : MonoBehaviour {
 				doAirJump = true;
 			}
 		}
+
+		animator.SetFloat(speedId, Mathf.Abs(xInput));
 	}
 
 	private void FixedUpdate() {

@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: 4b5dbb9bf32965a4ba78012250753a4e
+guid: 8fdaab6d69fcc1542aeae9b7c313c06e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2077700748546687264
-    second: WOLF idle_0
+      213: 1671306543774226100
+    second: WOLF falling_0
   - first:
-      213: 3044282519317383117
-    second: WOLF idle_1
+      213: 6510462348777814349
+    second: WOLF falling_1
   - first:
-      213: -7099237996646441758
-    second: WOLF idle_2
-  - first:
-      213: -8365386688245901458
-    second: WOLF idle_3
-  - first:
-      213: 6121740733228327025
-    second: WOLF idle_4
-  - first:
-      213: 6787497948701584991
-    second: WOLF idle_5
-  - first:
-      213: 3645609972677623136
-    second: WOLF idle_6
+      213: 8194755858750192056
+    second: WOLF falling_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -110,7 +98,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WOLF idle_0
+      name: WOLF falling_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02140ba92d975dc10800000000000000
-      internalID: 2077700748546687264
+      spriteID: 4b6d274527ca13710800000000000000
+      internalID: 1671306543774226100
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WOLF idle_1
+      name: WOLF falling_1
       rect:
         serializedVersion: 2
         x: 60
@@ -145,14 +133,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc708df62d67f3a20800000000000000
-      internalID: 3044282519317383117
+      spriteID: d49f476230fc95a50800000000000000
+      internalID: 6510462348777814349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WOLF idle_2
+      name: WOLF falling_2
       rect:
         serializedVersion: 2
         x: 120
@@ -166,92 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ecdee9c7a07a7d90800000000000000
-      internalID: -7099237996646441758
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WOLF idle_3
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e675256f02d28eb80800000000000000
-      internalID: -8365386688245901458
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WOLF idle_4
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1702d1333cac4f450800000000000000
-      internalID: 6121740733228327025
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WOLF idle_5
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5eec023c69023e50800000000000000
-      internalID: 6787497948701584991
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WOLF idle_6
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 06d321374fec79230800000000000000
-      internalID: 3645609972677623136
+      spriteID: 8b93bdd290f99b170800000000000000
+      internalID: 8194755858750192056
       vertices: []
       indices: 
       edges: []
