@@ -132,11 +132,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1637389642820773740, guid: a611a9cc4f90fd342be0f58203c0e10d, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1637389642820773740, guid: a611a9cc4f90fd342be0f58203c0e10d, type: 3}
       propertyPath: m_SortingLayerID
-      value: -759760535
+      value: -682797581
       objectReference: {fileID: 0}
     - target: {fileID: 1637389642820773741, guid: a611a9cc4f90fd342be0f58203c0e10d, type: 3}
       propertyPath: m_RootOrder
@@ -219,6 +219,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1299329085114494227, guid: c8251a5cd121e9446bf00db5f8fd8e1f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299329085114494227, guid: c8251a5cd121e9446bf00db5f8fd8e1f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -759760535
+      objectReference: {fileID: 0}
     - target: {fileID: 4416525691000973465, guid: c8251a5cd121e9446bf00db5f8fd8e1f, type: 3}
       propertyPath: m_Name
       value: Spike_Obstacle (1)
@@ -388,7 +396,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 73650513acc8dab43af7748798d15b65, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9490196}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -563,6 +571,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1299329085114494227, guid: c8251a5cd121e9446bf00db5f8fd8e1f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299329085114494227, guid: c8251a5cd121e9446bf00db5f8fd8e1f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -759760535
+      objectReference: {fileID: 0}
     - target: {fileID: 4416525691000973465, guid: c8251a5cd121e9446bf00db5f8fd8e1f, type: 3}
       propertyPath: m_Name
       value: Spike_Obstacle
