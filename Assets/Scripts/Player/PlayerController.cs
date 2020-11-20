@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private UnityEvent onAirJump;
 
 	private Rigidbody2D rb2D;
-	private BoxCollider2D boxCollider;
+	private BoxCollider2D playerCollider;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
-		boxCollider = GetComponent<BoxCollider2D>();
+		playerCollider = GetComponent<BoxCollider2D>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
 
@@ -108,8 +108,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private bool CheckIfGrounded() {
-		Vector2 colliderPosition = (Vector2)transform.position + boxCollider.offset;
-		Vector2 rayStartPosition = new Vector2(colliderPosition.x, colliderPosition.y - boxCollider.bounds.extents.y);
+		Vector2 colliderPosition = (Vector2)transform.position + playerCollider.offset;
+		Vector2 rayStartPosition = new Vector2(colliderPosition.x, colliderPosition.y - playerCollider.bounds.extents.y);
 
 		RaycastHit2D hit = Physics2D.Raycast(rayStartPosition,Vector2.down, groundedDistance, groundLayer);
 
