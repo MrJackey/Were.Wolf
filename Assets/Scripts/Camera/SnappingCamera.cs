@@ -5,7 +5,8 @@ public class SnappingCamera : MonoBehaviour {
 
 	[Header("Smoothing")]
 	[SerializeField] private bool enableSmoothing = true;
-	[SerializeField] private float transitionDuration = 0.15f;
+	[SerializeField, EnableIf(nameof(enableSmoothing))]
+	private float transitionDuration = 0.15f;
 
 	private new Camera camera;
 	private Vector3 currentVelocity;
@@ -15,8 +16,16 @@ public class SnappingCamera : MonoBehaviour {
 		camera = GetComponent<Camera>();
 		gridOrigin = GetCameraWorldRect(camera).min;
 
+		if (target == null) {
+			GameObject go = GameObject.FindWithTag("Player");
+			if (go != null) target = go.transform;
+		}
+
 		if (!camera.orthographic)
 			Debug.LogError($"{nameof(SnappingCamera)} only works on orthographic cameras!");
+
+		if (target == null)
+			Debug.LogError($"{nameof(SnappingCamera)} has no target.");
 	}
 
 	private void LateUpdate() {
