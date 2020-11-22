@@ -60,8 +60,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Update() {
-		isGrounded = groundedCollider.IsTouchingLayers(groundLayer);
-
 		if (isGrounded)
 			airJumpsUsed = 0;
 
@@ -87,7 +85,7 @@ public class PlayerController : MonoBehaviour {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
 			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
 		}
-		else if ((allowControls || isGrounded) && velocity.x > 0) {
+		else if ((allowControls || isGrounded) && velocity.x != 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
@@ -115,6 +113,16 @@ public class PlayerController : MonoBehaviour {
 
 		if (!doJump || !doAirJump)
 			rb2D.velocity = new Vector2(velocity.x, rb2D.velocity.y + gravity * Time.deltaTime);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (groundedCollider.IsTouchingLayers(groundLayer))
+			isGrounded = true;
+	}
+
+	private void OnTriggerExit2D(Collider2D other) {
+		if (!groundedCollider.IsTouchingLayers(groundLayer))
+			isGrounded = false;
 	}
 
 	private void BeginJump(UnityEvent e) {
