@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float maxSpeed = 3;
 
 	[Header("Jumping")]
+	[SerializeField] private BoxCollider2D groundedCollider = null;
 	[SerializeField] private AnimationCurve jumpCurve = null;
 	[SerializeField] private int airJumpsAllowed = 1;
 	[SerializeField] private bool useSameCurve;
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Update() {
+		isGrounded = groundedCollider.IsTouchingLayers(groundLayer);
+
 		if (isGrounded)
 			airJumpsUsed = 0;
 
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour {
 		if (Mathf.Abs(rb2D.velocity.x) < 0.01f)
 			velocity.x = 0;
 
+		// Cancels jumps if head hits roof
 		if (Mathf.Abs(rb2D.velocity.y) < 0.01f && !isGrounded) {
 			doJump = false;
 			doAirJump = false;
@@ -83,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
 			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
 		}
-		else if (allowControls || isGrounded) {
+		else if ((allowControls || isGrounded) && velocity.x > 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
@@ -111,16 +115,6 @@ public class PlayerController : MonoBehaviour {
 
 		if (!doJump || !doAirJump)
 			rb2D.velocity = new Vector2(velocity.x, rb2D.velocity.y + gravity * Time.deltaTime);
-	}
-
-	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.CompareTag("Ground"))
-			isGrounded = true;
-	}
-
-	private void OnTriggerExit2D(Collider2D other) {
-		if (other.CompareTag("Ground"))
-			isGrounded = false;
 	}
 
 	private void BeginJump(UnityEvent e) {

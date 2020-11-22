@@ -152,7 +152,7 @@ MonoBehaviour:
   acceleration: 25
   deacceleration: 7
   maxSpeed: 5
-  groundedDistance: 0.14
+  groundedCollider: {fileID: 4176820095388927488}
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -246,7 +246,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.028078318, y: -0.9410247}
+  m_Offset: {x: 0.017233372, y: -0.9410247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -257,7 +257,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.49214125, y: 0.0692333}
+  m_Size: {x: 0.50422096, y: 0.0692333}
   m_EdgeRadius: 0
 --- !u!114 &1729414150543403562
 MonoBehaviour:
