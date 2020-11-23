@@ -41,8 +41,6 @@ public class SignalReceiver : MonoBehaviour {
 
 		if (invert)
 			isActivated = !isActivated;
-
-		print("state:" + isActivated);
 	}
 
 	// All emitters must be active
