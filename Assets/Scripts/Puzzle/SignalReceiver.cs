@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class SignalReceiver : MonoBehaviour {
 	[SerializeField] private LogicGate logicGate = LogicGate.AND;
 	[SerializeField] private bool invert = false;
 	[SerializeField] private SignalEmitter[] emitters;
+
+	[Header("Events")]
+	[SerializeField] private UnityEvent onActivation;
+	[SerializeField] private UnityEvent onDeactivation;
 
 	private bool isActivated = false;
 
@@ -28,6 +33,7 @@ public class SignalReceiver : MonoBehaviour {
 #endif
 
 	private void EmitterUpdate() {
+		bool oldState = isActivated;
 		switch (logicGate) {
 			case (LogicGate.AND) :
 				isActivated = CheckAND();
@@ -41,6 +47,14 @@ public class SignalReceiver : MonoBehaviour {
 
 		if (invert)
 			isActivated = !isActivated;
+
+		if (oldState == isActivated)
+			return;
+
+		if (isActivated)
+			onActivation.Invoke();
+		else
+			onDeactivation.Invoke();
 	}
 
 	// All emitters must be active
@@ -63,15 +77,16 @@ public class SignalReceiver : MonoBehaviour {
 		return false;
 	}
 
+	protected virtual void OnActivationChange() {
+
+	}
+
 #if UNITY_EDITOR
 	private void OnDrawGizmos() {
 		foreach (SignalEmitter emitter in emitters) {
 			Gizmos.color = emitter.IsActivated ? Color.green : Color.red;
 			Gizmos.DrawLine(emitter.transform.position, transform.position);
 		}
-
-		Gizmos.color = isActivated ? Color.green : Color.red;
-		Gizmos.DrawWireSphere(transform.position, 0.5f);
 	}
 #endif
 }
