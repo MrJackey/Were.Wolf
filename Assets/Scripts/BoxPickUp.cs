@@ -5,15 +5,19 @@ using UnityEngine;
 public class BoxPickUp : MonoBehaviour {
 
 	[SerializeField] private BoxCollider2D boxCollider, boxTrigger;
+	[SerializeField] private bool readyToPickUp = false; 
 	[SerializeField] public GameObject playerHand;
+	
+	public bool isPickedUp = false;
 
 	private Rigidbody2D rb2d;
 
-	[SerializeField] private bool readyToPickUp = false, isPickedUp = false;
 
 	private void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
 		rb2d.isKinematic = false;
+
+		playerHand = GameObject.FindGameObjectWithTag("PlayerHand");
 	}
 
 	private void Update() {
@@ -27,7 +31,7 @@ public class BoxPickUp : MonoBehaviour {
 				transform.parent = playerHand.transform;
 				transform.localPosition = Vector3.zero;
 			}
-			else if(isPickedUp) {
+			else if (isPickedUp) {
 				boxCollider.enabled = true;
 				boxTrigger.enabled = true;
 				rb2d.isKinematic = false;
@@ -45,7 +49,7 @@ public class BoxPickUp : MonoBehaviour {
 	}
 
 	private void OnTriggerExit2D(Collider2D collision) {
-		if(collision.CompareTag("Player")) {
+		if (collision.CompareTag("Player")) {
 			readyToPickUp = false;
 		}
 	}
