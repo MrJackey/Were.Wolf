@@ -105,7 +105,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!61 &158529260525469946
 BoxCollider2D:
@@ -173,6 +173,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 158529260525469946}
   boxTrigger: {fileID: 813397124}
-  readyToPickUp: 0
-  playerHand: {fileID: 3326305250810700147, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
-  isPickedUp: 0

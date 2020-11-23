@@ -6,7 +6,7 @@ public class BoxPickUp : MonoBehaviour {
 
 	[SerializeField] private BoxCollider2D boxCollider, boxTrigger;
 	private bool readyToPickUp = false, isPickedUp = false;
-	private Vector2 startPos = new Vector2(3, 3);
+	private Vector2 startPos;
 	private GameObject playerHand;
 	private Rigidbody2D rb2d;
 
@@ -16,6 +16,8 @@ public class BoxPickUp : MonoBehaviour {
 		rb2d.isKinematic = false;
 
 		playerHand = GameObject.FindGameObjectWithTag("PlayerHand");
+
+		startPos = transform.position;
 	}
 
 	private void Update() {
@@ -29,12 +31,13 @@ public class BoxPickUp : MonoBehaviour {
 		}
     }
 
-	private void OnTriggerStay2D(Collider2D collision) {
+	private void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.CompareTag("Player")) {
 			readyToPickUp = true;
 		}
 		else if (collision.CompareTag("Spike")) {
 			transform.position = startPos;
+			rb2d.velocity = Vector2.zero;
 		}
 	}
 
