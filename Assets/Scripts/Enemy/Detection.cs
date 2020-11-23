@@ -51,7 +51,7 @@ public class Detection : MonoBehaviour {
 
 		if (hit.rigidbody != null && hit.rigidbody.CompareTag("Player")) {
 			Transformation transformation = hit.rigidbody.GetComponent<Transformation>();
-			if (transformation == null || transformation.TransformationState == TransformationStates.Wolf)
+			if (transformation == null || transformation.State != TransformationState.Human)
 				return true;
 		}
 

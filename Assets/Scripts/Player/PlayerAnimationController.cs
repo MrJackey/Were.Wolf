@@ -38,10 +38,10 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	public void TransformStart() {
 		animator.SetFloat(transformSpeedHash, 1f / (transformation.TransformDuration / transformAnimation.length));
-		animator.SetBool(isHumanHash, transformation.TransformationState != TransformationStates.Human);
+		animator.SetBool(isHumanHash, transformation.OldState != TransformationState.Human);
 	}
 
 	public void TransformInterrupt() {
-		animator.SetBool(isHumanHash, transformation.TransformationState == TransformationStates.Human);
+		animator.SetBool(isHumanHash, transformation.OldState == TransformationState.Human);
 	}
 }
