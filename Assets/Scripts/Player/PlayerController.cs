@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour {
 	private static readonly int speedId = Animator.StringToHash("speed");
+	private static readonly int isDashingHash = Animator.StringToHash("isDashing");
 
 	[Header("Constants")]
 	[SerializeField] private float gravity = -9.82f;
@@ -210,6 +211,8 @@ public class PlayerController : MonoBehaviour {
 
 		velocity.y = 0;
 		velocity.x = dashSpeed * direction;
+
+		animator.SetBool(isDashingHash, true);
 		onDash.Invoke();
 	}
 
@@ -224,5 +227,6 @@ public class PlayerController : MonoBehaviour {
 		allowControls = true;
 		doGravity = true;
 		doDash = false;
+		animator.SetBool(isDashingHash, false);
 	}
 }
