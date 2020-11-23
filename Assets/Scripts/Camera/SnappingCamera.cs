@@ -18,12 +18,13 @@ public class SnappingCamera : MonoBehaviour {
 
 	private new Camera camera;
 	private Vector3 currentVelocity;
+	private Vector2 startPosition;
 	private Vector2 gridOrigin;
 	private Vector2 cellSize;
 
 	private void Start() {
 		camera = GetComponent<Camera>();
-		gridOrigin = GetCameraWorldRect(camera).min;
+		startPosition = transform.position;
 
 		if (target == null) {
 			GameObject go = GameObject.FindWithTag("Player");
@@ -38,7 +39,9 @@ public class SnappingCamera : MonoBehaviour {
 	}
 
 	private void LateUpdate() {
+		float cameraSize = camera.orthographicSize;
 		cellSize = GetCameraWorldRect(camera).size;
+		gridOrigin = startPosition - new Vector2(cameraSize * camera.aspect, cameraSize);
 		Vector3 targetCameraPosition = CalculateTargetPosition();
 
 		if (enableSmoothing) {
