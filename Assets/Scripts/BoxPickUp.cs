@@ -12,6 +12,8 @@ public class BoxPickUp : MonoBehaviour {
 
 	private Rigidbody2D rb2d;
 
+	private Vector2 startPos = new Vector2(3, 3);
+
 
 	private void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
@@ -20,37 +22,53 @@ public class BoxPickUp : MonoBehaviour {
 		playerHand = GameObject.FindGameObjectWithTag("PlayerHand");
 	}
 
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.E)) {
-			if (readyToPickUp) {
-				isPickedUp = true;
-				boxCollider.enabled = false;
-				boxTrigger.enabled = false;
-				rb2d.isKinematic = true;
 
-				transform.parent = playerHand.transform;
-				transform.localPosition = Vector3.zero;
+	private void Update() {
+		if (Input.GetButtonDown("Interact")) {
+			if (readyToPickUp) {
+				PickUpItem();
 			}
 			else if (isPickedUp) {
-				boxCollider.enabled = true;
-				boxTrigger.enabled = true;
-				rb2d.isKinematic = false;
-				isPickedUp = false;
-
-				transform.parent = null;
+				DropItem();
 			}
 		}
     }
 
-	private void OnTriggerEnter2D(Collider2D collision) {
+
+	private void OnTriggerStay2D(Collider2D collision) {
 		if (collision.CompareTag("Player")) {
 			readyToPickUp = true;
 		}
+		else if (collision.CompareTag("Spike")) {
+			transform.position = startPos;
+		}
 	}
+
 
 	private void OnTriggerExit2D(Collider2D collision) {
 		if (collision.CompareTag("Player")) {
 			readyToPickUp = false;
 		}
+	}
+
+
+	private void PickUpItem() {
+		isPickedUp = true;
+		boxCollider.enabled = false;
+		boxTrigger.enabled = false;
+		rb2d.isKinematic = true;
+
+		transform.parent = playerHand.transform;
+		transform.localPosition = Vector3.zero;
+	}
+
+
+	private void DropItem() {
+		boxCollider.enabled = true;
+		boxTrigger.enabled = true;
+		rb2d.isKinematic = false;
+		isPickedUp = false;
+
+		transform.parent = null;
 	}
 }
