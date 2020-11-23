@@ -27,7 +27,7 @@ public class Detection : MonoBehaviour {
 
 		for (int i = 0; i < visionRayCount; i++) {
 			float angle = -visionConeAngle / 2f + angleStep * i;
-			Vector2 direction = Quaternion.AngleAxis(angle, Vector3.forward) * forward;
+			Vector2 direction = MathX.Rotate(forward, angle * Mathf.Deg2Rad);
 
 			if (DoSingleRaycast(eyePosition, direction)) {
 			#if UNITY_EDITOR
@@ -64,6 +64,7 @@ public class Detection : MonoBehaviour {
 	}
 
 	private void OnDrawGizmos() {
+		if (!enabled) return;
 		Vector3 eyePosition = transform.TransformPoint(eyeOffset);
 
 		Gizmos.color = Color.green;
