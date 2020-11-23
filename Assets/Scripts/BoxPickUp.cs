@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxPickUp : MonoBehaviour {
-
 	[SerializeField] private BoxCollider2D boxCollider, boxTrigger;
 	[SerializeField] public GameObject playerHand;
+	[SerializeField] private bool readyToPickUp = false, isPickedUp = false;
 
 	private Rigidbody2D rb2d;
-
-	[SerializeField] private bool readyToPickUp = false, isPickedUp = false;
 
 	private void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
@@ -27,7 +25,7 @@ public class BoxPickUp : MonoBehaviour {
 				transform.parent = playerHand.transform;
 				transform.localPosition = Vector3.zero;
 			}
-			else if(isPickedUp) {
+			else if (isPickedUp) {
 				boxCollider.enabled = true;
 				boxTrigger.enabled = true;
 				rb2d.isKinematic = false;
@@ -36,7 +34,7 @@ public class BoxPickUp : MonoBehaviour {
 				transform.parent = null;
 			}
 		}
-    }
+	}
 
 	private void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.CompareTag("Player")) {
@@ -45,7 +43,7 @@ public class BoxPickUp : MonoBehaviour {
 	}
 
 	private void OnTriggerExit2D(Collider2D collision) {
-		if(collision.CompareTag("Player")) {
+		if (collision.CompareTag("Player")) {
 			readyToPickUp = false;
 		}
 	}
