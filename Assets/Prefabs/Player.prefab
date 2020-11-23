@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1729414150543403562}
   - component: {fileID: 930851542}
   - component: {fileID: 930851549}
+  - component: {fileID: 3032012005023981314}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -161,7 +162,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 59c67a6afc764da47bc9122aefb9e406, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -234,6 +235,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  dashSpeed: 15
+  dashDuration: 0.15
+  dashCooldown: 0.5
   onJump:
     m_PersistentCalls:
       m_Calls:
@@ -264,6 +268,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDash:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &4176820095388927488
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -418,3 +425,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformAnimation: {fileID: 7400000, guid: 8e108d66b83e53a4e8ee103224de861b, type: 2}
   jumpAnimation: {fileID: 7400000, guid: 29ac6ac8cbfb3d54ba3172eeaf7c88b8, type: 2}
+--- !u!114 &3032012005023981314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326305250810700147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a331d4a4fc43aa9f9087475f98187c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  invincible: 0
+  dead: 0
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []

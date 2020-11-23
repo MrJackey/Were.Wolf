@@ -15,15 +15,15 @@ public class Transformation : MonoBehaviour {
 
 
 	private PlayerController playerController;
-
-	private TransformationStates transformationState;
+	private TransformationState oldState;
+	private TransformationState state;
 
 	private Coroutine humanFormDurationCoroutine;
 
-	public TransformationStates TransformationState => transformationState;
+	public TransformationState OldState => oldState;
+	public TransformationState State => state;
 
 	public float TransformDuration => transDuration;
-
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
@@ -31,17 +31,20 @@ public class Transformation : MonoBehaviour {
 
 
 	private void Update() {
-		if (Input.GetButtonDown("Transformation") && playerController.IsGrounded && transformationState == TransformationStates.Wolf) {
+		if (Input.GetButtonDown("Transformation") && playerController.IsGrounded && state == TransformationState.Wolf) {
 			TransformToHuman();
 		}
 	}
 
 
-	private IEnumerator CoTransforming(TransformationStates newState) {
+	private IEnumerator CoTransforming(TransformationState newState) {
+		oldState = state;
+		state = TransformationState.Transforming;
 		onTransformStart.Invoke();
 
 		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
-			if (Input.GetButtonUp("Transformation") && transformationState == TransformationStates.Wolf) {
+			if (Input.GetButtonUp("Transformation") && oldState == TransformationState.Wolf) {
+				state = oldState;
 				onTransformInterrupt.Invoke();
 
 				yield break;
@@ -49,13 +52,13 @@ public class Transformation : MonoBehaviour {
 			yield return null;
 		}
 
-		if (newState == TransformationStates.Human) {
+		if (newState == TransformationState.Human) {
 			if (humanFormDurationCoroutine != null)
 				StopCoroutine(humanFormDurationCoroutine);
 
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
-		transformationState = newState;
+		state = newState;
 		onTransformEnd.Invoke();
 	}
 
@@ -63,21 +66,22 @@ public class Transformation : MonoBehaviour {
 	private IEnumerator CoHumanFormDuration() {
 		yield return new WaitForSeconds(humanFormDuration);
 
-		StartCoroutine(CoTransforming(TransformationStates.Wolf));
+		StartCoroutine(CoTransforming(TransformationState.Wolf));
 	}
 
 
 	public void TransformToHuman() {
-		StartCoroutine(CoTransforming(TransformationStates.Human));
+		StartCoroutine(CoTransforming(TransformationState.Human));
 	}
 
 
 	public void TransformToWolf() {
-		StartCoroutine(CoTransforming(TransformationStates.Wolf));
+		StartCoroutine(CoTransforming(TransformationState.Wolf));
 	}
 }
 
-public enum TransformationStates {
+public enum TransformationState {
 	Wolf,
+	Transforming,
 	Human,
 }
