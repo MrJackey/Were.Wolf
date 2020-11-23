@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float maxSpeed = 3;
 
 	[Header("Jumping")]
-	[SerializeField] private float groundedDistance = 0.05f;
+	[SerializeField] private BoxCollider2D groundedCollider = null;
 	[SerializeField] private AnimationCurve jumpCurve = null;
 	[SerializeField] private int airJumpsAllowed = 1;
 	[SerializeField] private bool useSameCurve;
@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Update() {
-		isGrounded = CheckIfGrounded();
 		if (isGrounded)
 			airJumpsUsed = 0;
 
@@ -73,14 +72,20 @@ public class PlayerController : MonoBehaviour {
 			scale.x = -1;
 		transform.localScale = scale;
 
-		if (rb2D.velocity.x == 0)
+		if (Mathf.Abs(rb2D.velocity.x) < 0.01f)
 			velocity.x = 0;
+
+		// Cancels jumps if head hits roof
+		if (Mathf.Abs(rb2D.velocity.y) < 0.01f && !isGrounded) {
+			doJump = false;
+			doAirJump = false;
+		}
 
 		if (xInput != 0) {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
 			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
 		}
-		else if (allowControls || isGrounded) {
+		else if ((allowControls || isGrounded) && velocity.x != 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
@@ -106,26 +111,18 @@ public class PlayerController : MonoBehaviour {
 		else if (doAirJump)
 			Jump(airJumpCurve, airJumpEndTime);
 
-		if (Mathf.Abs(rb2D.velocity.y) < 0.01f) {
-			doJump = false;
-			doAirJump = false;
-		}
-
 		if (!doJump || !doAirJump)
 			rb2D.velocity = new Vector2(velocity.x, rb2D.velocity.y + gravity * Time.deltaTime);
 	}
 
-	private bool CheckIfGrounded() {
-		Vector2 colliderPosition = (Vector2)transform.position + playerCollider.offset;
-		Vector2 rayStartPosition = new Vector2(colliderPosition.x, colliderPosition.y - playerCollider.bounds.extents.y);
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (groundedCollider.IsTouchingLayers(groundLayer))
+			isGrounded = true;
+	}
 
-		RaycastHit2D hit = Physics2D.Raycast(rayStartPosition,Vector2.down, groundedDistance, groundLayer);
-
-	#if UNITY_EDITOR
-		Debug.DrawRay(rayStartPosition, Vector3.down * groundedDistance, Color.red);
-	#endif
-
-		return hit.collider != null;
+	private void OnTriggerExit2D(Collider2D other) {
+		if (!groundedCollider.IsTouchingLayers(groundLayer))
+			isGrounded = false;
 	}
 
 	private void BeginJump(UnityEvent e) {
