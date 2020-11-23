@@ -131,7 +131,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 59c67a6afc764da47bc9122aefb9e406, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -204,6 +204,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  dashSpeed: 15
+  dashDuration: 0.15
+  dashCooldown: 0.5
   onJump:
     m_PersistentCalls:
       m_Calls:
@@ -234,6 +237,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDash:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &4176820095388927488
 BoxCollider2D:
   m_ObjectHideFlags: 0
