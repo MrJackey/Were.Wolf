@@ -203,6 +203,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  dashSpeed: 15
+  dashDuration: 0.15
+  dashCooldown: 0.5
   onJump:
     m_PersistentCalls:
       m_Calls:
