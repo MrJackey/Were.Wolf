@@ -91,8 +91,10 @@ public class PlayerController : MonoBehaviour {
 		transform.localScale = new Vector3(facing, 1, 1);
 
 		if (Mathf.Abs(rb2D.velocity.x) < 0.01f) {
-			velocity.x = 0;
-			InterruptDash();
+			if (!doDash && dashTimer > Time.deltaTime) {
+				velocity.x = 0;
+				InterruptDash();
+			}
 		}
 
 		// Cancels jumps if head hits roof
