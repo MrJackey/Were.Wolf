@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class SignalEmitter : MonoBehaviour {
-	[SerializeField, PropertySetter(nameof(IsActivated), PropertySetterMode.Always)] private bool isActivated = false;
+	[SerializeField, PropertySetter(nameof(IsActivated), PropertySetterMode.Always)]
+	private bool isActivated = false;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onActivation;
 	[SerializeField] private UnityEvent onDeactivation;
 
 	private UnityEvent onActivationChange = new UnityEvent();
-
 
 	public bool IsActivated {
 		get => isActivated;

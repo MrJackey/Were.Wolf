@@ -77,10 +77,6 @@ public class SignalReceiver : MonoBehaviour {
 		return false;
 	}
 
-	protected virtual void OnActivationChange() {
-
-	}
-
 #if UNITY_EDITOR
 	private void OnDrawGizmos() {
 		foreach (SignalEmitter emitter in emitters) {
