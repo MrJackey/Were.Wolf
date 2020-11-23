@@ -136,8 +136,9 @@ public class PlayerController : MonoBehaviour {
 		else if (doAirJump)
 			Jump(airJumpCurve, airJumpEndTime);
 
-		if (doDash)
+		if (doDash) {
 			Dash();
+		}
 		else if (!allowDashReset) {
 			dashResetTimer += Time.deltaTime;
 
@@ -195,7 +196,7 @@ public class PlayerController : MonoBehaviour {
 			bool oldState = dashHeld;
 
 			dashHeld = true;
-			return oldState == false;;
+			return oldState == false;
 		}
 
 		dashHeld = false;
