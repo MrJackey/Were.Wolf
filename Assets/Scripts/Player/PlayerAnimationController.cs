@@ -20,6 +20,8 @@ public class PlayerAnimationController : MonoBehaviour {
 		rb2D = GetComponent<Rigidbody2D>();
 		playerController = GetComponent<PlayerController>();
 		transformation = GetComponent<Transformation>();
+
+		transformation.OnTransformInterrupt.AddListener(TransformInterrupt);
 	}
 
 	private void Update() {
@@ -41,7 +43,11 @@ public class PlayerAnimationController : MonoBehaviour {
 		animator.SetBool(isHumanHash, transformation.OldState != TransformationState.Human);
 	}
 
-	public void TransformInterrupt() {
-		animator.SetBool(isHumanHash, transformation.OldState == TransformationState.Human);
+	public void TransformInterrupt(float transformationDone) {
+		float timeRemaining = transformation.TransformDuration - transformationDone;
+		animator.Play("Human To Werewolf", 0, timeRemaining / transformation.TransformDuration);
+
+		transformation.State = TransformationState.Human;
+		transformation.TransformToWolf(timeRemaining);
 	}
 }
