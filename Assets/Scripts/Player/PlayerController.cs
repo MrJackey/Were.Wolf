@@ -228,6 +228,7 @@ public class PlayerController : MonoBehaviour {
 	private void InterruptDash() {
 		allowControls = true;
 		doGravity = true;
+		dashTimer = 0;
 		doDash = false;
 		animator.SetBool(isDashingHash, false);
 	}
