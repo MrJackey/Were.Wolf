@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour {
 	private AnimationCurve airJumpCurve = null;
 	[SerializeField] private float coyoteDuration = 0.15f;
 
-
 	[Header("Dash")]
 	[SerializeField] private float dashSpeed = 10;
 	[SerializeField] private float dashDuration = 10f;
@@ -43,6 +42,7 @@ public class PlayerController : MonoBehaviour {
 	private int facing = 1;
 
 	private bool allowControls = true;
+	private bool humanControls = false;
 	private bool doGravity = true;
 	private bool isGrounded = false;
 
@@ -60,6 +60,10 @@ public class PlayerController : MonoBehaviour {
 	private bool allowDashReset = false;
 	private float dashTimer = 0f;
 	private float dashResetTimer = 0.5f;
+
+	public bool HumanControls {
+		set => humanControls = value;
+	}
 
 	public bool AllowControls { set => allowControls = value; }
 	public bool IsGrounded => isGrounded;
@@ -112,25 +116,26 @@ public class PlayerController : MonoBehaviour {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
-		if (allowControls) {
-			if (Input.GetButtonDown("Jump")) {
-				if (isGrounded) {
-					BeginJump(onJump);
-					doJump = true;
-				}
-				else if (airJumpsUsed < airJumpsAllowed) {
-					BeginJump(onAirJump);
-					doJump = false;
-					airJumpsUsed++;
-					doAirJump = true;
-				}
-			}
+		animator.SetFloat(speedHash, Mathf.Abs(xInput));
 
-			if (CheckDashInput() && allowDash)
-				BeginDash(facing);
+		if (!allowControls)
+			return;
+
+		if (Input.GetButtonDown("Jump")) {
+			if (isGrounded) {
+				BeginJump(onJump);
+				doJump = true;
+			}
+			else if (!humanControls && airJumpsUsed < airJumpsAllowed) {
+				BeginJump(onAirJump);
+				doJump = false;
+				airJumpsUsed++;
+				doAirJump = true;
+			}
 		}
 
-		animator.SetFloat(speedHash, Mathf.Abs(xInput));
+		if (!humanControls && CheckDashInput() && allowDash)
+			BeginDash(facing);
 	}
 
 	private void FixedUpdate() {
