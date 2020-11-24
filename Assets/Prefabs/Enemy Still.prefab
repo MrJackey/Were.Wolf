@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 1637389642820773741}
   - component: {fileID: 1637389642820773740}
   - component: {fileID: 1637389642820773747}
-  - component: {fileID: 1773298880838089693}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy Still
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,26 +99,17 @@ MonoBehaviour:
   eyeOffset: {x: 0.32, y: 0.31}
   visionConeAngle: 19
   visionDistance: 5
-  visionRayCount: 5
+  visionRayCount: 3
   raycastLayers:
     serializedVersion: 2
     m_Bits: 4294967295
   restartOnDetection: 1
---- !u!114 &1773298880838089693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637389642820773746}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36dd50d36a614654bde0d47ec7b72e55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  point1: {fileID: 0}
-  point2: {fileID: 0}
-  speed: 5
+  onDetected:
+    m_PersistentCalls:
+      m_Calls: []
+  onLost:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1682696288459439993
 GameObject:
   m_ObjectHideFlags: 0

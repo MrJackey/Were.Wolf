@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class Detection : MonoBehaviour {
@@ -10,14 +11,22 @@ public class Detection : MonoBehaviour {
 	[SerializeField] private LayerMask raycastLayers = -1;
 	[SerializeField] private bool restartOnDetection = true;
 
-	private bool isPlayerInVisionCone;
+	[Header("Events")]
+	[SerializeField] private UnityEvent onDetected;
+	[SerializeField] private UnityEvent onLost;
+
+	private bool isPlayerVisible;
 	private float facing = 1;
 
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
 
-		if (CheckPlayerVisible())
-			OnDetected();
+		if (isPlayerVisible != (isPlayerVisible = CheckPlayerVisible())) {
+			if (isPlayerVisible)
+				OnDetected();
+			else
+				onLost.Invoke();
+		}
 	}
 
 	private bool CheckPlayerVisible() {
@@ -59,6 +68,7 @@ public class Detection : MonoBehaviour {
 	}
 
 	private void OnDetected() {
+		onDetected.Invoke();
 		if (restartOnDetection)
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
