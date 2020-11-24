@@ -7,15 +7,19 @@ public class EnemyAnimationController : MonoBehaviour {
 	[SerializeField] private float baseSpeed = 0.6f;
 
 	private Animator animator;
-	private Patrolling patrolling;
+	private Mover mover;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
-		patrolling = GetComponent<Patrolling>();
+		mover = GetComponent<Mover>();
 	}
 
 	private void Update() {
-		if (patrolling != null && patrolling.enabled)
-			animator.SetFloat(speedHash, Mathf.Abs(patrolling.Velocity.x) / baseSpeed);
+		if (mover != null) {
+			if (mover.enabled)
+				animator.SetFloat(speedHash, mover.Speed / baseSpeed);
+			else
+				animator.SetFloat(speedHash, 0f);
+		}
 	}
 }
