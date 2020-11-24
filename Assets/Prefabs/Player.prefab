@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1140200243}
   m_Layer: 0
-  m_Name: PickUpPoint
-  m_TagString: Untagged
+  m_Name: PlayerHand
+  m_TagString: PlayerHand
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140200242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.203, y: -0.475, z: 0}
+  m_LocalPosition: {x: 0.2, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3326305250810700158}
@@ -48,6 +48,8 @@ GameObject:
   - component: {fileID: 930851542}
   - component: {fileID: 930851549}
   - component: {fileID: 3032012005023981314}
+  - component: {fileID: -2577431829083161899}
+  - component: {fileID: 5633314346111067291}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -271,6 +273,7 @@ MonoBehaviour:
   onDash:
     m_PersistentCalls:
       m_Calls: []
+  isCarrying: 0
 --- !u!61 &4176820095388927488
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -450,3 +453,43 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-2577431829083161899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326305250810700147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd7d9dd0c336e94496db13540f3b2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionTrigger: {fileID: 5633314346111067291}
+  playerHand: {fileID: 1140200242}
+--- !u!61 &5633314346111067291
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326305250810700147}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.56859636, y: -0.65765357}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.875, y: 1.875}
+    newSize: {x: 1.875, y: 1.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5916624, y: 0.55969286}
+  m_EdgeRadius: 0

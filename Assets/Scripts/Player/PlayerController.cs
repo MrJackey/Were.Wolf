@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour {
 	public bool IsGrounded => isGrounded;
 	public float JumpLength => jumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
+	
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
