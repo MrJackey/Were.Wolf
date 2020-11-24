@@ -8,10 +8,13 @@ public class Transformation : MonoBehaviour {
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
 
 	[Header("Colliders")]
-	[SerializeField] private GameObject wolfColliders;
-	[SerializeField] private Collider2D wolfGroundCollider;
-	[SerializeField] private GameObject humanColliders;
-	[SerializeField] private Collider2D humanGroundCollider;
+	[SerializeField] private BoxCollider2D hitCollider;
+	[SerializeField] private BoxCollider2D groundCollider;
+
+	[SerializeField] private BoxCollider2D wolfHitCollider;
+	[SerializeField] private BoxCollider2D wolfGroundCollider;
+	[SerializeField] private BoxCollider2D humanHitCollider;
+	[SerializeField] private BoxCollider2D humanGroundCollider;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart;
@@ -51,6 +54,8 @@ public class Transformation : MonoBehaviour {
 		onTransformStart.Invoke();
 
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
+			UpdateHitboxes(newState, transTimer / transDuration);
+
 			if (Input.GetButtonUp("Transformation") && oldState == TransformationState.Wolf) {
 				state = oldState;
 				onTransformInterrupt.Invoke(transTimer);
@@ -67,7 +72,6 @@ public class Transformation : MonoBehaviour {
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		state = newState;
-		UpdateHitboxes();
 		onTransformEnd.Invoke();
 	}
 
@@ -85,17 +89,21 @@ public class Transformation : MonoBehaviour {
 		StartCoroutine(CoTransforming(TransformationState.Wolf, startTime));
 	}
 
-	private void UpdateHitboxes() {
-		if (state == TransformationState.Wolf) {
-			wolfColliders.SetActive(true);
-			playerController.GroundedCollider = wolfGroundCollider;
-			humanColliders.SetActive(false);
+	private void UpdateHitboxes(TransformationState newState, float transformationTime) {
+		Vector2 newHitSize;
+		Vector2 newGroundSize;
+
+		if (newState == TransformationState.Human) {
+			newHitSize = Vector2.Lerp(wolfHitCollider.size, humanHitCollider.size, transformationTime);
+			newGroundSize = Vector2.Lerp(wolfGroundCollider.size, humanGroundCollider.size, transformationTime);
 		}
 		else {
-			humanColliders.SetActive(true);
-			playerController.GroundedCollider = humanGroundCollider;
-			wolfColliders.SetActive(false);
+			newHitSize = Vector2.Lerp(humanHitCollider.size, wolfHitCollider.size, transformationTime);
+			newGroundSize = Vector2.Lerp(humanGroundCollider.size, wolfGroundCollider.size, transformationTime);
 		}
+
+		hitCollider.size = newHitSize;
+		groundCollider.size = newGroundSize;
 	}
 }
 
