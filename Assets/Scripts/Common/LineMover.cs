@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Patrolling : Mover {
+public class LineMover : Mover {
 	[SerializeField] private Transform point1 = null, point2 = null;
 	[SerializeField, Range(0, 20)]
 	private float speed = 5f;
