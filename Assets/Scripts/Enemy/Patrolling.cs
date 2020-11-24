@@ -1,38 +1,48 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Patrolling : MonoBehaviour {
+public class Patrolling : Mover {
 	[SerializeField] private Transform point1 = null, point2 = null;
 	[SerializeField, Range(0, 20)]
 	private float speed = 5f;
+	[SerializeField] private bool snapToLine = false;
 
 	private float facing = 1;
+	private Vector2 initialOffsetToLine;
+	private float positionOnLine;
+	private float lineLength;
 
-	public Vector2 Velocity { get; private set; }
+	public override float Speed {
+		get => speed;
+		set => speed = value;
+	}
 
-	private void OnDisable() {
-		Velocity = Vector2.zero;
+	private void Start() {
+		Vector3 position = transform.position;
+		Vector3 p1 = point1.position, p2 = point2.position;
+
+		Vector2 pointOnLine = MathX.ClosestPointOnLineSegment(position, p1, p2);
+		initialOffsetToLine = (Vector2)position - pointOnLine;
+		positionOnLine = MathX.InverseLerp(position, p1, p2);
 	}
 
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
 
-		Vector3 position = transform.position;
-		Vector3 p1 = point1.position;
-		Vector3 p2 = point2.position;
-
-		Velocity = new Vector2(facing * speed, 0);
-		position.x += Velocity.x * Time.deltaTime;
+		Vector3 p1 = point1.position, p2 = point2.position;
+		lineLength = Vector2.Distance(p1, p2);
+		positionOnLine += facing * speed * Time.deltaTime / lineLength;
 
 		if (facing > 0) {
-			if (position.x >= p2.x)
+			if (positionOnLine >= 1f)
 				FlipDirection();
 		}
 		else {
-			if (position.x <= p1.x)
+			if (positionOnLine <= 0f)
 				FlipDirection();
 		}
 
+		Vector2 position = Vector2.LerpUnclamped(p1, p2, positionOnLine);
+		if (!snapToLine) position += initialOffsetToLine;
 		transform.position = position;
 	}
 
