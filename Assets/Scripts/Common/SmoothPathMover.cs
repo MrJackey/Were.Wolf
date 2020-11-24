@@ -1,7 +1,7 @@
 ﻿using Cinemachine;
 using UnityEngine;
 
-public class SmoothPathMover : MonoBehaviour {
+public class SmoothPathMover : Mover {
 	[SerializeField] private CinemachinePathBase path = null;
 	[SerializeField] private float speed = 5f;
 	[SerializeField] private bool bounce = true;
@@ -9,6 +9,11 @@ public class SmoothPathMover : MonoBehaviour {
 
 	private float time;
 	private float direction;
+
+	public override float Speed {
+		get => speed;
+		set => speed = value;
+	}
 
 	private void Start() {
 		if (path == null)
