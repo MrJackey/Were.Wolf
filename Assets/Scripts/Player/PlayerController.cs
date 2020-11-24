@@ -59,9 +59,6 @@ public class PlayerController : MonoBehaviour {
 	private float dashResetTimer = 0.5f;
 
 	public bool AllowControls { set => allowControls = value; }
-
-	public Collider2D GroundedCollider { set => groundedCollider = value; }
-
 	public bool IsGrounded => isGrounded;
 	public float JumpLength => jumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
