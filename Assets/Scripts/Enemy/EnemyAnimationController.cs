@@ -15,7 +15,7 @@ public class EnemyAnimationController : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (patrolling != null && patrolling.enabled)
+		if (patrolling != null)
 			animator.SetFloat(speedHash, Mathf.Abs(patrolling.Velocity.x) / baseSpeed);
 	}
 }
