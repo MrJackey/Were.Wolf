@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ObstacleSpike : MonoBehaviour {
-	public void OnCollisionEnter2D(Collision2D collision) {
-
-		if (collision.gameObject.CompareTag("Player")) {
+	public void OnCollisionEnter2D(Collision2D other) {
+		if (other.rigidbody.CompareTag("Player")) {
 			Scene currentScene = SceneManager.GetActiveScene();
 			SceneManager.LoadScene(currentScene.buildIndex);
 		}
