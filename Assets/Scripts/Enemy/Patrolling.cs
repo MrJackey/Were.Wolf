@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Patrolling : MonoBehaviour {
 	[SerializeField] private Transform point1 = null, point2 = null;
@@ -7,6 +8,12 @@ public class Patrolling : MonoBehaviour {
 
 	private float facing = 1;
 
+	public Vector2 Velocity { get; private set; }
+
+	private void OnDisable() {
+		Velocity = Vector2.zero;
+	}
+
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
 
@@ -14,7 +21,8 @@ public class Patrolling : MonoBehaviour {
 		Vector3 p1 = point1.position;
 		Vector3 p2 = point2.position;
 
-		position.x += facing * speed * Time.deltaTime;
+		Velocity = new Vector2(facing * speed, 0);
+		position.x += Velocity.x * Time.deltaTime;
 
 		if (facing > 0) {
 			if (position.x >= p2.x)
