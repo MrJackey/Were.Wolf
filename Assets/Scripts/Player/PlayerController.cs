@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private bool useSameCurve;
 	[SerializeField, EnableIf(nameof(useSameCurve), Not = true)]
 	private AnimationCurve airJumpCurve = null;
+	[SerializeField] private float coyoteDuration = 0.15f;
+
 
 	[Header("Dash")]
 	[SerializeField] private float dashSpeed = 10;
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour {
 	private int airJumpsUsed = 0;
 	private float airJumpEndTime;
 	private float jumpTimer = 0f;
+	private Coroutine coyoteRoutine = null;
 
 	private bool dashHeld = false;
 	private bool doDash = false;
@@ -156,14 +159,32 @@ public class PlayerController : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (groundedCollider.IsTouchingLayers(groundLayer)) {
-			isGrounded = true;
 			allowDashReset = true;
+			EndCoyote(true);
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		if (!groundedCollider.IsTouchingLayers(groundLayer))
-			isGrounded = false;
+		if (!groundedCollider.IsTouchingLayers(groundLayer)) {
+			if (coyoteRoutine != null)
+				StopCoroutine(coyoteRoutine);
+
+			coyoteRoutine = StartCoroutine(CoCoyoteDuration());
+		}
+	}
+
+	private IEnumerator CoCoyoteDuration() {
+		yield return new WaitForSeconds(coyoteDuration);
+
+		EndCoyote(false);
+	}
+
+	private void EndCoyote(bool newGrounded) {
+		if (coyoteRoutine != null)
+			StopCoroutine(coyoteRoutine);
+
+		coyoteRoutine = null;
+		isGrounded = newGrounded;
 	}
 
 	private void BeginJump(UnityEvent e) {
@@ -172,6 +193,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Jump(AnimationCurve curve, float endTime) {
+		isGrounded = false;
 		jumpTimer += Time.deltaTime;
 		float derivative =
 			(curve.Evaluate(jumpTimer + Time.deltaTime) -
