@@ -61,10 +61,7 @@ public class PlayerController : MonoBehaviour {
 	private float dashTimer = 0f;
 	private float dashResetTimer = 0.5f;
 
-	public bool HumanControls {
-		set => humanControls = value;
-	}
-
+	public bool HumanControls { set => humanControls = value; }
 	public bool AllowControls { set => allowControls = value; }
 	public bool IsGrounded => isGrounded;
 	public float JumpLength => jumpEndTime;
