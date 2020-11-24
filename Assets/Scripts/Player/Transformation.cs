@@ -4,7 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Transformation : MonoBehaviour {
+	[Header("Values")]
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
+
+	[Header("Colliders")]
+	[SerializeField] private GameObject wolfColliders;
+	[SerializeField] private Collider2D wolfGroundCollider;
+	[SerializeField] private GameObject humanColliders;
+	[SerializeField] private Collider2D humanGroundCollider;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart;
@@ -60,6 +67,7 @@ public class Transformation : MonoBehaviour {
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		state = newState;
+		UpdateHitboxes();
 		onTransformEnd.Invoke();
 	}
 
@@ -75,6 +83,19 @@ public class Transformation : MonoBehaviour {
 
 	public void TransformToWolf(float startTime = 0) {
 		StartCoroutine(CoTransforming(TransformationState.Wolf, startTime));
+	}
+
+	private void UpdateHitboxes() {
+		if (state == TransformationState.Wolf) {
+			wolfColliders.SetActive(true);
+			playerController.GroundedCollider = wolfGroundCollider;
+			humanColliders.SetActive(false);
+		}
+		else {
+			humanColliders.SetActive(true);
+			playerController.GroundedCollider = humanGroundCollider;
+			wolfColliders.SetActive(false);
+		}
 	}
 }
 
