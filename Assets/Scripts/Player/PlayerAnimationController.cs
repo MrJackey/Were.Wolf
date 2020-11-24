@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour {
 	private static readonly int jumpHash = Animator.StringToHash("jump");
@@ -15,17 +16,26 @@ public class PlayerAnimationController : MonoBehaviour {
 	private PlayerController playerController;
 	private Transformation transformation;
 
+	private void Awake() {
+		transformation = GetComponent<Transformation>();
+	}
+
 	private void Start() {
 		animator = GetComponent<Animator>();
 		rb2D = GetComponent<Rigidbody2D>();
 		playerController = GetComponent<PlayerController>();
-		transformation = GetComponent<Transformation>();
-
-		transformation.OnTransformInterrupt.AddListener(TransformInterrupt);
 	}
 
 	private void Update() {
 		animator.SetFloat(speedYHash, Mathf.Abs(rb2D.velocity.y));
+	}
+
+	private void OnEnable() {
+		transformation.OnTransformInterrupt.AddListener(TransformInterrupt);
+	}
+
+	private void OnDisable() {
+		transformation.OnTransformInterrupt.RemoveListener(TransformInterrupt);
 	}
 
 	public void JumpStart() {
