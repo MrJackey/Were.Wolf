@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour {
-	private static readonly int speedId = Animator.StringToHash("speed");
+	private static readonly int speedHash = Animator.StringToHash("speed");
 	private static readonly int isDashingHash = Animator.StringToHash("isDashing");
 
 	[Header("Constants")]
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour {
 				BeginDash(facing);
 		}
 
-		animator.SetFloat(speedId, Mathf.Abs(xInput));
+		animator.SetFloat(speedHash, Mathf.Abs(xInput));
 	}
 
 	private void FixedUpdate() {
