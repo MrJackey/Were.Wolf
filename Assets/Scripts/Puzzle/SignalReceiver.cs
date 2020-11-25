@@ -22,6 +22,8 @@ public class SignalReceiver : MonoBehaviour {
 
 	private void Start() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			emitter.OnActivationChange.AddListener(EmitterUpdate);
 		}
 	}
@@ -60,6 +62,8 @@ public class SignalReceiver : MonoBehaviour {
 	// All emitters must be active
 	private bool CheckAND() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			if (!emitter.IsActivated)
 				return false;
 		}
@@ -70,6 +74,8 @@ public class SignalReceiver : MonoBehaviour {
 	// One or more emitters must be active
 	private bool CheckOR() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			if (emitter.IsActivated)
 				return true;
 		}
@@ -80,6 +86,8 @@ public class SignalReceiver : MonoBehaviour {
 #if UNITY_EDITOR
 	private void OnDrawGizmos() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			Gizmos.color = emitter.IsActivated ? Color.green : Color.red;
 			Gizmos.DrawLine(emitter.transform.position, transform.position);
 		}
