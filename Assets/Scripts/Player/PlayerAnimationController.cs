@@ -10,20 +10,14 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	[SerializeField] private AnimationClip transformAnimation;
 	[SerializeField] private AnimationClip jumpAnimation;
+	[SerializeField] private Rigidbody2D rb2D;
+	[SerializeField] private PlayerController playerController;
+	[SerializeField] private Transformation transformation;
 
 	private Animator animator;
-	private Rigidbody2D rb2D;
-	private PlayerController playerController;
-	private Transformation transformation;
-
-	private void Awake() {
-		transformation = GetComponent<Transformation>();
-	}
 
 	private void Start() {
 		animator = GetComponent<Animator>();
-		rb2D = GetComponent<Rigidbody2D>();
-		playerController = GetComponent<PlayerController>();
 	}
 
 	private void Update() {
