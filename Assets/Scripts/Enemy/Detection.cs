@@ -9,7 +9,8 @@ public class Detection : MonoBehaviour {
 	[SerializeField, Range(1, 15)]
 	private int visionRayCount = 3;
 	[SerializeField] private LayerMask raycastLayers = -1;
-	[SerializeField] private bool restartOnDetection = true;
+	[Space]
+	[SerializeField] private float damagePerSecond;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onDetected;
@@ -17,19 +18,27 @@ public class Detection : MonoBehaviour {
 
 	private bool isPlayerVisible;
 	private float facing = 1;
+	private GameObject playerObject;
+	private Health playerHealth;
 
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
 
-		if (isPlayerVisible != (isPlayerVisible = CheckPlayerVisible())) {
-			if (isPlayerVisible)
-				OnDetected();
-			else
+		if (isPlayerVisible != (isPlayerVisible = CheckPlayerVisible(out playerObject))) {
+			if (isPlayerVisible) {
+				playerHealth = playerObject.GetComponent<Health>();
+				onDetected.Invoke();
+			}
+			else {
 				onLost.Invoke();
+			}
 		}
+
+		if (isPlayerVisible)
+			playerHealth.TakeDamage(damagePerSecond * Time.deltaTime);
 	}
 
-	private bool CheckPlayerVisible() {
+	private bool CheckPlayerVisible(out GameObject go) {
 		Vector2 eyePosition = transform.TransformPoint(eyeOffset);
 		Vector2 forward = transform.right * facing;
 		float angleStep = visionConeAngle / (visionRayCount - 1);
@@ -38,7 +47,7 @@ public class Detection : MonoBehaviour {
 			float angle = -visionConeAngle / 2f + angleStep * i;
 			Vector2 direction = MathX.Rotate(forward, angle * Mathf.Deg2Rad);
 
-			if (DoSingleRaycast(eyePosition, direction)) {
+			if (DoSingleRaycast(eyePosition, direction, out go)) {
 			#if UNITY_EDITOR
 				if (!Application.isPlaying) continue;
 			#endif
@@ -47,10 +56,11 @@ public class Detection : MonoBehaviour {
 			}
 		}
 
+		go = null;
 		return false;
 	}
 
-	private bool DoSingleRaycast(Vector2 origin, Vector2 direction) {
+	private bool DoSingleRaycast(Vector2 origin, Vector2 direction, out GameObject go) {
 		RaycastHit2D hit = Physics2D.Raycast(origin, direction, visionDistance, raycastLayers);
 
 	#if UNITY_EDITOR
@@ -60,17 +70,14 @@ public class Detection : MonoBehaviour {
 
 		if (hit.rigidbody != null && hit.rigidbody.CompareTag("Player")) {
 			Transformation transformation = hit.rigidbody.GetComponent<Transformation>();
-			if (transformation == null || transformation.State != TransformationState.Human)
+			if (transformation == null || transformation.State != TransformationState.Human) {
+				go = hit.rigidbody.gameObject;
 				return true;
+			}
 		}
 
+		go = null;
 		return false;
-	}
-
-	private void OnDetected() {
-		onDetected.Invoke();
-		if (restartOnDetection)
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	private void OnDrawGizmos() {
@@ -80,6 +87,6 @@ public class Detection : MonoBehaviour {
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(eyePosition, 0.2f);
 
-		CheckPlayerVisible();
+		CheckPlayerVisible(out _);
 	}
 }

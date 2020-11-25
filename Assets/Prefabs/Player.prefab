@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 930851542}
   - component: {fileID: 930851549}
   - component: {fileID: 3032012005023981314}
+  - component: {fileID: -8461988817279960560}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -235,6 +236,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  coyoteDuration: 0.15
   dashSpeed: 15
   dashDuration: 0.15
   dashCooldown: 0.5
@@ -437,8 +439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a331d4a4fc43aa9f9087475f98187c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
+  health: 30
+  maxHealth: 30
   invincible: 0
   dead: 0
   onTakeDamage:
@@ -449,4 +451,28 @@ MonoBehaviour:
       m_Calls: []
   onDie:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
+        m_TargetAssemblyTypeName: SceneHelper, Assembly-CSharp
+        m_MethodName: ReloadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-8461988817279960560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326305250810700147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4858c2e234894780a85f98b41201c122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
