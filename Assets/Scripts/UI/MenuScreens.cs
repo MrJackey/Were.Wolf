@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuScreens : MonoBehaviour {
+	[SerializeField, PropertySetter(nameof(IsVisible))]
+	private bool isVisible = true;
+
 	[SerializeField] private GameObject[] screens;
 
-	private Stack<int> stack = new Stack<int>();
+	private readonly Stack<int> stack = new Stack<int>();
 
 	public int CurrentIndex => stack.Peek();
 	public GameObject CurrentScreen => screens[stack.Peek()];
+
+	public bool IsVisible {
+		get => isVisible;
+		set {
+			isVisible = value;
+			CurrentScreen.SetActive(isVisible);
+		}
+	}
 
 	private void Start() {
 		if (screens.Length == 0)
 			Debug.LogError("No screens selected.");
 
-		screens[0].SetActive(true);
+		screens[0].SetActive(isVisible);
 		for (int i = 1; i < screens.Length; i++)
 			screens[i].SetActive(false);
 
@@ -33,7 +44,7 @@ public class MenuScreens : MonoBehaviour {
 
 	public void PushScreen(int index) {
 		screens[stack.Peek()].SetActive(false);
-		screens[index].SetActive(true);
+		screens[index].SetActive(isVisible);
 		stack.Push(index);
 	}
 
@@ -44,6 +55,6 @@ public class MenuScreens : MonoBehaviour {
 		}
 
 		screens[stack.Pop()].SetActive(false);
-		screens[stack.Peek()].SetActive(true);
+		screens[stack.Peek()].SetActive(isVisible);
 	}
 }
