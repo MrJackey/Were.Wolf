@@ -135,8 +135,6 @@ namespace PropertyDrawers {
 				EditorBuildSettingsScene[] buildScenes = EditorBuildSettings.scenes
 					.Append(new EditorBuildSettingsScene(sceneInfo.path, true)).ToArray();
 				EditorBuildSettings.scenes = buildScenes;
-
-				Debug.Log($"Added scene: '{sceneInfo.asset.name}' ({sceneInfo.path}) to build settings at build index: {buildScenes.Length - 1}.");
 			}
 		}
 
@@ -151,8 +149,6 @@ namespace PropertyDrawers {
 			if (index < buildScenes.Count && buildScenes[index].path == scene.path) {
 				buildScenes.RemoveAt(index);
 				EditorBuildSettings.scenes = buildScenes.ToArray();
-
-				Debug.Log($"Removed scene: '{scene.asset.name}' ({scene.path}) with build index: {index} from build settings.");
 			}
 		}
 
@@ -167,8 +163,6 @@ namespace PropertyDrawers {
 			if (index < buildScenes.Length && buildScenes[index].path == scene.path) {
 				buildScenes[index].enabled = !scene.enabled;
 				EditorBuildSettings.scenes = buildScenes;
-
-				Debug.Log($"{(buildScenes[index].enabled ? "Enabled" : "Disabled")} scene: '{scene.asset.name}' ({scene.path}) with build index: {index} in build settings.");
 			}
 		}
 
