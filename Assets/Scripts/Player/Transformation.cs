@@ -72,6 +72,7 @@ public class Transformation : MonoBehaviour {
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		state = newState;
+		playerController.HumanControls = state == TransformationState.Human;
 		onTransformEnd.Invoke();
 	}
 
