@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	[Header("Jumping")]
 	[SerializeField] private BoxCollider2D groundedCollider = null;
 	[SerializeField] private AnimationCurve jumpCurve = null;
+	[SerializeField] private AnimationCurve humanJumpCurve;
 	[SerializeField] private int airJumpsAllowed = 1;
 	[SerializeField] private bool useSameCurve;
 	[SerializeField, EnableIf(nameof(useSameCurve), Not = true)]
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour {
 
 	private bool doJump = false;
 	private float jumpEndTime;
+	private float humanJumpEndTime;
 	private bool doAirJump = false;
 	private int airJumpsUsed = 0;
 	private float airJumpEndTime;
@@ -61,10 +63,14 @@ public class PlayerController : MonoBehaviour {
 	private float dashTimer = 0f;
 	private float dashResetTimer = 0.5f;
 
-	public bool HumanControls { set => humanControls = value; }
+	public bool HumanControls {
+		get => humanControls;
+		set => humanControls = value;
+	}
 	public bool AllowControls { set => allowControls = value; }
 	public bool IsGrounded => isGrounded;
 	public float JumpLength => jumpEndTime;
+	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
 
 	private void Start() {
@@ -72,6 +78,7 @@ public class PlayerController : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
+		humanJumpEndTime = humanJumpCurve.keys[humanJumpCurve.length - 1].time;
 
 		if (useSameCurve)
 			airJumpCurve = jumpCurve;
@@ -136,8 +143,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		if (doJump)
-			Jump(jumpCurve, jumpEndTime);
+		if (doJump) {
+			AnimationCurve curve = humanControls ? humanJumpCurve : jumpCurve;
+			float endTime = humanControls ? humanJumpEndTime : jumpEndTime;
+			Jump(curve, endTime);
+		}
 		else if (doAirJump)
 			Jump(airJumpCurve, airJumpEndTime);
 
