@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 
 	[Header("Constants")]
 	[SerializeField] private float gravity = -9.82f;
+	[SerializeField] private Animator animator = null;
 
 	[Header("Movement")]
 	[SerializeField] private float acceleration = 25;
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float maxSpeed = 3;
 
 	[Header("Jumping")]
-	[SerializeField] private BoxCollider2D groundedCollider = null;
+	[SerializeField] private Collider2D groundedCollider = null;
 	[SerializeField] private AnimationCurve jumpCurve = null;
 	[SerializeField] private AnimationCurve humanJumpCurve;
 	[SerializeField] private int airJumpsAllowed = 1;
@@ -37,7 +38,6 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private UnityEvent onDash;
 
 	private Rigidbody2D rb2D;
-	private Animator animator;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 	private int facing = 1;
@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour {
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
-		animator = GetComponent<Animator>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
 		humanJumpEndTime = humanJumpCurve.keys[humanJumpCurve.length - 1].time;
