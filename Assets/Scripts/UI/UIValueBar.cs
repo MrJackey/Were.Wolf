@@ -22,11 +22,6 @@ public class UIValueBar : MonoBehaviour {
 		}
 	}
 
-	private void Start() {
-		RectTransform parent = (RectTransform)sliderMask.parent;
-		print(parent.sizeDelta);
-	}
-
 	private void OnValidate() {
 		value = Mathf.Clamp(value, 0, maxValue);
 		UpdateMaskSize();
