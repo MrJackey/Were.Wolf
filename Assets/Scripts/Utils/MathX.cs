@@ -19,16 +19,6 @@ public static class MathX {
 		                   sin * vec.x + cos * vec.y);
 	}
 
-	// public static Vector2 ClosestPointOnLineSegment(Vector2 point, Vector2 start, Vector2 end) {
-	// 	Vector2 direction = end - start;
-	// 	float length = direction.magnitude;
-	// 	direction /= length; // normalize
-	//
-	// 	float projectedLength = Vector2.Dot(point - start, direction);
-	// 	projectedLength = Mathf.Clamp(projectedLength, 0f, length);
-	// 	return start + direction * projectedLength;
-	// }
-
 	public static Vector2 ClosestPointOnLineSegment(Vector2 point, Vector2 start, Vector2 end) {
 		Vector2 direction = end - start;
 		float length = direction.magnitude;
