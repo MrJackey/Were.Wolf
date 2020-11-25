@@ -4,7 +4,17 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Transformation : MonoBehaviour {
+	[Header("Values")]
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
+
+	[Header("Colliders")]
+	[SerializeField] private BoxCollider2D hitCollider;
+	[SerializeField] private BoxCollider2D groundCollider;
+
+	[SerializeField] private BoxCollider2D wolfHitCollider;
+	[SerializeField] private BoxCollider2D wolfGroundCollider;
+	[SerializeField] private BoxCollider2D humanHitCollider;
+	[SerializeField] private BoxCollider2D humanGroundCollider;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart;
@@ -44,6 +54,8 @@ public class Transformation : MonoBehaviour {
 		onTransformStart.Invoke();
 
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
+			UpdateHitboxes(newState, transTimer / transDuration);
+
 			if (Input.GetButtonUp("Transformation") && oldState == TransformationState.Wolf) {
 				state = oldState;
 				onTransformInterrupt.Invoke(transTimer);
@@ -75,6 +87,23 @@ public class Transformation : MonoBehaviour {
 
 	public void TransformToWolf(float startTime = 0) {
 		StartCoroutine(CoTransforming(TransformationState.Wolf, startTime));
+	}
+
+	private void UpdateHitboxes(TransformationState newState, float transformationTime) {
+		Vector2 newHitSize;
+		Vector2 newGroundSize;
+
+		if (newState == TransformationState.Human) {
+			newHitSize = Vector2.Lerp(wolfHitCollider.size, humanHitCollider.size, transformationTime);
+			newGroundSize = Vector2.Lerp(wolfGroundCollider.size, humanGroundCollider.size, transformationTime);
+		}
+		else {
+			newHitSize = Vector2.Lerp(humanHitCollider.size, wolfHitCollider.size, transformationTime);
+			newGroundSize = Vector2.Lerp(humanGroundCollider.size, wolfGroundCollider.size, transformationTime);
+		}
+
+		hitCollider.size = newHitSize;
+		groundCollider.size = newGroundSize;
 	}
 }
 
