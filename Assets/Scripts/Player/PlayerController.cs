@@ -20,12 +20,12 @@ public class PlayerController : MonoBehaviour {
 	[Header("Jumping")]
 	[SerializeField] private Collider2D groundedCollider = null;
 	[SerializeField] private AnimationCurve jumpCurve = null;
+	[SerializeField] private AnimationCurve humanJumpCurve;
 	[SerializeField] private int airJumpsAllowed = 1;
 	[SerializeField] private bool useSameCurve;
 	[SerializeField, EnableIf(nameof(useSameCurve), Not = true)]
 	private AnimationCurve airJumpCurve = null;
 	[SerializeField] private float coyoteDuration = 0.15f;
-
 
 	[Header("Dash")]
 	[SerializeField] private float dashSpeed = 10;
@@ -43,11 +43,13 @@ public class PlayerController : MonoBehaviour {
 	private int facing = 1;
 
 	private bool allowControls = true;
+	private bool humanControls = false;
 	private bool doGravity = true;
 	private bool isGrounded = false;
 
 	private bool doJump = false;
 	private float jumpEndTime;
+	private float humanJumpEndTime;
 	private bool doAirJump = false;
 	private int airJumpsUsed = 0;
 	private float airJumpEndTime;
@@ -61,15 +63,21 @@ public class PlayerController : MonoBehaviour {
 	private float dashTimer = 0f;
 	private float dashResetTimer = 0.5f;
 
+	public bool HumanControls {
+		get => humanControls;
+		set => humanControls = value;
+	}
 	public bool AllowControls { set => allowControls = value; }
 	public bool IsGrounded => isGrounded;
 	public float JumpLength => jumpEndTime;
+	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
+		humanJumpEndTime = humanJumpCurve.keys[humanJumpCurve.length - 1].time;
 
 		if (useSameCurve)
 			airJumpCurve = jumpCurve;
@@ -111,30 +119,34 @@ public class PlayerController : MonoBehaviour {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
-		if (allowControls) {
-			if (Input.GetButtonDown("Jump")) {
-				if (isGrounded) {
-					BeginJump(onJump);
-					doJump = true;
-				}
-				else if (airJumpsUsed < airJumpsAllowed) {
-					BeginJump(onAirJump);
-					doJump = false;
-					airJumpsUsed++;
-					doAirJump = true;
-				}
-			}
+		animator.SetFloat(speedHash, Mathf.Abs(xInput));
 
-			if (CheckDashInput() && allowDash)
-				BeginDash(facing);
+		if (!allowControls)
+			return;
+
+		if (Input.GetButtonDown("Jump")) {
+			if (isGrounded) {
+				BeginJump(onJump);
+				doJump = true;
+			}
+			else if (!humanControls && airJumpsUsed < airJumpsAllowed) {
+				BeginJump(onAirJump);
+				doJump = false;
+				airJumpsUsed++;
+				doAirJump = true;
+			}
 		}
 
-		animator.SetFloat(speedHash, Mathf.Abs(xInput));
+		if (!humanControls && CheckDashInput() && allowDash)
+			BeginDash(facing);
 	}
 
 	private void FixedUpdate() {
-		if (doJump)
-			Jump(jumpCurve, jumpEndTime);
+		if (doJump) {
+			AnimationCurve curve = humanControls ? humanJumpCurve : jumpCurve;
+			float endTime = humanControls ? humanJumpEndTime : jumpEndTime;
+			Jump(curve, endTime);
+		}
 		else if (doAirJump)
 			Jump(airJumpCurve, airJumpEndTime);
 
