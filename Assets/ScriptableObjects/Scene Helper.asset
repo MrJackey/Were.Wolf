@@ -12,3 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96c006b23214215b52958199882dd4e, type: 3}
   m_Name: Scene Helper
   m_EditorClassIdentifier: 
+  menuScene:
+    buildIndex: 1
+    sceneAsset: {fileID: 102900000, guid: 6c14d2d2f616bd441abb6fefd13f8594, type: 3}
+  endScene:
+    buildIndex: 1
+    sceneAsset: {fileID: 102900000, guid: 6c14d2d2f616bd441abb6fefd13f8594, type: 3}
+  levels:
+  - buildIndex: 0
+    sceneAsset: {fileID: 102900000, guid: 0be46cde4288c064ebd4d0f9ecbbbc1b, type: 3}
