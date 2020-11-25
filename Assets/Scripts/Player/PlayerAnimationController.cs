@@ -10,6 +10,7 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	[SerializeField] private AnimationClip transformAnimation;
 	[SerializeField] private AnimationClip jumpAnimation;
+	[SerializeField] private AnimationClip humanJumpAnimation;
 
 	private Animator animator;
 	private Rigidbody2D rb2D;
@@ -39,7 +40,10 @@ public class PlayerAnimationController : MonoBehaviour {
 	}
 
 	public void JumpStart() {
-		animator.SetFloat(jumpSpeedHash, 1f / (playerController.JumpLength / jumpAnimation.length));
+		if (playerController.HumanControls)
+			animator.SetFloat(jumpSpeedHash, 1f / (playerController.HumanJumpLength / humanJumpAnimation.length));
+		else
+			animator.SetFloat(jumpSpeedHash, 1f / (playerController.JumpLength / jumpAnimation.length));
 		animator.SetTrigger(jumpHash);
 	}
 
