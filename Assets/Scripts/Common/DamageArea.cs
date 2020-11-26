@@ -11,6 +11,10 @@ public class DamageArea : MonoBehaviour {
 	[SerializeField] private float damage = 10;
 	[SerializeField] private float damageCooldown = 0;
 
+	[Header("Filters")]
+	[SerializeField] private LayerMask layerMask = -1;
+	[SerializeField] private bool ignoreTriggers = true;
+
 	private float cooldownTimer;
 
 	private void OnTriggerEnter2D(Collider2D other) => OnCollisionEvent(other, true);
@@ -25,6 +29,8 @@ public class DamageArea : MonoBehaviour {
 	private void OnCollisionEvent(Collider2D other, bool isEnter) {
 		if (isEnter != (mode == DamageMode.Single)) return;
 		if (cooldownTimer != 0) return;
+		if (ignoreTriggers && other.isTrigger) return;
+		if (layerMask != -1 && ((1 << other.gameObject.layer) & layerMask.value) == 0) return;
 
 		Health healthComponent = other.attachedRigidbody.GetComponent<Health>();
 		if (healthComponent != null) {

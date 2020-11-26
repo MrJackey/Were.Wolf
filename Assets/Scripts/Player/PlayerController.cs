@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private AnimationCurve humanJumpCurve;
 	[SerializeField] private int airJumpsAllowed = 1;
 	[SerializeField] private bool useSameCurve;
-	[SerializeField, EnableIf(nameof(useSameCurve), Not = true)]
+	[SerializeField, EnableIf(nameof(useSameCurve), Invert = true)]
 	private AnimationCurve airJumpCurve = null;
 	[SerializeField] private float coyoteDuration = 0.15f;
 	[SerializeField, Range(0, 1)] private float jumpCancel = 0.5f;
