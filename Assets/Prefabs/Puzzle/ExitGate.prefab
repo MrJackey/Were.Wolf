@@ -119,7 +119,8 @@ MonoBehaviour:
   isActivated: 1
   logicGate: 0
   invert: 0
-  emitters: []
+  emitters:
+  - {fileID: 0}
   onActivation:
     m_PersistentCalls:
       m_Calls:
