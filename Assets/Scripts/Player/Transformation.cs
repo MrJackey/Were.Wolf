@@ -4,15 +4,22 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Transformation : MonoBehaviour {
+	[Header("Values")]
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
+
+	[Header("Colliders")]
+	[SerializeField] private BoxCollider2D hitCollider;
+	[SerializeField] private BoxCollider2D groundCollider;
+
+	[SerializeField] private BoxCollider2D wolfHitCollider;
+	[SerializeField] private BoxCollider2D wolfGroundCollider;
+	[SerializeField] private BoxCollider2D humanHitCollider;
+	[SerializeField] private BoxCollider2D humanGroundCollider;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart;
-
-	[SerializeField] private UnityEvent onTransformInterrupt;
-
+	[SerializeField] private UnityEvent<float> onTransformInterrupt;
 	[SerializeField] private UnityEvent onTransformEnd;
-
 
 	private PlayerController playerController;
 	private TransformationState oldState;
@@ -21,7 +28,13 @@ public class Transformation : MonoBehaviour {
 	private Coroutine humanFormDurationCoroutine;
 
 	public TransformationState OldState => oldState;
-	public TransformationState State => state;
+
+	public TransformationState State {
+		get => state;
+		set => state = value;
+	}
+
+	public UnityEvent<float> OnTransformInterrupt => onTransformInterrupt;
 
 	public float TransformDuration => transDuration;
 
@@ -29,23 +42,23 @@ public class Transformation : MonoBehaviour {
 		playerController = GetComponent<PlayerController>();
 	}
 
-
 	private void Update() {
 		if (Input.GetButtonDown("Transformation") && playerController.IsGrounded && state == TransformationState.Wolf) {
 			TransformToHuman();
 		}
 	}
 
-
-	private IEnumerator CoTransforming(TransformationState newState) {
+	private IEnumerator CoTransforming(TransformationState newState, float startTime = 0) {
 		oldState = state;
 		state = TransformationState.Transforming;
 		onTransformStart.Invoke();
 
-		for (float transTimer = transDuration; transTimer > 0 ; transTimer -= Time.deltaTime) {
+		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
+			UpdateHitboxes(newState, transTimer / transDuration);
+
 			if (Input.GetButtonUp("Transformation") && oldState == TransformationState.Wolf) {
 				state = oldState;
-				onTransformInterrupt.Invoke();
+				onTransformInterrupt.Invoke(transTimer);
 
 				yield break;
 			}
@@ -59,9 +72,9 @@ public class Transformation : MonoBehaviour {
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		state = newState;
+		playerController.HumanControls = state == TransformationState.Human;
 		onTransformEnd.Invoke();
 	}
-
 
 	private IEnumerator CoHumanFormDuration() {
 		yield return new WaitForSeconds(humanFormDuration);
@@ -69,14 +82,29 @@ public class Transformation : MonoBehaviour {
 		StartCoroutine(CoTransforming(TransformationState.Wolf));
 	}
 
-
 	public void TransformToHuman() {
 		StartCoroutine(CoTransforming(TransformationState.Human));
 	}
 
+	public void TransformToWolf(float startTime = 0) {
+		StartCoroutine(CoTransforming(TransformationState.Wolf, startTime));
+	}
 
-	public void TransformToWolf() {
-		StartCoroutine(CoTransforming(TransformationState.Wolf));
+	private void UpdateHitboxes(TransformationState newState, float transformationTime) {
+		Vector2 newHitSize;
+		Vector2 newGroundSize;
+
+		if (newState == TransformationState.Human) {
+			newHitSize = Vector2.Lerp(wolfHitCollider.size, humanHitCollider.size, transformationTime);
+			newGroundSize = Vector2.Lerp(wolfGroundCollider.size, humanGroundCollider.size, transformationTime);
+		}
+		else {
+			newHitSize = Vector2.Lerp(humanHitCollider.size, wolfHitCollider.size, transformationTime);
+			newGroundSize = Vector2.Lerp(humanGroundCollider.size, wolfGroundCollider.size, transformationTime);
+		}
+
+		hitCollider.size = newHitSize;
+		groundCollider.size = newGroundSize;
 	}
 }
 

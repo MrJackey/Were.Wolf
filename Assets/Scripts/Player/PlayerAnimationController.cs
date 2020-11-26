@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System;
+using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour {
 	private static readonly int jumpHash = Animator.StringToHash("jump");
@@ -9,25 +10,34 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	[SerializeField] private AnimationClip transformAnimation;
 	[SerializeField] private AnimationClip jumpAnimation;
+	[SerializeField] private AnimationClip humanJumpAnimation;
+	[SerializeField] private Rigidbody2D rb2D;
+	[SerializeField] private PlayerController playerController;
+	[SerializeField] private Transformation transformation;
 
 	private Animator animator;
-	private Rigidbody2D rb2D;
-	private PlayerController playerController;
-	private Transformation transformation;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
-		rb2D = GetComponent<Rigidbody2D>();
-		playerController = GetComponent<PlayerController>();
-		transformation = GetComponent<Transformation>();
 	}
 
 	private void Update() {
 		animator.SetFloat(speedYHash, Mathf.Abs(rb2D.velocity.y));
 	}
 
+	private void OnEnable() {
+		transformation.OnTransformInterrupt.AddListener(TransformInterrupt);
+	}
+
+	private void OnDisable() {
+		transformation.OnTransformInterrupt.RemoveListener(TransformInterrupt);
+	}
+
 	public void JumpStart() {
-		animator.SetFloat(jumpSpeedHash, 1f / (playerController.JumpLength / jumpAnimation.length));
+		if (playerController.HumanControls)
+			animator.SetFloat(jumpSpeedHash, 1f / (playerController.HumanJumpLength / humanJumpAnimation.length));
+		else
+			animator.SetFloat(jumpSpeedHash, 1f / (playerController.JumpLength / jumpAnimation.length));
 		animator.SetTrigger(jumpHash);
 	}
 
@@ -41,7 +51,11 @@ public class PlayerAnimationController : MonoBehaviour {
 		animator.SetBool(isHumanHash, transformation.OldState != TransformationState.Human);
 	}
 
-	public void TransformInterrupt() {
-		animator.SetBool(isHumanHash, transformation.OldState == TransformationState.Human);
+	public void TransformInterrupt(float transformationDone) {
+		float timeRemaining = transformation.TransformDuration - transformationDone;
+		animator.Play("Human To Werewolf", 0, timeRemaining / transformation.TransformDuration);
+
+		transformation.State = TransformationState.Human;
+		transformation.TransformToWolf(timeRemaining);
 	}
 }
