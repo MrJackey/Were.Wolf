@@ -10,11 +10,15 @@ public class Transformation : MonoBehaviour {
 	[Header("Colliders")]
 	[SerializeField] private BoxCollider2D hitCollider;
 	[SerializeField] private BoxCollider2D groundCollider;
-
 	[SerializeField] private BoxCollider2D wolfHitCollider;
 	[SerializeField] private BoxCollider2D wolfGroundCollider;
 	[SerializeField] private BoxCollider2D humanHitCollider;
 	[SerializeField] private BoxCollider2D humanGroundCollider;
+
+	[Header("Particles")]
+	[SerializeField] private ParticleSystem transformParticle;
+	[SerializeField, Range(0, 1)] private float toWolfIndication = 0.75f;
+	[SerializeField] private float humanEmissionRate = 5f;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart;
@@ -24,8 +28,10 @@ public class Transformation : MonoBehaviour {
 	private PlayerController playerController;
 	private TransformationState oldState;
 	private TransformationState state;
-
 	private Coroutine humanFormDurationCoroutine;
+
+	private ParticleSystem particleEffect;
+	private float wolfEmissionRate;
 
 	public TransformationState OldState => oldState;
 
@@ -40,6 +46,9 @@ public class Transformation : MonoBehaviour {
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
+		particleEffect = Instantiate(transformParticle, transform);
+		wolfEmissionRate = particleEffect.emission.rateOverTime.constant;
+		particleEffect.Stop();
 	}
 
 	private void Update() {
@@ -51,6 +60,7 @@ public class Transformation : MonoBehaviour {
 	private IEnumerator CoTransforming(TransformationState newState, float startTime = 0) {
 		oldState = state;
 		state = TransformationState.Transforming;
+		PlayParticles();
 		onTransformStart.Invoke();
 
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
@@ -72,13 +82,26 @@ public class Transformation : MonoBehaviour {
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
 		}
 		state = newState;
+		playerController.HumanControls = state == TransformationState.Human;
+
+		particleEffect.Stop();
 		onTransformEnd.Invoke();
 	}
 
 	private IEnumerator CoHumanFormDuration() {
-		yield return new WaitForSeconds(humanFormDuration);
+		yield return new WaitForSeconds(humanFormDuration * toWolfIndication);
 
+		PlayParticles();
+
+		yield return new WaitForSeconds(humanFormDuration * (1 - toWolfIndication));
 		StartCoroutine(CoTransforming(TransformationState.Wolf));
+	}
+
+	private void PlayParticles() {
+		ParticleSystem.EmissionModule emission = particleEffect.emission;
+		float rate = state == TransformationState.Human ? humanEmissionRate : wolfEmissionRate;
+		emission.rateOverTime = rate;
+		particleEffect.Play();
 	}
 
 	public void TransformToHuman() {
