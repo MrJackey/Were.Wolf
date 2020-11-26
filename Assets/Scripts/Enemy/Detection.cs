@@ -9,6 +9,7 @@ public class Detection : MonoBehaviour {
 	[SerializeField, Range(1, 15)]
 	private int visionRayCount = 3;
 	[SerializeField] private LayerMask raycastLayers = -1;
+	[SerializeField] private GameObject detectionEffectPrefab;
 	[Space]
 	[SerializeField] private float damagePerSecond = 10;
 	[SerializeField] private float playerSpeedMultiplier = 0.5f;
@@ -19,6 +20,7 @@ public class Detection : MonoBehaviour {
 
 	private bool isPlayerVisible;
 	private float facing = 1;
+	private GameObject activeEffect;
 	private GameObject playerObject;
 	private Health playerHealth;
 
@@ -84,11 +86,17 @@ public class Detection : MonoBehaviour {
 
 	private void OnDetected() {
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
+		if (detectionEffectPrefab != null)
+			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
+
 		onDetected.Invoke();
 	}
 
 	private void OnLost() {
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = 1f;
+		if (activeEffect != null)
+			Destroy(activeEffect);
+
 		onLost.Invoke();
 	}
 
