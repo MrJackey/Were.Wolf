@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float acceleration = 25;
 	[SerializeField] private float deacceleration = 5;
 	[SerializeField] private float maxSpeed = 3;
+	[SerializeField] private float speedMultiplier = 1;
 
 	[Header("Jumping")]
 	[SerializeField] private Collider2D groundedCollider = null;
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour {
 	public float JumpLength => jumpEndTime;
 	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
+	public float SpeedMultiplier { set => speedMultiplier = value; }
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
@@ -172,7 +174,7 @@ public class PlayerController : MonoBehaviour {
 		if (doGravity)
 			velocity.y = rb2D.velocity.y + gravity * Time.deltaTime;
 
-		rb2D.velocity = velocity;
+		rb2D.velocity = velocity * new Vector2(speedMultiplier, doGravity ? 1 : speedMultiplier);
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
@@ -217,7 +219,7 @@ public class PlayerController : MonoBehaviour {
 			(curve.Evaluate(jumpTimer + Time.deltaTime) -
 			 curve.Evaluate(jumpTimer - Time.deltaTime)) / (2 * Time.deltaTime);
 
-		rb2D.velocity = new Vector2(velocity.x, derivative);
+		rb2D.velocity = new Vector2(velocity.x, derivative) * speedMultiplier;
 
 		if (jumpTimer >= endTime) {
 			doJump = false;
