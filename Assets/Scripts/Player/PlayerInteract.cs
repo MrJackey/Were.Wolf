@@ -32,7 +32,7 @@ public class PlayerInteract : MonoBehaviour {
 				else if (interactItem.CompareTag("Lever")) {
 					Lever lever = interactItem.GetComponent<Lever>();
 
-					if (lever.IsActivated == false) 
+					if (!lever.IsActivated) 
 						lever.Activate();
 					else
 						lever.Deactivate();

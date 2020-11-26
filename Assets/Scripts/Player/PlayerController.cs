@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour {
 	public float JumpLength => jumpEndTime;
 	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
-	
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
