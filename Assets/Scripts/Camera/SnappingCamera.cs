@@ -22,6 +22,12 @@ public class SnappingCamera : MonoBehaviour {
 	private Vector2 gridOrigin;
 	private Vector2 cellSize;
 
+	public Transform Target { set => target = value; }
+	public float TransitionDuration {
+		get => transitionDuration;
+		set => transitionDuration = value;
+	}
+
 	private void Start() {
 		camera = GetComponent<Camera>();
 		startPosition = transform.position;

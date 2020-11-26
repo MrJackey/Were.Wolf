@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine;
 
 public class SignalReceiver : MonoBehaviour {
+	[SerializeField] private bool isActivated;
 	[SerializeField] private LogicGate logicGate = LogicGate.AND;
 	[SerializeField] private bool invert = false;
 	[SerializeField] private SignalEmitter[] emitters;
@@ -13,8 +14,6 @@ public class SignalReceiver : MonoBehaviour {
 	[SerializeField] private UnityEvent onActivation;
 	[SerializeField] private UnityEvent onDeactivation;
 
-	private bool isActivated = false;
-
 	public bool IsActivated {
 		get => isActivated;
 		set => isActivated = value;
@@ -22,13 +21,18 @@ public class SignalReceiver : MonoBehaviour {
 
 	private void Start() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			emitter.OnActivationChange.AddListener(EmitterUpdate);
 		}
 	}
 
 #if UNITY_EDITOR
 	private void OnValidate() {
-		EmitterUpdate();
+		if (isActivated)
+			onActivation.Invoke();
+		else
+			onDeactivation.Invoke();
 	}
 #endif
 
@@ -60,6 +64,8 @@ public class SignalReceiver : MonoBehaviour {
 	// All emitters must be active
 	private bool CheckAND() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			if (!emitter.IsActivated)
 				return false;
 		}
@@ -70,6 +76,8 @@ public class SignalReceiver : MonoBehaviour {
 	// One or more emitters must be active
 	private bool CheckOR() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			if (emitter.IsActivated)
 				return true;
 		}
@@ -80,6 +88,8 @@ public class SignalReceiver : MonoBehaviour {
 #if UNITY_EDITOR
 	private void OnDrawGizmos() {
 		foreach (SignalEmitter emitter in emitters) {
+			if (emitter == null)
+				continue;
 			Gizmos.color = emitter.IsActivated ? Color.green : Color.red;
 			Gizmos.DrawLine(emitter.transform.position, transform.position);
 		}
