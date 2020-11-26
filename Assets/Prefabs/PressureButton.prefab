@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5777445939231663278}
   m_Layer: 8
   m_Name: PressureButton
-  m_TagString: Untagged
+  m_TagString: PressureButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   colliderUp: {fileID: 5777445939231663278}
-  colliderDown: {fileID: 1705544097}
   delayTimer: 0
   delayEnd: 0.2
   overlappingColliders: []
