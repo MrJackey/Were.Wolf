@@ -21,7 +21,7 @@ public class MenuScreens : MonoBehaviour {
 		}
 	}
 
-	private void Start() {
+	private void Awake() {
 		if (screens.Length == 0)
 			Debug.LogError("No screens selected.");
 
