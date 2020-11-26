@@ -233,6 +233,7 @@ MonoBehaviour:
   acceleration: 25
   deacceleration: 7
   maxSpeed: 5
+  speedMultiplier: 1
   groundedCollider: {fileID: 7474596574316978520}
   jumpCurve:
     serializedVersion: 2
@@ -309,6 +310,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   coyoteDuration: 0.15
+  jumpCancel: 0.5
   dashSpeed: 15
   dashDuration: 0.15
   dashCooldown: 0.5
@@ -365,8 +367,7 @@ MonoBehaviour:
   wolfGroundCollider: {fileID: 4334596839167390589}
   humanHitCollider: {fileID: 5145285823690266723}
   humanGroundCollider: {fileID: 5814764578376142764}
-  transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f,
-    type: 3}
+  transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f, type: 3}
   toWolfIndication: 0.75
   humanEmissionRate: 5
   onTransformStart:
@@ -612,7 +613,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -633,8 +634,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 2077700748546687264, guid: 4b5dbb9bf32965a4ba78012250753a4e,
-    type: 3}
+  m_Sprite: {fileID: 2077700748546687264, guid: 4b5dbb9bf32965a4ba78012250753a4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
