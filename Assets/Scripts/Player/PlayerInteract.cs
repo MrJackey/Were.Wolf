@@ -4,55 +4,62 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    //Trying to check if the player now can pick up a box, but it gives me a 
-    // NullReferenceException on row 42, saying that reference is not set to
-    // an instance of an object..
+	[SerializeField] private GameObject playerHand;
 
-    [SerializeField] private BoxCollider2D interactionTrigger;
-    [SerializeField] private GameObject playerHand;
-    private GameObject carryItem;
+	private PlayerHandDetection playerHandDetection;
+	private GameObject interactItem;
+	private GameObject heldBox;
 
-    private bool isItemInRange = false, isCarryingItem = false;
+	private bool isCarryingItem = false;
 
 
-    private void Update() {
-        if (Input.GetButtonDown("Interact")) {
-            if (isItemInRange && !isCarryingItem) {
-                PickUpItem();
-            }
-            else if (isCarryingItem) {
-                DropItem();
-            }
-        }
-    }
+	private void Start() {
+		playerHandDetection = playerHand.GetComponent<PlayerHandDetection>();
+	}
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.CompareTag("Box")) {
-            carryItem = collider.gameObject;
-            isItemInRange = true;
-        }
-    }
+	// Lever does not change animation-clip
+	private void Update() {
+		if (Input.GetButtonDown("Interact")) {
+			if (playerHandDetection.detectedInteractItem != null && !isCarryingItem) {
+				if (playerHandDetection.detectedInteractItem.name != "PressureButton") {
+					interactItem = playerHandDetection.detectedInteractItem;
 
-    private void OnTriggerExit2D(Collider2D collider) {
-        if (collider.CompareTag("Box")) {
-            isItemInRange = false;
-        }
-    }
+					if (interactItem.tag == "Box") {
+						PickUpItem();
+					}
+					else if (interactItem.tag == "Lever" && interactItem.GetComponent<Lever>().isActive == false) {
+						interactItem.GetComponent<Lever>().ActivateLever();
+					}
+					else if (interactItem.tag == "Lever" && interactItem.GetComponent<Lever>().isActive == true) {
+						interactItem.GetComponent<Lever>().DeactivateLever();
+					}
+				}
+			}
+			else if (isCarryingItem) {
+				DropItem();	
+				print("dropping item");
 
-    private void PickUpItem() {
-        isCarryingItem = true;
-        carryItem.GetComponent<Box>().boxCollider.enabled = false;
-        carryItem.GetComponent<Rigidbody2D>().isKinematic = true;
-        carryItem.transform.parent = playerHand.transform;
-        carryItem.transform.localPosition = Vector3.zero;
-        interactionTrigger.enabled = false;
-    }
+			}
+			
+			print(interactItem);
+		}
+	}
 
-    private void DropItem() {
-        isCarryingItem = false;
-        carryItem.GetComponent<Box>().boxCollider.enabled = true;
-        carryItem.GetComponent<Rigidbody2D>().isKinematic = false;
-        carryItem.transform.parent = null;
-        interactionTrigger.enabled = true;
-    }
+	private void PickUpItem() {
+		isCarryingItem = true;
+		interactItem.GetComponent<Box>().boxCollider.enabled = false;
+		interactItem.GetComponent<Rigidbody2D>().isKinematic = true;
+		interactItem.transform.parent = playerHand.transform;
+		interactItem.transform.localPosition = Vector3.zero;
+	}
+
+	private void DropItem() {
+		isCarryingItem = false;
+		interactItem.GetComponent<Box>().boxCollider.enabled = true;
+		interactItem.GetComponent<Rigidbody2D>().isKinematic = false;
+		heldBox = interactItem;
+		heldBox.transform.parent = null;
+		interactItem = null;
+		heldBox = null;
+	}
 }
