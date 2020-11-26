@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine;
 
 public class SignalReceiver : MonoBehaviour {
+	[SerializeField] private bool isActivated;
 	[SerializeField] private LogicGate logicGate = LogicGate.AND;
 	[SerializeField] private bool invert = false;
 	[SerializeField] private SignalEmitter[] emitters;
@@ -12,8 +13,6 @@ public class SignalReceiver : MonoBehaviour {
 	[Header("Events")]
 	[SerializeField] private UnityEvent onActivation;
 	[SerializeField] private UnityEvent onDeactivation;
-
-	private bool isActivated = false;
 
 	public bool IsActivated {
 		get => isActivated;
@@ -30,7 +29,10 @@ public class SignalReceiver : MonoBehaviour {
 
 #if UNITY_EDITOR
 	private void OnValidate() {
-		EmitterUpdate();
+		if (isActivated)
+			onActivation.Invoke();
+		else
+			onDeactivation.Invoke();
 	}
 #endif
 
