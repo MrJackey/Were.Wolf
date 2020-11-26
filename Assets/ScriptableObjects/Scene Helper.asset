@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Scene Helper
   m_EditorClassIdentifier: 
   menuScene:
-    buildIndex: 1
+    buildIndex: 0
     sceneAsset: {fileID: 102900000, guid: 6c14d2d2f616bd441abb6fefd13f8594, type: 3}
   endScene:
-    buildIndex: 1
+    buildIndex: 0
     sceneAsset: {fileID: 102900000, guid: 6c14d2d2f616bd441abb6fefd13f8594, type: 3}
   levels:
-  - buildIndex: 0
-    sceneAsset: {fileID: 102900000, guid: 0be46cde4288c064ebd4d0f9ecbbbc1b, type: 3}
+  - buildIndex: 1
+    sceneAsset: {fileID: 102900000, guid: 514687237b7d8b34c84f86f14e35644c, type: 3}
+  - buildIndex: 2
+    sceneAsset: {fileID: 102900000, guid: 30b21c1dfb92a7648a2cd54aa45d8a0c, type: 3}
