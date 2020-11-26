@@ -17,7 +17,7 @@ public class UIHealthSetter : MonoBehaviour {
 		}
 	}
 
-	private void Update() {
+	private void LateUpdate() {
 		if (playerHealth == null) return;
 
 		bar.Value = playerHealth.Value;

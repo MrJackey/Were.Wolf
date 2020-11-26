@@ -6,7 +6,7 @@ public class TitleScreen : MonoBehaviour {
 	[SerializeField] private GameObject anyKeyPrompt;
 
 	private void Update() {
-		if (Input.anyKey) {
+		if (Input.anyKeyDown) {
 			enabled = false;
 			anyKeyPrompt.SetActive(false);
 			mainMenu.IsVisible = true;
