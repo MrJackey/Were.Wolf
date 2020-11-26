@@ -8,7 +8,6 @@ public class Gate : SignalReceiver {
 
 	[Header("Gate")]
 	[SerializeField] private Animator animator;
-	[SerializeField] private bool isOpen;
 	[SerializeField] private bool panCamera;
 	[SerializeField] private float showDuration = 1f;
 	[SerializeField] private UnityEvent onEnter;
@@ -19,11 +18,6 @@ public class Gate : SignalReceiver {
 	private float cameraTransitionMultiplier = 0.10f;
 
 	private void Awake() {
-		if (isOpen) {
-			isOpen = false;
-			Toggle();
-		}
-
 		GameObject playerObj = GameObject.FindWithTag("Player");
 		player = playerObj.transform;
 		playerController = playerObj.GetComponent<PlayerController>();
@@ -31,12 +25,10 @@ public class Gate : SignalReceiver {
 	}
 
 	public void Toggle() {
-		isOpen = !isOpen;
-
 		if (panCamera && camera != null)
 			StartCoroutine(ShowEvent());
 		else
-			animator.SetBool(isOpenHash, isOpen);
+			animator.SetBool(isOpenHash, IsActivated);
 	}
 
 	private IEnumerator ShowEvent() {
@@ -48,7 +40,7 @@ public class Gate : SignalReceiver {
 		camera.Target = transform;
 
 		yield return new WaitForSeconds(newTransDur * 2f);
-		animator.SetBool(isOpenHash, isOpen);
+		animator.SetBool(isOpenHash, IsActivated);
 
 		yield return new WaitForSeconds(showDuration);
 		camera.Target = player.transform;
