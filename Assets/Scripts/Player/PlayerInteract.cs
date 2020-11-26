@@ -33,9 +33,9 @@ public class PlayerInteract : MonoBehaviour {
 					Lever lever = interactItem.GetComponent<Lever>();
 
 					if (lever.IsActivated == false) 
-						lever.ActivateLever();
+						lever.Activate();
 					else
-						lever.DeactivateLever();
+						lever.Deactivate();
 				}
 			}
 		}
