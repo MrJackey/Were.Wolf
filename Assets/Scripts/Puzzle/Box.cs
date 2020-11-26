@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Box : MonoBehaviour
-{
-   [SerializeField] public BoxCollider2D boxCollider;
+public class Box : MonoBehaviour {
+   public BoxCollider2D boxCollider;
 
    private Rigidbody2D rb2D;
 

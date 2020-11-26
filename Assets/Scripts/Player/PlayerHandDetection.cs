@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandDetection : MonoBehaviour
-{
+public class PlayerHandDetection : MonoBehaviour {
     public GameObject detectedInteractItem;
 
     public void OnTriggerStay2D(Collider2D collider) {
