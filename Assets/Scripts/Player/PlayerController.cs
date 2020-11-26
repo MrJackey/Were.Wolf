@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField, EnableIf(nameof(useSameCurve), Not = true)]
 	private AnimationCurve airJumpCurve = null;
 	[SerializeField] private float coyoteDuration = 0.15f;
+	[SerializeField, Range(0, 1)] private float jumpCancel = 0.5f;
+
 
 	[Header("Dash")]
 	[SerializeField] private float dashSpeed = 10;
@@ -123,6 +125,11 @@ public class PlayerController : MonoBehaviour {
 
 		if (!allowControls)
 			return;
+
+		if (Input.GetButtonUp("Jump") && (doJump || doAirJump)) {
+			InterruptJump();
+			rb2D.velocity = new Vector2(velocity.x, velocity.y * jumpCancel);
+		}
 
 		if (Input.GetButtonDown("Jump")) {
 			if (isGrounded) {
