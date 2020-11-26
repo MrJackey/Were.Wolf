@@ -10,11 +10,12 @@ public class Detection : MonoBehaviour {
 	private int visionRayCount = 3;
 	[SerializeField] private LayerMask raycastLayers = -1;
 	[Space]
-	[SerializeField] private float damagePerSecond;
+	[SerializeField] private float damagePerSecond = 10;
+	[SerializeField] private float playerSpeedMultiplier = 0.5f;
 
 	[Header("Events")]
-	[SerializeField] private UnityEvent onDetected;
-	[SerializeField] private UnityEvent onLost;
+	[SerializeField] private UnityEvent onDetected = null;
+	[SerializeField] private UnityEvent onLost = null;
 
 	private bool isPlayerVisible;
 	private float facing = 1;
@@ -24,13 +25,14 @@ public class Detection : MonoBehaviour {
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
 
-		if (isPlayerVisible != (isPlayerVisible = CheckPlayerVisible(out playerObject))) {
+		if (isPlayerVisible != (isPlayerVisible = CheckPlayerVisible(out GameObject go))) {
 			if (isPlayerVisible) {
+				playerObject = go;
 				playerHealth = playerObject.GetComponent<Health>();
-				onDetected.Invoke();
+				OnDetected();
 			}
 			else {
-				onLost.Invoke();
+				OnLost();
 			}
 		}
 
@@ -78,6 +80,16 @@ public class Detection : MonoBehaviour {
 
 		go = null;
 		return false;
+	}
+
+	private void OnDetected() {
+		playerObject.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
+		onDetected.Invoke();
+	}
+
+	private void OnLost() {
+		playerObject.GetComponent<PlayerController>().SpeedMultiplier = 1f;
+		onLost.Invoke();
 	}
 
 	private void OnDrawGizmos() {
