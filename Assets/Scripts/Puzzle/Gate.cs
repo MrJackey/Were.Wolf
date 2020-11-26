@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Gate : SignalReceiver {
 	private static readonly int isOpenHash = Animator.StringToHash("isOpen");
 
-	[SerializeField] private bool isOpen;
+	[Header("Gate")]
 	[SerializeField] private Animator animator;
+	[SerializeField] private bool isOpen;
 	[SerializeField] private bool panCamera;
 	[SerializeField] private float showDuration = 1f;
+	[SerializeField] private UnityEvent onEnter;
 
 	private new SnappingCamera camera;
 	private Transform player;
@@ -16,8 +19,10 @@ public class Gate : SignalReceiver {
 	private float cameraTransitionMultiplier = 0.10f;
 
 	private void Awake() {
-		if (isOpen)
-			Open();
+		if (isOpen) {
+			isOpen = false;
+			Toggle();
+		}
 
 		GameObject playerObj = GameObject.FindWithTag("Player");
 		player = playerObj.transform;
@@ -25,17 +30,8 @@ public class Gate : SignalReceiver {
 		camera = Camera.main.GetComponent<SnappingCamera>();
 	}
 
-	public void Open() {
-		isOpen = true;
-
-		if (panCamera && camera != null)
-			StartCoroutine(ShowEvent());
-		else
-			animator.SetBool(isOpenHash, isOpen);
-	}
-
-	public void Close() {
-		isOpen = false;
+	public void Toggle() {
+		isOpen = !isOpen;
 
 		if (panCamera && camera != null)
 			StartCoroutine(ShowEvent());
@@ -58,5 +54,11 @@ public class Gate : SignalReceiver {
 		camera.Target = player.transform;
 		camera.TransitionDuration = oldTransDur;
 		playerController.AllowControls = true;
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger) {
+			onEnter.Invoke();
+		}
 	}
 }

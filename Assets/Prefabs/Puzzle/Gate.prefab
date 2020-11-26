@@ -180,8 +180,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6077421675904292292}
-        m_TargetAssemblyTypeName: Door, Assembly-CSharp
-        m_MethodName: Open
+        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
+        m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -195,8 +195,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6077421675904292292}
-        m_TargetAssemblyTypeName: Door, Assembly-CSharp
-        m_MethodName: Close
+        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
+        m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -206,6 +206,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isOpen: 0
   animator: {fileID: 1868501750330856506}
+  isOpen: 0
   panCamera: 0
+  showDuration: 1
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
