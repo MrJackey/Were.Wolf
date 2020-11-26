@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1637389642820773747}
   - component: {fileID: 1439026896}
   m_Layer: 0
-  m_Name: Enemy Still
+  m_Name: Watcher Still
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +124,9 @@ MonoBehaviour:
   raycastLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  detectionEffectPrefab: {fileID: 7699973423790038968, guid: 515bdc3947a213140a5cb3d45f1ee466, type: 3}
   damagePerSecond: 10
+  playerSpeedMultiplier: 0.5
   onDetected:
     m_PersistentCalls:
       m_Calls: []
