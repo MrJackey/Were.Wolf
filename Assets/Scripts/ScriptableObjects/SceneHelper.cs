@@ -77,9 +77,10 @@ public class SceneHelper : ScriptableObject {
 	}
 
 	private int FindLevelByBuildIndex(int buildIndex) {
-		foreach (SceneReference scene in levels)
-			if (scene.BuildIndex == buildIndex)
-				return scene.BuildIndex;
+		for (int i = 0; i < levels.Length; i++) {
+			if (levels[i].BuildIndex == buildIndex)
+				return i;
+		}
 
 		return -1;
 	}
