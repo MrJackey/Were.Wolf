@@ -168,7 +168,6 @@ GameObject:
   - component: {fileID: 3326305250810700144}
   - component: {fileID: 1729414150543403562}
   - component: {fileID: 3032012005023981314}
-  - component: {fileID: 2745876643516178377}
   - component: {fileID: -2577431829083161899}
   m_Layer: 0
   m_Name: Player
@@ -366,7 +365,8 @@ MonoBehaviour:
   wolfGroundCollider: {fileID: 4334596839167390589}
   humanHitCollider: {fileID: 5145285823690266723}
   humanGroundCollider: {fileID: 5814764578376142764}
-  transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f, type: 3}
+  transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f,
+    type: 3}
   toWolfIndication: 0.75
   humanEmissionRate: 5
   onTransformStart:
@@ -463,18 +463,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2745876643516178377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3326305250810700147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4858c2e234894780a85f98b41201c122, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-2577431829083161899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,7 +633,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 2077700748546687264, guid: 4b5dbb9bf32965a4ba78012250753a4e, type: 3}
+  m_Sprite: {fileID: 2077700748546687264, guid: 4b5dbb9bf32965a4ba78012250753a4e,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

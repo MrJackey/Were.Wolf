@@ -17,6 +17,11 @@ public class Health : MonoBehaviour {
 		set => SetHealth(value);
 	}
 
+	public float MaxValue {
+		get => maxHealth;
+		set => maxHealth = value;
+	}
+
 	public float HealthFraction {
 		get => health / maxHealth;
 		set => Value = maxHealth * value;
