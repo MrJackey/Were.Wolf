@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float coyoteDuration = 0.15f;
 	[SerializeField, Range(0, 1)] private float jumpCancel = 0.5f;
 
-
 	[Header("Dash")]
 	[SerializeField] private float dashSpeed = 10;
 	[SerializeField] private float dashDuration = 10f;
@@ -39,6 +38,13 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private UnityEvent onJump;
 	[SerializeField] private UnityEvent onAirJump;
 	[SerializeField] private UnityEvent onDash;
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+	[Header("Debug")]
+	[SerializeField] private bool flying;
+	[SerializeField] private float flySpeed = 5f;
+	[SerializeField] private GameObject colliders;
+#endif
 
 	private Rigidbody2D rb2D;
 	private LayerMask groundLayer;
@@ -89,6 +95,23 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Update() {
+	#if UNITY_EDITOR || DEVELOPMENT_BUILD
+		if (Input.GetKeyDown(KeyCode.F1)) {
+			flying = !flying;
+			colliders.SetActive(!flying);
+			rb2D.isKinematic = flying;
+			rb2D.velocity = Vector2.zero;
+		}
+
+		if (flying) {
+			float x = Input.GetAxisRaw("Horizontal");
+			float y = Input.GetAxisRaw("Vertical");
+
+			transform.Translate(x * flySpeed * Time.deltaTime, y * flySpeed * Time.deltaTime, 0);
+			return;
+		}
+#endif
+
 		if (isGrounded) {
 			airJumpsUsed = 0;
 			if (allowDashReset) {
@@ -151,6 +174,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
+	#if UNITY_EDITOR || DEVELOPMENT_BUILD
+		if (flying)
+			return;
+	#endif
+
 		if (doJump) {
 			AnimationCurve curve = humanControls ? humanJumpCurve : jumpCurve;
 			float endTime = humanControls ? humanJumpEndTime : jumpEndTime;
