@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour {
 	#if UNITY_EDITOR || DEVELOPMENT_BUILD
 		if (Input.GetKeyDown(KeyCode.F1)) {
 			noClip = !noClip;
+			GetComponent<Health>().IsInvincible = noClip;
 			colliders.SetActive(!noClip);
 			rb2D.isKinematic = noClip;
 			rb2D.velocity = Vector2.zero;
