@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class PauseMenu : MonoBehaviour {
@@ -7,6 +8,15 @@ public class PauseMenu : MonoBehaviour {
 	[SerializeField] private UnityEvent onResume = null;
 
 	private bool isPaused;
+
+	private void OnEnable() {
+		if (isPaused)
+			Cursor.visible = true;
+	}
+
+	private void OnDisable() {
+		Cursor.visible = false;
+	}
 
 	private void Update() {
 		if (Input.GetButtonDown("Pause")) {
@@ -21,6 +31,7 @@ public class PauseMenu : MonoBehaviour {
 		if (isPaused) return;
 		isPaused = true;
 		Time.timeScale = 0;
+		Cursor.visible = true;
 		onPause.Invoke();
 	}
 
@@ -28,6 +39,7 @@ public class PauseMenu : MonoBehaviour {
 		if (!isPaused) return;
 		isPaused = false;
 		Time.timeScale = 1;
+		Cursor.visible = false;
 		onResume.Invoke();
 	}
 
