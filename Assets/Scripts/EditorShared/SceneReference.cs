@@ -1,7 +1,7 @@
 //
 // Author: Jonatan Johansson
-// Created: XX-XX-2018/19
-// Updated: 17-11-2020
+// Created: 2018/19-XX-XX
+// Updated: 2020-11-17
 //
 
 using System;
