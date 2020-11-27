@@ -15,6 +15,7 @@ MonoBehaviour:
   point1: {fileID: 0}
   point2: {fileID: 0}
   speed: 1
+  snapToLine: 0
 --- !u!1001 &4645306213849010953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1637389642820773746, guid: f33b3d8064a0908438feee5e4da80cb0, type: 3}
       propertyPath: m_Name
-      value: Enemy Patrolling
+      value: Watcher Patrolling
       objectReference: {fileID: 0}
     - target: {fileID: 1637389642820773747, guid: f33b3d8064a0908438feee5e4da80cb0, type: 3}
       propertyPath: onLost.m_PersistentCalls.m_Calls.Array.size
