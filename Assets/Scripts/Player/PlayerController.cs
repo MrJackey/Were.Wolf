@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour {
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 	[Header("Debug")]
-	[SerializeField] private bool flying;
-	[SerializeField] private float flySpeed = 5f;
+	[SerializeField] private bool noClip;
+	[SerializeField] private float noClipSpeed = 5f;
 	[SerializeField] private GameObject colliders;
 #endif
 
@@ -97,20 +97,20 @@ public class PlayerController : MonoBehaviour {
 	private void Update() {
 	#if UNITY_EDITOR || DEVELOPMENT_BUILD
 		if (Input.GetKeyDown(KeyCode.F1)) {
-			flying = !flying;
-			colliders.SetActive(!flying);
-			rb2D.isKinematic = flying;
+			noClip = !noClip;
+			colliders.SetActive(!noClip);
+			rb2D.isKinematic = noClip;
 			rb2D.velocity = Vector2.zero;
 		}
 
-		if (flying) {
+		if (noClip) {
 			float x = Input.GetAxisRaw("Horizontal");
 			float y = Input.GetAxisRaw("Vertical");
 
-			transform.Translate(x * flySpeed * Time.deltaTime, y * flySpeed * Time.deltaTime, 0);
+			transform.Translate(x * noClipSpeed * Time.deltaTime, y * noClipSpeed * Time.deltaTime, 0);
 			return;
 		}
-#endif
+	#endif
 
 		if (isGrounded) {
 			airJumpsUsed = 0;
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void FixedUpdate() {
 	#if UNITY_EDITOR || DEVELOPMENT_BUILD
-		if (flying)
+		if (noClip)
 			return;
 	#endif
 
