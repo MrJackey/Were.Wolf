@@ -23,10 +23,10 @@ public class TitleScreen : MonoBehaviour {
 	}
 
 	private static bool IsAnyButtonDown() {
-		return Keyboard.current.anyKey.wasPressedThisFrame ||
-		       Mouse.current.leftButton.wasPressedThisFrame ||
-		       Gamepad.current.allControls.Any(control => control is ButtonControl button &&
-		                                                  button.wasPressedThisFrame);
+		return Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame ||
+		       Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame ||
+		       Gamepad.current != null && Gamepad.current.allControls.Any(control => control is ButtonControl button &&
+		                                                                             button.wasPressedThisFrame);
 	}
 
 	private void Hide() {
