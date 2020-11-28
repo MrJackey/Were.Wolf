@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class Transformation : MonoBehaviour {
 	[Header("Values")]
@@ -33,6 +35,8 @@ public class Transformation : MonoBehaviour {
 	private ParticleSystem particleEffect;
 	private float wolfEmissionRate;
 
+	private bool transformInputDown, transformInputUp;
+
 	public TransformationState OldState => oldState;
 
 	public TransformationState State {
@@ -51,9 +55,18 @@ public class Transformation : MonoBehaviour {
 		particleEffect.Stop();
 	}
 
-	private void Update() {
-		if (Input.GetButtonDown("Transformation") && playerController.IsGrounded && state == TransformationState.Wolf) {
-			TransformToHuman();
+	private void LateUpdate() {
+		// Must be done in LateUpdate because it is used in a coroutine and they are resumed after Update.
+		transformInputUp = false;
+	}
+
+	public void OnTransform(InputAction.CallbackContext ctx) {
+		if (ctx.phase == InputActionPhase.Started) {
+			if (ctx.started && playerController.IsGrounded && state == TransformationState.Wolf)
+				TransformToHuman();
+		}
+		else if (ctx.phase == InputActionPhase.Canceled) {
+			transformInputUp = ctx.canceled;
 		}
 	}
 
@@ -66,7 +79,7 @@ public class Transformation : MonoBehaviour {
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
 			UpdateHitboxes(newState, transTimer / transDuration);
 
-			if (Input.GetButtonUp("Transformation") && oldState == TransformationState.Wolf) {
+			if (transformInputUp && oldState == TransformationState.Wolf) {
 				state = oldState;
 				onTransformInterrupt.Invoke(transTimer);
 

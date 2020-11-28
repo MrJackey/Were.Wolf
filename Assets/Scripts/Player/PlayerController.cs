@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
 	private static readonly int speedHash = Animator.StringToHash("speed");
@@ -65,12 +66,15 @@ public class PlayerController : MonoBehaviour {
 	private float jumpTimer = 0f;
 	private Coroutine coyoteRoutine = null;
 
-	private bool dashHeld = false;
 	private bool doDash = false;
 	private bool allowDash = true;
 	private bool allowDashReset = false;
 	private float dashTimer = 0f;
 	private float dashResetTimer = 0.5f;
+
+	private Vector2 moveInput;
+	private bool jumpInputDown, jumpInputUp;
+	private bool dashInputDown;
 
 	public bool HumanControls {
 		get => humanControls;
@@ -95,8 +99,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Update() {
+		UpdateMovement();
+
+		jumpInputDown = jumpInputUp = false;
+		dashInputDown = false;
+	}
+
+	private void UpdateMovement() {
 	#if UNITY_EDITOR || DEVELOPMENT_BUILD
-		if (Input.GetKeyDown(KeyCode.F1)) {
+		if (Keyboard.current.f1Key.wasPressedThisFrame) {
 			noClip = !noClip;
 			GetComponent<Health>().IsInvincible = noClip;
 			colliders.SetActive(!noClip);
@@ -105,8 +116,8 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (noClip) {
-			float x = Input.GetAxisRaw("Horizontal");
-			float y = Input.GetAxisRaw("Vertical");
+			float x = moveInput.x;
+			float y = moveInput.y;
 
 			transform.Translate(x * noClipSpeed * Time.deltaTime, y * noClipSpeed * Time.deltaTime, 0);
 			return;
@@ -121,7 +132,7 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		float xInput = allowControls ? Input.GetAxisRaw("Horizontal") : 0;
+		float xInput = allowControls ? moveInput.x : 0;
 		if (xInput > 0)
 			facing = 1;
 		else if (xInput < 0)
@@ -152,12 +163,12 @@ public class PlayerController : MonoBehaviour {
 		if (!allowControls)
 			return;
 
-		if (Input.GetButtonUp("Jump") && (doJump || doAirJump)) {
+		if (jumpInputUp && (doJump || doAirJump)) {
 			InterruptJump();
 			rb2D.velocity = new Vector2(velocity.x, velocity.y * jumpCancel);
 		}
 
-		if (Input.GetButtonDown("Jump")) {
+		if (jumpInputDown) {
 			if (isGrounded) {
 				BeginJump(onJump);
 				doJump = true;
@@ -170,7 +181,7 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		if (!humanControls && CheckDashInput() && allowDash)
+		if (!humanControls && dashInputDown && allowDash)
 			BeginDash(facing);
 	}
 
@@ -222,6 +233,22 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public void OnMove(InputAction.CallbackContext ctx) {
+		moveInput = ctx.ReadValue<Vector2>();
+	}
+
+	public void OnJump(InputAction.CallbackContext ctx) {
+		if (ctx.phase == InputActionPhase.Started)
+			jumpInputDown = ctx.started;
+		else if (ctx.phase == InputActionPhase.Canceled)
+			jumpInputUp = ctx.canceled;
+	}
+
+	public void OnDash(InputAction.CallbackContext ctx) {
+		if (ctx.phase == InputActionPhase.Started)
+			dashInputDown = ctx.started;
+	}
+
 	private IEnumerator CoCoyoteDuration() {
 		yield return new WaitForSeconds(coyoteDuration);
 
@@ -260,18 +287,6 @@ public class PlayerController : MonoBehaviour {
 		doJump = false;
 		doAirJump = false;
 		doGravity = true;
-	}
-
-	private bool CheckDashInput() {
-		if (Mathf.Abs(Input.GetAxisRaw("Dash")) > 0) {
-			bool oldState = dashHeld;
-
-			dashHeld = true;
-			return oldState == false;
-		}
-
-		dashHeld = false;
-		return false;
 	}
 
 	private void BeginDash(int direction) {

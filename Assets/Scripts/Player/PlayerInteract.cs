@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour {
 	[SerializeField] private GameObject playerHand;
@@ -16,29 +17,32 @@ public class PlayerInteract : MonoBehaviour {
 		playerHandDetection = playerHand.GetComponent<PlayerHandDetection>();
 	}
 
-	// Lever does not change animation-clip
-	private void Update() {
-		if (Input.GetButtonDown("Interact")) {
-			if (isCarryingItem) {
-				DropItem();	
+	public void OnInteract(InputAction.CallbackContext ctx) {
+		if (ctx.phase == InputActionPhase.Started && ctx.started)
+			OnInteractDown();
+	}
+
+	private void OnInteractDown() {
+		if (isCarryingItem) {
+			DropItem();
+		}
+		else if (playerHandDetection.detectedInteractItem != null) {
+
+			interactItem = playerHandDetection.detectedInteractItem;
+
+			if (interactItem.CompareTag("Box")) {
+				PickUpItem();
 			}
-			else if (playerHandDetection.detectedInteractItem != null) {
-				
-				interactItem = playerHandDetection.detectedInteractItem;
+			else if (interactItem.CompareTag("Lever")) {
+				Lever lever = interactItem.GetComponent<Lever>();
 
-				if (interactItem.CompareTag("Box")) {
-					PickUpItem();
-				}
-				else if (interactItem.CompareTag("Lever")) {
-					Lever lever = interactItem.GetComponent<Lever>();
-
-					if (!lever.IsActivated) 
-						lever.Activate();
-					else
-						lever.Deactivate();
-				}
+				if (!lever.IsActivated)
+					lever.Activate();
+				else
+					lever.Deactivate();
 			}
 		}
+
 	}
 
 	private void PickUpItem() {
