@@ -235,6 +235,11 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnMove(InputAction.CallbackContext ctx) {
 		moveInput = ctx.ReadValue<Vector2>();
+		// I had trouble setting up two separate axes for the move input so I'm doing a per axis deadzone check here to
+		// work around the fact that a 2D composite input shares its deadzone between both axes.
+		const float deadzone = 0.125f;
+		if (Mathf.Abs(moveInput.x) < deadzone) moveInput.x = 0;
+		if (Mathf.Abs(moveInput.y) < deadzone) moveInput.y = 0;
 	}
 
 	public void OnJump(InputAction.CallbackContext ctx) {
