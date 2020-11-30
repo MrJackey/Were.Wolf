@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	public void Pause() {
-		if (isPaused) return;
+		if (isPaused || Time.timeScale == 0) return;
 		isPaused = true;
 		Time.timeScale = 0;
 		Cursor.visible = true;
