@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,9 +13,10 @@ public class Gate : SignalReceiver {
 
 	private new SnappingCamera camera;
 	private float cameraTransitionDuration;
+	private float cameraTransitionMultiplier = 0.10f;
+	private Coroutine showRoutine;
 	private Transform player;
 	private PlayerController playerController;
-	private float cameraTransitionMultiplier = 0.10f;
 
 	private void Awake() {
 		GameObject playerObj = GameObject.FindWithTag("Player");
@@ -27,10 +27,14 @@ public class Gate : SignalReceiver {
 	}
 
 	public void Toggle() {
-		if (panCamera && camera != null)
+		if (panCamera && camera != null) {
+			if (showRoutine != null)
+				StopCoroutine(showRoutine);
 			StartCoroutine(ShowEvent());
-		else
+		}
+		else {
 			animator.SetBool(isOpenHash, IsActivated);
+		}
 	}
 
 	private IEnumerator ShowEvent() {
@@ -38,7 +42,7 @@ public class Gate : SignalReceiver {
 		Time.timeScale = 0;
 		float newTransitionDuration = cameraTransitionDuration *
 		                              cameraTransitionMultiplier *
-		                              Vector2.Distance(transform.position, player.transform.position);
+		                              Vector2.Distance(transform.position, player.position);
 
 		camera.TransitionDuration = newTransitionDuration;
 		camera.Target = transform;
@@ -53,6 +57,7 @@ public class Gate : SignalReceiver {
 		camera.TransitionDuration = cameraTransitionDuration;
 		playerController.AllowControls = true;
 		Time.timeScale = 1;
+		showRoutine = null;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
