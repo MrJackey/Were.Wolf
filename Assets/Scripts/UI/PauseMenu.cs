@@ -1,20 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour {
 	[SerializeField] private SceneHelper sceneHelper = null;
-	[SerializeField] private InputActionReference pauseAction = null;
+	[SerializeField] private InputActionReference pauseActionReference = null;
 	[SerializeField] private UnityEvent onPause = null;
 	[SerializeField] private UnityEvent onResume = null;
 
 	private bool isPaused;
 	private PlayerInput playerInput;
+	private InputAction pauseAction;
+
+	private void Awake() {
+		pauseAction = pauseActionReference.action.Clone();
+		pauseAction.Enable();
+	}
 
 	private void OnEnable() {
 		if (isPaused)
 			Cursor.visible = true;
-		pauseAction.action.started += OnPauseDown;
+		pauseAction.started += OnPauseDown;
 
 		GameObject player = GameObject.FindWithTag("Player");
 		if (player != null) playerInput = player.GetComponent<PlayerInput>();
@@ -22,7 +29,7 @@ public class PauseMenu : MonoBehaviour {
 
 	private void OnDisable() {
 		Cursor.visible = false;
-		pauseAction.action.started -= OnPauseDown;
+		pauseAction.started -= OnPauseDown;
 	}
 
 	private void OnPauseDown(InputAction.CallbackContext ctx) {
