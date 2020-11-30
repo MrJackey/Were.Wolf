@@ -13,6 +13,7 @@ public class Gate : SignalReceiver {
 	[SerializeField] private UnityEvent onEnter;
 
 	private new SnappingCamera camera;
+	private float cameraTransitionDuration;
 	private Transform player;
 	private PlayerController playerController;
 	private float cameraTransitionMultiplier = 0.10f;
@@ -22,6 +23,7 @@ public class Gate : SignalReceiver {
 		player = playerObj.transform;
 		playerController = playerObj.GetComponent<PlayerController>();
 		camera = Camera.main.GetComponent<SnappingCamera>();
+		cameraTransitionDuration = camera.TransitionDuration;
 	}
 
 	public void Toggle() {
@@ -33,19 +35,24 @@ public class Gate : SignalReceiver {
 
 	private IEnumerator ShowEvent() {
 		playerController.AllowControls = false;
-		float oldTransDur = camera.TransitionDuration;
-		float newTransDur = oldTransDur * cameraTransitionMultiplier * Vector2.Distance(transform.position, player.transform.position);
+		Time.timeScale = 0;
+		float newTransitionDuration = cameraTransitionDuration *
+		                              cameraTransitionMultiplier *
+		                              Vector2.Distance(transform.position, player.transform.position);
 
-		camera.TransitionDuration = newTransDur;
+		camera.TransitionDuration = newTransitionDuration;
 		camera.Target = transform;
 
-		yield return new WaitForSeconds(newTransDur * 2f);
+		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
 		animator.SetBool(isOpenHash, IsActivated);
 
-		yield return new WaitForSeconds(showDuration);
+		yield return new WaitForSecondsRealtime(showDuration);
 		camera.Target = player.transform;
-		camera.TransitionDuration = oldTransDur;
+
+		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
+		camera.TransitionDuration = cameraTransitionDuration;
 		playerController.AllowControls = true;
+		Time.timeScale = 1;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
