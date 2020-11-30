@@ -61,6 +61,8 @@ public class Transformation : MonoBehaviour {
 	}
 
 	public void OnTransform(InputAction.CallbackContext ctx) {
+		if (!playerController.AllowControls) return;
+
 		if (ctx.phase == InputActionPhase.Started) {
 			if (ctx.started && playerController.IsGrounded && state == TransformationState.Wolf)
 				TransformToHuman();

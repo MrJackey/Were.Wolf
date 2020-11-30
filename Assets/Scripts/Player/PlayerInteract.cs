@@ -7,6 +7,7 @@ public class PlayerInteract : MonoBehaviour {
 	[SerializeField] private GameObject playerHand;
 
 	private PlayerHandDetection playerHandDetection;
+	private PlayerController playerController;
 	private GameObject interactItem;
 	private GameObject carriedItem;
 
@@ -15,6 +16,7 @@ public class PlayerInteract : MonoBehaviour {
 
 	private void Start() {
 		playerHandDetection = playerHand.GetComponent<PlayerHandDetection>();
+		playerController = GetComponent<PlayerController>();
 	}
 
 	public void OnInteract(InputAction.CallbackContext ctx) {
@@ -23,6 +25,8 @@ public class PlayerInteract : MonoBehaviour {
 	}
 
 	private void OnInteractDown() {
+		if (!playerController.AllowControls) return;
+
 		if (isCarryingItem) {
 			DropItem();
 		}
