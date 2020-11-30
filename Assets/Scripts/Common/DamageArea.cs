@@ -57,8 +57,9 @@ public class DamageArea : MonoBehaviour {
 		Vector2 averageContact = new Vector2();
 		int num = 0;
 
-		foreach (ContactPoint2D contact in contacts) {
-			if (!contact.collider || contact.collider.gameObject != gameObject) continue;
+		for (int i = 0; i < contactCount; i++) {
+			ContactPoint2D contact = contacts[i];
+			if (contact.collider.gameObject != gameObject) continue;
 
 			averageContact += contact.point;
 			num++;
