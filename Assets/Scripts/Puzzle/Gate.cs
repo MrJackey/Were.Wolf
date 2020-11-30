@@ -14,7 +14,7 @@ public class Gate : SignalReceiver {
 	private new SnappingCamera camera;
 	private float cameraTransitionDuration;
 	private float cameraTransitionMultiplier = 0.10f;
-	private Coroutine showRoutine;
+	private bool isShowing;
 	private Transform player;
 	private PlayerController playerController;
 
@@ -27,17 +27,14 @@ public class Gate : SignalReceiver {
 	}
 
 	public void Toggle() {
-		if (panCamera && camera != null) {
-			if (showRoutine != null)
-				StopCoroutine(showRoutine);
+		if (panCamera && camera != null && !isShowing)
 			StartCoroutine(ShowEvent());
-		}
-		else {
+		else
 			animator.SetBool(isOpenHash, IsActivated);
-		}
 	}
 
 	private IEnumerator ShowEvent() {
+		isShowing = true;
 		playerController.AllowControls = false;
 		Time.timeScale = 0;
 		float newTransitionDuration = cameraTransitionDuration *
@@ -57,7 +54,7 @@ public class Gate : SignalReceiver {
 		camera.TransitionDuration = cameraTransitionDuration;
 		playerController.AllowControls = true;
 		Time.timeScale = 1;
-		showRoutine = null;
+		isShowing = false;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
