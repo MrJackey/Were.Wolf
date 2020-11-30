@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandDetection : MonoBehaviour {
-	public GameObject detectedInteractItem;
+	public Interactable detectedInteractItem;
 
 	public void OnTriggerStay2D(Collider2D collider) {
-		if (!collider.gameObject.CompareTag("PressureButton")) {
-			detectedInteractItem = collider.gameObject;
+		Interactable interactable = collider.GetComponent<Interactable>();
+		if (interactable != null) {
+			detectedInteractItem = interactable;
 		}
 	}
 
 	public void OnTriggerExit2D(Collider2D collider) {
-		detectedInteractItem = null;
+		if (collider.GetComponent<Interactable>() != null) {
+			detectedInteractItem = null;
+		}
 	}
 }
