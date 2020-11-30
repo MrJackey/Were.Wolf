@@ -606,14 +606,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a331d4a4fc43aa9f9087475f98187c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  maxHealth: 30
+  health: 3
+  maxHealth: 3
   invincible: 0
   dead: 0
   onTakeDamage:
     m_PersistentCalls:
       m_Calls: []
   onHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  onValueChange:
     m_PersistentCalls:
       m_Calls: []
   onDie:
