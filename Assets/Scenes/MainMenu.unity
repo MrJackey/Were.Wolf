@@ -734,6 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 1211794397}
+  rememberSelection: 0
   tryMakeSelectionVisible: 1
 --- !u!1 &351368241
 GameObject:
@@ -1053,6 +1054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 1288399212}
+  rememberSelection: 1
   tryMakeSelectionVisible: 1
 --- !u!224 &810925072 stripped
 RectTransform:
@@ -2545,6 +2547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 862297479}
+  rememberSelection: 0
   tryMakeSelectionVisible: 1
 --- !u!1 &1749216812
 GameObject:
