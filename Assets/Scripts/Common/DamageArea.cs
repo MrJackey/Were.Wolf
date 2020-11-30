@@ -45,23 +45,26 @@ public class DamageArea : MonoBehaviour {
 			Health health = healthComponent;
 			health.TakeDamage(isEnter ? damage : damage * Time.deltaTime);
 
-			if (!other.attachedRigidbody.CompareTag(effectTarget)) return;
-
-			other.GetContacts(contacts);
-			float xValue = 0f;
-			float yValue = 0f;
-			int i = 0;
-
-			foreach (ContactPoint2D contact in contacts) {
-				if (!contact.collider || contact.collider.gameObject != gameObject) continue;
-
-				xValue += contact.point.x;
-				yValue += contact.point.y;
-				i++;
-			}
-
-			if (i > 0)
-				onDamageEffect.Invoke(new Vector2(xValue / i, yValue / i));
+			if (other.attachedRigidbody.CompareTag(effectTarget))
+				DoDamageEffect(other);
 		}
+	}
+
+	private void DoDamageEffect(Collider2D other) {
+		int contactCount = other.GetContacts(contacts);
+		if (contactCount < 1) return;
+
+		Vector2 averageContact = new Vector2();
+		int num = 0;
+
+		foreach (ContactPoint2D contact in contacts) {
+			if (!contact.collider || contact.collider.gameObject != gameObject) continue;
+
+			averageContact += contact.point;
+			num++;
+		}
+
+		if (num > 0)
+			onDamageEffect.Invoke(averageContact / num);
 	}
 }
