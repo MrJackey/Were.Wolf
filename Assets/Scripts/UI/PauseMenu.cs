@@ -1,9 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour {
 	[SerializeField] private SceneHelper sceneHelper = null;
+	[SerializeField] private InputActionReference pauseAction;
 	[SerializeField] private UnityEvent onPause = null;
 	[SerializeField] private UnityEvent onResume = null;
 
@@ -12,19 +14,19 @@ public class PauseMenu : MonoBehaviour {
 	private void OnEnable() {
 		if (isPaused)
 			Cursor.visible = true;
+		pauseAction.action.started += OnPauseDown;
 	}
 
 	private void OnDisable() {
 		Cursor.visible = false;
+		pauseAction.action.started -= OnPauseDown;
 	}
 
-	private void Update() {
-		if (Input.GetButtonDown("Pause")) {
-			if (isPaused)
-				Resume();
-			else
-				Pause();
-		}
+	private void OnPauseDown(InputAction.CallbackContext ctx) {
+		if (isPaused)
+			Resume();
+		else
+			Pause();
 	}
 
 	public void Pause() {

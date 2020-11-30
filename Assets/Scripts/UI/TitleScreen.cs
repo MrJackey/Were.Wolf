@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class TitleScreen : MonoBehaviour {
 	private static bool hasShown;
 
-	[SerializeField] private MenuScreens mainMenu;
+	[SerializeField] private UnityEvent onDismiss;
 
 	private void Start() {
 		if (hasShown)
@@ -14,12 +18,19 @@ public class TitleScreen : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (Input.anyKeyDown)
+		if (IsAnyButtonDown())
 			Hide();
+	}
+
+	private static bool IsAnyButtonDown() {
+		return Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame ||
+		       Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame ||
+		       Gamepad.current != null && Gamepad.current.allControls.Any(control => control is ButtonControl button &&
+		                                                                             button.wasPressedThisFrame);
 	}
 
 	private void Hide() {
 		gameObject.SetActive(false);
-		mainMenu.IsVisible = true;
+		onDismiss.Invoke();
 	}
 }
