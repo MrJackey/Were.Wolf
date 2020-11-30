@@ -27,7 +27,7 @@ public class Gate : SignalReceiver {
 	public void Toggle() {
 		if (panCamera && camera != null)
 			StartCoroutine(ShowEvent());
-		else
+		else if (animator.isInitialized)
 			animator.SetBool(isOpenHash, IsActivated);
 	}
 
