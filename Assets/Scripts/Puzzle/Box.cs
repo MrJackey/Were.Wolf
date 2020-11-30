@@ -19,7 +19,7 @@ public class Box : MonoBehaviour {
 		boxTrigger = GetComponent<BoxCollider2D>();
 		carryable = GetComponent<Carryable>();
 		interactable = GetComponent<Interactable>();
-		rb2D.isKinematic = true;
+		rb2D.isKinematic = false;
 	}
 
 	private void OnEnable() {
@@ -40,7 +40,6 @@ public class Box : MonoBehaviour {
 	public void OnPickUp() {
 		boxCollider.enabled = false;
 		boxTrigger.enabled = false;
-
 	}
 
 	public void OnDrop() {

@@ -7,10 +7,12 @@ public class Lever : SignalEmitter {
 	[SerializeField] float timerEnd = 5f;
 
 	private Animator animator;
+	private Interactable interactable;
 	private float leverTimer, timerStart = 0f;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+		interactable = GetComponent<Interactable>();
 	}
 
 	private void Update() {
@@ -34,6 +36,13 @@ public class Lever : SignalEmitter {
 	public void Deactivate() {
 		animator.SetBool("Activation", false);
 		IsActivated = false;
+	}
+
+	public void ToggleActivation() {
+		if (!IsActivated) 
+			Activate();
+		else
+			Deactivate();
 	}
 }
 
