@@ -9,11 +9,15 @@ public class PauseMenu : MonoBehaviour {
 	[SerializeField] private UnityEvent onResume = null;
 
 	private bool isPaused;
+	private PlayerInput playerInput;
 
 	private void OnEnable() {
 		if (isPaused)
 			Cursor.visible = true;
 		pauseAction.action.started += OnPauseDown;
+
+		GameObject player = GameObject.FindWithTag("Player");
+		if (player != null) playerInput = player.GetComponent<PlayerInput>();
 	}
 
 	private void OnDisable() {
@@ -33,6 +37,9 @@ public class PauseMenu : MonoBehaviour {
 		isPaused = true;
 		Time.timeScale = 0;
 		Cursor.visible = true;
+		if (playerInput != null)
+			playerInput.DeactivateInput();
+
 		onPause.Invoke();
 	}
 
@@ -41,6 +48,9 @@ public class PauseMenu : MonoBehaviour {
 		isPaused = false;
 		Time.timeScale = 1;
 		Cursor.visible = false;
+		if (playerInput != null)
+			playerInput.ActivateInput();
+
 		onResume.Invoke();
 	}
 
