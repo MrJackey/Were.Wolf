@@ -269,7 +269,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 72ae132f2bc94464489b4288d302623d, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -734,6 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 1211794397}
+  tryMakeSelectionVisible: 1
 --- !u!1 &351368241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,6 +1053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 1288399212}
+  tryMakeSelectionVisible: 1
 --- !u!224 &810925072 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2878699261806142789, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
@@ -1256,7 +1258,7 @@ PrefabInstance:
     - target: {fileID: 8330336977738235090, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 23fc408d1fb988343a47418dc5a98160, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8330336977738235090, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
@@ -1405,7 +1407,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: f22fab7f722e1984284071e2243ea4d8, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1578,7 +1580,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: b7d318e1cfde0e042bfb084083b5e5d6, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1850,7 +1852,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: c1c3f0700f3cc4241bb664e4e154838c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -2138,7 +2140,7 @@ PrefabInstance:
     - target: {fileID: 8330336977738235090, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: cc14667d675d4a04cb301d568d17832f, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8330336977738235090, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 2
@@ -2377,6 +2379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 862297479}
+  tryMakeSelectionVisible: 1
 --- !u!1 &1749216812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,7 +2561,7 @@ PrefabInstance:
     - target: {fileID: 8330336977738235090, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: eb1fdb5a7cf0e6b42a07b55494791d9f, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8330336977738235090, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 3
@@ -2752,6 +2755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Button
       objectReference: {fileID: 0}
+    - target: {fileID: 8330336977738235090, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
 --- !u!224 &2024350470 stripped
@@ -2897,7 +2904,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 691a719c43f3699488063da52a33f8ac, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1

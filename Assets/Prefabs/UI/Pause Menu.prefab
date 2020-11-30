@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2214425848552848093}
   - component: {fileID: 2151187780287175833}
-  - component: {fileID: 5050034431238299650}
   m_Layer: 0
   m_Name: Pause Menu
   m_TagString: Untagged
@@ -78,19 +77,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5050034431238299650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681749284250892728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 930c972d6a8b4d7abdab764b2cdb64e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstSelected: {fileID: 2424638687552963060}
 --- !u!1 &1093151994163101212
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +238,7 @@ GameObject:
   - component: {fileID: 8755266446523400352}
   - component: {fileID: 4038770860685618918}
   - component: {fileID: 7926383701487210267}
+  - component: {fileID: 1183166329570081205}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -340,6 +327,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1183166329570081205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5768903702537290902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930c972d6a8b4d7abdab764b2cdb64e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSelected: {fileID: 2424638687552963060}
+  tryMakeSelectionVisible: 1
 --- !u!1 &7198338727139069191
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +544,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 292cffe3d7ebc6246b5329a8945ff5b6, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -722,7 +723,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: dcbefb8af27815942b7e484ae5c351e0, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -872,7 +873,7 @@ PrefabInstance:
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 825a75018524a9f43b0db22b101fc06e, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3052755847722125274, guid: e39fef15c5b284b44bffb8a3b3e46b1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
