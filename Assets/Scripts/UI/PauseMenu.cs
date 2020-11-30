@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour {
 	[SerializeField] private SceneHelper sceneHelper = null;
-	[SerializeField] private InputActionReference pauseAction;
+	[SerializeField] private InputActionReference pauseAction = null;
 	[SerializeField] private UnityEvent onPause = null;
 	[SerializeField] private UnityEvent onResume = null;
 

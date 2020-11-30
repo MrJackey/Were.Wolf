@@ -1085,6 +1085,7 @@ GameObject:
   - component: {fileID: 945869150}
   - component: {fileID: 945869152}
   - component: {fileID: 945869151}
+  - component: {fileID: 945869153}
   m_Layer: 5
   m_Name: Main Menu
   m_TagString: Untagged
@@ -1143,6 +1144,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cf8f3a1f4e2a34fbf77956af1ada06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &945869153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945869149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78166f998b504bf2bf3a53fbf171c2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Action
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 9f765fb1-edec-4670-ac25-6d54d5f682ca
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: -3256953014930577420, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
+  onStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 945869151}
+        m_TargetAssemblyTypeName: MenuScreens, Assembly-CSharp
+        m_MethodName: PopScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &977214921 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 240965546863943585, guid: c859d5f870142cd42ac2815f3d0c3dbf, type: 3}
@@ -2190,7 +2229,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!114 &1387519024
 MonoBehaviour:
