@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,39 +12,49 @@ public class Gate : SignalReceiver {
 	[SerializeField] private UnityEvent onEnter;
 
 	private new SnappingCamera camera;
+	private float cameraTransitionDuration;
+	private float cameraTransitionMultiplier = 0.10f;
+	private bool isShowing;
 	private Transform player;
 	private PlayerController playerController;
-	private float cameraTransitionMultiplier = 0.10f;
 
 	private void Awake() {
 		GameObject playerObj = GameObject.FindWithTag("Player");
 		player = playerObj.transform;
 		playerController = playerObj.GetComponent<PlayerController>();
 		camera = Camera.main.GetComponent<SnappingCamera>();
+		cameraTransitionDuration = camera.TransitionDuration;
 	}
 
 	public void Toggle() {
-		if (panCamera && camera != null)
+		if (panCamera && camera != null && !isShowing)
 			StartCoroutine(ShowEvent());
 		else if (animator.isInitialized)
 			animator.SetBool(isOpenHash, IsActivated);
 	}
 
 	private IEnumerator ShowEvent() {
+		isShowing = true;
 		playerController.AllowControls = false;
-		float oldTransDur = camera.TransitionDuration;
-		float newTransDur = oldTransDur * cameraTransitionMultiplier * Vector2.Distance(transform.position, player.transform.position);
+		Time.timeScale = 0;
+		float newTransitionDuration = cameraTransitionDuration *
+		                              cameraTransitionMultiplier *
+		                              Vector2.Distance(transform.position, player.position);
 
-		camera.TransitionDuration = newTransDur;
+		camera.TransitionDuration = newTransitionDuration;
 		camera.Target = transform;
 
-		yield return new WaitForSeconds(newTransDur * 2f);
+		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
 		animator.SetBool(isOpenHash, IsActivated);
 
-		yield return new WaitForSeconds(showDuration);
+		yield return new WaitForSecondsRealtime(showDuration);
 		camera.Target = player.transform;
-		camera.TransitionDuration = oldTransDur;
+
+		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
+		camera.TransitionDuration = cameraTransitionDuration;
 		playerController.AllowControls = true;
+		Time.timeScale = 1;
+		isShowing = false;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {

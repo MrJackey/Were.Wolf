@@ -80,7 +80,10 @@ public class PlayerController : MonoBehaviour {
 		get => humanControls;
 		set => humanControls = value;
 	}
-	public bool AllowControls { set => allowControls = value; }
+	public bool AllowControls {
+		get => allowControls;
+		set => allowControls = value;
+	}
 	public bool IsGrounded => isGrounded;
 	public float JumpLength => jumpEndTime;
 	public float HumanJumpLength => humanJumpEndTime;
