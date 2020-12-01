@@ -52,7 +52,8 @@ public class SnappingCamera : MonoBehaviour {
 
 		if (enableSmoothing) {
 			transform.position = Vector3.SmoothDamp(transform.position, targetCameraPosition,
-			                                        ref currentVelocity, transitionDuration);
+			                                        ref currentVelocity, transitionDuration,
+			                                        float.PositiveInfinity, Time.unscaledDeltaTime);
 		}
 		else {
 			transform.position = targetCameraPosition;
