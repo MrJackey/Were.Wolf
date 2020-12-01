@@ -8,24 +8,30 @@ using UnityEngine.InputSystem;
 public class Transformation : MonoBehaviour {
 	[Header("Values")]
 	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
+	[SerializeField, Range(0, 1)]
+	private float cancelThreshold = 0.5f;
+	[SerializeField] private int points = 3;
+	[SerializeField] private int maxPoints = 3;
 
 	[Header("Colliders")]
-	[SerializeField] private BoxCollider2D hitCollider;
-	[SerializeField] private BoxCollider2D groundCollider;
-	[SerializeField] private BoxCollider2D wolfHitCollider;
-	[SerializeField] private BoxCollider2D wolfGroundCollider;
-	[SerializeField] private BoxCollider2D humanHitCollider;
-	[SerializeField] private BoxCollider2D humanGroundCollider;
+	[SerializeField] private BoxCollider2D hitCollider = null;
+	[SerializeField] private BoxCollider2D groundCollider = null;
+	[SerializeField] private BoxCollider2D wolfHitCollider = null;
+	[SerializeField] private BoxCollider2D wolfGroundCollider = null;
+	[SerializeField] private BoxCollider2D humanHitCollider = null;
+	[SerializeField] private BoxCollider2D humanGroundCollider = null;
 
 	[Header("Particles")]
-	[SerializeField] private ParticleSystem transformParticle;
+	[SerializeField] private ParticleSystem transformParticle = null;
 	[SerializeField, Range(0, 1)] private float toWolfIndication = 0.75f;
 	[SerializeField] private float humanEmissionRate = 5f;
 
 	[Header("Events")]
-	[SerializeField] private UnityEvent onTransformStart;
-	[SerializeField] private UnityEvent<float> onTransformInterrupt;
-	[SerializeField] private UnityEvent onTransformEnd;
+	[SerializeField] private UnityEvent onTransformStart = null;
+	[SerializeField] private UnityEvent<float> onTransformInterrupt = null;
+	[SerializeField] private UnityEvent onTransformEnd = null;
+	[SerializeField] private UnityEvent onPointSpent = null;
+	[SerializeField] private UnityEvent onPointsChanged = null;
 
 	private PlayerController playerController;
 	private TransformationState oldState;
@@ -45,8 +51,24 @@ public class Transformation : MonoBehaviour {
 	}
 
 	public UnityEvent<float> OnTransformInterrupt => onTransformInterrupt;
+	public UnityEvent OnPointSpent => onPointSpent;
+	public UnityEvent OnPointsChanged => onPointsChanged;
 
 	public float TransformDuration => transDuration;
+
+	public int Points {
+		get => points;
+		set {
+			int newValue = Mathf.Clamp(value, 0, maxPoints);
+			if (points == newValue) return;
+
+			points = newValue;
+			onPointsChanged.Invoke();
+		}
+	}
+
+	public int MaxPoints => maxPoints;
+
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
@@ -64,7 +86,7 @@ public class Transformation : MonoBehaviour {
 		if (!playerController.AllowControls) return;
 
 		if (ctx.phase == InputActionPhase.Started) {
-			if (ctx.started && playerController.IsGrounded && state == TransformationState.Wolf)
+			if (ctx.started && playerController.IsGrounded && state == TransformationState.Wolf && points > 0)
 				TransformToHuman();
 		}
 		else if (ctx.phase == InputActionPhase.Canceled) {
@@ -81,7 +103,7 @@ public class Transformation : MonoBehaviour {
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
 			UpdateHitboxes(newState, transTimer / transDuration);
 
-			if (transformInputUp && oldState == TransformationState.Wolf) {
+			if (transformInputUp && oldState == TransformationState.Wolf && transTimer / transDuration < cancelThreshold) {
 				state = oldState;
 				onTransformInterrupt.Invoke(transTimer);
 
@@ -95,6 +117,12 @@ public class Transformation : MonoBehaviour {
 				StopCoroutine(humanFormDurationCoroutine);
 
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
+
+			if (points > 0) {
+				points -= 1;
+				onPointSpent.Invoke();
+				onPointsChanged.Invoke();
+			}
 		}
 		state = newState;
 		playerController.HumanControls = state == TransformationState.Human;
