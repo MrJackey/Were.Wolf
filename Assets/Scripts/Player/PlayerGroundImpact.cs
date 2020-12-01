@@ -11,12 +11,10 @@ public class PlayerGroundImpact : MonoBehaviour {
 	[SerializeField] private float maxImpactPower = 0.1f;
 	[SerializeField] private float impactDuration = 0.1f;
 
-	private PlayerController playerController;
 	private Transformation transformation;
 	private SnappingCamera snappingCamera;
 
 	private void Start() {
-		playerController = GetComponent<PlayerController>();
 		transformation = GetComponent<Transformation>();
 
 		Camera mainCamera = Camera.main;
@@ -25,25 +23,35 @@ public class PlayerGroundImpact : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter2D(Collision2D other) {
-		if (!playerController.IsGrounded || !groundLayerMask.IncludesLayer(other.gameObject.layer) || snappingCamera == null) return;
-		if (transformation.State == TransformationState.Wolf && other.relativeVelocity.y > minImpactVelocity) {
-			float power = MathX.EaseInQuad(minImpactPower, maxImpactPower,
-			                               Mathf.InverseLerp(0, maxImpactVelocity, other.relativeVelocity.y));
-			snappingCamera.Impact(Vector3.down, power, impactDuration);
+		if (!groundLayerMask.IncludesLayer(other.gameObject.layer) || snappingCamera == null ||
+			transformation.State != TransformationState.Wolf) return;
 
-			Vector2 effectPoint = GetAverageContact(other);
-			effectPoint.x = transform.position.x;
-			Instantiate(landingEffectPrefab, effectPoint, Quaternion.identity);
-		}
+		GetAverageContact(other, out Vector2 point, out Vector2 normal);
+		float impactVelocity = Vector2.Dot(other.relativeVelocity, normal);
+
+		if (impactVelocity >= minImpactVelocity)
+			OnImpact(point, normal, impactVelocity);
 	}
 
-	private static Vector2 GetAverageContact(Collision2D collision) {
-		Vector2 sum = default;
+	private void OnImpact(Vector2 point, Vector2 normal, float velocity) {
+		float power = MathX.EaseInQuad(minImpactPower, maxImpactPower,
+		                               Mathf.InverseLerp(0, maxImpactVelocity, velocity));
+		snappingCamera.Impact(-normal, power, impactDuration);
+
+		Instantiate(landingEffectPrefab, point, Quaternion.LookRotation(Vector3.forward, normal));
+	}
+
+	private static void GetAverageContact(Collision2D collision, out Vector2 point, out Vector2 normal) {
+		point = new Vector2();
+		normal = new Vector2();
 		for (int i = 0; i < collision.contactCount; i++) {
 			ContactPoint2D contact = collision.GetContact(i);
-			sum += contact.point;
+			point += contact.point;
+			normal += contact.normal;
 		}
 
-		return sum / collision.contactCount;
+		point /= collision.contactCount;
+		normal /= collision.contactCount;
+		normal.Normalize();
 	}
 }
