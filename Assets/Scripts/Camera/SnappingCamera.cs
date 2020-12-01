@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Camera))]
 public class SnappingCamera : MonoBehaviour {
@@ -12,9 +14,12 @@ public class SnappingCamera : MonoBehaviour {
 	private float transitionDuration = 0.15f;
 
 	[Header("Shake")]
-	[SerializeField] private AnimationCurve impactCurve;
-	[SerializeField] private float impactPower;
-	[SerializeField] private float impactDuration;
+	[SerializeField] private bool doShake = false;
+	[SerializeField] private float shakePower = 0.1f;
+	[Space]
+	[SerializeField] private AnimationCurve impactCurve = null;
+	[SerializeField] private float impactPower = 0.2f;
+	[SerializeField] private float impactDuration = 0.2f;
 
 #if UNITY_EDITOR
 	[Header("Grid")]
@@ -30,6 +35,7 @@ public class SnappingCamera : MonoBehaviour {
 	private Vector2 gridOrigin;
 	private Vector2 cellSize;
 
+	private Vector3 shakeOffset;
 	private Coroutine impactRoutine;
 
 	public Transform Target { set => target = value; }
@@ -72,6 +78,12 @@ public class SnappingCamera : MonoBehaviour {
 		else {
 			container.position = targetCameraPosition;
 		}
+
+		if (doShake)
+			ApplyShake();
+
+		transform.localPosition = shakeOffset;
+		shakeOffset = Vector3.zero;
 	}
 
 	private Vector3 CalculateTargetPosition() {
@@ -107,11 +119,15 @@ public class SnappingCamera : MonoBehaviour {
 
 	private IEnumerator CoImpact(Vector3 direction) {
 		for (float time = 0; time < impactDuration; time += Time.deltaTime) {
-			transform.localPosition = direction * (impactCurve.Evaluate(time / impactDuration * 2f) * impactPower);
+			shakeOffset = direction * (impactCurve.Evaluate(time / impactDuration * 2f) * impactPower);
 			yield return null;
 		}
 
-		transform.localPosition = Vector3.zero;
+		shakeOffset = Vector3.zero;
+	}
+
+	private void ApplyShake() {
+		shakeOffset += (Vector3)(Random.insideUnitCircle * shakePower);
 	}
 
 
