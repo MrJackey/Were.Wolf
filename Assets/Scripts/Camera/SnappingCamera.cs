@@ -15,14 +15,12 @@ public class SnappingCamera : MonoBehaviour {
 	private float transitionDuration = 0.15f;
 
 	[Header("Shake")]
+	[SerializeField] private AnimationCurve impactCurve = null;
+	[Space]
 	[SerializeField] private bool doShake = false;
 	[SerializeField] private float shakeFrequency = 1f;
 	[SerializeField] private float shakeAmplitude = 0.1f;
 	[SerializeField] private float shakeSeed = 2572f;
-	[Space]
-	[SerializeField] private AnimationCurve impactCurve = null;
-	[SerializeField] private float impactPower = 0.2f;
-	[SerializeField] private float impactDuration = 0.2f;
 
 #if UNITY_EDITOR
 	[Header("Grid")]
@@ -42,9 +40,25 @@ public class SnappingCamera : MonoBehaviour {
 	private Coroutine impactRoutine;
 
 	public Transform Target { set => target = value; }
+
 	public float TransitionDuration {
 		get => transitionDuration;
 		set => transitionDuration = value;
+	}
+
+	public bool DoShake {
+		get => doShake;
+		set => doShake = value;
+	}
+
+	public float ShakeFrequency {
+		get => shakeFrequency;
+		set => shakeFrequency = value;
+	}
+
+	public float ShakeAmplitude {
+		get => shakeAmplitude;
+		set => shakeAmplitude = value;
 	}
 
 	private void Start() {
@@ -111,18 +125,18 @@ public class SnappingCamera : MonoBehaviour {
 		return gridOrigin + point * cellSize;
 	}
 
-	public void Impact(Vector3 direction) {
+	public void Impact(Vector3 direction, float power, float duration) {
 		if (impactRoutine != null) {
 			StopCoroutine(impactRoutine);
 			transform.localPosition = Vector3.zero;
 		}
 
-		impactRoutine = StartCoroutine(CoImpact(direction));
+		impactRoutine = StartCoroutine(CoImpact(direction, power, duration));
 	}
 
-	private IEnumerator CoImpact(Vector3 direction) {
-		for (float time = 0; time < impactDuration; time += Time.deltaTime) {
-			shakeOffset = direction * (impactCurve.Evaluate(time / impactDuration * 2f) * impactPower);
+	private IEnumerator CoImpact(Vector3 direction, float power, float duration) {
+		for (float time = 0; time < duration; time += Time.deltaTime) {
+			shakeOffset = direction * (impactCurve.Evaluate(time / duration * 2f) * power);
 			yield return null;
 		}
 
