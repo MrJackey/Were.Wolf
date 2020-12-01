@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1299329085114494227}
   - component: {fileID: 822731389}
   - component: {fileID: 2674321443278132332}
+  - component: {fileID: 1516143960224075321}
   m_Layer: 0
   m_Name: Spike_Obstacle 1
   m_TagString: Spike
@@ -125,7 +126,24 @@ MonoBehaviour:
   mode: 0
   damage: 10
   damageCooldown: 1
+  onDamageDealt:
+    m_PersistentCalls:
+      m_Calls: []
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   ignoreTriggers: 1
+  effectTarget: Player
+--- !u!114 &1516143960224075321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416525691000973465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbeb977ea31e9614cb6c70eecdc06141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageEffect: {fileID: 3457770546930717862, guid: f04e1cc299f165947b9e307e9bb8ae74, type: 3}
