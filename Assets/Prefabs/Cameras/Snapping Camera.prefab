@@ -184,7 +184,9 @@ MonoBehaviour:
   enableSmoothing: 1
   transitionDuration: 0.15
   doShake: 0
-  shakePower: 0.1
+  shakeFrequency: 20
+  shakeAmplitude: 0.3
+  shakeSeed: 2572
   impactCurve:
     serializedVersion: 2
     m_Curve:

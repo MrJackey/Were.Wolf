@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -15,7 +16,9 @@ public class SnappingCamera : MonoBehaviour {
 
 	[Header("Shake")]
 	[SerializeField] private bool doShake = false;
-	[SerializeField] private float shakePower = 0.1f;
+	[SerializeField] private float shakeFrequency = 1f;
+	[SerializeField] private float shakeAmplitude = 0.1f;
+	[SerializeField] private float shakeSeed = 2572f;
 	[Space]
 	[SerializeField] private AnimationCurve impactCurve = null;
 	[SerializeField] private float impactPower = 0.2f;
@@ -127,7 +130,9 @@ public class SnappingCamera : MonoBehaviour {
 	}
 
 	private void ApplyShake() {
-		shakeOffset += (Vector3)(Random.insideUnitCircle * shakePower);
+		shakeOffset += new Vector3(
+			Mathf.PerlinNoise(Time.time * shakeFrequency, shakeSeed),
+			Mathf.PerlinNoise(Time.time * shakeFrequency, shakeSeed + 1), 0) * shakeAmplitude;
 	}
 
 
