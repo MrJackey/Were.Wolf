@@ -10,6 +10,7 @@ public class Health : MonoBehaviour {
 	[Header("Events")]
 	[SerializeField] private UnityEvent<float> onTakeDamage = null;
 	[SerializeField] private UnityEvent<float> onHeal = null;
+	[SerializeField] private UnityEvent onValueChange;
 	[SerializeField] private UnityEvent onDie = null;
 
 	public float Value {
@@ -41,6 +42,7 @@ public class Health : MonoBehaviour {
 
 	public UnityEvent<float> OnTakeDamage => onTakeDamage;
 	public UnityEvent<float> OnHeal => onHeal;
+	public UnityEvent OnValueChange => onValueChange;
 	public UnityEvent OnDie => onDie;
 
 
@@ -70,6 +72,7 @@ public class Health : MonoBehaviour {
 	public void RestoreHealth() {
 		health = maxHealth;
 		dead = false;
+		onValueChange.Invoke();
 	}
 
 	private float SetHealth(float value) {
@@ -78,6 +81,7 @@ public class Health : MonoBehaviour {
 
 		float oldValue = health;
 		health = newValue;
+		onValueChange.Invoke();
 		return oldValue - newValue;
 	}
 }

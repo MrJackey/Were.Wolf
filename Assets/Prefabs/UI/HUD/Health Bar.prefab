@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1834172263184537230}
   - component: {fileID: 1834172263184537217}
-  - component: {fileID: 720169762073146381}
   m_Layer: 5
   m_Name: Health Bar
   m_TagString: Untagged
@@ -52,20 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliderMask: {fileID: 1834172264711640821}
-  value: 1
-  maxValue: 1
---- !u!114 &720169762073146381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834172263184537231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4055d9caef904f2ba580e8616e02b2df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  foreground: {fileID: 1834172263252079457}
+  background: {fileID: 1834172263936284632}
+  value: 3
+  maxValue: 3
 --- !u!1 &1834172263252079470
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +90,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00012397766}
-  m_SizeDelta: {x: 56, y: 17}
+  m_SizeDelta: {x: 57, y: 17}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1834172263252079459
 CanvasRenderer:
@@ -131,8 +120,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d6a46ff8c70ca2f439e4e14c2a4aa812, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 878768257584323085, guid: 6db98b3e26cfd4544b0142f32e5372e5, type: 3}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -176,7 +165,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 56, y: 17}
+  m_SizeDelta: {x: 57, y: 17}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1834172263936284634
 CanvasRenderer:
@@ -206,8 +195,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b28d9aa5a5135e45b64314997adba94, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 1893537814612578923, guid: 6db98b3e26cfd4544b0142f32e5372e5, type: 3}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -251,7 +240,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -28, y: 8.5}
-  m_SizeDelta: {x: 56, y: 17}
+  m_SizeDelta: {x: 57, y: 17}
   m_Pivot: {x: 0, y: 1.0000001}
 --- !u!114 &1834172264711640820
 MonoBehaviour:

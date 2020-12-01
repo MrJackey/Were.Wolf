@@ -49,10 +49,7 @@ public class MenuScreens : MonoBehaviour {
 	}
 
 	public void PopScreen() {
-		if (stack.Count == 1) {
-			Debug.LogError("Attempt to pop the last menu off the stack.");
-			return;
-		}
+		if (stack.Count <= 1) return;
 
 		screens[stack.Pop()].SetActive(false);
 		screens[stack.Peek()].SetActive(isVisible);

@@ -520,6 +520,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transDuration: 1.2
   humanFormDuration: 5
+  cancelThreshold: 0.6
+  points: 3
+  maxPoints: 3
   hitCollider: {fileID: 7782289118800930667}
   groundCollider: {fileID: 7474596574316978520}
   wolfHitCollider: {fileID: 5583893865885023150}
@@ -586,6 +589,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  onPointSpent:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointsChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3032012005023981314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,14 +607,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a331d4a4fc43aa9f9087475f98187c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  maxHealth: 30
+  health: 3
+  maxHealth: 3
   invincible: 0
   dead: 0
   onTakeDamage:
     m_PersistentCalls:
       m_Calls: []
   onHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  onValueChange:
     m_PersistentCalls:
       m_Calls: []
   onDie:
