@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3929067696202153057}
   m_Layer: 0
   m_Name: Snapping Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 6618236969973645377}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,10 +183,6 @@ MonoBehaviour:
   target: {fileID: 0}
   enableSmoothing: 1
   transitionDuration: 0.15
-  doShake: 0
-  shakeFrequency: 20
-  shakeAmplitude: 0.3
-  shakeSeed: 2572
   impactCurve:
     serializedVersion: 2
     m_Curve:
@@ -211,8 +207,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 0
     m_RotationOrder: 4
-  impactPower: 0.2
-  impactDuration: 0.2
+  doShake: 0
+  shakeFrequency: 20
+  shakeAmplitude: 0.3
+  shakeSeed: 2572
   showGrid: 1
   gridColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   activeCellColor: {r: 0.2783019, g: 0.644799, b: 1, a: 1}
