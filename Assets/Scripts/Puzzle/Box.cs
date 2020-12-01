@@ -38,6 +38,7 @@ public class Box : MonoBehaviour {
 	}
 
 	public void OnPickUp() {
+		rb2D.isKinematic = true;
 		boxCollider.enabled = false;
 		boxTrigger.enabled = false;
 	}
@@ -46,10 +47,6 @@ public class Box : MonoBehaviour {
 		rb2D.isKinematic = false;
 		boxCollider.enabled = true;
 		boxTrigger.enabled = true;
-	}
-
-	private void OnCollisionEnter2D(Collision2D other) {
-		rb2D.isKinematic = true;
 	}
 
 	private void Interact(GameObject player) {

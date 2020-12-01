@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandDetection : MonoBehaviour {
-	public Interactable detectedInteractItem;
+	private Interactable detectedInteractItem;
+	public Interactable DetectedInteractItem => detectedInteractItem;
 
 	public void OnTriggerStay2D(Collider2D collider) {
 		Interactable interactable = collider.GetComponent<Interactable>();

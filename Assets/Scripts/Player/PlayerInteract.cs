@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerInteract : MonoBehaviour {
 	[SerializeField] private PlayerHandDetection playerHandDetection;
 	private PlayerCarrying playerCarrying;
-	private Interactable interactItem;
 	
 	private void Start() {
 		playerCarrying = GetComponent<PlayerCarrying>();
@@ -18,12 +17,9 @@ public class PlayerInteract : MonoBehaviour {
 	}
 
 	private void OnInteractDown() {
-		if (playerCarrying.IsCarryingItem) {
+		if (playerCarrying.IsCarryingItem)
 			playerCarrying.DropItem();
-		}
-		else if (playerHandDetection.detectedInteractItem != null) {
-			interactItem = playerHandDetection.detectedInteractItem;
-			interactItem.Interact(gameObject);
-		}
+		else if (playerHandDetection.DetectedInteractItem != null)
+			playerHandDetection.DetectedInteractItem.Interact(gameObject);
 	}
 }
