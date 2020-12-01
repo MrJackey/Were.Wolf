@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 
 public class Transformation : MonoBehaviour {
 	[Header("Values")]
-	[SerializeField] private float transDuration = 1.2f, humanFormDuration = 5f;
+	[SerializeField] private float transDuration = 1.2f;
+	[SerializeField] private float humanFormDuration = 5f;
 	[SerializeField, Range(0, 1)]
 	private float cancelThreshold = 0.5f;
 	[SerializeField] private int points = 3;
@@ -83,11 +84,12 @@ public class Transformation : MonoBehaviour {
 	}
 
 	public void OnTransform(InputAction.CallbackContext ctx) {
-		if (!playerController.AllowControls) return;
-
 		if (ctx.phase == InputActionPhase.Started) {
-			if (ctx.started && playerController.IsGrounded && state == TransformationState.Wolf && points > 0)
-				TransformToHuman();
+			if (ctx.started &&
+				playerController.AllowControls &&
+				playerController.IsGrounded &&
+				state == TransformationState.Wolf &&
+				points > 0) TransformToHuman();
 		}
 		else if (ctx.phase == InputActionPhase.Canceled) {
 			transformInputUp = ctx.canceled;
