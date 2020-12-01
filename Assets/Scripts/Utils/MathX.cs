@@ -19,6 +19,10 @@ public static class MathX {
 		                   sin * vec.x + cos * vec.y);
 	}
 
+	public static float Remap(float value, float min1, float max1, float min2, float max2) {
+		return (value - min2) * (max2 - min2) / (max1 - min1) + min2;
+	}
+
 	public static Vector2 ClosestPointOnLineSegment(Vector2 point, Vector2 start, Vector2 end) {
 		Vector2 direction = end - start;
 		float length = direction.magnitude;
