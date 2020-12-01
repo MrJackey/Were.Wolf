@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneHelper: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
-  pauseAction: {fileID: 6930437027528140299, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
+  pauseActionReference: {fileID: 6930437027528140299, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
   onPause:
     m_PersistentCalls:
       m_Calls:
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!1 &5477086034318850434
 GameObject:
@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 4038770860685618918}
   - component: {fileID: 7926383701487210267}
   - component: {fileID: 1183166329570081205}
+  - component: {fileID: 1386871290997620445}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -340,7 +341,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 2424638687552963060}
+  rememberSelection: 0
   tryMakeSelectionVisible: 1
+--- !u!114 &1386871290997620445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5768903702537290902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78166f998b504bf2bf3a53fbf171c2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Action
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b8e97b8a-6c1c-4f9d-b715-97e5d8a4a6fd
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 6cd4d4d1-cec6-4d63-97dd-73fde6cc49ca
+        m_Path: <Gamepad>/buttonEast
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Action
+        m_Flags: 0
+    m_Reference: {fileID: 0}
+  onStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2151187780287175833}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7198338727139069191
 GameObject:
   m_ObjectHideFlags: 0

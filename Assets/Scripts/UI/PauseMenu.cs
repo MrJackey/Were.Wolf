@@ -5,21 +5,31 @@ using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour {
 	[SerializeField] private SceneHelper sceneHelper = null;
-	[SerializeField] private InputActionReference pauseAction;
+	[SerializeField] private InputActionReference pauseActionReference = null;
 	[SerializeField] private UnityEvent onPause = null;
 	[SerializeField] private UnityEvent onResume = null;
 
 	private bool isPaused;
+	private PlayerInput playerInput;
+	private InputAction pauseAction;
+
+	private void Awake() {
+		pauseAction = pauseActionReference.action.Clone();
+		pauseAction.Enable();
+	}
 
 	private void OnEnable() {
 		if (isPaused)
 			Cursor.visible = true;
-		pauseAction.action.started += OnPauseDown;
+		pauseAction.started += OnPauseDown;
+
+		GameObject player = GameObject.FindWithTag("Player");
+		if (player != null) playerInput = player.GetComponent<PlayerInput>();
 	}
 
 	private void OnDisable() {
 		Cursor.visible = false;
-		pauseAction.action.started -= OnPauseDown;
+		pauseAction.started -= OnPauseDown;
 	}
 
 	private void OnPauseDown(InputAction.CallbackContext ctx) {
@@ -34,6 +44,9 @@ public class PauseMenu : MonoBehaviour {
 		isPaused = true;
 		Time.timeScale = 0;
 		Cursor.visible = true;
+		if (playerInput != null)
+			playerInput.DeactivateInput();
+
 		onPause.Invoke();
 	}
 
@@ -42,6 +55,9 @@ public class PauseMenu : MonoBehaviour {
 		isPaused = false;
 		Time.timeScale = 1;
 		Cursor.visible = false;
+		if (playerInput != null)
+			playerInput.ActivateInput();
+
 		onResume.Invoke();
 	}
 

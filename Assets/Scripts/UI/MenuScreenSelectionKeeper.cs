@@ -4,13 +4,14 @@ using UnityEngine.EventSystems;
 
 public class MenuScreenSelectionKeeper : MonoBehaviour {
 	[SerializeField] private GameObject firstSelected = null;
+	[SerializeField] private bool rememberSelection = true;
 	[SerializeField] private bool tryMakeSelectionVisible = false;
 
 	private GameObject currentSelected;
 
 	private void OnEnable() {
 		EventSystem eventSystem = EventSystem.current;
-		eventSystem.SetSelectedGameObject(currentSelected == null ? firstSelected : currentSelected);
+		eventSystem.SetSelectedGameObject(!rememberSelection || currentSelected == null ? firstSelected : currentSelected);
 
 		if (tryMakeSelectionVisible && eventSystem.currentSelectedGameObject != null)
 			StartCoroutine(CoNudgeSelection(eventSystem.currentSelectedGameObject));
