@@ -661,10 +661,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480c4c05f1ad40debc664f0d89597f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  landingEffectPrefab: {fileID: 1348722978759591406, guid: 748d31a99eaa03448a04f8067f4e1a9e, type: 3}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  minImpactVelocity: 8
+  minImpactVelocity: 5
   maxImpactVelocity: 15
   minImpactPower: 0
   maxImpactPower: 0.1

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1348722978759591379}
   - component: {fileID: 1348722978759591404}
   - component: {fileID: 1348722978759591405}
+  - component: {fileID: 8103034119556887061}
   m_Layer: 0
   m_Name: Landing Particle System
   m_TagString: Untagged
@@ -4870,3 +4871,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &8103034119556887061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348722978759591406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4479edb08af4014fbc519b185af19a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
