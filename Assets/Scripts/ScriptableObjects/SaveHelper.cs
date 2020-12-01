@@ -12,7 +12,7 @@ public class SaveHelper : ScriptableObject {
 	}
 
 	public void MarkLevelCompleted(int levelIndex) {
-		SaveManager.Instance.Data.currentLevel = Mathf.Max(SaveManager.Instance.Data.currentLevel, levelIndex);
+		SaveManager.Instance.Data.completedLevel = Mathf.Max(SaveManager.Instance.Data.completedLevel, levelIndex);
 		SaveManager.Instance.Save();
 	}
 }

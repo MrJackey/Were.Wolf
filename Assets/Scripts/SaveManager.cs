@@ -12,7 +12,6 @@ public class SaveManager : MonoBehaviour {
 	public static SaveManager Instance { get; private set; }
 
 	private void Awake() {
-		Debug.Log("awake");
 		saveFile = Path.Combine(Application.persistentDataPath, "save.json");
 
 		Instance = this;
@@ -81,6 +80,6 @@ public class SaveManager : MonoBehaviour {
 
 	[Serializable]
 	public class SaveData {
-		public int currentLevel;
+		public int completedLevel;
 	}
 }
