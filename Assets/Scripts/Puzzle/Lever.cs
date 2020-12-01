@@ -22,6 +22,13 @@ public class Lever : SignalEmitter {
 		}
 	}
 
+	public void ToggleActivation() {
+		if (!IsActivated) 
+			Activate();
+		else
+			Deactivate();
+	}
+
 	public void Activate() {
 		animator.SetBool("Activation", true);
 		IsActivated = true; 
