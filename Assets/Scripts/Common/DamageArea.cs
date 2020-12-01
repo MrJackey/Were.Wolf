@@ -14,6 +14,7 @@ public class DamageArea : MonoBehaviour {
 	[SerializeField] private float damageCooldown = 0;
 	[SerializeField] private UnityEvent<Vector2> onDamageEffect;
 	[SerializeField] private float knockbackForce = 5;
+	[SerializeField] private float knockbackDuration = 0.2f;
 
 	[Header("Filters")]
 	[SerializeField] private LayerMask layerMask = -1;
@@ -55,7 +56,7 @@ public class DamageArea : MonoBehaviour {
 		Knockbackable knockbackComponent = other.attachedRigidbody.GetComponent<Knockbackable>();
 		if (knockbackComponent != null) {
 			Vector2 direction = (Vector2) other.transform.position - averageContact;
-			knockbackComponent.Knockback(direction.normalized, knockbackForce, 0.2f);
+			knockbackComponent.Knockback(direction.normalized, knockbackForce, knockbackDuration);
 		}
 	}
 
