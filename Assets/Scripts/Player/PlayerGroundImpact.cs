@@ -1,15 +1,18 @@
 ﻿using System;
 using Extensions;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerGroundImpact : MonoBehaviour {
-	[SerializeField] private GameObject landingEffectPrefab;
 	[SerializeField] private LayerMask groundLayerMask = 1 << 8;
 	[SerializeField] private float minImpactVelocity = 8f;
 	[SerializeField] private float maxImpactVelocity = 15f;
 	[SerializeField] private float minImpactPower = 0f;
 	[SerializeField] private float maxImpactPower = 0.1f;
 	[SerializeField] private float impactDuration = 0.1f;
+	[SerializeField] private GameObject landingEffectPrefab;
+	[Space]
+	[SerializeField] private UnityEvent onImpact;
 
 	private Transformation transformation;
 	private SnappingCamera snappingCamera;
@@ -39,6 +42,7 @@ public class PlayerGroundImpact : MonoBehaviour {
 		snappingCamera.Impact(-normal, power, impactDuration);
 
 		Instantiate(landingEffectPrefab, point, Quaternion.LookRotation(Vector3.forward, normal));
+		onImpact.Invoke();
 	}
 
 	private static void GetAverageContact(Collision2D collision, out Vector2 point, out Vector2 normal) {
