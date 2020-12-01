@@ -9,11 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929067696202153057}
-  - component: {fileID: 3929067696202153062}
-  - component: {fileID: 2070721276754494442}
-  - component: {fileID: 3929067696202153063}
-  - component: {fileID: 3929067696202153060}
-  - component: {fileID: 3929067696202153065}
   m_Layer: 0
   m_Name: Snapping Camera
   m_TagString: MainCamera
@@ -31,17 +26,53 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 323695177424868470}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &3929067696202153062
+--- !u!1 &8937209125847967834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 323695177424868470}
+  - component: {fileID: 5181903203003527133}
+  - component: {fileID: 8112660928141038945}
+  - component: {fileID: 3199004356643140309}
+  - component: {fileID: 3990159713463749641}
+  - component: {fileID: 6618236969973645377}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &323695177424868470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937209125847967834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3929067696202153057}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &5181903203003527133
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3929067696202153066}
+  m_GameObject: {fileID: 8937209125847967834}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -78,13 +109,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &2070721276754494442
+--- !u!114 &8112660928141038945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3929067696202153066}
+  m_GameObject: {fileID: 8937209125847967834}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
@@ -98,21 +129,21 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!81 &3929067696202153063
+--- !u!81 &3199004356643140309
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3929067696202153066}
+  m_GameObject: {fileID: 8937209125847967834}
   m_Enabled: 1
---- !u!114 &3929067696202153060
+--- !u!114 &3990159713463749641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3929067696202153066}
+  m_GameObject: {fileID: 8937209125847967834}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
@@ -137,13 +168,13 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &3929067696202153065
+--- !u!114 &6618236969973645377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3929067696202153066}
+  m_GameObject: {fileID: 8937209125847967834}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f67eee0c24304809a8e382f453ee015a, type: 3}
@@ -152,6 +183,32 @@ MonoBehaviour:
   target: {fileID: 0}
   enableSmoothing: 1
   transitionDuration: 0.15
+  impactCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
+  impactPower: 0.2
+  impactDuration: 0.2
   showGrid: 1
   gridColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   activeCellColor: {r: 0.2783019, g: 0.644799, b: 1, a: 1}

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Camera))]
 public class SnappingCamera : MonoBehaviour {
@@ -9,6 +11,11 @@ public class SnappingCamera : MonoBehaviour {
 	[SerializeField, EnableIf(nameof(enableSmoothing))]
 	private float transitionDuration = 0.15f;
 
+	[Header("Shake")]
+	[SerializeField] private AnimationCurve impactCurve;
+	[SerializeField] private float impactPower;
+	[SerializeField] private float impactDuration;
+
 #if UNITY_EDITOR
 	[Header("Grid")]
 	[SerializeField] private bool showGrid = true;
@@ -17,10 +24,13 @@ public class SnappingCamera : MonoBehaviour {
 #endif
 
 	private new Camera camera;
+	private Transform container;
 	private Vector3 currentVelocity;
 	private Vector2 startPosition;
 	private Vector2 gridOrigin;
 	private Vector2 cellSize;
+
+	private Coroutine impactRoutine;
 
 	public Transform Target { set => target = value; }
 	public float TransitionDuration {
@@ -30,7 +40,11 @@ public class SnappingCamera : MonoBehaviour {
 
 	private void Start() {
 		camera = GetComponent<Camera>();
-		startPosition = transform.position;
+		container = transform.parent;
+		if (container == null)
+			Debug.LogError($"{nameof(SnappingCamera)} needs a parent!");
+
+		startPosition = container.position;
 
 		if (target == null) {
 			GameObject go = GameObject.FindWithTag("Player");
@@ -51,18 +65,18 @@ public class SnappingCamera : MonoBehaviour {
 		Vector3 targetCameraPosition = CalculateTargetPosition();
 
 		if (enableSmoothing) {
-			transform.position = Vector3.SmoothDamp(transform.position, targetCameraPosition,
+			container.position = Vector3.SmoothDamp(container.position, targetCameraPosition,
 			                                        ref currentVelocity, transitionDuration,
 			                                        float.PositiveInfinity, Time.unscaledDeltaTime);
 		}
 		else {
-			transform.position = targetCameraPosition;
+			container.position = targetCameraPosition;
 		}
 	}
 
 	private Vector3 CalculateTargetPosition() {
 		Vector3 targetPosition = CalculateTargetRect().center;
-		targetPosition.z = transform.position.z;
+		targetPosition.z = container.position.z;
 		return targetPosition;
 	}
 
@@ -80,6 +94,24 @@ public class SnappingCamera : MonoBehaviour {
 
 	private Vector2 GridToWorld(Vector2 point) {
 		return gridOrigin + point * cellSize;
+	}
+
+	public void Impact(Vector3 direction) {
+		if (impactRoutine != null) {
+			StopCoroutine(impactRoutine);
+			transform.localPosition = Vector3.zero;
+		}
+
+		impactRoutine = StartCoroutine(CoImpact(direction));
+	}
+
+	private IEnumerator CoImpact(Vector3 direction) {
+		for (float time = 0; time < impactDuration; time += Time.deltaTime) {
+			transform.localPosition = direction * (impactCurve.Evaluate(time / impactDuration * 2f) * impactPower);
+			yield return null;
+		}
+
+		transform.localPosition = Vector3.zero;
 	}
 
 
