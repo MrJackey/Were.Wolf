@@ -13,6 +13,8 @@ public class DamageArea : MonoBehaviour {
 	[SerializeField] private float damage = 10;
 	[SerializeField] private float damageCooldown = 0;
 	[SerializeField] private UnityEvent<Vector2> onDamageEffect;
+	[SerializeField] private float knockbackForce = 5;
+	[SerializeField] private float knockbackDuration = 0.2f;
 
 	[Header("Filters")]
 	[SerializeField] private LayerMask layerMask = -1;
@@ -39,32 +41,40 @@ public class DamageArea : MonoBehaviour {
 		if (ignoreTriggers && other.isTrigger) return;
 		if (layerMask != -1 && ((1 << other.gameObject.layer) & layerMask.value) == 0) return;
 
+		Vector2 avgContactPoint = GetAvgContactPoint(other);
+
 		Health healthComponent = other.attachedRigidbody.GetComponent<Health>();
 		if (healthComponent != null) {
 			cooldownTimer = damageCooldown;
 			Health health = healthComponent;
 			health.TakeDamage(isEnter ? damage : damage * Time.deltaTime);
 
-			if (other.attachedRigidbody.CompareTag(effectTarget))
-				DoDamageEffect(other);
+			if (effectTarget.Length != 0 && other.attachedRigidbody.CompareTag(effectTarget))
+				onDamageEffect.Invoke(avgContactPoint);
+		}
+
+		Knockbackable knockbackComponent = other.attachedRigidbody.GetComponent<Knockbackable>();
+		if (knockbackComponent != null) {
+			Vector2 direction = (Vector2) other.transform.position - avgContactPoint;
+			knockbackComponent.Knockback(direction.normalized, knockbackForce, knockbackDuration);
 		}
 	}
 
-	private void DoDamageEffect(Collider2D other) {
+	private Vector2 GetAvgContactPoint(Collider2D other) {
 		int contactCount = other.GetContacts(contacts);
-		if (contactCount < 1) return;
-
-		Vector2 averageContact = new Vector2();
+		Vector2 avg = new Vector2();
 		int num = 0;
 
 		for (int i = 0; i < contactCount; i++) {
 			if (contacts[i].collider.gameObject != gameObject) continue;
 
-			averageContact += contacts[i].point;
+			avg += contacts[i].point;
 			num++;
 		}
 
 		if (num > 0)
-			onDamageEffect.Invoke(averageContact / num);
-	}
+			avg /= num;
+
+		return avg;
+		}
 }

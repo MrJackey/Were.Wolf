@@ -125,10 +125,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   damage: 1
-  damageCooldown: 1
-  onDamageDealt:
+  damageCooldown: 0.2
+  onDamageEffect:
     m_PersistentCalls:
       m_Calls: []
+  knockbackForce: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -146,5 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbeb977ea31e9614cb6c70eecdc06141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageEffect: {fileID: 3457770546930717862, guid: f04e1cc299f165947b9e307e9bb8ae74,
-    type: 3}
+  damageEffect: {fileID: 3457770546930717862, guid: f04e1cc299f165947b9e307e9bb8ae74, type: 3}
