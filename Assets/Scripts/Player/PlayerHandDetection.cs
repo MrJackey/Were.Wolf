@@ -3,32 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandDetection : MonoBehaviour {
-	[SerializeField] private GameObject interactArrow;
+	[SerializeField] private GameObject interactArrowPrefab;
 	private Interactable detectedInteractItem;
+	private List<Interactable> interactableList = new List<Interactable>();
+	private GameObject interactArrow;
+	private InteractArrow interactArrowScript;
+	private float lowestDistance = 0;
+
 	public Interactable DetectedInteractItem => detectedInteractItem;
-	private GameObject newInteractArrow;
+
+	private void Start() {
+		interactArrow = Instantiate(interactArrowPrefab);
+		interactArrowScript = interactArrow.GetComponent<InteractArrow>();
+		interactArrow.SetActive(false);
+	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		Interactable interactable = other.GetComponent<Interactable>();
 		if (interactable != null) {
-			newInteractArrow = Instantiate(interactArrow);
-			newInteractArrow.transform.position = interactable.transform.position + new Vector3(0, interactable.InteractableArrowHeight, 0);
+			interactableList.Add(interactable);
+			interactArrow.SetActive(true);
 		}
 	}
 
-	public void OnTriggerStay2D(Collider2D collider) {
-		Interactable interactable = collider.GetComponent<Interactable>();
+	private void Update() {
+		if (interactableList.Count == 0)
+			return;
+
+		SetClosestItem();
+	}
+
+	private void OnTriggerExit2D(Collider2D other) {
+		Interactable interactable = other.GetComponent<Interactable>();
 		if (interactable != null) {
-			detectedInteractItem = interactable;
-			newInteractArrow.GetComponent<InteractArrow>().BobTheArrow();
-		}
+			interactableList.Remove(interactable);	
+			
+			if (interactableList.Count == 0) {
+				detectedInteractItem = null;
+				lowestDistance = 0;
+				interactArrow.SetActive(false);
+			}
+			else {
+				detectedInteractItem = null;
+				SetClosestItem();
+			}
+		}	
 	}
 
-	public void OnTriggerExit2D(Collider2D collider) {
-		if (collider.GetComponent<Interactable>() != null) {
-			detectedInteractItem = null;
-			if (newInteractArrow != null)
-				Destroy(newInteractArrow);
+	private void SetClosestItem() {
+		lowestDistance = 0;
+		Interactable closestItem = detectedInteractItem;
+		for (int i = 0; i < interactableList.Count; i++) {
+			Vector3 vectDist = transform.position - interactableList[i].transform.position;
+			float distance = vectDist.sqrMagnitude;
+
+			Debug.DrawLine(interactableList[i].transform.position, transform.position);
+
+			if (distance < lowestDistance || lowestDistance == 0) {
+				lowestDistance = distance;
+				closestItem = interactableList[i];
+			}
 		}
+		if (closestItem == detectedInteractItem) 
+			return;
+
+		interactArrow.transform.position = closestItem.transform.position + new Vector3(0, closestItem.InteractableArrowHeight, 0);
+		interactArrowScript.Initialize();
+		detectedInteractItem = closestItem;
 	}
 }

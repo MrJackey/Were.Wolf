@@ -9,12 +9,10 @@ public class InteractArrow : MonoBehaviour {
 	private bool isIncreasing = false;
 
 	private void Start() {
-		bobCurrent = transform.position.y;
-		bobStart = transform.position.y;
-		bobEnd = transform.position.y + bobDistance;
+		Initialize();
 	}
 
-	public void BobTheArrow() {
+	private void Update() {
 		if (bobCurrent <= bobStart)
 			isIncreasing = true;
 		else if (bobCurrent >= bobEnd)
@@ -26,5 +24,11 @@ public class InteractArrow : MonoBehaviour {
 			bobCurrent -= bobSpeed * Time.deltaTime;
 
 		transform.position = new Vector3(transform.position.x, bobCurrent, transform.position.z);
+	}
+
+	public void Initialize() {
+		bobCurrent = transform.position.y;
+		bobStart = transform.position.y;
+		bobEnd = transform.position.y + bobDistance;
 	}
 }
