@@ -19,6 +19,10 @@ public static class MathX {
 		                   sin * vec.x + cos * vec.y);
 	}
 
+	public static float Remap(float value, float min1, float max1, float min2, float max2) {
+		return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
+	}
+
 	public static Vector2 ClosestPointOnLineSegment(Vector2 point, Vector2 start, Vector2 end) {
 		Vector2 direction = end - start;
 		float length = direction.magnitude;
@@ -37,5 +41,12 @@ public static class MathX {
 		float projectedLength = Vector2.Dot(point - start, direction);
 		projectedLength = Mathf.Clamp(projectedLength, 0f, length);
 		return projectedLength / length;
+	}
+
+
+	// https://gist.github.com/cjddmut/d789b9eb78216998e95c
+	public static float EaseInQuad(float start, float end, float value) {
+		end -= start;
+		return end * value * value + start;
 	}
 }
