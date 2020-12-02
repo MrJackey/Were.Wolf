@@ -41,7 +41,8 @@ public class PlayerGroundImpact : MonoBehaviour {
 		                               Mathf.InverseLerp(0, maxImpactVelocity, velocity));
 		snappingCamera.Impact(-normal, power, impactDuration);
 
-		Instantiate(landingEffectPrefab, point, Quaternion.LookRotation(Vector3.forward, normal));
+		if (Vector2.Dot(-normal, Vector2.up) <= 0.7f)
+			Instantiate(landingEffectPrefab, point, Quaternion.LookRotation(Vector3.forward, normal));
 		onImpact.Invoke();
 	}
 
