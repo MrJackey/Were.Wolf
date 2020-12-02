@@ -10,7 +10,8 @@ public class Detection : MonoBehaviour {
 	[SerializeField, Range(1, 15)]
 	private int visionRayCount = 3;
 	[SerializeField] private LayerMask raycastLayers = -1;
-	[SerializeField] private GameObject detectionEffectPrefab;
+	[SerializeField] private bool ignoreTriggers = true;
+	[SerializeField] private GameObject detectionEffectPrefab = null;
 
 	[Header("Effect")]
 	[SerializeField] private float damagePerSecond = 10;
@@ -80,6 +81,7 @@ public class Detection : MonoBehaviour {
 	}
 
 	private bool DoSingleRaycast(Vector2 origin, Vector2 direction, out GameObject go) {
+		go = null;
 		RaycastHit2D hit = Physics2D.Raycast(origin, direction, visionDistance, raycastLayers);
 
 	#if UNITY_EDITOR
@@ -88,6 +90,9 @@ public class Detection : MonoBehaviour {
 	#endif
 
 		if (hit.rigidbody != null && hit.rigidbody.CompareTag("Player")) {
+			if (ignoreTriggers && hit.collider.isTrigger)
+				return false;
+
 			Transformation transformation = hit.rigidbody.GetComponent<Transformation>();
 			if (transformation == null || transformation.State != TransformationState.Human) {
 				go = hit.rigidbody.gameObject;
@@ -95,7 +100,6 @@ public class Detection : MonoBehaviour {
 			}
 		}
 
-		go = null;
 		return false;
 	}
 
