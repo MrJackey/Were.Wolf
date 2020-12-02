@@ -19,17 +19,24 @@ public class SpeechZone : MonoBehaviour {
 	[Space]
 	[SerializeField, TextArea]
 	private string message = null;
+
 	[SerializeField] private bool slowWrite = false;
 	[SerializeField, EnableIf(nameof(slowWrite))]
 	private float charactersPerSecond = 15;
+
+	[SerializeField] private bool fadeOut = false;
+	[SerializeField, EnableIf(nameof(fadeOut))]
+	private float fadeDuration = 0.5f;
 
 	private static Canvas canvas;
 
 	private Camera mainCamera;
 	private RectTransform messageBubble;
+	private CanvasGroup messageBubbleCanvasGroup;
 	private Text messageText;
 	private bool isShowing;
 	private Coroutine slowWriteRoutine;
+	private Coroutine fadeOutRoutine;
 
 	private void Start() {
 		mainCamera = Camera.main;
@@ -66,8 +73,16 @@ public class SpeechZone : MonoBehaviour {
 		if (isShowing) return;
 		SetupCanvas();
 
-		if (messageBubble == null)
+		if (messageBubble == null) {
 			messageBubble = (RectTransform)Instantiate(speechBubblePrefab, canvas.transform).transform;
+			messageBubbleCanvasGroup = messageBubble.GetComponent<CanvasGroup>();
+		}
+
+		if (fadeOutRoutine != null) {
+			StopCoroutine(fadeOutRoutine);
+			fadeOutRoutine = null;
+			messageBubbleCanvasGroup.alpha = 1f;
+		}
 
 		UpdateMessagePosition();
 		messageText = messageBubble.GetComponentInChildren<Text>();
@@ -88,7 +103,10 @@ public class SpeechZone : MonoBehaviour {
 			slowWriteRoutine = null;
 		}
 
-		messageBubble.gameObject.SetActive(false);
+		if (fadeOut)
+			fadeOutRoutine = StartCoroutine(CoFadeOut());
+		else
+			messageBubble.gameObject.SetActive(false);
 		isShowing = false;
 	}
 
@@ -115,6 +133,17 @@ public class SpeechZone : MonoBehaviour {
 
 			yield return new WaitForSeconds(charDelay);
 		}
+	}
+
+	private IEnumerator CoFadeOut() {
+		for (float time = 0; time < fadeDuration; time += Time.deltaTime) {
+			messageBubbleCanvasGroup.alpha = MathX.EaseOutQuad(1, 0, time / fadeDuration);
+			yield return null;
+		}
+
+		messageBubble.gameObject.SetActive(false);
+		messageBubbleCanvasGroup.alpha = 1f;
+		fadeOutRoutine = null;
 	}
 
 #if UNITY_EDITOR

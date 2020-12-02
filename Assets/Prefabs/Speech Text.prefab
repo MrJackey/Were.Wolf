@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4709011055778455433}
   - component: {fileID: 3348972542523430950}
   - component: {fileID: 2942870727848451153}
+  - component: {fileID: -4008194419399017957}
   m_Layer: 5
   m_Name: Speech Text
   m_TagString: Untagged
@@ -79,3 +80,15 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!225 &-4008194419399017957
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6223396628344545353}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
