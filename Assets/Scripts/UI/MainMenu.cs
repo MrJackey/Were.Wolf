@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
+	[SerializeField] private SaveHelper saveHelper;
+	[SerializeField] private Button continueButton;
+
 	private void OnEnable() {
 		Cursor.visible = true;
+		continueButton.interactable = saveHelper.Data.completedLevel > 0;
 	}
 
 	private void OnDisable() {
