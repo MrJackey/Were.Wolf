@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,21 +8,28 @@ using UnityEngine.UI;
 public class SpeechZone : MonoBehaviour {
 	[SerializeField] private Canvas speechCanvasPrefab = null;
 	[SerializeField] private GameObject speechBubblePrefab = null;
-	[SerializeField] private Vector2 offset = default;
+	[SerializeField] private Vector2 textOffset = default;
 
-	[SerializeField, TextArea]
-	private string message = null;
 	[Space]
 	[SerializeField, Tag]
 	private string triggerTag = "Player";
 	[SerializeField] private bool ignoreTriggers = true;
 	[SerializeField] private bool forceShow = false;
 
+	[Space]
+	[SerializeField, TextArea]
+	private string message = null;
+	[SerializeField] private bool slowWrite = false;
+	[SerializeField, EnableIf(nameof(slowWrite))]
+	private float charactersPerSecond = 15;
+
 	private static Canvas canvas;
 
 	private Camera mainCamera;
 	private RectTransform messageBubble;
+	private Text messageText;
 	private bool isShowing;
+	private Coroutine slowWriteRoutine;
 
 	private void Start() {
 		mainCamera = Camera.main;
@@ -46,8 +54,7 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private void UpdateMessagePosition() {
-		Vector2 position = canvas.transform.InverseTransformPoint(transform.position + (Vector3)offset);
-		messageBubble.anchoredPosition = position;
+		messageBubble.anchoredPosition = canvas.transform.InverseTransformPoint(transform.position + (Vector3)textOffset);
 	}
 
 	private bool IsMatchingTarget(Collider2D other) {
@@ -56,21 +63,32 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private void ShowMessage() {
+		if (isShowing) return;
 		SetupCanvas();
 
 		if (messageBubble == null)
 			messageBubble = (RectTransform)Instantiate(speechBubblePrefab, canvas.transform).transform;
 
-		messageBubble.position = (Vector2)mainCamera.WorldToScreenPoint(transform.position + (Vector3)offset);
-		messageBubble.GetComponentInChildren<Text>().text = message;
+		UpdateMessagePosition();
+		messageText = messageBubble.GetComponentInChildren<Text>();
+
+		if (slowWrite)
+			slowWriteRoutine = StartCoroutine(CoSlowWrite());
+		else
+			messageText.text = message;
+
 		messageBubble.gameObject.SetActive(true);
 		isShowing = true;
 	}
 
 	private void HideMessage() {
-		if (messageBubble != null)
-			messageBubble.gameObject.SetActive(false);
+		if (!isShowing) return;
+		if (slowWriteRoutine != null) {
+			StopCoroutine(slowWriteRoutine);
+			slowWriteRoutine = null;
+		}
 
+		messageBubble.gameObject.SetActive(false);
 		isShowing = false;
 	}
 
@@ -81,6 +99,24 @@ public class SpeechZone : MonoBehaviour {
 		canvas.worldCamera = mainCamera;
 	}
 
+	private IEnumerator CoSlowWrite() {
+		float charDelay = 1f / charactersPerSecond;
+		string msg = message;
+		int length = 0;
+
+		messageText.text = "";
+
+		while (length < msg.Length) {
+			do
+				length++;
+			while (length < msg.Length && char.IsWhiteSpace(msg[length]));
+
+			messageText.text = msg.Substring(0, length);
+
+			yield return new WaitForSeconds(charDelay);
+		}
+	}
+
 #if UNITY_EDITOR
 	private void OnDrawGizmosSelected() {
 		if (!Application.isPlaying)
@@ -88,7 +124,7 @@ public class SpeechZone : MonoBehaviour {
 
 		if (mainCamera == null) return;
 
-		Vector2 position = transform.position + (Vector3)offset;
+		Vector2 position = transform.position + (Vector3)textOffset;
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(position, 0.2f);
 	}
