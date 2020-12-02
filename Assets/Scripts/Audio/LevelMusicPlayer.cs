@@ -8,9 +8,11 @@ public class LevelMusicPlayer : MonoBehaviour {
 	private AudioSource audioSource;
 	private bool isPlaying;
 
-	private void Start() {
+	private void Awake() {
 		audioSource = GetComponent<AudioSource>();
+	}
 
+	private void Start() {
 		if (sceneHelper.CurrentLevel != -1)
 			Play();
 	}
