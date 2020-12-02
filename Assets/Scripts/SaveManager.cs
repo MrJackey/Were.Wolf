@@ -59,7 +59,7 @@ public class SaveManager : MonoBehaviour {
 	}
 
 
-	[RuntimeInitializeOnLoadMethod]
+	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void OnLoad() {
 		new GameObject("Save Manager", typeof(SaveManager));
 	}
