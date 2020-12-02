@@ -104,11 +104,8 @@ public class Detection : MonoBehaviour {
 		if (detectionEffectPrefab != null)
 			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
 
-		if (cameraShake && snappingCamera != null) {
-			snappingCamera.ShakeFrequency = shakeFrequency;
-			snappingCamera.ShakeAmplitude = shakeAmplitude;
-			snappingCamera.DoShake = true;
-		}
+		if (cameraShake && snappingCamera != null)
+			snappingCamera.BeginShake(shakeFrequency, shakeAmplitude);
 
 		onDetected.Invoke();
 	}
@@ -119,7 +116,7 @@ public class Detection : MonoBehaviour {
 			Destroy(activeEffect);
 
 		if (cameraShake && snappingCamera != null)
-			snappingCamera.DoShake = false;
+			snappingCamera.EndShake();
 
 		onLost.Invoke();
 	}

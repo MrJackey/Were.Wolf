@@ -38,6 +38,7 @@ public class SnappingCamera : MonoBehaviour {
 
 	private Vector3 shakeOffset;
 	private Coroutine impactRoutine;
+	private Coroutine shakeRoutine;
 
 	public Transform Target { set => target = value; }
 
@@ -46,20 +47,7 @@ public class SnappingCamera : MonoBehaviour {
 		set => transitionDuration = value;
 	}
 
-	public bool DoShake {
-		get => doShake;
-		set => doShake = value;
-	}
-
-	public float ShakeFrequency {
-		get => shakeFrequency;
-		set => shakeFrequency = value;
-	}
-
-	public float ShakeAmplitude {
-		get => shakeAmplitude;
-		set => shakeAmplitude = value;
-	}
+	public bool IsShaking => doShake;
 
 	private void Start() {
 		camera = GetComponent<Camera>();
@@ -134,6 +122,28 @@ public class SnappingCamera : MonoBehaviour {
 		impactRoutine = StartCoroutine(CoImpact(direction, power, duration));
 	}
 
+	public void Shake(float frequency, float amplitude, float duration) {
+		if (shakeRoutine != null)
+			StopCoroutine(shakeRoutine);
+
+		shakeRoutine = StartCoroutine(CoShake(frequency, amplitude, duration));
+	}
+
+	public void BeginShake(float frequency, float amplitude) {
+		if (shakeRoutine != null) {
+			StopCoroutine(shakeRoutine);
+			shakeRoutine = null;
+		}
+
+		shakeFrequency = frequency;
+		shakeAmplitude = amplitude;
+		doShake = true;
+	}
+
+	public void EndShake() {
+		doShake = false;
+	}
+
 	private IEnumerator CoImpact(Vector3 direction, float power, float duration) {
 		for (float time = 0; time < duration; time += Time.deltaTime) {
 			shakeOffset = direction * (impactCurve.Evaluate(time / duration * 2f) * power);
@@ -141,6 +151,16 @@ public class SnappingCamera : MonoBehaviour {
 		}
 
 		shakeOffset = Vector3.zero;
+	}
+
+	private IEnumerator CoShake(float frequency, float amplitude, float duration) {
+		shakeFrequency = frequency;
+		shakeAmplitude = amplitude;
+		doShake = true;
+
+		yield return new WaitForSeconds(duration);
+
+		doShake = false;
 	}
 
 	private void ApplyShake() {
