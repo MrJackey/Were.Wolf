@@ -41,7 +41,7 @@ public class DamageArea : MonoBehaviour {
 		if (ignoreTriggers && other.isTrigger) return;
 		if (layerMask != -1 && ((1 << other.gameObject.layer) & layerMask.value) == 0) return;
 
-		CalculateAvgContact(other, out Vector2 averageContact);
+		Vector2 avgContactPoint = GetAvgContactPoint(other);
 
 		Health healthComponent = other.attachedRigidbody.GetComponent<Health>();
 		if (healthComponent != null) {
@@ -49,22 +49,21 @@ public class DamageArea : MonoBehaviour {
 			Health health = healthComponent;
 			health.TakeDamage(isEnter ? damage : damage * Time.deltaTime);
 
-			if (other.attachedRigidbody.CompareTag(effectTarget))
-				onDamageEffect.Invoke(averageContact);
+			if (effectTarget.Length != 0 && other.attachedRigidbody.CompareTag(effectTarget))
+				onDamageEffect.Invoke(avgContactPoint);
 		}
 
 		Knockbackable knockbackComponent = other.attachedRigidbody.GetComponent<Knockbackable>();
 		if (knockbackComponent != null) {
-			Vector2 direction = (Vector2) other.transform.position - averageContact;
+			Vector2 direction = (Vector2) other.transform.position - avgContactPoint;
 			knockbackComponent.Knockback(direction.normalized, knockbackForce, knockbackDuration);
 		}
 	}
 
-	private void CalculateAvgContact(Collider2D other, out Vector2 avg) {
+	private Vector2 GetAvgContactPoint(Collider2D other) {
 		int contactCount = other.GetContacts(contacts);
-		avg = new Vector2();
+		Vector2 avg = new Vector2();
 		int num = 0;
-		if (contactCount < 1) return;
 
 		for (int i = 0; i < contactCount; i++) {
 			if (contacts[i].collider.gameObject != gameObject) continue;
@@ -75,5 +74,7 @@ public class DamageArea : MonoBehaviour {
 
 		if (num > 0)
 			avg /= num;
-	}
+
+		return avg;
+		}
 }

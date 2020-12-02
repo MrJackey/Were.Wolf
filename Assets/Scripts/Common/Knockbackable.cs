@@ -9,7 +9,7 @@ public class Knockbackable : MonoBehaviour {
 	[SerializeField] private UnityEvent onKnockback;
 	[SerializeField] private UnityEvent onKnockbackEnd;
 
-	private Coroutine knockbackRoutine;
+	private Coroutine knockbackDurationRoutine;
 	private bool doKnockback;
 	private Vector2 velocity;
 	private Rigidbody2D rb2D;
@@ -24,22 +24,22 @@ public class Knockbackable : MonoBehaviour {
 		onKnockback.Invoke();
 		velocity = direction * force;
 
-		if (knockbackRoutine != null)
-			StopCoroutine(knockbackRoutine);
+		if (knockbackDurationRoutine != null)
+			StopCoroutine(knockbackDurationRoutine);
 
 		doKnockback = true;
-		knockbackRoutine = StartCoroutine(CoKnockbackDuration(duration));
+		knockbackDurationRoutine = StartCoroutine(CoKnockbackDuration(duration));
 	}
 
 	private void FixedUpdate() {
 		if (doKnockback)
 			rb2D.velocity = velocity;
-	}
+}
 
 	private IEnumerator CoKnockbackDuration(float duration) {
 		yield return new WaitForSeconds(duration);
 		onKnockbackEnd.Invoke();
-		knockbackRoutine = null;
+		knockbackDurationRoutine = null;
 		doKnockback = false;
 	}
 }
