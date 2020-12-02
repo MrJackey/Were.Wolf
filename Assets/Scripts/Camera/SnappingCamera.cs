@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using Cinemachine;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Camera))]
 public class SnappingCamera : MonoBehaviour {
@@ -9,6 +14,14 @@ public class SnappingCamera : MonoBehaviour {
 	[SerializeField, EnableIf(nameof(enableSmoothing))]
 	private float transitionDuration = 0.15f;
 
+	[Header("Shake")]
+	[SerializeField] private AnimationCurve impactCurve = null;
+	[Space]
+	[SerializeField] private bool doShake = false;
+	[SerializeField] private float shakeFrequency = 1f;
+	[SerializeField] private float shakeAmplitude = 0.1f;
+	[SerializeField] private float shakeSeed = 2572f;
+
 #if UNITY_EDITOR
 	[Header("Grid")]
 	[SerializeField] private bool showGrid = true;
@@ -17,20 +30,32 @@ public class SnappingCamera : MonoBehaviour {
 #endif
 
 	private new Camera camera;
+	private Transform container;
 	private Vector3 currentVelocity;
 	private Vector2 startPosition;
 	private Vector2 gridOrigin;
 	private Vector2 cellSize;
 
+	private Vector3 shakeOffset;
+	private Coroutine impactRoutine;
+	private Coroutine shakeRoutine;
+
 	public Transform Target { set => target = value; }
+
 	public float TransitionDuration {
 		get => transitionDuration;
 		set => transitionDuration = value;
 	}
 
+	public bool IsShaking => doShake;
+
 	private void Start() {
 		camera = GetComponent<Camera>();
-		startPosition = transform.position;
+		container = transform.parent;
+		if (container == null)
+			Debug.LogError($"{nameof(SnappingCamera)} needs a parent!");
+
+		startPosition = container.position;
 
 		if (target == null) {
 			GameObject go = GameObject.FindWithTag("Player");
@@ -51,18 +76,24 @@ public class SnappingCamera : MonoBehaviour {
 		Vector3 targetCameraPosition = CalculateTargetPosition();
 
 		if (enableSmoothing) {
-			transform.position = Vector3.SmoothDamp(transform.position, targetCameraPosition,
+			container.position = Vector3.SmoothDamp(container.position, targetCameraPosition,
 			                                        ref currentVelocity, transitionDuration,
 			                                        float.PositiveInfinity, Time.unscaledDeltaTime);
 		}
 		else {
-			transform.position = targetCameraPosition;
+			container.position = targetCameraPosition;
 		}
+
+		if (doShake)
+			ApplyShake();
+
+		transform.localPosition = shakeOffset;
+		shakeOffset = Vector3.zero;
 	}
 
 	private Vector3 CalculateTargetPosition() {
 		Vector3 targetPosition = CalculateTargetRect().center;
-		targetPosition.z = transform.position.z;
+		targetPosition.z = container.position.z;
 		return targetPosition;
 	}
 
@@ -80,6 +111,62 @@ public class SnappingCamera : MonoBehaviour {
 
 	private Vector2 GridToWorld(Vector2 point) {
 		return gridOrigin + point * cellSize;
+	}
+
+	public void Impact(Vector3 direction, float power, float duration) {
+		if (impactRoutine != null) {
+			StopCoroutine(impactRoutine);
+			transform.localPosition = Vector3.zero;
+		}
+
+		impactRoutine = StartCoroutine(CoImpact(direction, power, duration));
+	}
+
+	public void Shake(float frequency, float amplitude, float duration) {
+		if (shakeRoutine != null)
+			StopCoroutine(shakeRoutine);
+
+		shakeRoutine = StartCoroutine(CoShake(frequency, amplitude, duration));
+	}
+
+	public void BeginShake(float frequency, float amplitude) {
+		if (shakeRoutine != null) {
+			StopCoroutine(shakeRoutine);
+			shakeRoutine = null;
+		}
+
+		shakeFrequency = frequency;
+		shakeAmplitude = amplitude;
+		doShake = true;
+	}
+
+	public void EndShake() {
+		doShake = false;
+	}
+
+	private IEnumerator CoImpact(Vector3 direction, float power, float duration) {
+		for (float time = 0; time < duration; time += Time.deltaTime) {
+			shakeOffset = direction * (impactCurve.Evaluate(time / duration * 2f) * power);
+			yield return null;
+		}
+
+		shakeOffset = Vector3.zero;
+	}
+
+	private IEnumerator CoShake(float frequency, float amplitude, float duration) {
+		shakeFrequency = frequency;
+		shakeAmplitude = amplitude;
+		doShake = true;
+
+		yield return new WaitForSeconds(duration);
+
+		doShake = false;
+	}
+
+	private void ApplyShake() {
+		shakeOffset += new Vector3(
+			Mathf.PerlinNoise(Time.time * shakeFrequency, shakeSeed),
+			Mathf.PerlinNoise(Time.time * shakeFrequency, shakeSeed + 1), 0) * shakeAmplitude;
 	}
 
 
