@@ -70,7 +70,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808057a3269064c4c9c7889fe6845562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectedInteractItem: {fileID: 0}
 --- !u!1 &3124252033346349425
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +170,7 @@ GameObject:
   - component: {fileID: 3032012005023981314}
   - component: {fileID: -2577431829083161899}
   - component: {fileID: 2435196009969585088}
+  - component: {fileID: 8246988847367188684}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -661,6 +661,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHand: {fileID: 1140200242}
+--- !u!114 &8246988847367188684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326305250810700147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480c4c05f1ad40debc664f0d89597f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  landingEffectPrefab: {fileID: 1348722978759591406, guid: 748d31a99eaa03448a04f8067f4e1a9e, type: 3}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  minImpactVelocity: 5.1
+  maxImpactVelocity: 15
+  minImpactPower: 0
+  maxImpactPower: 0.1
+  impactDuration: 0.1
 --- !u!1 &5812679119291105042
 GameObject:
   m_ObjectHideFlags: 0
