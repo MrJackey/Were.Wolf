@@ -3,19 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandDetection : MonoBehaviour {
+	[SerializeField] private GameObject interactArrowPrefab;
+	[SerializeField] private PlayerCarrying playerCarrying;
 	private Interactable detectedInteractItem;
+	private List<Interactable> interactableList = new List<Interactable>();
+	private GameObject interactArrow;
+	private InteractArrow interactArrowScript;
+
 	public Interactable DetectedInteractItem => detectedInteractItem;
 
-	public void OnTriggerStay2D(Collider2D collider) {
-		Interactable interactable = collider.GetComponent<Interactable>();
+	private void Start() {
+		interactArrow = Instantiate(interactArrowPrefab);
+		interactArrowScript = interactArrow.GetComponent<InteractArrow>();
+		interactArrow.SetActive(false);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		Interactable interactable = other.GetComponent<Interactable>();
 		if (interactable != null) {
-			detectedInteractItem = interactable;
+			interactableList.Add(interactable);
 		}
 	}
 
-	public void OnTriggerExit2D(Collider2D collider) {
-		if (collider.GetComponent<Interactable>() != null) {
+	private void Update() {
+		if (interactableList.Count == 0)
+			return;
+
+		SetClosestItem();
+	}
+
+	private void OnTriggerExit2D(Collider2D other) {
+		Interactable interactable = other.GetComponent<Interactable>();
+		if (interactable != null) {
+			interactableList.Remove(interactable);	
+			
 			detectedInteractItem = null;
+			if (interactableList.Count == 0)
+				interactArrow.SetActive(false);
+		}	
+	}
+
+	private void SetClosestItem() {
+		if (playerCarrying.IsCarryingItem) {
+			detectedInteractItem = null;
+			interactArrow.SetActive(false);
+			return;
 		}
+		float lowestDistance = float.PositiveInfinity;
+		Interactable closestItem = detectedInteractItem;
+
+		foreach (Interactable interactable in interactableList) {
+			float distance = (transform.position - interactable.transform.position).sqrMagnitude;
+
+			if (distance < lowestDistance) {
+				lowestDistance = distance;
+				closestItem = interactable;
+			}
+		}
+		if (closestItem == null || closestItem == detectedInteractItem) 
+			return;
+
+		interactArrow.transform.position = closestItem.transform.position + new Vector3(0, closestItem.InteractableArrowHeight, 0);
+		interactArrowScript.Initialize();
+		detectedInteractItem = closestItem;
+		interactArrow.SetActive(true);
 	}
 }
