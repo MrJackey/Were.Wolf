@@ -116,6 +116,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454200776568444210}
     m_Modifications:
+    - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.9375
+      objectReference: {fileID: 0}
+    - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.8125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299329085114494227, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 71fc0c3b671e89549b69aa473cdbc0b6, type: 3}
     - target: {fileID: 4416525691000973465, guid: 61919dff458546f458b0b31803df6940, type: 3}
       propertyPath: m_Name
       value: Spike_Obstacle 1
