@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour {
 
 	private void OnEnable() {
 		Cursor.visible = true;
-		continueButton.interactable = saveHelper.Data.completedLevel > 0;
+		continueButton.interactable = saveHelper.Data.completedLevel >= 0;
 	}
 
 	private void OnDisable() {
