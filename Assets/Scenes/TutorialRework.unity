@@ -39714,6 +39714,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb75aa7c4a6831243b599f7a7905643b, type: 3}
+--- !u!1 &1546209151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 186770497756555603, guid: ca5fe159f299fb144bc877e0adb16384, type: 3}
+  m_PrefabInstance: {fileID: 119132436}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1546209157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546209151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1134cbbc17443a4a0317f4484ea20cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
+  speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
+  textOffset: {x: 0, y: 0.7}
+  triggerTag: Player
+  ignoreTriggers: 1
+  forceShow: 0
+  message: Press up to enter
+  slowWrite: 0
+  charactersPerSecond: 15
+  fadeOut: 1
+  fadeDuration: 0.5
 --- !u!1 &1549294416
 GameObject:
   m_ObjectHideFlags: 0
