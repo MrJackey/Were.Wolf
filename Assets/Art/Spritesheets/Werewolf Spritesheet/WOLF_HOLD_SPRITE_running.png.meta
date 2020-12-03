@@ -17,6 +17,36 @@ TextureImporter:
   - first:
       213: 6153844112564621429
     second: WOLF_HOLD_SPRITE_running_4
+  - first:
+      213: 6139864892347923631
+    second: WOLF_HOLD_SPRITE_running_0
+  - first:
+      213: -2519794363906946329
+    second: WOLF_HOLD_SPRITE_running_1
+  - first:
+      213: 2080167967970525238
+    second: WOLF_HOLD_SPRITE_running_2
+  - first:
+      213: 8357698832531893331
+    second: WOLF_HOLD_SPRITE_running_3
+  - first:
+      213: -3647617645268803373
+    second: WOLF_HOLD_SPRITE_running_4
+  - first:
+      213: 6824240511913052226
+    second: WOLF_HOLD_SPRITE_running_5
+  - first:
+      213: 7014649704916283229
+    second: WOLF_HOLD_SPRITE_running_6
+  - first:
+      213: 375173662247400630
+    second: WOLF_HOLD_SPRITE_running_7
+  - first:
+      213: 8849597824001622958
+    second: WOLF_HOLD_SPRITE_running_8
+  - first:
+      213: -8013268389682058463
+    second: WOLF_HOLD_SPRITE_running_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,8 +148,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf5e247a99b6ce330800000000000000
-      internalID: 3741483698118387195
+      spriteID: fac3a45d69e253550800000000000000
+      internalID: 6139864892347923631
       vertices: []
       indices: 
       edges: []
@@ -139,8 +169,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dac7518420869b60800000000000000
-      internalID: 7752524702842079958
+      spriteID: 7ea8b406064e70dd0800000000000000
+      internalID: -2519794363906946329
       vertices: []
       indices: 
       edges: []
@@ -160,8 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9cffe7cad93fafd20800000000000000
-      internalID: 3313228334413840329
+      spriteID: 6308704eebd3edc10800000000000000
+      internalID: 2080167967970525238
       vertices: []
       indices: 
       edges: []
@@ -181,8 +211,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 550c7f2354568a2e0800000000000000
-      internalID: -2114328677168201643
+      spriteID: 35ca2c4aec28cf370800000000000000
+      internalID: 8357698832531893331
       vertices: []
       indices: 
       edges: []
@@ -202,8 +232,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5701b8cad98d66550800000000000000
-      internalID: 6153844112564621429
+      spriteID: 3d06e49d31f016dc0800000000000000
+      internalID: -3647617645268803373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WOLF_HOLD_SPRITE_running_5
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2484866d69294be50800000000000000
+      internalID: 6824240511913052226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WOLF_HOLD_SPRITE_running_6
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5f655dcdba095160800000000000000
+      internalID: 7014649704916283229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WOLF_HOLD_SPRITE_running_7
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b4b6534572e43500800000000000000
+      internalID: 375173662247400630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WOLF_HOLD_SPRITE_running_8
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea3cfa0755610da70800000000000000
+      internalID: 8849597824001622958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WOLF_HOLD_SPRITE_running_9
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b622f0bd62bc090800000000000000
+      internalID: -8013268389682058463
       vertices: []
       indices: 
       edges: []
