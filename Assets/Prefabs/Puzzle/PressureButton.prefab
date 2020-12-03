@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5597827422847043685, guid: d14609615d732624c97e019e5304a8c8, type: 3}
+  m_Sprite: {fileID: -7668147084862122985, guid: b6f6be019e677fe4ba63624a5fa5a7a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -142,10 +142,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.20587435}
+  m_Offset: {x: 0, y: 0.046617985}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.875, y: 0.3125}
     newSize: {x: 0.875, y: 0.3125}
     adaptiveTilingThreshold: 0.5
@@ -153,7 +153,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.68318224, y: 0.4117487}
+  m_Size: {x: 0.62530327, y: 0.48445988}
   m_EdgeRadius: 0
 --- !u!60 &1705544097
 PolygonCollider2D:
@@ -171,7 +171,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.875, y: 0.3125}
     newSize: {x: 0.875, y: 0.3125}
     adaptiveTilingThreshold: 0.5
@@ -180,10 +180,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.49114418, y: 0}
-      - {x: 0.49537897, y: 0}
-      - {x: 0.29726744, y: 0.15721515}
-      - {x: -0.29837132, y: 0.16015297}
+    - - {x: -0.6298466, y: -0.16036892}
+      - {x: 0.61840296, y: -0.16002846}
+      - {x: 0.3133502, y: 0.06305793}
+      - {x: -0.3129549, y: 0.062759936}
 --- !u!61 &5777445939231663278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -197,10 +197,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0004620552, y: 0.17137602}
+  m_Offset: {x: 0, y: -0.025143147}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.875, y: 0.3125}
     newSize: {x: 0.875, y: 0.3125}
     adaptiveTilingThreshold: 0.5
@@ -208,5 +208,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6840372, y: 0.28234798}
+  m_Size: {x: 0.63587, y: 0.36088085}
   m_EdgeRadius: 0
