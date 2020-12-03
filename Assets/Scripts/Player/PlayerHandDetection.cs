@@ -37,14 +37,9 @@ public class PlayerHandDetection : MonoBehaviour {
 		if (interactable != null) {
 			interactableList.Remove(interactable);	
 			
-			if (interactableList.Count == 0) {
-				detectedInteractItem = null;
+			detectedInteractItem = null;
+			if (interactableList.Count == 0)
 				interactArrow.SetActive(false);
-			}
-			else {
-				detectedInteractItem = null;
-				SetClosestItem();
-			}
 		}	
 	}
 
