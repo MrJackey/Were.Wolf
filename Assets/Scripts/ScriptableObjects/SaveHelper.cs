@@ -23,7 +23,7 @@ public class SaveHelper : ScriptableObject {
 		Save();
 	}
 
-	public void LoadNextLevel() {
+	public void LoadContinueLevel() {
 		int level = CompletedLevel + 1;
 		if (level >= sceneHelper.Levels.Length)
 			level = sceneHelper.Levels.Length - 1;
