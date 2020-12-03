@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerHandDetection : MonoBehaviour {
 	[SerializeField] private GameObject interactArrowPrefab;
+	[SerializeField] private PlayerCarrying playerCarrying;
 	private Interactable detectedInteractItem;
 	private List<Interactable> interactableList = new List<Interactable>();
 	private GameObject interactArrow;
 	private InteractArrow interactArrowScript;
-	private float lowestDistance = 0;
 
 	public Interactable DetectedInteractItem => detectedInteractItem;
 
@@ -22,7 +22,6 @@ public class PlayerHandDetection : MonoBehaviour {
 		Interactable interactable = other.GetComponent<Interactable>();
 		if (interactable != null) {
 			interactableList.Add(interactable);
-			interactArrow.SetActive(true);
 		}
 	}
 
@@ -40,7 +39,6 @@ public class PlayerHandDetection : MonoBehaviour {
 			
 			if (interactableList.Count == 0) {
 				detectedInteractItem = null;
-				lowestDistance = 0;
 				interactArrow.SetActive(false);
 			}
 			else {
@@ -51,24 +49,28 @@ public class PlayerHandDetection : MonoBehaviour {
 	}
 
 	private void SetClosestItem() {
-		lowestDistance = 0;
+		if (playerCarrying.IsCarryingItem) {
+			detectedInteractItem = null;
+			interactArrow.SetActive(false);
+			return;
+		}
+		float lowestDistance = float.PositiveInfinity;
 		Interactable closestItem = detectedInteractItem;
-		for (int i = 0; i < interactableList.Count; i++) {
-			Vector3 vectDist = transform.position - interactableList[i].transform.position;
-			float distance = vectDist.sqrMagnitude;
 
-			Debug.DrawLine(interactableList[i].transform.position, transform.position);
+		foreach (Interactable interactable in interactableList) {
+			float distance = (transform.position - interactable.transform.position).sqrMagnitude;
 
-			if (distance < lowestDistance || lowestDistance == 0) {
+			if (distance < lowestDistance) {
 				lowestDistance = distance;
-				closestItem = interactableList[i];
+				closestItem = interactable;
 			}
 		}
-		if (closestItem == detectedInteractItem) 
+		if (closestItem == null || closestItem == detectedInteractItem) 
 			return;
 
 		interactArrow.transform.position = closestItem.transform.position + new Vector3(0, closestItem.InteractableArrowHeight, 0);
 		interactArrowScript.Initialize();
 		detectedInteractItem = closestItem;
+		interactArrow.SetActive(true);
 	}
 }

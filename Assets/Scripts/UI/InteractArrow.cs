@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InteractArrow : MonoBehaviour {
 	[SerializeField] private float bobDistance = 0.5f, bobSpeed = 0.1f;
-	//[SerializeField] private AnimationCurve 
 	private float bobStart, bobCurrent, bobEnd;
 	private bool isIncreasing = false;
 
