@@ -7,6 +7,9 @@ public class PlayerAnimationController : MonoBehaviour {
 	private static readonly int isHumanHash = Animator.StringToHash("isHuman");
 	private static readonly int transformSpeedHash = Animator.StringToHash("transformSpeed");
 	private static readonly int jumpSpeedHash = Animator.StringToHash("jumpSpeed");
+	private static readonly int doPickUpHash = Animator.StringToHash("doPickUp");
+	private static readonly int doDropHash = Animator.StringToHash("doDrop");
+	private static readonly int isTransformingHash = Animator.StringToHash("isTransforming");
 
 	[SerializeField] private AnimationClip transformAnimation;
 	[SerializeField] private AnimationClip jumpAnimation;
@@ -49,6 +52,7 @@ public class PlayerAnimationController : MonoBehaviour {
 	public void TransformStart() {
 		animator.SetFloat(transformSpeedHash, 1f / (transformation.TransformDuration / transformAnimation.length));
 		animator.SetBool(isHumanHash, transformation.OldState != TransformationState.Human);
+		animator.SetBool(isTransformingHash, true);
 	}
 
 	public void TransformInterrupt(float transformationDone) {
@@ -57,5 +61,17 @@ public class PlayerAnimationController : MonoBehaviour {
 
 		transformation.State = TransformationState.Human;
 		transformation.TransformToWolf(timeRemaining);
+	}
+
+	public void TransformEnd() {
+		animator.SetBool(isTransformingHash, false);
+	}
+
+	public void PickUpItem() {
+		animator.SetTrigger(doPickUpHash);
+	}
+
+	public void DropItem() {
+		animator.SetTrigger(doDropHash);
 	}
 }

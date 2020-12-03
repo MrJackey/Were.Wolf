@@ -31,10 +31,10 @@ namespace PropertyDrawers {
 			else {
 				string value = property.stringValue;
 				label = EditorGUI.BeginProperty(position, label, property);
-				label.tooltip = "*Undefined tag* " + label.tooltip;
 
 				Color oldColor = GUI.backgroundColor;
 				if (!EditorGUI.showMixedValue && value != "" && Array.IndexOf(InternalEditorUtility.tags, value) == -1) {
+					label.tooltip = "*Undefined tag* " + label.tooltip;
 					GUI.backgroundColor = Color.yellow;
 				}
 

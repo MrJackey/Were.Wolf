@@ -1,64 +1,49 @@
 fileFormatVersion: 2
-guid: e626a668d587f0d45b88db5f29a03233
+guid: 2f9c69598e2341145b550fef72043082
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1202757652217484370
-    second: Gate_Animation_3_0
+      213: 9099875806914930044
+    second: Spiderweb_dangle_0
   - first:
-      213: 528397514275268682
-    second: Gate_Animation_3_1
+      213: 5396917789234038494
+    second: Spiderweb_dangle_1
   - first:
-      213: -49374013994536907
-    second: Gate_Animation_3_2
+      213: -7057676526566086852
+    second: Spiderweb_dangle_2
   - first:
-      213: -17629710555884049
-    second: Gate_Animation_3_3
+      213: 5861323903375865044
+    second: Spiderweb_dangle_3
   - first:
-      213: -1391895694960655834
-    second: Gate_Animation_3_4
+      213: -2581015677775287317
+    second: Spiderweb_dangle_4
   - first:
-      213: 8280538246494305093
-    second: Gate_Animation_3_5
+      213: 7451163310039775235
+    second: Spiderweb_dangle_5
   - first:
-      213: 5937232801667060458
-    second: Gate_Animation_3_6
+      213: 1014543926234866600
+    second: Spiderweb_dangle_6
   - first:
-      213: 7304336886745168945
-    second: Gate_Animation_3_7
+      213: 951562818716174491
+    second: Spiderweb_dangle_7
   - first:
-      213: 2654360941125811477
-    second: Gate_Animation_3_8
+      213: -2161693519823189512
+    second: Spiderweb_dangle_8
   - first:
-      213: 8991372678359617377
-    second: Gate_Animation_3_9
+      213: 4226777161861557063
+    second: Spiderweb_dangle_9
   - first:
-      213: -6442653891199013452
-    second: Gate_Animation_3_10
+      213: -2284167576953801228
+    second: Spiderweb_dangle_10
   - first:
-      213: -4561803327785352964
-    second: Gate_Animation_3_11
+      213: -9107598280564210472
+    second: Spiderweb_dangle_11
   - first:
-      213: -1084782036125225981
-    second: Gate_Animation_3_12
+      213: 7307807273165142201
+    second: Spiderweb_dangle_12
   - first:
-      213: -2050851572021352458
-    second: Gate_Animation_3_13
-  - first:
-      213: 2705032080065581393
-    second: Gate_Animation_3_14
-  - first:
-      213: 4845872708947664990
-    second: Gate_Animation_3_15
-  - first:
-      213: -8258654247294313902
-    second: Gate_Animation_3_16
-  - first:
-      213: 2695869690578966118
-    second: Gate_Animation_3_17
-  - first:
-      213: 9015924809637859822
-    second: Gate_Animation_3_18
+      213: -1621633901351224301
+    second: Spiderweb_dangle_13
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -146,13 +131,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gate_Animation_3_0
+      name: Spiderweb_dangle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 14
-        height: 66
+        width: 70
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,104 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2545e4356bd01b010800000000000000
-      internalID: 1202757652217484370
+      spriteID: c75e55b45d0494e70800000000000000
+      internalID: 9099875806914930044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gate_Animation_3_1
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a48a39a5dbe355700800000000000000
-      internalID: 528397514275268682
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_2
-      rect:
-        serializedVersion: 2
-        x: 28
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 53078ba8896905ff0800000000000000
-      internalID: -49374013994536907
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_3
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe5d2d42fdd51cff0800000000000000
-      internalID: -17629710555884049
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_4
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 62289717d3efeace0800000000000000
-      internalID: -1391895694960655834
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_5
+      name: Spiderweb_dangle_1
       rect:
         serializedVersion: 2
         x: 70
         y: 0
-        width: 14
-        height: 66
+        width: 70
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,104 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54b345bb9a16ae270800000000000000
-      internalID: 8280538246494305093
+      spriteID: ed6084d9224b5ea40800000000000000
+      internalID: 5396917789234038494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gate_Animation_3_6
-      rect:
-        serializedVersion: 2
-        x: 84
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae2992cb6c9456250800000000000000
-      internalID: 5937232801667060458
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_7
-      rect:
-        serializedVersion: 2
-        x: 98
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13c7a3ec2b73e5560800000000000000
-      internalID: 7304336886745168945
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_8
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51db979663f26d420800000000000000
-      internalID: 2654360941125811477
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_9
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 0
-        width: 14
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 16f07c800d5c7cc70800000000000000
-      internalID: 8991372678359617377
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gate_Animation_3_10
+      name: Spiderweb_dangle_2
       rect:
         serializedVersion: 2
         x: 140
         y: 0
-        width: 14
-        height: 66
+        width: 70
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -370,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bd6b4cab681796a0800000000000000
-      internalID: -6442653891199013452
+      spriteID: c376a6e97981e0e90800000000000000
+      internalID: -7057676526566086852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gate_Animation_3_11
+      name: Spiderweb_dangle_3
       rect:
         serializedVersion: 2
-        x: 154
+        x: 210
         y: 0
-        width: 14
-        height: 66
+        width: 70
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf0c828fa0831b0c0800000000000000
-      internalID: -4561803327785352964
+      spriteID: 4d47936190b975150800000000000000
+      internalID: 5861323903375865044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gate_Animation_3_12
+      name: Spiderweb_dangle_4
       rect:
         serializedVersion: 2
-        x: 168
+        x: 280
         y: 0
-        width: 14
-        height: 66
+        width: 70
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -412,8 +229,197 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30ce70e4c7412f0f0800000000000000
-      internalID: -1084782036125225981
+      spriteID: beb6d767ae36e2cd0800000000000000
+      internalID: -2581015677775287317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_5
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30838527d89d76760800000000000000
+      internalID: 7451163310039775235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_6
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a3624c5352641e00800000000000000
+      internalID: 1014543926234866600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_7
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b980c0f8751a43d00800000000000000
+      internalID: 951562818716174491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_8
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f9cca5623f1002e0800000000000000
+      internalID: -2161693519823189512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_9
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74bed7d2f6788aa30800000000000000
+      internalID: 4226777161861557063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_10
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f53438d0b10d40e0800000000000000
+      internalID: -2284167576953801228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_11
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d403023e9f4b9180800000000000000
+      internalID: -9107598280564210472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_12
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b8360c1ffb8a6560800000000000000
+      internalID: 7307807273165142201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiderweb_dangle_13
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 0
+        width: 70
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31cba3afe8cce79e0800000000000000
+      internalID: -1621633901351224301
       vertices: []
       indices: 
       edges: []

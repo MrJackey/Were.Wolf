@@ -2,15 +2,18 @@
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
-public class LevelMusicPlayer : MonoBehaviour {
+public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 	[SerializeField] private SceneHelper sceneHelper;
 
 	private AudioSource audioSource;
 	private bool isPlaying;
 
-	private void Start() {
+	protected override void Awake() {
+		base.Awake();
 		audioSource = GetComponent<AudioSource>();
+	}
 
+	private void Start() {
 		if (sceneHelper.CurrentLevel != -1)
 			Play();
 	}

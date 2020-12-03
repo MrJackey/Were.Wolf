@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 #endif
 
 	private Rigidbody2D rb2D;
+	private Knockbackable knockbackable;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 	private int facing = 1;
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 	private bool humanControls = false;
 	private bool doGravity = true;
 	private bool isGrounded = false;
+	private bool doKnockBack = false;
 
 	private bool doJump = false;
 	private float jumpEndTime;
@@ -85,6 +87,16 @@ public class PlayerController : MonoBehaviour {
 		set => allowControls = value;
 	}
 	public bool IsGrounded => isGrounded;
+
+	public bool DoKnockBack {
+		set {
+			doKnockBack = value;
+
+			if (doKnockBack)
+				InterruptJump();
+		}
+	}
+
 	public float JumpLength => jumpEndTime;
 	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
@@ -92,6 +104,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
+		knockbackable = GetComponent<Knockbackable>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
 		humanJumpEndTime = humanJumpCurve.keys[humanJumpCurve.length - 1].time;
@@ -216,6 +229,9 @@ public class PlayerController : MonoBehaviour {
 
 		if (doGravity)
 			velocity.y = rb2D.velocity.y + gravity * Time.deltaTime;
+
+		if (doKnockBack)
+			velocity = knockbackable.Velocity;
 
 		rb2D.velocity = velocity * new Vector2(speedMultiplier, doGravity ? 1 : speedMultiplier);
 	}

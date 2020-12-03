@@ -35,7 +35,7 @@ public class SaveManager : MonoBehaviour {
 			return;
 		}
 
-		try { data = JsonUtility.FromJson<SaveData>(json); }
+		try { data = JsonUtility.FromJson<SaveData>(json) ?? new SaveData(); }
 		catch (Exception e) {
 			Debug.LogError($"Failed to deserialize save file: {e}");
 		}

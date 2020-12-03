@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -9,10 +10,18 @@ public class Detection : MonoBehaviour {
 	[SerializeField, Range(1, 15)]
 	private int visionRayCount = 3;
 	[SerializeField] private LayerMask raycastLayers = -1;
-	[SerializeField] private GameObject detectionEffectPrefab;
-	[Space]
+	[SerializeField] private bool ignoreTriggers = true;
+	[SerializeField] private GameObject detectionEffectPrefab = null;
+
+	[Header("Effect")]
 	[SerializeField] private float damagePerSecond = 10;
 	[SerializeField] private float playerSpeedMultiplier = 0.5f;
+	[Space]
+	[SerializeField] private bool cameraShake = true;
+	[SerializeField, EnableIf(nameof(cameraShake))]
+	private float shakeFrequency = 20f;
+	[SerializeField, EnableIf(nameof(cameraShake))]
+	private float shakeAmplitude = 0.3f;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onDetected = null;
@@ -23,6 +32,13 @@ public class Detection : MonoBehaviour {
 	private GameObject activeEffect;
 	private GameObject playerObject;
 	private Health playerHealth;
+	private SnappingCamera snappingCamera;
+
+	private void Start() {
+		Camera mainCamera = Camera.main;
+		if (mainCamera != null)
+			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
+	}
 
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
@@ -65,6 +81,7 @@ public class Detection : MonoBehaviour {
 	}
 
 	private bool DoSingleRaycast(Vector2 origin, Vector2 direction, out GameObject go) {
+		go = null;
 		RaycastHit2D hit = Physics2D.Raycast(origin, direction, visionDistance, raycastLayers);
 
 	#if UNITY_EDITOR
@@ -73,6 +90,9 @@ public class Detection : MonoBehaviour {
 	#endif
 
 		if (hit.rigidbody != null && hit.rigidbody.CompareTag("Player")) {
+			if (ignoreTriggers && hit.collider.isTrigger)
+				return false;
+
 			Transformation transformation = hit.rigidbody.GetComponent<Transformation>();
 			if (transformation == null || transformation.State != TransformationState.Human) {
 				go = hit.rigidbody.gameObject;
@@ -80,7 +100,6 @@ public class Detection : MonoBehaviour {
 			}
 		}
 
-		go = null;
 		return false;
 	}
 
@@ -89,6 +108,9 @@ public class Detection : MonoBehaviour {
 		if (detectionEffectPrefab != null)
 			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
 
+		if (cameraShake && snappingCamera != null)
+			snappingCamera.BeginShake(shakeFrequency, shakeAmplitude);
+
 		onDetected.Invoke();
 	}
 
@@ -96,6 +118,9 @@ public class Detection : MonoBehaviour {
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = 1f;
 		if (activeEffect != null)
 			Destroy(activeEffect);
+
+		if (cameraShake && snappingCamera != null)
+			snappingCamera.EndShake();
 
 		onLost.Invoke();
 	}
