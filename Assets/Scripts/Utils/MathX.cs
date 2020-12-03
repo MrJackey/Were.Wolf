@@ -49,4 +49,9 @@ public static class MathX {
 		end -= start;
 		return end * value * value + start;
 	}
+
+	public static float EaseOutQuad(float start, float end, float value) {
+		end -= start;
+		return -end * value * (value - 2) + start;
+	}
 }
