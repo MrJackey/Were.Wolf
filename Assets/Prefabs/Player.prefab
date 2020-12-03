@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 2435196009969585088}
   - component: {fileID: 8246988847367188684}
   - component: {fileID: 2928980542965478383}
+  - component: {fileID: 216659535426624806}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -231,8 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 289410948cd3ef44c9fa57193b1dad9c,
-    type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -531,8 +531,7 @@ MonoBehaviour:
   wolfGroundCollider: {fileID: 4334596839167390589}
   humanHitCollider: {fileID: 5145285823690266723}
   humanGroundCollider: {fileID: 5814764578376142764}
-  transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f,
-    type: 3}
+  transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f, type: 3}
   toWolfIndication: 0.75
   humanEmissionRate: 5
   onTransformStart:
@@ -730,8 +729,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480c4c05f1ad40debc664f0d89597f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  landingEffectPrefab: {fileID: 1348722978759591406, guid: 748d31a99eaa03448a04f8067f4e1a9e,
-    type: 3}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -740,6 +737,10 @@ MonoBehaviour:
   minImpactPower: 0
   maxImpactPower: 0.1
   impactDuration: 0.1
+  landingEffectPrefab: {fileID: 1348722978759591406, guid: 748d31a99eaa03448a04f8067f4e1a9e, type: 3}
+  onImpact:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2928980542965478383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +807,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &216659535426624806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326305250810700147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d9879c54334225822ee499a4d9f30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneHelper: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
 --- !u!1 &5812679119291105042
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,8 +977,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 2077700748546687264, guid: 4b5dbb9bf32965a4ba78012250753a4e,
-    type: 3}
+  m_Sprite: {fileID: 2077700748546687264, guid: 4b5dbb9bf32965a4ba78012250753a4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
