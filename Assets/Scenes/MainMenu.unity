@@ -2063,6 +2063,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: Levels
       objectReference: {fileID: 0}
+    - target: {fileID: 8836418778727309551, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
 --- !u!224 &1244577416 stripped
@@ -3407,6 +3411,14 @@ PrefabInstance:
     - target: {fileID: 1384645270935001703, guid: 988f25fbd12afbf4abc17e40ce8b4500, type: 3}
       propertyPath: m_Name
       value: Back Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490216042855373435, guid: 988f25fbd12afbf4abc17e40ce8b4500, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3963043353593305928, guid: 988f25fbd12afbf4abc17e40ce8b4500, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 988f25fbd12afbf4abc17e40ce8b4500, type: 3}
