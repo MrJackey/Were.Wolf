@@ -23,10 +23,10 @@ public class Lever : SignalEmitter {
 	}
 
 	public void ToggleActivation() {
-		if (!IsActivated) 
-			Activate();
-		else
+		if (IsActivated) 
 			Deactivate();
+		else
+			Activate();
 	}
 
 	public void Activate() {
