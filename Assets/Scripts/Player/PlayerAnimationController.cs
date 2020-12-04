@@ -25,7 +25,7 @@ public class PlayerAnimationController : MonoBehaviour {
 	}
 
 	private void Update() {
-		animator.SetFloat(speedYHash, Mathf.Abs(rb2D.velocity.y));
+		animator.SetFloat(speedYHash, rb2D.velocity.y);
 	}
 
 	private void OnEnable() {

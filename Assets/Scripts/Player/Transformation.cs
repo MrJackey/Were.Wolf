@@ -45,7 +45,6 @@ public class Transformation : MonoBehaviour {
 	private bool transformInputDown, transformInputUp;
 
 	public TransformationState OldState => oldState;
-
 	public TransformationState State {
 		get => state;
 		set => state = value;
@@ -87,7 +86,6 @@ public class Transformation : MonoBehaviour {
 		if (ctx.phase == InputActionPhase.Started) {
 			if (ctx.started &&
 				playerController.AllowControls &&
-				playerController.IsGrounded &&
 				state == TransformationState.Wolf &&
 				points > 0) TransformToHuman();
 		}

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Detection : MonoBehaviour {
@@ -16,6 +17,7 @@ public class Detection : MonoBehaviour {
 	[Header("Effect")]
 	[SerializeField] private float damagePerSecond = 10;
 	[SerializeField] private float playerSpeedMultiplier = 0.5f;
+	[SerializeField] private Vector2 rumbleFrequencies = new Vector2(0.25f, 0.75f);
 	[Space]
 	[SerializeField] private bool cameraShake = true;
 	[SerializeField, EnableIf(nameof(cameraShake))]
@@ -38,6 +40,11 @@ public class Detection : MonoBehaviour {
 		Camera mainCamera = Camera.main;
 		if (mainCamera != null)
 			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
+	}
+
+	private void OnDisable() {
+		if (Gamepad.current != null)
+			Gamepad.current.SetMotorSpeeds(0, 0);
 	}
 
 	private void Update() {
@@ -108,8 +115,11 @@ public class Detection : MonoBehaviour {
 		if (detectionEffectPrefab != null)
 			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
 
-		if (cameraShake && snappingCamera != null)
+		if (cameraShake && snappingCamera != null) {
 			snappingCamera.BeginShake(shakeFrequency, shakeAmplitude);
+			if (playerObject.GetComponent<PlayerInput>().currentControlScheme == "Gamepad" && Gamepad.current != null)
+				Gamepad.current.SetMotorSpeeds(rumbleFrequencies.x, rumbleFrequencies.y);
+		}
 
 		onDetected.Invoke();
 	}
@@ -119,8 +129,11 @@ public class Detection : MonoBehaviour {
 		if (activeEffect != null)
 			Destroy(activeEffect);
 
-		if (cameraShake && snappingCamera != null)
+		if (cameraShake && snappingCamera != null) {
 			snappingCamera.EndShake();
+			if (Gamepad.current != null)
+				Gamepad.current.SetMotorSpeeds(0, 0);
+		}
 
 		onLost.Invoke();
 	}
