@@ -12,6 +12,8 @@ public class Gate : SignalReceiver {
 	[SerializeField] private bool panCamera;
 	[SerializeField] private float showDuration = 1f;
 	[SerializeField] private InputActionReference enterActionReference;
+	[SerializeField, Range(0.125f, 1f)]
+	private float enterThreshold = 0.5f;
 	[SerializeField] private UnityEvent onEnter;
 
 	private new SnappingCamera camera;
@@ -21,6 +23,7 @@ public class Gate : SignalReceiver {
 	private float cameraTransitionMultiplier = 0.10f;
 	private bool isShowing = false;
 	private bool canEnter = false;
+	private bool isEntering;
 
 	private void Awake() {
 		GameObject playerObj = GameObject.FindWithTag("Player");
@@ -43,13 +46,13 @@ public class Gate : SignalReceiver {
 	private void OnEnable() {
 		if (enterActionReference == null) return;
 
-		enterActionReference.action.started += OnEnterInput;
+		enterActionReference.action.performed += OnEnterInput;
 	}
 
 	private void OnDisable() {
 		if (enterActionReference == null) return;
 
-		enterActionReference.action.started -= OnEnterInput;
+		enterActionReference.action.performed -= OnEnterInput;
 	}
 
 	public void Toggle() {
@@ -87,8 +90,14 @@ public class Gate : SignalReceiver {
 		if (!canEnter) return;
 
 		Vector2 moveInput = ctx.ReadValue<Vector2>();
-		const float deadzone = 0.125f;
-		if (moveInput.y > deadzone)
-			onEnter.Invoke();
+		if (moveInput.y > enterThreshold) {
+			if (!isEntering) {
+				isEntering = true;
+				onEnter.Invoke();
+			}
+		}
+		else {
+			isEntering = false;
+		}
 	}
 }
