@@ -61,6 +61,11 @@ public class PauseMenu : MonoBehaviour {
 		onResume.Invoke();
 	}
 
+	public void RestartLevel() {
+		Time.timeScale = 1;
+		sceneHelper.ReloadScene();
+	}
+
 	public void ExitToMenu() {
 		Time.timeScale = 1;
 		sceneHelper.LoadScene(sceneHelper.MenuScene);
