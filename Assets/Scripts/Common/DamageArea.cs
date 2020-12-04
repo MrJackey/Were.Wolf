@@ -84,5 +84,5 @@ public class DamageArea : MonoBehaviour {
 			avg /= num;
 
 		return avg;
-		}
+	}
 }
