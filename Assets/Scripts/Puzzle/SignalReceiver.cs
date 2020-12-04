@@ -14,6 +14,8 @@ public class SignalReceiver : MonoBehaviour {
 	[SerializeField] private UnityEvent onActivation;
 	[SerializeField] private UnityEvent onDeactivation;
 
+	private bool isInitialized = false;
+
 	public bool IsActivated {
 		get => isActivated;
 		set => isActivated = value;
@@ -25,6 +27,15 @@ public class SignalReceiver : MonoBehaviour {
 				continue;
 			emitter.OnActivationChange.AddListener(EmitterUpdate);
 		}
+
+		if (isInitialized) return;
+
+		if (isActivated)
+			onActivation.Invoke();
+		else
+			onDeactivation.Invoke();
+
+		isInitialized = true;
 	}
 
 #if UNITY_EDITOR
@@ -33,6 +44,8 @@ public class SignalReceiver : MonoBehaviour {
 			onActivation.Invoke();
 		else
 			onDeactivation.Invoke();
+
+		isInitialized = true;
 	}
 #endif
 

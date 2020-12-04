@@ -20,6 +20,12 @@ public class ControlSchemeSpriteSwap : MonoBehaviour {
 		}
 	}
 
+	private void Start() {
+		if (playerInput != null) {
+			OnControlsChanged(playerInput);
+		}
+	}
+
 	private void OnDisable() {
 		if (playerInput != null)
 			playerInput.controlsChangedEvent.RemoveListener(OnControlsChanged);
