@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D rb2D;
 	private Knockbackable knockbackable;
+	private Transformation transformation;
 	private LayerMask groundLayer;
 	private Vector2 velocity;
 	private int facing = 1;
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour {
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
 		knockbackable = GetComponent<Knockbackable>();
+		transformation = GetComponent<Transformation>();
 		groundLayer = LayerMask.GetMask("Ground");
 		jumpEndTime = jumpCurve.keys[jumpCurve.length - 1].time;
 		humanJumpEndTime = humanJumpCurve.keys[humanJumpCurve.length - 1].time;
@@ -170,7 +172,7 @@ public class PlayerController : MonoBehaviour {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
 			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
 		}
-		else if ((allowControls || (isGrounded && !doDash)) && velocity.x != 0) {
+		else if ((allowControls || transformation.State == TransformationState.Transforming) && !doDash && velocity.x != 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
