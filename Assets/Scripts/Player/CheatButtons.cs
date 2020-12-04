@@ -24,11 +24,14 @@ public class CheatButtons : MonoBehaviour {
 
 		// Level switching.
 		if (kb.pageUpKey.wasPressedThisFrame) {
+			Time.timeScale = 1;
 			sceneHelper.LoadPreviousLevel();
 		}
 		else if (kb.pageDownKey.wasPressedThisFrame) {
-			if (sceneHelper.CurrentLevel != sceneHelper.Levels.Length - 1)
+			if (sceneHelper.CurrentLevel != sceneHelper.Levels.Length - 1) {
+				Time.timeScale = 1;
 				sceneHelper.LoadNextLevel();
+			}
 		}
 	}
 #endif
