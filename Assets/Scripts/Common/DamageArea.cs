@@ -12,14 +12,17 @@ public class DamageArea : MonoBehaviour {
 	[SerializeField] private DamageMode mode = DamageMode.Single;
 	[SerializeField] private float damage = 10;
 	[SerializeField] private float damageCooldown = 0;
-	[SerializeField] private UnityEvent<Vector2> onDamageEffect;
-	[SerializeField] private float knockbackForce = 5;
-	[SerializeField] private float knockbackDuration = 0.2f;
+	[SerializeField] private UnityEvent<Vector2> onDamageEffect = null;
+	[SerializeField] private bool enableKnockback = true;
+	[SerializeField, EnableIf(nameof(enableKnockback))]
+	private float knockbackForce = 5;
+	[SerializeField, EnableIf(nameof(enableKnockback))]
+	private float knockbackDuration = 0.2f;
 
 	[Header("Filters")]
 	[SerializeField] private LayerMask layerMask = -1;
 	[SerializeField] private bool ignoreTriggers = true;
-	[SerializeField, Tag] private string effectTarget;
+	[SerializeField, Tag] private string effectTarget = null;
 
 	private float cooldownTimer;
 	private ContactPoint2D[] contacts = new ContactPoint2D[10];
@@ -53,9 +56,14 @@ public class DamageArea : MonoBehaviour {
 				onDamageEffect.Invoke(avgContactPoint);
 		}
 
+		if (enableKnockback)
+			DoKnockback(other, avgContactPoint);
+	}
+
+	private void DoKnockback(Collider2D other, Vector2 point) {
 		Knockbackable knockbackComponent = other.attachedRigidbody.GetComponent<Knockbackable>();
 		if (knockbackComponent != null) {
-			Vector2 direction = (Vector2) other.transform.position - avgContactPoint;
+			Vector2 direction = (Vector2)other.transform.position - point;
 			knockbackComponent.Knockback(direction.normalized, knockbackForce, knockbackDuration);
 		}
 	}
