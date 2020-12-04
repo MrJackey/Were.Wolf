@@ -30,6 +30,8 @@ public class UIValueBar : MonoBehaviour {
 
 	private void Start() {
 		unitWidth = foreground.GetComponent<Image>().sprite.rect.width;
+		UpdateBarSize();
+		UpdateMaskSize();
 	}
 
 	private void OnValidate() {
