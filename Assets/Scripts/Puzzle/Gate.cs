@@ -22,6 +22,7 @@ public class Gate : SignalReceiver {
 	private float cameraTransitionDuration;
 	private float cameraTransitionMultiplier = 0.10f;
 	private bool isShowing = false;
+	private bool allowShow = false;
 	private bool canEnter = false;
 	private bool isEntering;
 
@@ -56,10 +57,12 @@ public class Gate : SignalReceiver {
 	}
 
 	public void Toggle() {
-		if (panCamera && camera != null && !isShowing)
+		if (panCamera && camera != null && !isShowing && allowShow)
 			StartCoroutine(ShowEvent());
 		else if (animator.isInitialized)
 			animator.SetBool(isOpenHash, IsActivated);
+
+		allowShow = true;
 	}
 
 	private IEnumerator ShowEvent() {
