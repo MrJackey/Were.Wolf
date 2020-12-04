@@ -25,7 +25,10 @@ public class SaveManager : MonoBehaviour {
 
 	[ContextMenu("Load Data")]
 	public void Load() {
-		if (!File.Exists(saveFile)) return;
+		if (!File.Exists(saveFile)) {
+			data = new SaveData();
+			return;
+		}
 
 		string json;
 
@@ -59,7 +62,7 @@ public class SaveManager : MonoBehaviour {
 	}
 
 
-	[RuntimeInitializeOnLoadMethod]
+	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void OnLoad() {
 		new GameObject("Save Manager", typeof(SaveManager));
 	}
@@ -80,6 +83,6 @@ public class SaveManager : MonoBehaviour {
 
 	[Serializable]
 	public class SaveData {
-		public int completedLevel;
+		public int completedLevel = -1;
 	}
 }
