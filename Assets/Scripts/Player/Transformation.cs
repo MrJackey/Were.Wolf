@@ -102,7 +102,7 @@ public class Transformation : MonoBehaviour {
 	}
 
 	private IEnumerator CoTransforming(TransformationState newState, float startTime = 0) {
-		if (playerController.IsCrouched && !playerController.CheckUncrouch()) {
+		if (playerController.IsCrouched && !playerController.IsClearAbove) {
 			unableTransform = true;
 			yield break;
 		}
@@ -192,7 +192,7 @@ public class Transformation : MonoBehaviour {
 	}
 
 	private void RecheckCrouched() {
-		if (!playerController.CheckUncrouch()) return;
+		if (!playerController.IsClearAbove) return;
 
 		unableTransform = false;
 		TransformToWolf();

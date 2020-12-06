@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float dashCooldown = 0.5f;
 
 	[Header("Crouch")]
+	[SerializeField] private BoxCollider2D clearAboveCollider;
 	[SerializeField, Range(-1f, -0.1f)]
 	private float crouchInputThreshold = -0.5f;
 	[SerializeField] private float crouchDownTime = 1f;
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour {
 	private bool isCrouching = false;
 	private float crouchingTime = float.PositiveInfinity;
 	private bool isCrouched = false;
+	private bool isClearAbove = false;
 
 	private Vector2 moveInput;
 	private bool jumpInputDown, jumpInputUp;
@@ -105,6 +107,7 @@ public class PlayerController : MonoBehaviour {
 		set => isCrouched = value;
 	}
 
+	public bool IsClearAbove => isClearAbove;
 	public bool DoKnockBack {
 		set {
 			doKnockBack = value;
@@ -198,7 +201,10 @@ public class PlayerController : MonoBehaviour {
 
 		if (isCrouching && crouchingTime <= crouchDownTime) {
 			crouchingTime += Time.deltaTime;
-			UpdateCrouchColliders();
+			if (isCrouched)
+				UpdateCrouchColliders(humanCollider, crouchCollider, humanGroundCollider, crouchGroundCollider);
+			else
+				UpdateCrouchColliders(crouchCollider, humanCollider, crouchGroundCollider, humanGroundCollider);
 		}
 
 		if (!allowControls)
@@ -229,7 +235,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (transformation.IsHuman && moveInput.y < crouchInputThreshold && !isCrouched)
 			StartCrouch();
-		else if (transformation.IsHuman && moveInput.y > crouchInputThreshold && isCrouched && CheckUncrouch())
+		else if (transformation.IsHuman && isCrouched && moveInput.y > crouchInputThreshold && isClearAbove)
 			StopCrouch();
 	}
 
@@ -273,6 +279,8 @@ public class PlayerController : MonoBehaviour {
 			allowDashReset = true;
 			EndCoyote(true);
 		}
+
+		isClearAbove = !clearAboveCollider.IsTouchingLayers();
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
@@ -282,6 +290,8 @@ public class PlayerController : MonoBehaviour {
 
 			coyoteRoutine = StartCoroutine(CoCoyoteDuration());
 		}
+
+		isClearAbove = !clearAboveCollider.IsTouchingLayers();
 	}
 
 	public void OnMove(InputAction.CallbackContext ctx) {
@@ -380,7 +390,6 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = true;
 		isCrouched = true;
 		crouchingTime = 0f;
-		velocity.x = 0;
 		onCrouch.Invoke();
 	}
 
@@ -388,39 +397,19 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = true;
 		isCrouched = false;
 		crouchingTime = 0f;
-		velocity.x = 0;
 		onCrouchEnd.Invoke();
 	}
 
-	private void UpdateCrouchColliders() {
+	private void UpdateCrouchColliders(BoxCollider2D from, BoxCollider2D to, BoxCollider2D gFrom, BoxCollider2D gTo) {
 		if (!isCrouching) return;
-
 		float factor = crouchingTime / crouchDownTime;
 
-		if (isCrouched) {
-			hitCollider.size = Vector2.Lerp(humanCollider.size, crouchCollider.size, factor);
-			hitCollider.offset = Vector2.Lerp(humanCollider.offset, crouchCollider.offset, factor);
-			groundedCollider.size = Vector2.Lerp(humanGroundCollider.size, crouchGroundCollider.size, factor);
-			groundedCollider.offset = Vector2.Lerp(humanGroundCollider.offset, crouchGroundCollider.offset, factor);
-		}
-		else {
-			hitCollider.size = Vector2.Lerp(crouchCollider.size, humanCollider.size, factor);
-			hitCollider.offset = Vector2.Lerp(crouchCollider.offset, humanCollider.offset, factor);
-			groundedCollider.size = Vector2.Lerp(crouchGroundCollider.size, humanGroundCollider.size, factor);
-			groundedCollider.offset = Vector2.Lerp(crouchGroundCollider.offset, humanGroundCollider.offset, factor);
-		}
+		hitCollider.size = Vector2.Lerp(from.size, to.size, factor);
+		hitCollider.offset = Vector2.Lerp(from.offset, to.offset, factor);
+		groundedCollider.size = Vector2.Lerp(gFrom.size, gTo.size, factor);
+		groundedCollider.offset = Vector2.Lerp(gFrom.offset, gTo.offset, factor);
 
 		if (factor >= 1)
 			isCrouching = false;
-	}
-
-	public bool CheckUncrouch() {
-		Vector2 origin = transform.position;
-		Vector2 humanSize = humanCollider.size;
-
-		RaycastHit2D upCheck = Physics2D.Raycast(origin, Vector2.up, humanSize.y, groundLayer);
-
-		return (upCheck.distance == 0 || !isGrounded) &&
-		       (upCheck.distance != 0 || isGrounded);
 	}
 }

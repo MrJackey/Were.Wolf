@@ -474,6 +474,7 @@ MonoBehaviour:
   dashSpeed: 15
   dashDuration: 0.15
   dashCooldown: 0.5
+  clearAboveCollider: {fileID: 6709035963052178592}
   crouchInputThreshold: -0.5
   crouchDownTime: 0.6
   crouchMaxSpeed: 1.5
@@ -560,7 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transDuration: 1.2
-  humanFormDuration: 20
+  humanFormDuration: 5
   cancelThreshold: 0.6
   points: 3
   maxPoints: 3
@@ -1154,6 +1155,7 @@ GameObject:
   - component: {fileID: 7071930919852746780}
   - component: {fileID: 7782289118800930667}
   - component: {fileID: 7474596574316978520}
+  - component: {fileID: 6709035963052178592}
   m_Layer: 0
   m_Name: Colliders
   m_TagString: Untagged
@@ -1226,4 +1228,30 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.50422096, y: 0.0692333}
+  m_EdgeRadius: 0
+--- !u!61 &6709035963052178592
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7943920797690068446}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10276961, y: 0.08}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4589324, y: 0.10750222}
   m_EdgeRadius: 0
