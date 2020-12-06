@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 	[Header("Constants")]
 	[SerializeField] private float gravity = -9.82f;
 	[SerializeField] private Animator animator = null;
+	[SerializeField] private BoxCollider2D hitCollider;
 
 	[Header("Movement")]
 	[SerializeField] private float acceleration = 25;
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float speedMultiplier = 1;
 
 	[Header("Jumping")]
-	[SerializeField] private Collider2D groundedCollider = null;
+	[SerializeField] private BoxCollider2D groundedCollider = null;
 	[SerializeField] private AnimationCurve jumpCurve = null;
 	[SerializeField] private AnimationCurve humanJumpCurve;
 	[SerializeField] private int airJumpsAllowed = 1;
@@ -35,10 +36,22 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float dashDuration = 10f;
 	[SerializeField] private float dashCooldown = 0.5f;
 
+	[Header("Crouch")]
+	[SerializeField, Range(-1f, -0.1f)]
+	private float crouchInputThreshold = -0.5f;
+	[SerializeField] private float crouchDownTime = 1f;
+	[SerializeField] private float crouchMaxSpeed = 1f;
+	[SerializeField] private BoxCollider2D humanCollider;
+	[SerializeField] private BoxCollider2D humanGroundCollider;
+	[SerializeField] private BoxCollider2D crouchCollider;
+	[SerializeField] private BoxCollider2D crouchGroundCollider;
+
 	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
 	[SerializeField] private UnityEvent onAirJump;
 	[SerializeField] private UnityEvent onDash;
+	[SerializeField] private UnityEvent onCrouch;
+	[SerializeField] private UnityEvent onCrouchEnd;
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 	[Header("Debug")]
@@ -55,7 +68,6 @@ public class PlayerController : MonoBehaviour {
 	private int facing = 1;
 
 	private bool allowControls = true;
-	private bool humanControls = false;
 	private bool doGravity = true;
 	private bool isGrounded = false;
 	private bool doKnockBack = false;
@@ -75,19 +87,23 @@ public class PlayerController : MonoBehaviour {
 	private float dashTimer = 0f;
 	private float dashResetTimer = 0.5f;
 
+	private bool isCrouching = false;
+	private float crouchingTime = float.PositiveInfinity;
+	private bool isCrouched = false;
+
 	private Vector2 moveInput;
 	private bool jumpInputDown, jumpInputUp;
 	private bool dashInputDown;
 
-	public bool HumanControls {
-		get => humanControls;
-		set => humanControls = value;
-	}
 	public bool AllowControls {
 		get => allowControls;
 		set => allowControls = value;
 	}
 	public bool IsGrounded => isGrounded;
+	public bool IsCrouched {
+		get => isCrouched;
+		set => isCrouched = value;
+	}
 
 	public bool DoKnockBack {
 		set {
@@ -97,7 +113,6 @@ public class PlayerController : MonoBehaviour {
 				InterruptJump();
 		}
 	}
-
 	public float JumpLength => jumpEndTime;
 	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
@@ -124,7 +139,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void UpdateMovement() {
-	#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 		if (Keyboard.current.f1Key.wasPressedThisFrame) {
 			noClip = !noClip;
 			GetComponent<Health>().IsInvincible = noClip;
@@ -140,7 +155,7 @@ public class PlayerController : MonoBehaviour {
 			transform.Translate(x * noClipSpeed * Time.deltaTime, y * noClipSpeed * Time.deltaTime, 0);
 			return;
 		}
-	#endif
+#endif
 
 		if (isGrounded) {
 			airJumpsUsed = 0;
@@ -168,15 +183,23 @@ public class PlayerController : MonoBehaviour {
 		if (Mathf.Abs(rb2D.velocity.y) < 0.01f && !isGrounded && !doDash)
 			InterruptJump();
 
-		if (xInput != 0) {
+		if (xInput != 0 && !isCrouching) {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
-			velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
+			if (isCrouched)
+				velocity.x = Mathf.Clamp(newVelocityX, -crouchMaxSpeed, crouchMaxSpeed);
+			else
+				velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
 		}
-		else if ((allowControls || transformation.State == TransformationState.Transforming) && !doDash && velocity.x != 0) {
+		else if ((allowControls || transformation.IsTransforming) && !doDash && velocity.x != 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
 		animator.SetFloat(speedHash, Mathf.Abs(xInput));
+
+		if (isCrouching && crouchingTime <= crouchDownTime) {
+			crouchingTime += Time.deltaTime;
+			UpdateCrouchColliders();
+		}
 
 		if (!allowControls)
 			return;
@@ -191,7 +214,7 @@ public class PlayerController : MonoBehaviour {
 				BeginJump(onJump);
 				doJump = true;
 			}
-			else if (!humanControls && airJumpsUsed < airJumpsAllowed) {
+			else if (!transformation.IsHuman && airJumpsUsed < airJumpsAllowed) {
 				BeginJump(onAirJump);
 				doJump = false;
 				airJumpsUsed++;
@@ -199,19 +222,26 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		if (!humanControls && dashInputDown && allowDash)
+		if (!transformation.IsHuman && dashInputDown && allowDash)
 			BeginDash(facing);
+
+		if (!isGrounded) return;
+
+		if (transformation.IsHuman && moveInput.y < crouchInputThreshold && !isCrouched)
+			StartCrouch();
+		else if (transformation.IsHuman && moveInput.y > crouchInputThreshold && isCrouched && CheckUncrouch())
+			StopCrouch();
 	}
 
 	private void FixedUpdate() {
-	#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 		if (noClip)
 			return;
-	#endif
+#endif
 
 		if (doJump) {
-			AnimationCurve curve = humanControls ? humanJumpCurve : jumpCurve;
-			float endTime = humanControls ? humanJumpEndTime : jumpEndTime;
+			AnimationCurve curve = transformation.IsHuman ? humanJumpCurve : jumpCurve;
+			float endTime = transformation.IsHuman ? humanJumpEndTime : jumpEndTime;
 			Jump(curve, endTime);
 		}
 		else if (doAirJump)
@@ -344,5 +374,53 @@ public class PlayerController : MonoBehaviour {
 		dashTimer = 0;
 		doDash = false;
 		animator.SetBool(isDashingHash, false);
+	}
+
+	private void StartCrouch() {
+		isCrouching = true;
+		isCrouched = true;
+		crouchingTime = 0f;
+		velocity.x = 0;
+		onCrouch.Invoke();
+	}
+
+	private void StopCrouch() {
+		isCrouching = true;
+		isCrouched = false;
+		crouchingTime = 0f;
+		velocity.x = 0;
+		onCrouchEnd.Invoke();
+	}
+
+	private void UpdateCrouchColliders() {
+		if (!isCrouching) return;
+
+		float factor = crouchingTime / crouchDownTime;
+
+		if (isCrouched) {
+			hitCollider.size = Vector2.Lerp(humanCollider.size, crouchCollider.size, factor);
+			hitCollider.offset = Vector2.Lerp(humanCollider.offset, crouchCollider.offset, factor);
+			groundedCollider.size = Vector2.Lerp(humanGroundCollider.size, crouchGroundCollider.size, factor);
+			groundedCollider.offset = Vector2.Lerp(humanGroundCollider.offset, crouchGroundCollider.offset, factor);
+		}
+		else {
+			hitCollider.size = Vector2.Lerp(crouchCollider.size, humanCollider.size, factor);
+			hitCollider.offset = Vector2.Lerp(crouchCollider.offset, humanCollider.offset, factor);
+			groundedCollider.size = Vector2.Lerp(crouchGroundCollider.size, humanGroundCollider.size, factor);
+			groundedCollider.offset = Vector2.Lerp(crouchGroundCollider.offset, humanGroundCollider.offset, factor);
+		}
+
+		if (factor >= 1)
+			isCrouching = false;
+	}
+
+	public bool CheckUncrouch() {
+		Vector2 origin = transform.position;
+		Vector2 humanSize = humanCollider.size;
+
+		RaycastHit2D upCheck = Physics2D.Raycast(origin, Vector2.up, humanSize.y, groundLayer);
+
+		return (upCheck.distance == 0 || !isGrounded) &&
+		       (upCheck.distance != 0 || isGrounded);
 	}
 }

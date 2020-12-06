@@ -389,6 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: -19.64
   animator: {fileID: 5561372523853325554}
+  hitCollider: {fileID: 7782289118800930667}
   acceleration: 25
   deacceleration: 7
   maxSpeed: 5
@@ -473,6 +474,13 @@ MonoBehaviour:
   dashSpeed: 15
   dashDuration: 0.15
   dashCooldown: 0.5
+  crouchInputThreshold: -0.5
+  crouchDownTime: 0.6
+  crouchMaxSpeed: 1.5
+  humanCollider: {fileID: 5145285823690266723}
+  humanGroundCollider: {fileID: 5814764578376142764}
+  crouchCollider: {fileID: 2852801831865819935}
+  crouchGroundCollider: {fileID: 2093465708}
   onJump:
     m_PersistentCalls:
       m_Calls:
@@ -506,6 +514,36 @@ MonoBehaviour:
   onDash:
     m_PersistentCalls:
       m_Calls: []
+  onCrouch:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5101940937189108370}
+        m_TargetAssemblyTypeName: PlayerAnimationController, Assembly-CSharp
+        m_MethodName: Crouch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCrouchEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5101940937189108370}
+        m_TargetAssemblyTypeName: PlayerAnimationController, Assembly-CSharp
+        m_MethodName: CrouchEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   noClip: 0
   noClipSpeed: 15
   colliders: {fileID: 7943920797690068446}
@@ -522,7 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transDuration: 1.2
-  humanFormDuration: 5
+  humanFormDuration: 20
   cancelThreshold: 0.6
   points: 3
   maxPoints: 3
@@ -565,6 +603,30 @@ MonoBehaviour:
       - m_Target: {fileID: 2435196009969585088}
         m_TargetAssemblyTypeName: PlayerCarrying, Assembly-CSharp
         m_MethodName: DropItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3326305250810700144}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: set_IsCrouched
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5101940937189108370}
+        m_TargetAssemblyTypeName: PlayerAnimationController, Assembly-CSharp
+        m_MethodName: CrouchEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -650,9 +712,9 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
-        m_TargetAssemblyTypeName: SceneHelper, Assembly-CSharp
-        m_MethodName: ReloadScene
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CheckpointManager, Assembly-CSharp
+        m_MethodName: Respawn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -832,6 +894,8 @@ GameObject:
   - component: {fileID: 1692084145683785463}
   - component: {fileID: 5145285823690266723}
   - component: {fileID: 5814764578376142764}
+  - component: {fileID: 2852801831865819935}
+  - component: {fileID: 2093465708}
   m_Layer: 0
   m_Name: HumanRefColliders
   m_TagString: Untagged
@@ -904,6 +968,58 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.12736893, y: 0.0692333}
+  m_EdgeRadius: 0
+--- !u!61 &2852801831865819935
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812679119291105042}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10116649, y: -0.17243874}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.3467946, y: 0.28883147}
+  m_EdgeRadius: 0.09
+--- !u!61 &2093465708
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812679119291105042}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10622454, y: -0.39989948}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.34073162, y: 0.07065487}
   m_EdgeRadius: 0
 --- !u!1 &6864336964066580822
 GameObject:

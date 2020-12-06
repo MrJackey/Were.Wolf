@@ -38,6 +38,7 @@ public class Transformation : MonoBehaviour {
 	private TransformationState oldState;
 	private TransformationState state;
 	private Coroutine humanFormDurationCoroutine;
+	private bool unableTransform = false;
 
 	private ParticleSystem particleEffect;
 	private float wolfEmissionRate;
@@ -53,7 +54,8 @@ public class Transformation : MonoBehaviour {
 	public UnityEvent<float> OnTransformInterrupt => onTransformInterrupt;
 	public UnityEvent OnPointSpent => onPointSpent;
 	public UnityEvent OnPointsChanged => onPointsChanged;
-
+	public bool IsHuman => state == TransformationState.Human;
+	public bool IsTransforming => state == TransformationState.Transforming;
 	public float TransformDuration => transDuration;
 
 	public int Points {
@@ -77,6 +79,11 @@ public class Transformation : MonoBehaviour {
 		particleEffect.Stop();
 	}
 
+	private void Update() {
+		if (unableTransform)
+			RecheckCrouched();
+	}
+
 	private void LateUpdate() {
 		// Must be done in LateUpdate because it is used in a coroutine and they are resumed after Update.
 		transformInputUp = false;
@@ -95,6 +102,11 @@ public class Transformation : MonoBehaviour {
 	}
 
 	private IEnumerator CoTransforming(TransformationState newState, float startTime = 0) {
+		if (playerController.IsCrouched && !playerController.CheckUncrouch()) {
+			unableTransform = true;
+			yield break;
+		}
+
 		oldState = state;
 		state = TransformationState.Transforming;
 		PlayParticles();
@@ -125,7 +137,6 @@ public class Transformation : MonoBehaviour {
 			}
 		}
 		state = newState;
-		playerController.HumanControls = state == TransformationState.Human;
 
 		particleEffect.Stop();
 		onTransformEnd.Invoke();
@@ -157,19 +168,34 @@ public class Transformation : MonoBehaviour {
 
 	private void UpdateHitboxes(TransformationState newState, float transformationTime) {
 		Vector2 newHitSize;
+		Vector2 newHitOffset;
 		Vector2 newGroundSize;
+		Vector2 newGroundOffset;
 
 		if (newState == TransformationState.Human) {
 			newHitSize = Vector2.Lerp(wolfHitCollider.size, humanHitCollider.size, transformationTime);
+			newHitOffset = Vector2.Lerp(wolfHitCollider.offset, humanHitCollider.offset, transformationTime);
 			newGroundSize = Vector2.Lerp(wolfGroundCollider.size, humanGroundCollider.size, transformationTime);
+			newGroundOffset = Vector2.Lerp(wolfGroundCollider.offset, humanGroundCollider.offset, transformationTime);
 		}
 		else {
 			newHitSize = Vector2.Lerp(humanHitCollider.size, wolfHitCollider.size, transformationTime);
+			newHitOffset = Vector2.Lerp(humanHitCollider.offset, wolfHitCollider.offset, transformationTime);
 			newGroundSize = Vector2.Lerp(humanGroundCollider.size, wolfGroundCollider.size, transformationTime);
+			newGroundOffset = Vector2.Lerp(humanGroundCollider.offset, wolfGroundCollider.offset, transformationTime);
 		}
 
 		hitCollider.size = newHitSize;
+		hitCollider.offset = newHitOffset;
 		groundCollider.size = newGroundSize;
+		groundCollider.offset = newGroundOffset;
+	}
+
+	private void RecheckCrouched() {
+		if (!playerController.CheckUncrouch()) return;
+
+		unableTransform = false;
+		TransformToWolf();
 	}
 }
 
