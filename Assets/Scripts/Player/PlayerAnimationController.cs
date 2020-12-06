@@ -37,7 +37,7 @@ public class PlayerAnimationController : MonoBehaviour {
 	}
 
 	public void JumpStart() {
-		if (playerController.HumanControls)
+		if (transformation.IsHuman)
 			animator.SetFloat(jumpSpeedHash, 1f / (playerController.HumanJumpLength / humanJumpAnimation.length));
 		else
 			animator.SetFloat(jumpSpeedHash, 1f / (playerController.JumpLength / jumpAnimation.length));
@@ -73,5 +73,13 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	public void DropItem() {
 		animator.SetTrigger(doDropHash);
+	}
+
+	public void Crouch() {
+		animator.SetBool("isCrouched", true);
+	}
+
+	public void CrouchEnd() {
+		animator.SetBool("isCrouched", false);
 	}
 }
