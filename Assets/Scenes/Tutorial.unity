@@ -2316,6 +2316,8 @@ GameObject:
   m_Component:
   - component: {fileID: 337274166}
   - component: {fileID: 337274165}
+  - component: {fileID: 337274168}
+  - component: {fileID: 337274167}
   m_Layer: 0
   m_Name: skeleton_markings
   m_TagString: Untagged
@@ -2360,8 +2362,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 755491027
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: aa2c742909716cd42845a8c43dbec086, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2388,6 +2390,55 @@ Transform:
   m_Father: {fileID: 970985761}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &337274167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337274164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1134cbbc17443a4a0317f4484ea20cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
+  speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
+  textOffset: {x: -1.21, y: 0.5}
+  triggerTag: Player
+  ignoreTriggers: 1
+  forceShow: 0
+  message: "\"I'm dying... \nWe humans are so weak.\""
+  slowWrite: 1
+  charactersPerSecond: 15
+  fadeOut: 1
+  fadeDuration: 0.5
+--- !u!61 &337274168
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337274164}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.51, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.0625, y: 3.125}
+    newSize: {x: 4.0625, y: 3.125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.32, y: 3.125}
+  m_EdgeRadius: 0
 --- !u!1001 &353787992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3818,6 +3869,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyboardSprite: {fileID: 21300000, guid: bb8feab96c4d78c4f98935697a33515e, type: 3}
   gamepadSprite: {fileID: 21300000, guid: 0ce7db316b19d254eae8c2687d6e56df, type: 3}
+--- !u!1 &493992736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6573483597519671423, guid: 76c45731105d4444f96c72775abc427d, type: 3}
+  m_PrefabInstance: {fileID: 875142696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &493992740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493992736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1134cbbc17443a4a0317f4484ea20cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
+  speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
+  textOffset: {x: -1.18, y: 0.13}
+  triggerTag: Player
+  ignoreTriggers: 1
+  forceShow: 0
+  message: 'Have to get out. Have to get out!
+
+    She is coming for me...'
+  slowWrite: 1
+  charactersPerSecond: 15
+  fadeOut: 1
+  fadeDuration: 0.5
+--- !u!61 &493992741
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493992736}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.09, y: -0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.5, y: 5.28125}
+    newSize: {x: 2.5, y: 5.28125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.74, y: 3.66}
+  m_EdgeRadius: 0
 --- !u!1001 &499711291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5847,7 +5954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2286640154162573176, guid: 76c45731105d4444f96c72775abc427d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.28
+      value: 14.15
       objectReference: {fileID: 0}
     - target: {fileID: 2286640154162573176, guid: 76c45731105d4444f96c72775abc427d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5884,6 +5991,10 @@ PrefabInstance:
     - target: {fileID: 6573483597519671423, guid: 76c45731105d4444f96c72775abc427d, type: 3}
       propertyPath: m_Name
       value: Get-out-NPC-Spritesheet_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073285646025765715, guid: 76c45731105d4444f96c72775abc427d, type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8073285646025765715, guid: 76c45731105d4444f96c72775abc427d, type: 3}
       propertyPath: m_SortingLayer
@@ -45517,6 +45628,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4802654008204286465, guid: 61919dff458546f458b0b31803df6940, type: 3}
   m_PrefabInstance: {fileID: 1856812688}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1865757394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 530219991640592637, guid: 75d96ac9fb84b434da8f75c58ed4a370, type: 3}
+  m_PrefabInstance: {fileID: 1885961974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1865757398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865757394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1134cbbc17443a4a0317f4484ea20cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
+  speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
+  textOffset: {x: -0.36, y: 0.89}
+  triggerTag: Player
+  ignoreTriggers: 1
+  forceShow: 0
+  message: They're looking for werewolves...
+  slowWrite: 1
+  charactersPerSecond: 15
+  fadeOut: 1
+  fadeDuration: 0.5
+--- !u!61 &1865757399
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865757394}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.875, y: 2.5}
+    newSize: {x: 1.875, y: 2.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.99, y: 2.5}
+  m_EdgeRadius: 0
 --- !u!1 &1868063788
 GameObject:
   m_ObjectHideFlags: 0
@@ -45735,6 +45900,18 @@ PrefabInstance:
     - target: {fileID: 3185395263227690910, guid: 75d96ac9fb84b434da8f75c58ed4a370, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974140762624446038, guid: 75d96ac9fb84b434da8f75c58ed4a370, type: 3}
+      propertyPath: m_SortingLayer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974140762624446038, guid: 75d96ac9fb84b434da8f75c58ed4a370, type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974140762624446038, guid: 75d96ac9fb84b434da8f75c58ed4a370, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 755491027
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75d96ac9fb84b434da8f75c58ed4a370, type: 3}
@@ -46324,11 +46501,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6737579618378626552, guid: 3a2783a1220b05f4ea493a64fcc23de1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.3
+      value: 24.66
       objectReference: {fileID: 0}
     - target: {fileID: 6737579618378626552, guid: 3a2783a1220b05f4ea493a64fcc23de1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.77
+      value: 12.21
       objectReference: {fileID: 0}
     - target: {fileID: 6737579618378626552, guid: 3a2783a1220b05f4ea493a64fcc23de1, type: 3}
       propertyPath: m_LocalPosition.z
