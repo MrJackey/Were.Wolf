@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2629e2aace8af64e9586aa09969a82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActivated: 1
+  isActivated: 0
   logicGate: 0
   invert: 0
   emitters: []
@@ -259,3 +259,4 @@ MonoBehaviour:
   animator: {fileID: 1868501750330856506}
   panCamera: 0
   showDuration: 1
+  showCooldown: 7.5
