@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private BoxCollider2D clearAboveCollider;
 	[SerializeField, Range(-1f, -0.1f)]
 	private float crouchInputThreshold = -0.5f;
-	[SerializeField] private float crouchDownTime = 1f;
+	[SerializeField] private float crouchTransitionTime = 1f;
 	[SerializeField] private float crouchMaxSpeed = 1f;
 	[SerializeField] private BoxCollider2D humanCollider;
 	[SerializeField] private BoxCollider2D humanGroundCollider;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private UnityEvent onAirJump;
 	[SerializeField] private UnityEvent onDash;
 	[SerializeField] private UnityEvent onCrouch;
-	[SerializeField] private UnityEvent onCrouchEnd;
+	[SerializeField] private UnityEvent onUncrouch;
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 	[Header("Debug")]
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 	private float dashResetTimer = 0.5f;
 
 	private bool isCrouching = false;
-	private float crouchingTime = float.PositiveInfinity;
+	private float crouchTransitionTimer = float.PositiveInfinity;
 	private bool isCrouched = false;
 	private bool isClearAbove = false;
 
@@ -199,8 +199,8 @@ public class PlayerController : MonoBehaviour {
 
 		animator.SetFloat(speedHash, Mathf.Abs(xInput));
 
-		if (isCrouching && crouchingTime <= crouchDownTime) {
-			crouchingTime += Time.deltaTime;
+		if (isCrouching && crouchTransitionTimer <= crouchTransitionTime) {
+			crouchTransitionTimer += Time.deltaTime;
 			if (isCrouched)
 				UpdateCrouchColliders(humanCollider, crouchCollider, humanGroundCollider, crouchGroundCollider);
 			else
@@ -236,7 +236,7 @@ public class PlayerController : MonoBehaviour {
 		if (transformation.IsHuman && moveInput.y < crouchInputThreshold && !isCrouched)
 			StartCrouch();
 		else if (transformation.IsHuman && isCrouched && moveInput.y > crouchInputThreshold && isClearAbove)
-			StopCrouch();
+			Uncrouch();
 	}
 
 	private void FixedUpdate() {
@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour {
 			EndCoyote(true);
 		}
 
-		isClearAbove = !clearAboveCollider.IsTouchingLayers();
+		isClearAbove = !clearAboveCollider.IsTouchingLayers(groundLayer);
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour {
 			coyoteRoutine = StartCoroutine(CoCoyoteDuration());
 		}
 
-		isClearAbove = !clearAboveCollider.IsTouchingLayers();
+		isClearAbove = !clearAboveCollider.IsTouchingLayers(groundLayer);
 	}
 
 	public void OnMove(InputAction.CallbackContext ctx) {
@@ -389,20 +389,20 @@ public class PlayerController : MonoBehaviour {
 	private void StartCrouch() {
 		isCrouching = true;
 		isCrouched = true;
-		crouchingTime = 0f;
+		crouchTransitionTimer = 0f;
 		onCrouch.Invoke();
 	}
 
-	private void StopCrouch() {
+	private void Uncrouch() {
 		isCrouching = true;
 		isCrouched = false;
-		crouchingTime = 0f;
-		onCrouchEnd.Invoke();
+		crouchTransitionTimer = 0f;
+		onUncrouch.Invoke();
 	}
 
 	private void UpdateCrouchColliders(BoxCollider2D from, BoxCollider2D to, BoxCollider2D gFrom, BoxCollider2D gTo) {
 		if (!isCrouching) return;
-		float factor = crouchingTime / crouchDownTime;
+		float factor = crouchTransitionTimer / crouchTransitionTime;
 
 		hitCollider.size = Vector2.Lerp(from.size, to.size, factor);
 		hitCollider.offset = Vector2.Lerp(from.offset, to.offset, factor);
@@ -411,5 +411,12 @@ public class PlayerController : MonoBehaviour {
 
 		if (factor >= 1)
 			isCrouching = false;
+	}
+
+	public void InterruptCrouch() {
+		isCrouching = false;
+		isCrouched = false;
+		crouchTransitionTimer = float.PositiveInfinity;
+		onUncrouch.Invoke();
 	}
 }
