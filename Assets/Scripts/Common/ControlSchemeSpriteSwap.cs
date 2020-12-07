@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ControlSchemeSpriteSwap : MonoBehaviour {
@@ -8,30 +7,28 @@ public class ControlSchemeSpriteSwap : MonoBehaviour {
 
 	private SpriteRenderer spriteRenderer;
 	private PlayerInput playerInput;
+	private string oldControlScheme;
 
 	private void OnEnable() {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		GameObject player = GameObject.FindWithTag("Player");
-		if (player != null) {
-			playerInput = player.GetComponent<PlayerInput>();
-			playerInput.controlsChangedEvent.AddListener(OnControlsChanged);
-			OnControlsChanged(playerInput);
-		}
-	}
+		playerInput = player.GetComponent<PlayerInput>();
 
-	private void Start() {
 		if (playerInput != null) {
-			OnControlsChanged(playerInput);
+			ControlSchemeManager.Instance.ControlSchemeChanged += OnControlSchemeChanged;
+			ControlSchemeManager.SetControlScheme(playerInput, ControlSchemeManager.Instance.LastUsedControlScheme);
+			OnControlSchemeChanged(playerInput.currentControlScheme);
 		}
 	}
 
 	private void OnDisable() {
-		if (playerInput != null)
-			playerInput.controlsChangedEvent.RemoveListener(OnControlsChanged);
+		// Sometimes null on disable??
+		if (ControlSchemeManager.Instance != null)
+			ControlSchemeManager.Instance.ControlSchemeChanged -= OnControlSchemeChanged;
 	}
 
-	private void OnControlsChanged(PlayerInput _) {
-		spriteRenderer.sprite = playerInput.currentControlScheme == "Keyboard" ? keyboardSprite : gamepadSprite;
+	private void OnControlSchemeChanged(string scheme) {
+		spriteRenderer.sprite = scheme == "Keyboard" ? keyboardSprite : gamepadSprite;
 	}
 }
