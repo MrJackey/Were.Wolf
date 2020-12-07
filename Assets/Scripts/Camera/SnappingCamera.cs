@@ -2,6 +2,7 @@
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
@@ -170,11 +171,10 @@ public class SnappingCamera : MonoBehaviour {
 	}
 
 
-	private static Rect GetCameraWorldRect(Camera camera) {
-		Rect viewRect = camera.rect;
+	public static Rect GetCameraWorldRect(Camera camera) {
 		return new Rect {
-			min = camera.ViewportToWorldPoint(new Vector3(viewRect.xMin, viewRect.yMin, 0)),
-			max = camera.ViewportToWorldPoint(new Vector3(viewRect.xMax, viewRect.yMax, 0)),
+			min = camera.ViewportToWorldPoint(new Vector3(0, 0, 0)),
+			max = camera.ViewportToWorldPoint(new Vector3(1, 1, 0)),
 		};
 	}
 
