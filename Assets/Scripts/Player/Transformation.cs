@@ -35,8 +35,9 @@ public class Transformation : MonoBehaviour {
 	private TransformationState oldState;
 	private TransformationState state;
 	private Coroutine humanFormDurationCoroutine;
-	private float transformationCooldownTimer;
 	private bool transformationIsBlocked = false;
+	private float transformationCooldownTimer;
+	private bool isCoolingDown = true;
 
 	private ParticleSystem particleEffect;
 	private float wolfEmissionRate;
@@ -76,7 +77,8 @@ public class Transformation : MonoBehaviour {
 			TransformToWolf();
 		}
 
-		transformationCooldownTimer = Mathf.Max(transformationCooldownTimer - Time.deltaTime, 0);
+		if (isCoolingDown)
+			transformationCooldownTimer = Mathf.Max(transformationCooldownTimer - Time.deltaTime, 0);
 	}
 
 	private void LateUpdate() {
@@ -111,7 +113,13 @@ public class Transformation : MonoBehaviour {
 		PlayParticles();
 		onTransformStart.Invoke();
 
+		if (newState == TransformationState.Human)
+			isCoolingDown = false;
+
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
+			if (newState == TransformationState.Human)
+				transformationCooldownTimer = transformCooldownDuration * transTimer / transDuration;
+
 			UpdateHitboxes(newState, transTimer / transDuration);
 
 			if (transformInputUp && oldState == TransformationState.Wolf && transTimer / transDuration < cancelThreshold) {
@@ -128,6 +136,9 @@ public class Transformation : MonoBehaviour {
 				StopCoroutine(humanFormDurationCoroutine);
 
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
+		}
+		else if (newState == TransformationState.Wolf) {
+			isCoolingDown = true;
 		}
 		state = newState;
 

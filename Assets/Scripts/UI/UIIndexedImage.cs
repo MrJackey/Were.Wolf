@@ -9,7 +9,7 @@ public class UIIndexedImage : MonoBehaviour {
 
 	public float Value {
 		set {
-			int index = Mathf.Clamp(Mathf.FloorToInt(value * sprites.Length), 0, sprites.Length - 1);
+			int index = Mathf.Clamp(Mathf.FloorToInt(value * (sprites.Length - 1)), 0, sprites.Length - 1);
 			image.sprite = sprites[index];
 		}
 	}
