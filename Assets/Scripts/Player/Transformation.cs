@@ -38,7 +38,7 @@ public class Transformation : MonoBehaviour {
 	private TransformationState oldState;
 	private TransformationState state;
 	private Coroutine humanFormDurationCoroutine;
-	private bool unableTransform = false;
+	private bool transformationIsBlocked = false;
 
 	private ParticleSystem particleEffect;
 	private float wolfEmissionRate;
@@ -80,8 +80,11 @@ public class Transformation : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (unableTransform)
-			RecheckCrouched();
+		if (!transformationIsBlocked) return;
+		if (!playerController.IsClearAbove) return;
+
+		transformationIsBlocked = false;
+		TransformToWolf();
 	}
 
 	private void LateUpdate() {
@@ -103,7 +106,7 @@ public class Transformation : MonoBehaviour {
 
 	private IEnumerator CoTransforming(TransformationState newState, float startTime = 0) {
 		if (playerController.IsCrouched && !playerController.IsClearAbove) {
-			unableTransform = true;
+			transformationIsBlocked = true;
 			yield break;
 		}
 
@@ -189,13 +192,6 @@ public class Transformation : MonoBehaviour {
 		hitCollider.offset = newHitOffset;
 		groundCollider.size = newGroundSize;
 		groundCollider.offset = newGroundOffset;
-	}
-
-	private void RecheckCrouched() {
-		if (!playerController.IsClearAbove) return;
-
-		unableTransform = false;
-		TransformToWolf();
 	}
 }
 

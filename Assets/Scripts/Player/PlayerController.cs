@@ -38,8 +38,6 @@ public class PlayerController : MonoBehaviour {
 
 	[Header("Crouch")]
 	[SerializeField] private BoxCollider2D clearAboveCollider;
-	[SerializeField, Range(-1f, -0.1f)]
-	private float crouchInputThreshold = -0.5f;
 	[SerializeField] private float crouchTransitionTime = 1f;
 	[SerializeField] private float crouchMaxSpeed = 1f;
 	[SerializeField] private BoxCollider2D humanCollider;
@@ -96,6 +94,7 @@ public class PlayerController : MonoBehaviour {
 	private Vector2 moveInput;
 	private bool jumpInputDown, jumpInputUp;
 	private bool dashInputDown;
+	private bool crouchInput;
 
 	public bool AllowControls {
 		get => allowControls;
@@ -106,7 +105,6 @@ public class PlayerController : MonoBehaviour {
 		get => isCrouched;
 		set => isCrouched = value;
 	}
-
 	public bool IsClearAbove => isClearAbove;
 	public bool DoKnockBack {
 		set {
@@ -142,7 +140,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void UpdateMovement() {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+	#if UNITY_EDITOR || DEVELOPMENT_BUILD
 		if (Keyboard.current.f1Key.wasPressedThisFrame) {
 			noClip = !noClip;
 			GetComponent<Health>().IsInvincible = noClip;
@@ -158,7 +156,7 @@ public class PlayerController : MonoBehaviour {
 			transform.Translate(x * noClipSpeed * Time.deltaTime, y * noClipSpeed * Time.deltaTime, 0);
 			return;
 		}
-#endif
+	#endif
 
 		if (isGrounded) {
 			airJumpsUsed = 0;
@@ -231,19 +229,19 @@ public class PlayerController : MonoBehaviour {
 		if (!transformation.IsHuman && dashInputDown && allowDash)
 			BeginDash(facing);
 
-		if (!isGrounded) return;
-
-		if (transformation.IsHuman && moveInput.y < crouchInputThreshold && !isCrouched)
-			StartCrouch();
-		else if (transformation.IsHuman && isCrouched && moveInput.y > crouchInputThreshold && isClearAbove)
-			Uncrouch();
+		if (transformation.IsHuman) {
+			if (crouchInput && !isCrouched && isGrounded)
+				StartCrouch();
+			else if (isCrouched && !crouchInput && isClearAbove)
+				Uncrouch();
+		}
 	}
 
 	private void FixedUpdate() {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+	#if UNITY_EDITOR || DEVELOPMENT_BUILD
 		if (noClip)
 			return;
-#endif
+	#endif
 
 		if (doJump) {
 			AnimationCurve curve = transformation.IsHuman ? humanJumpCurve : jumpCurve;
@@ -313,6 +311,13 @@ public class PlayerController : MonoBehaviour {
 	public void OnDash(InputAction.CallbackContext ctx) {
 		if (ctx.phase == InputActionPhase.Started)
 			dashInputDown = ctx.started;
+	}
+
+	public void OnCrouchInput(InputAction.CallbackContext ctx) {
+		if (ctx.phase == InputActionPhase.Started)
+			crouchInput = true;
+		else if (ctx.phase == InputActionPhase.Canceled)
+			crouchInput = false;
 	}
 
 	private IEnumerator CoCoyoteDuration() {
@@ -400,14 +405,14 @@ public class PlayerController : MonoBehaviour {
 		onUncrouch.Invoke();
 	}
 
-	private void UpdateCrouchColliders(BoxCollider2D from, BoxCollider2D to, BoxCollider2D gFrom, BoxCollider2D gTo) {
+	private void UpdateCrouchColliders(BoxCollider2D hitFrom, BoxCollider2D hitTo, BoxCollider2D groundFrom, BoxCollider2D groundTo) {
 		if (!isCrouching) return;
 		float factor = crouchTransitionTimer / crouchTransitionTime;
 
-		hitCollider.size = Vector2.Lerp(from.size, to.size, factor);
-		hitCollider.offset = Vector2.Lerp(from.offset, to.offset, factor);
-		groundedCollider.size = Vector2.Lerp(gFrom.size, gTo.size, factor);
-		groundedCollider.offset = Vector2.Lerp(gFrom.offset, gTo.offset, factor);
+		hitCollider.size = Vector2.Lerp(hitFrom.size, hitTo.size, factor);
+		hitCollider.offset = Vector2.Lerp(hitFrom.offset, hitTo.offset, factor);
+		groundedCollider.size = Vector2.Lerp(groundFrom.size, groundTo.size, factor);
+		groundedCollider.offset = Vector2.Lerp(groundFrom.offset, groundTo.offset, factor);
 
 		if (factor >= 1)
 			isCrouching = false;

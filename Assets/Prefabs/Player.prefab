@@ -370,6 +370,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ec1cdbfe-a65b-4469-9962-37cd7e833b92
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3326305250810700144}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnCrouchInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d8fc9e0b-f480-497c-8ec4-d1658656142a
+    m_ActionName: Main/Crouch[/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Main
@@ -475,7 +491,6 @@ MonoBehaviour:
   dashDuration: 0.15
   dashCooldown: 0.5
   clearAboveCollider: {fileID: 6709035963052178592}
-  crouchInputThreshold: -0.5
   crouchTransitionTime: 0.3
   crouchMaxSpeed: 1.5
   humanCollider: {fileID: 5145285823690266723}
@@ -701,9 +716,9 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CheckpointManager, Assembly-CSharp
-        m_MethodName: Respawn
+      - m_Target: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
+        m_TargetAssemblyTypeName: SceneHelper, Assembly-CSharp
+        m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
