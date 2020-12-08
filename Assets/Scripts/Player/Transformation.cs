@@ -61,6 +61,8 @@ public class Transformation : MonoBehaviour {
 		set => transformationCooldownTimer = value;
 	}
 
+	public bool AllowTransformation { get; set; }
+
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
 		particleEffect = Instantiate(transformParticle, transform);
@@ -84,7 +86,7 @@ public class Transformation : MonoBehaviour {
 
 	public void OnTransform(InputAction.CallbackContext ctx) {
 		if (ctx.phase == InputActionPhase.Started) {
-			if (!playerController.AllowControls) return;
+			if (!playerController.AllowControls || !AllowTransformation) return;
 			if (state == TransformationState.Wolf) {
 				if (transformationCooldownTimer <= 0f)
 					TransformToHuman();
