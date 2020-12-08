@@ -49,7 +49,7 @@ public class Gate : SignalReceiver {
 	}
 
 	public void Toggle() {
-		if (panCamera && camera != null && !isShowing && allowShow) {
+		if (panCamera && camera != null && !isShowing && allowShow && isInitialized) {
 			panningQueue.Enqueue(this);
 
 			if (panningQueue.Count == 1)

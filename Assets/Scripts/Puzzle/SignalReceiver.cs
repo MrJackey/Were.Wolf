@@ -14,7 +14,7 @@ public class SignalReceiver : MonoBehaviour {
 	[SerializeField] protected UnityEvent onActivation;
 	[SerializeField] protected UnityEvent onDeactivation;
 
-	private bool isInitialized = false;
+	protected bool isInitialized = false;
 
 	public bool IsActivated {
 		get => isActivated;
