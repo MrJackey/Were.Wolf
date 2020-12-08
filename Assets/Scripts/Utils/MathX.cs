@@ -60,11 +60,11 @@ public static class MathX {
 	//   0 dB <=> 1
 	// -80 dB <=> 0.0001
 	// https://en.wikipedia.org/wiki/Decibel
-	private static float DecibelsToLinear(float db) {
+	public static float DecibelsToLinear(float db) {
 		return Mathf.Pow(10, db / 20);
 	}
 
-	private static float LinearToDecibels(float linear) {
+	public static float LinearToDecibels(float linear) {
 		const float min = 0.0001f;
 		if (linear < min)
 			linear = min;
