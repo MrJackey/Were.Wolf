@@ -18,7 +18,7 @@ public class Gate : SignalReceiver {
 	private float cameraTransitionDuration;
 	private float cameraTransitionMultiplier = 0.10f;
 	private bool isShowing = false;
-	private bool allowShow = false;
+	private bool allowShow = true;
 
 	private void Awake() {
 		GameObject playerObj = GameObject.FindWithTag("Player");
@@ -26,6 +26,20 @@ public class Gate : SignalReceiver {
 		playerController = playerObj.GetComponent<PlayerController>();
 		camera = Camera.main.GetComponent<SnappingCamera>();
 		cameraTransitionDuration = camera.TransitionDuration;
+	}
+
+	private void OnEnable() => AddInternalListeners();
+
+	private void OnDisable() => RemoveInternalListeners();
+
+	protected void AddInternalListeners() {
+		onActivation.AddListener(Toggle);
+		onDeactivation.AddListener(Toggle);
+	}
+
+	protected void RemoveInternalListeners() {
+		onActivation.RemoveListener(Toggle);
+		onDeactivation.RemoveListener(Toggle);
 	}
 
 	public void Toggle() {
