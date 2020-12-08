@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "Scene Helper", menuName = "Game/Scene Helper")]
 public class SceneHelper : ScriptableObject {
+	private static readonly int entryHash = Animator.StringToHash("Entry");
+
 	[SerializeField] private SceneReference menuScene;
 	[SerializeField] private SceneReference endScene;
+	[SerializeField] private GameObject transition;
 	[SerializeField] private SceneReference[] levels;
 
 	/// <summary>
@@ -34,6 +38,14 @@ public class SceneHelper : ScriptableObject {
 		SceneManager.LoadScene(scene);
 	}
 
+	public void LoadSceneWithTransition(string sceneName) {
+		DoExitTransition(SceneManager.GetSceneByName(sceneName).buildIndex);
+	}
+
+	public void LoadSceneWithTransition(int buildIndex) {
+		DoExitTransition(buildIndex);
+	}
+
 	public void ReloadScene() {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
@@ -54,16 +66,23 @@ public class SceneHelper : ScriptableObject {
 	/// Load the next level. Loads the end scene if the current level is the last one, and loads the first level if
 	/// the current scene is not in the list of levels.
 	/// </summary>
-	public void LoadNextLevel() {
+	public void LoadNextLevel(bool doTransition = false) {
 		if (levels.Length == 0) return;
 
 		int levelIndex = CurrentLevel;
+		SceneReference sceneToLoad;
+
 		if (levelIndex == -1)
-			LoadScene(levels[0]);
+			sceneToLoad = levels[0];
 		else if (levelIndex == levels.Length - 1)
-			LoadScene(endScene);
+			sceneToLoad = endScene;
 		else
-			LoadScene(levels[levelIndex + 1]);
+			sceneToLoad = levels[levelIndex + 1];
+
+		if (doTransition)
+			LoadSceneWithTransition(sceneToLoad);
+		else
+			LoadScene(sceneToLoad);
 	}
 
 	/// <summary>
@@ -76,6 +95,13 @@ public class SceneHelper : ScriptableObject {
 		LoadScene(levels[levelIndex]);
 	}
 
+	public void LoadLevelWithTransition(int levelIndex) {
+		if (levelIndex < 0) throw new ArgumentOutOfRangeException(nameof(levelIndex));
+		if (levelIndex >= levels.Length) return;
+
+		LoadSceneWithTransition(levels[levelIndex]);
+	}
+
 	private int FindLevelByBuildIndex(int buildIndex) {
 		for (int i = 0; i < levels.Length; i++) {
 			if (levels[i].BuildIndex == buildIndex)
@@ -83,5 +109,18 @@ public class SceneHelper : ScriptableObject {
 		}
 
 		return -1;
+	}
+
+	private void DoExitTransition(int buildIndex) {
+		SceneManager.sceneLoaded += DoEntryTransition;
+		GameObject go = Instantiate(transition);
+		go.GetComponent<SceneTransitionHelper>().SceneToLoad = buildIndex;
+	}
+
+	private void DoEntryTransition(Scene scene, LoadSceneMode scenemode) {
+		SceneManager.sceneLoaded -= DoEntryTransition;
+
+		GameObject go = Instantiate(transition);
+		go.GetComponent<Animator>().SetTrigger(entryHash);
 	}
 }
