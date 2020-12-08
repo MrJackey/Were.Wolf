@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneHelper : ScriptableObject {
 	[SerializeField] private SceneReference menuScene;
 	[SerializeField] private SceneReference endScene;
-	[SerializeField] private GameObject transition;
+	[SerializeField] private SceneTransitionHelper transitionPrefab;
 	[SerializeField] private SceneReference[] levels;
 
 	private bool isTransitioning = false;
@@ -25,7 +25,6 @@ public class SceneHelper : ScriptableObject {
 	public SceneReference MenuScene => menuScene;
 	public SceneReference[] Levels => levels;
 	public SceneReference EndScene => endScene;
-	public bool IsTransitioning { set => isTransitioning = value; }
 
 	public void LoadScene(string sceneName) {
 		SceneManager.LoadScene(sceneName);
@@ -37,10 +36,6 @@ public class SceneHelper : ScriptableObject {
 
 	public void LoadScene(SceneReference scene) {
 		SceneManager.LoadScene(scene);
-	}
-
-	public void LoadSceneWithTransition(string sceneName) {
-		DoSceneTransition(SceneManager.GetSceneByName(sceneName).buildIndex, true);
 	}
 
 	public void LoadSceneWithTransition(int buildIndex, bool fadeAudio = true) {
@@ -115,10 +110,10 @@ public class SceneHelper : ScriptableObject {
 	private void DoSceneTransition(int buildIndex, bool fadeAudio = false) {
 		if (isTransitioning) return;
 
-		GameObject go = Instantiate(transition);
-		SceneTransitionHelper helper = go.GetComponent<SceneTransitionHelper>();
+		SceneTransitionHelper helper = Instantiate(transitionPrefab);
 		helper.SceneToLoad = buildIndex;
 		helper.DoFadeAudio = fadeAudio;
+		helper.CompletedCallback = () => isTransitioning = false;
 
 		isTransitioning = true;
 	}

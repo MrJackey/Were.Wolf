@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -10,26 +11,25 @@ public class SceneTransitionHelper : MonoBehaviour {
 	[SerializeField] private Animator animator;
 	[SerializeField] private AnimationClip transitionClip;
 	[SerializeField] private AudioMixer mixer;
-	[SerializeField] private SceneHelper sceneHelper;
 
 	private int sceneToLoad = -1;
 	private float transitionDuration = 0f;
 	private bool isFadingIn = false;
 	private float baseVolume;
 	private bool doFadeAudio = false;
-	private AsyncOperation loadedScene;
+	private AsyncOperation loadOperation;
 
 	public int SceneToLoad { set => sceneToLoad = value; }
-	public bool IsEntry { set => isFadingIn = value; }
 	public bool DoFadeAudio { set => doFadeAudio = value; }
+	public Action CompletedCallback { private get; set; }
 
 	private void Start() {
+		if (sceneToLoad == -1) return;
 		transitionDuration = transitionClip.length;
 
-		if (sceneToLoad != -1) {
-			loadedScene = SceneManager.LoadSceneAsync(sceneToLoad);
-			loadedScene.allowSceneActivation = false;
-		}
+		loadOperation = SceneManager.LoadSceneAsync(sceneToLoad);
+		loadOperation.allowSceneActivation = false;
+
 		mixer.GetFloat("masterVolume", out baseVolume);
 		baseVolume = MathX.DecibelsToLinear(baseVolume);
 
@@ -49,16 +49,15 @@ public class SceneTransitionHelper : MonoBehaviour {
 
 		if (!isFadingIn) {
 			// Wait for scene to be ready
-			while (loadedScene.progress < 0.9f) {
+			while (loadOperation.progress < 0.9f)
 				yield return null;
-			}
 
 			isFadingIn = true;
-			loadedScene.allowSceneActivation = true;
+			loadOperation.allowSceneActivation = true;
 			StartCoroutine(CoTransition());
 		}
 		else {
-			sceneHelper.IsTransitioning = false;
+			CompletedCallback?.Invoke();
 			Destroy(gameObject);
 		}
 	}
