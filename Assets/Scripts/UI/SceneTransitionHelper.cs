@@ -10,9 +10,9 @@ public class SceneTransitionHelper : MonoBehaviour {
 	[SerializeField] private Animator animator;
 	[SerializeField] private AnimationClip transitionClip;
 	[SerializeField] private AudioMixer mixer;
+	[SerializeField] private SceneHelper sceneHelper;
 
 	private int sceneToLoad = -1;
-	private static bool isTransitioning = false;
 	private float transitionDuration = 0f;
 	private bool isFadingIn = false;
 	private float baseVolume;
@@ -24,7 +24,6 @@ public class SceneTransitionHelper : MonoBehaviour {
 	public bool DoFadeAudio { set => doFadeAudio = value; }
 
 	private void Start() {
-		if (isTransitioning) return;
 		transitionDuration = transitionClip.length;
 
 		if (sceneToLoad != -1) {
@@ -38,12 +37,10 @@ public class SceneTransitionHelper : MonoBehaviour {
 	}
 
 	private IEnumerator CoTransition() {
-		isTransitioning = true;
-
 		if (isFadingIn)
 			animator.SetTrigger(entryHash);
 
-		for (float time = 0f; time < transitionDuration; time += Time.deltaTime) {
+		for (float time = 0f; time < transitionDuration; time += Time.unscaledDeltaTime) {
 			if (doFadeAudio)
 				FadeAudio(time);
 
@@ -61,7 +58,7 @@ public class SceneTransitionHelper : MonoBehaviour {
 			StartCoroutine(CoTransition());
 		}
 		else {
-			isTransitioning = false;
+			sceneHelper.IsTransitioning = false;
 			Destroy(gameObject);
 		}
 	}

@@ -10,6 +10,8 @@ public class SceneHelper : ScriptableObject {
 	[SerializeField] private GameObject transition;
 	[SerializeField] private SceneReference[] levels;
 
+	private bool isTransitioning = false;
+
 	/// <summary>
 	/// Returns the index of the currently loaded level or -1 if the loaded scene is not in the list of levels.
 	/// </summary>
@@ -23,6 +25,7 @@ public class SceneHelper : ScriptableObject {
 	public SceneReference MenuScene => menuScene;
 	public SceneReference[] Levels => levels;
 	public SceneReference EndScene => endScene;
+	public bool IsTransitioning { set => isTransitioning = value; }
 
 	public void LoadScene(string sceneName) {
 		SceneManager.LoadScene(sceneName);
@@ -37,11 +40,11 @@ public class SceneHelper : ScriptableObject {
 	}
 
 	public void LoadSceneWithTransition(string sceneName) {
-		DoExitTransition(SceneManager.GetSceneByName(sceneName).buildIndex, true);
+		DoSceneTransition(SceneManager.GetSceneByName(sceneName).buildIndex, true);
 	}
 
 	public void LoadSceneWithTransition(int buildIndex, bool fadeAudio = true) {
-		DoExitTransition(buildIndex, fadeAudio);
+		DoSceneTransition(buildIndex, fadeAudio);
 	}
 
 	public void ReloadScene() {
@@ -109,10 +112,14 @@ public class SceneHelper : ScriptableObject {
 		return -1;
 	}
 
-	private void DoExitTransition(int buildIndex, bool fadeAudio = false) {
+	private void DoSceneTransition(int buildIndex, bool fadeAudio = false) {
+		if (isTransitioning) return;
+
 		GameObject go = Instantiate(transition);
 		SceneTransitionHelper helper = go.GetComponent<SceneTransitionHelper>();
 		helper.SceneToLoad = buildIndex;
 		helper.DoFadeAudio = fadeAudio;
+
+		isTransitioning = true;
 	}
 }
