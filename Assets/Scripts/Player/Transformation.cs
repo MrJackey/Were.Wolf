@@ -84,10 +84,14 @@ public class Transformation : MonoBehaviour {
 
 	public void OnTransform(InputAction.CallbackContext ctx) {
 		if (ctx.phase == InputActionPhase.Started) {
-			if (ctx.started &&
-				playerController.AllowControls &&
-				state == TransformationState.Wolf &&
-				transformationCooldownTimer <= 0f) TransformToHuman();
+			if (!playerController.AllowControls) return;
+			if (state == TransformationState.Wolf) {
+				if (transformationCooldownTimer <= 0f)
+					TransformToHuman();
+			}
+			else if (state == TransformationState.Human) {
+				StartCoroutine(CoManualTransformToWolf());
+			}
 		}
 		else if (ctx.phase == InputActionPhase.Canceled) {
 			transformInputUp = ctx.canceled;
@@ -152,6 +156,16 @@ public class Transformation : MonoBehaviour {
 
 	public void TransformToWolf(float startTime = 0) {
 		StartCoroutine(CoTransforming(TransformationState.Wolf, startTime));
+	}
+
+	private IEnumerator CoManualTransformToWolf() {
+		if (humanFormDurationCoroutine != null) {
+			StopCoroutine(humanFormDurationCoroutine);
+			humanFormDurationCoroutine = null;
+		}
+
+		yield return StartCoroutine(CoTransforming(TransformationState.Wolf));
+		transformationCooldownTimer = transformCooldownDuration;
 	}
 
 	private void UpdateHitboxes(TransformationState newState, float transformationTime) {
