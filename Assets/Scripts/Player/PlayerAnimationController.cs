@@ -10,6 +10,7 @@ public class PlayerAnimationController : MonoBehaviour {
 	private static readonly int doPickUpHash = Animator.StringToHash("doPickUp");
 	private static readonly int doDropHash = Animator.StringToHash("doDrop");
 	private static readonly int isTransformingHash = Animator.StringToHash("isTransforming");
+	private static readonly int isCrouchedHash = Animator.StringToHash("isCrouched");
 
 	[SerializeField] private AnimationClip transformAnimation;
 	[SerializeField] private AnimationClip jumpAnimation;
@@ -37,7 +38,7 @@ public class PlayerAnimationController : MonoBehaviour {
 	}
 
 	public void JumpStart() {
-		if (playerController.HumanControls)
+		if (transformation.IsHuman)
 			animator.SetFloat(jumpSpeedHash, 1f / (playerController.HumanJumpLength / humanJumpAnimation.length));
 		else
 			animator.SetFloat(jumpSpeedHash, 1f / (playerController.JumpLength / jumpAnimation.length));
@@ -73,5 +74,13 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	public void DropItem() {
 		animator.SetTrigger(doDropHash);
+	}
+
+	public void Crouch() {
+		animator.SetBool(isCrouchedHash, true);
+	}
+
+	public void CrouchEnd() {
+		animator.SetBool(isCrouchedHash, false);
 	}
 }

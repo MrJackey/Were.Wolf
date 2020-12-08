@@ -54,4 +54,21 @@ public static class MathX {
 		end -= start;
 		return -end * value * (value - 2) + start;
 	}
+
+
+	//  20 dB <=> 10
+	//   0 dB <=> 1
+	// -80 dB <=> 0.0001
+	// https://en.wikipedia.org/wiki/Decibel
+	public static float DecibelsToLinear(float db) {
+		return Mathf.Pow(10, db / 20);
+	}
+
+	public static float LinearToDecibels(float linear) {
+		const float min = 0.0001f;
+		if (linear < min)
+			linear = min;
+
+		return 20 * Mathf.Log10(linear);
+	}
 }
