@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3960339926509385960}
   - component: {fileID: 7926088260496190574}
-  - component: {fileID: 4650309581117567789}
+  - component: {fileID: 3510105528075320408}
   - component: {fileID: 7136955877186218013}
+  - component: {fileID: 3230611752493461609}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -49,7 +50,7 @@ Canvas:
   m_GameObject: {fileID: 3381594455235910007}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -58,10 +59,10 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -2043878301
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &4650309581117567789
+--- !u!114 &3510105528075320408
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,7 +71,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3381594455235910007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b00a00dbb684ec18cfb27b4d16b7e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
@@ -80,8 +81,8 @@ MonoBehaviour:
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 1
-  m_DefaultSpriteDPI: 9.2
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
 --- !u!114 &7136955877186218013
 MonoBehaviour:
@@ -100,6 +101,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3230611752493461609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381594455235910007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e22967cfa943d9abc91ee8e03d150f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5416199850931350300
 GameObject:
   m_ObjectHideFlags: 0
