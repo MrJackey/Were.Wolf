@@ -61,7 +61,7 @@ public class Transformation : MonoBehaviour {
 		set => transformationCooldownTimer = value;
 	}
 
-	public bool AllowTransformation { get; set; }
+	public bool AllowTransformation { get; set; } = true;
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
@@ -193,10 +193,6 @@ public class Transformation : MonoBehaviour {
 		hitCollider.offset = newHitOffset;
 		groundCollider.size = newGroundSize;
 		groundCollider.offset = newGroundOffset;
-	}
-
-	private void OnGUI() {
-		GUILayout.Label($"TC: {transformationCooldownTimer}");
 	}
 }
 
