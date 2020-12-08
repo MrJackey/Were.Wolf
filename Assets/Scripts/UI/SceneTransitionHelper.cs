@@ -8,16 +8,15 @@ using UnityEngine.SceneManagement;
 public class SceneTransitionHelper : MonoBehaviour {
 	private static readonly int entryHash = Animator.StringToHash("Entry");
 
-	[SerializeField] private Animator animator;
-	[SerializeField] private AnimationClip transitionClip;
-	[SerializeField] private AudioMixer mixer;
+	[SerializeField] private Animator animator = null;
+	[SerializeField] private AnimationClip transitionClip = null;
+	[SerializeField] private AudioMixer mixer = null;
 
 	private int sceneToLoad = -1;
 	private float transitionDuration = 0f;
-	private bool isFadingIn = false;
-	private float baseVolume;
+	private float baseVolume = 0f;
 	private bool doFadeAudio = false;
-	private AsyncOperation loadOperation;
+	private AsyncOperation loadOperation = null;
 
 	public int SceneToLoad { set => sceneToLoad = value; }
 	public bool DoFadeAudio { set => doFadeAudio = value; }
@@ -33,41 +32,41 @@ public class SceneTransitionHelper : MonoBehaviour {
 		mixer.GetFloat("masterVolume", out baseVolume);
 		baseVolume = MathX.DecibelsToLinear(baseVolume);
 
-		StartCoroutine(CoTransition());
+		StartCoroutine(CoExit());
 	}
 
-	private IEnumerator CoTransition() {
-		if (isFadingIn)
-			animator.SetTrigger(entryHash);
-
+	private IEnumerator CoExit() {
 		for (float time = 0f; time < transitionDuration; time += Time.unscaledDeltaTime) {
 			if (doFadeAudio)
-				FadeAudio(time);
+				FadeAudio(baseVolume, 0, time);
 
 			yield return null;
 		}
 
-		if (!isFadingIn) {
-			// Wait for scene to be ready
-			while (loadOperation.progress < 0.9f)
-				yield return null;
+		// Wait for scene to be ready
+		while (loadOperation.progress < 0.9f)
+			yield return null;
 
-			isFadingIn = true;
-			loadOperation.allowSceneActivation = true;
-			StartCoroutine(CoTransition());
-		}
-		else {
-			CompletedCallback?.Invoke();
-			Destroy(gameObject);
-		}
+		loadOperation.allowSceneActivation = true;
+		StartCoroutine(CoEnter());
 	}
 
-	private void FadeAudio(float time) {
-		float newVolume;
-		if (isFadingIn)
-			newVolume = Mathf.Lerp(0, baseVolume, time / transitionDuration);
-		else
-			newVolume = Mathf.Lerp(baseVolume, 0, time / transitionDuration);
+	private IEnumerator CoEnter() {
+		animator.SetTrigger(entryHash);
+
+		for (float time = 0f; time < transitionDuration; time += Time.unscaledDeltaTime) {
+			if (doFadeAudio)
+				FadeAudio(0, baseVolume, time);
+
+			yield return null;
+		}
+
+		CompletedCallback?.Invoke();
+		Destroy(gameObject);
+	}
+
+	private void FadeAudio(float from, float to, float time) {
+		float newVolume = Mathf.Lerp(from, to, time / transitionDuration);
 
 		mixer.SetFloat("masterVolume", MathX.LinearToDecibels(newVolume));
 	}
