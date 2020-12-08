@@ -16,7 +16,7 @@ public class Gate : SignalReceiver {
 	[SerializeField, EnableIf(nameof(panCamera))]
 	private float showCooldown = 7.5f;
 
-	private static List<Gate> panningQueue = new List<Gate>();
+	private static Queue<Gate> panningQueue = new Queue<Gate>();
 
 	private new SnappingCamera camera;
 	private Transform player;
@@ -50,7 +50,7 @@ public class Gate : SignalReceiver {
 
 	public void Toggle() {
 		if (panCamera && camera != null && !isShowing && allowShow) {
-			panningQueue.Add(this);
+			panningQueue.Enqueue(this);
 
 			if (panningQueue.Count == 1)
 				StartCoroutine(CoShowEvent());
@@ -59,7 +59,7 @@ public class Gate : SignalReceiver {
 			animator.SetBool(isOpenHash, IsActivated);
 	}
 
-	public IEnumerator CoShowEvent() {
+	private IEnumerator CoShowEvent() {
 		isShowing = true;
 		playerController.AllowControls = false;
 		Time.timeScale = 0;
@@ -74,11 +74,11 @@ public class Gate : SignalReceiver {
 		animator.SetBool(isOpenHash, IsActivated);
 
 		yield return new WaitForSecondsRealtime(showDuration);
-		panningQueue.Remove(this);
+		panningQueue.Dequeue();
 		if (panningQueue.Count > 0) {
 			isShowing = false;
 			StartCoroutine(CoShowCooldown());
-			StartCoroutine(panningQueue[0].CoShowEvent());
+			StartCoroutine(panningQueue.Peek().CoShowEvent());
 			yield break;
 		}
 
