@@ -11,8 +11,7 @@ public class Transformation : MonoBehaviour {
 	[SerializeField] private float humanFormDuration = 5f;
 	[SerializeField, Range(0, 1)]
 	private float cancelThreshold = 0.5f;
-	[SerializeField] private int points = 3;
-	[SerializeField] private int maxPoints = 3;
+	[SerializeField] private float transformCooldownDuration = 5f;
 
 	[Header("Colliders")]
 	[SerializeField] private BoxCollider2D hitCollider = null;
@@ -31,13 +30,12 @@ public class Transformation : MonoBehaviour {
 	[SerializeField] private UnityEvent onTransformStart = null;
 	[SerializeField] private UnityEvent<float> onTransformInterrupt = null;
 	[SerializeField] private UnityEvent onTransformEnd = null;
-	[SerializeField] private UnityEvent onPointSpent = null;
-	[SerializeField] private UnityEvent onPointsChanged = null;
 
 	private PlayerController playerController;
 	private TransformationState oldState;
 	private TransformationState state;
 	private Coroutine humanFormDurationCoroutine;
+	private float transformationCooldownTimer;
 
 	private ParticleSystem particleEffect;
 	private float wolfEmissionRate;
@@ -51,30 +49,25 @@ public class Transformation : MonoBehaviour {
 	}
 
 	public UnityEvent<float> OnTransformInterrupt => onTransformInterrupt;
-	public UnityEvent OnPointSpent => onPointSpent;
-	public UnityEvent OnPointsChanged => onPointsChanged;
 
 	public float TransformDuration => transDuration;
 
-	public int Points {
-		get => points;
-		set {
-			int newValue = Mathf.Clamp(value, 0, maxPoints);
-			if (points == newValue) return;
+	public float TransformCooldownDuration => transformCooldownDuration;
 
-			points = newValue;
-			onPointsChanged.Invoke();
-		}
+	public float TransformationCooldown {
+		get => transformationCooldownTimer;
+		set => transformationCooldownTimer = value;
 	}
-
-	public int MaxPoints => maxPoints;
-
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
 		particleEffect = Instantiate(transformParticle, transform);
 		wolfEmissionRate = particleEffect.emission.rateOverTime.constant;
 		particleEffect.Stop();
+	}
+
+	private void Update() {
+		transformationCooldownTimer = Mathf.Max(transformationCooldownTimer - Time.deltaTime, 0);
 	}
 
 	private void LateUpdate() {
@@ -87,7 +80,7 @@ public class Transformation : MonoBehaviour {
 			if (ctx.started &&
 				playerController.AllowControls &&
 				state == TransformationState.Wolf &&
-				points > 0) TransformToHuman();
+				transformationCooldownTimer <= 0f) TransformToHuman();
 		}
 		else if (ctx.phase == InputActionPhase.Canceled) {
 			transformInputUp = ctx.canceled;
@@ -117,12 +110,6 @@ public class Transformation : MonoBehaviour {
 				StopCoroutine(humanFormDurationCoroutine);
 
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
-
-			if (points > 0) {
-				points -= 1;
-				onPointSpent.Invoke();
-				onPointsChanged.Invoke();
-			}
 		}
 		state = newState;
 		playerController.HumanControls = state == TransformationState.Human;
@@ -137,7 +124,8 @@ public class Transformation : MonoBehaviour {
 		PlayParticles();
 
 		yield return new WaitForSeconds(humanFormDuration * (1 - toWolfIndication));
-		StartCoroutine(CoTransforming(TransformationState.Wolf));
+		yield return StartCoroutine(CoTransforming(TransformationState.Wolf));
+		transformationCooldownTimer = transformCooldownDuration;
 	}
 
 	private void PlayParticles() {
@@ -170,6 +158,10 @@ public class Transformation : MonoBehaviour {
 
 		hitCollider.size = newHitSize;
 		groundCollider.size = newGroundSize;
+	}
+
+	private void OnGUI() {
+		GUILayout.Label($"TC: {transformationCooldownTimer}");
 	}
 }
 
