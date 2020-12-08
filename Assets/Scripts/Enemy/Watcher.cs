@@ -2,9 +2,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
-public class Detection : MonoBehaviour {
+public class Watcher : MonoBehaviour {
 	[SerializeField] private Vector2 eyeOffset = Vector2.zero;
 	[SerializeField] private float visionConeAngle = 30f;
 	[SerializeField] private float visionDistance = 4f;
@@ -14,6 +13,12 @@ public class Detection : MonoBehaviour {
 	[SerializeField] private bool ignoreTriggers = true;
 	[Space]
 	[SerializeField] private Transform lantern;
+	[SerializeField] private Transform point1, point2;
+	[SerializeField] private Collider2D wallCollider;
+	[SerializeField] private LayerMask wallLayer = 1 << 8;
+	[SerializeField] private float movementSpeed = 5f;
+	[SerializeField] private float minDistanceToPlayerWhenFollowing = 3f;
+	[SerializeField] private float playerLooseTime = 0.5f;
 
 	[Header("Effect")]
 	[SerializeField] private GameObject detectionEffectPrefab = null;
@@ -41,10 +46,12 @@ public class Detection : MonoBehaviour {
 	private State state = State.Patrolling;
 	private bool isAttacking;
 	private float lanternAngle;
+	private Vector3 playerPosition;
 	private Vector2 playerDirection;
 	private float playerLooseTimer;
 
-	[SerializeField] private float playerLooseTime = 0.5f;
+	private bool isBlocked;
+
 
 	private void Start() {
 		Camera mainCamera = Camera.main;
@@ -53,30 +60,43 @@ public class Detection : MonoBehaviour {
 	}
 
 	private void OnDisable() {
-		if (Gamepad.current != null)
-			Gamepad.current.SetMotorSpeeds(0, 0);
+		Gamepad.current?.SetMotorSpeeds(0, 0);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		isBlocked = wallCollider.IsTouchingLayers(wallLayer);
+	}
+
+	private void OnTriggerExit2D(Collider2D other) {
+		isBlocked = wallCollider.IsTouchingLayers(wallLayer);
 	}
 
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
 
-		Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+		playerPosition = GameObject.FindWithTag("Player").transform.position;
 		playerDirection = (playerPosition - lantern.position).normalized;
 
-		lantern.localRotation = Quaternion.AngleAxis(lanternAngle, Vector3.forward);
+		UpdateMovement();
 
+
+		if (state == State.Tracking) {
+			playerLooseTimer = Mathf.Max(playerLooseTimer - Time.deltaTime, 0);
+			if (playerLooseTimer <= 0) {
+				state = State.Patrolling;
+				lanternAngle = 0;
+			}
+		}
+
+		if (state != State.Patrolling) {
+			// Facing towards the player.
+			SetFacing(Mathf.Sign(playerPosition.x - transform.position.x));
+			// Angle lantern towards player.
+			lanternAngle = MathX.Angle(playerDirection) * Mathf.Rad2Deg;
+		}
+
+		lantern.localRotation = Quaternion.AngleAxis(facing < 0 ? 180f - lanternAngle : lanternAngle, Vector3.forward);
 		UpdatePlayerVisibility();
-
-		// Facing towards the player.
-		SetFacing(Mathf.Sign(playerPosition.x - transform.position.x));
-
-		// Light follows player.
-		if (isPlayerVisible) {
-			SetLanternAngle(MathX.Angle(playerDirection) * Mathf.Rad2Deg);
-		}
-		else {
-			SetLanternAngle(0);
-		}
 
 		// if (isPlayerVisible)
 		// 	playerHealth.TakeDamage(damagePerSecond * Time.deltaTime);
@@ -89,10 +109,42 @@ public class Detection : MonoBehaviour {
 		transform.localScale = localScale;
 	}
 
-	private void SetLanternAngle(float angle) {
-		if (facing < 0)
-			angle = 180f - angle;
-		lanternAngle = angle;
+	// private void SetLanternAngle(float angle) {
+	// 	if (facing < 0)
+	// 		angle = 180f - angle;
+	// 	lanternAngle = angle;
+	// }
+
+	private void UpdateMovement() {
+		// // Do movement if we're too far from the player.
+		if (state != State.Patrolling &&
+			(isBlocked || Mathf.Abs(playerPosition.x - transform.position.x) <= minDistanceToPlayerWhenFollowing)) return;
+
+		Vector3 position = transform.position;
+		position.x += movementSpeed * facing * Time.deltaTime;
+		transform.position = position;
+
+		if (state == State.Patrolling) {
+			if (position.x <= point1.position.x) {
+				SetFacing(1);
+				lanternAngle = 0;
+			}
+			else if (position.x >= point2.position.x) {
+				SetFacing(-1);
+				lanternAngle = 180;
+			}
+		}
+	}
+
+	private void DoPatrollingMovement() {
+		Vector3 position = transform.position;
+		position.x += movementSpeed * facing * Time.deltaTime;
+		transform.position = position;
+
+		if (position.x <= point1.position.x)
+			SetFacing(1);
+		else if (position.x >= point2.position.x)
+			SetFacing(-1);
 	}
 
 	private void UpdatePlayerVisibility() {
@@ -153,28 +205,32 @@ public class Detection : MonoBehaviour {
 	}
 
 	private void OnDetected() {
+		state = State.Following;
+
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
 		if (detectionEffectPrefab != null)
 			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
 
 		if (cameraShake && snappingCamera != null) {
 			snappingCamera.BeginShake(shakeFrequency, shakeAmplitude);
-			if (playerObject.GetComponent<PlayerInput>().currentControlScheme == "Gamepad" && Gamepad.current != null)
-				Gamepad.current.SetMotorSpeeds(rumbleFrequencies.x, rumbleFrequencies.y);
+			if (playerObject.GetComponent<PlayerInput>().currentControlScheme == "Gamepad")
+				Gamepad.current?.SetMotorSpeeds(rumbleFrequencies.x, rumbleFrequencies.y);
 		}
 
 		onDetected.Invoke();
 	}
 
 	private void OnLost() {
+		state = State.Tracking;
+		playerLooseTimer = playerLooseTime;
+
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = 1f;
 		if (activeEffect != null)
 			Destroy(activeEffect);
 
 		if (cameraShake && snappingCamera != null) {
 			snappingCamera.EndShake();
-			if (Gamepad.current != null)
-				Gamepad.current.SetMotorSpeeds(0, 0);
+			Gamepad.current?.SetMotorSpeeds(0, 0);
 		}
 
 		onLost.Invoke();
@@ -194,5 +250,6 @@ public class Detection : MonoBehaviour {
 	public enum State {
 		Patrolling,
 		Following,
+		Tracking,
 	}
 }
