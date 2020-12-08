@@ -11,8 +11,8 @@ public class SignalReceiver : MonoBehaviour {
 	[SerializeField] private SignalEmitter[] emitters;
 
 	[Header("Events")]
-	[SerializeField] private UnityEvent onActivation;
-	[SerializeField] private UnityEvent onDeactivation;
+	[SerializeField] protected UnityEvent onActivation;
+	[SerializeField] protected UnityEvent onDeactivation;
 
 	private bool isInitialized = false;
 
