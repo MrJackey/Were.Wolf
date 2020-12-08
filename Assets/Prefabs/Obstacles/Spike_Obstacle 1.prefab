@@ -129,7 +129,8 @@ MonoBehaviour:
   onDamageEffect:
     m_PersistentCalls:
       m_Calls: []
-  knockbackForce: 2
+  enableKnockback: 1
+  knockbackForce: 3
   knockbackDuration: 0.2
   layerMask:
     serializedVersion: 2
