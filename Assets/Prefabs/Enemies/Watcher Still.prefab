@@ -25,10 +25,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611447295}
   m_LocalRotation: {x: -0, y: -0, z: -0.7072023, w: 0.7070113}
-  m_LocalPosition: {x: 0.42, y: -0.031, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1637389642820773741}
+  m_Father: {fileID: 5092249485273736092}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1611447297
@@ -103,7 +103,7 @@ Transform:
   m_LocalPosition: {x: -4.49, y: -2.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1611447296}
+  - {fileID: 5092249485273736092}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -197,9 +197,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   ignoreTriggers: 1
+  lantern: {fileID: 0}
   detectionEffectPrefab: {fileID: 7699973423790038968, guid: 515bdc3947a213140a5cb3d45f1ee466, type: 3}
   damagePerSecond: 1
   playerSpeedMultiplier: 0.5
+  rumbleFrequencies: {x: 0.25, y: 0.75}
   cameraShake: 1
   shakeFrequency: 20
   shakeAmplitude: 0.1
@@ -233,6 +235,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  lanternRotation: 0
 --- !u!114 &1439026896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,3 +249,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 0.8
+--- !u!1 &5224518095995961273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5092249485273736092}
+  m_Layer: 0
+  m_Name: Lantern
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5092249485273736092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5224518095995961273}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4200001, y: -0.0309999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1611447296}
+  m_Father: {fileID: 1637389642820773741}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

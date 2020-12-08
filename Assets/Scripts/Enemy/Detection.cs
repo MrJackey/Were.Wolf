@@ -12,9 +12,11 @@ public class Detection : MonoBehaviour {
 	private int visionRayCount = 3;
 	[SerializeField] private LayerMask raycastLayers = -1;
 	[SerializeField] private bool ignoreTriggers = true;
-	[SerializeField] private GameObject detectionEffectPrefab = null;
+	[Space]
+	[SerializeField] private Transform lantern;
 
 	[Header("Effect")]
+	[SerializeField] private GameObject detectionEffectPrefab = null;
 	[SerializeField] private float damagePerSecond = 10;
 	[SerializeField] private float playerSpeedMultiplier = 0.5f;
 	[SerializeField] private Vector2 rumbleFrequencies = new Vector2(0.25f, 0.75f);
@@ -36,6 +38,14 @@ public class Detection : MonoBehaviour {
 	private Health playerHealth;
 	private SnappingCamera snappingCamera;
 
+	private State state = State.Patrolling;
+	private bool isAttacking;
+	private float lanternAngle;
+	private Vector2 playerDirection;
+	private float playerLooseTimer;
+
+	[SerializeField] private float playerLooseTime = 0.5f;
+
 	private void Start() {
 		Camera mainCamera = Camera.main;
 		if (mainCamera != null)
@@ -50,24 +60,56 @@ public class Detection : MonoBehaviour {
 	private void Update() {
 		facing = Mathf.Sign(transform.localScale.x);
 
-		if (isPlayerVisible != (isPlayerVisible = CheckPlayerVisible(out GameObject go))) {
-			if (isPlayerVisible) {
-				playerObject = go;
-				playerHealth = playerObject.GetComponent<Health>();
-				OnDetected();
-			}
-			else {
-				OnLost();
-			}
+		Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+		playerDirection = (playerPosition - lantern.position).normalized;
+
+		lantern.localRotation = Quaternion.AngleAxis(lanternAngle, Vector3.forward);
+
+		UpdatePlayerVisibility();
+
+		// Facing towards the player.
+		SetFacing(Mathf.Sign(playerPosition.x - transform.position.x));
+
+		// Light follows player.
+		if (isPlayerVisible) {
+			SetLanternAngle(MathX.Angle(playerDirection) * Mathf.Rad2Deg);
+		}
+		else {
+			SetLanternAngle(0);
 		}
 
-		if (isPlayerVisible)
-			playerHealth.TakeDamage(damagePerSecond * Time.deltaTime);
+		// if (isPlayerVisible)
+		// 	playerHealth.TakeDamage(damagePerSecond * Time.deltaTime);
+	}
+
+	private void SetFacing(float direction) {
+		facing = direction;
+		Vector3 localScale = transform.localScale;
+		localScale.x = facing;
+		transform.localScale = localScale;
+	}
+
+	private void SetLanternAngle(float angle) {
+		if (facing < 0)
+			angle = 180f - angle;
+		lanternAngle = angle;
+	}
+
+	private void UpdatePlayerVisibility() {
+		if (isPlayerVisible == (isPlayerVisible = CheckPlayerVisible(out GameObject go))) return;
+		if (isPlayerVisible) {
+			playerObject = go;
+			playerHealth = playerObject.GetComponent<Health>();
+			OnDetected();
+		}
+		else {
+			OnLost();
+		}
 	}
 
 	private bool CheckPlayerVisible(out GameObject go) {
 		Vector2 eyePosition = transform.TransformPoint(eyeOffset);
-		Vector2 forward = transform.right * facing;
+		Vector2 forward = lantern.right * facing;
 		float angleStep = visionConeAngle / (visionRayCount - 1);
 
 		for (int i = 0; i < visionRayCount; i++) {
@@ -146,5 +188,11 @@ public class Detection : MonoBehaviour {
 		Gizmos.DrawWireSphere(eyePosition, 0.2f);
 
 		CheckPlayerVisible(out _);
+	}
+
+
+	public enum State {
+		Patrolling,
+		Following,
 	}
 }

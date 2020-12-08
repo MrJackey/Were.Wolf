@@ -19,6 +19,10 @@ public static class MathX {
 		                   sin * vec.x + cos * vec.y);
 	}
 
+	public static float Angle(Vector2 vec) {
+		return Mathf.Atan2(vec.y, vec.x);
+	}
+
 	public static float Remap(float value, float min1, float max1, float min2, float max2) {
 		return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
 	}
