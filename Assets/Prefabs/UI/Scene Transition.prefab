@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 5839766780432782395}
   - component: {fileID: 399040299444584172}
   - component: {fileID: 2392568562807144297}
+  - component: {fileID: 6791339038229454286}
   m_Layer: 5
   m_Name: Scene Transition
   m_TagString: Untagged
@@ -207,5 +208,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a6d7347a8339040bfd7849ca4d59d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 399040299444584172}
   transitionClip: {fileID: 7400000, guid: 03b5ca3bdc6fdbc40ac11183ac4467c5, type: 2}
-  sceneHelper: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
+  mixer: {fileID: 24100000, guid: d5cbaa40cdec63f44affda746ccc1f16, type: 2}
+--- !u!114 &6791339038229454286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839766780432782396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36a242027124616ade7938c4306d7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

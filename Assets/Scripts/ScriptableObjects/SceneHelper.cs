@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "Scene Helper", menuName = "Game/Scene Helper")]
 public class SceneHelper : ScriptableObject {
-	private static readonly int entryHash = Animator.StringToHash("Entry");
-
 	[SerializeField] private SceneReference menuScene;
 	[SerializeField] private SceneReference endScene;
 	[SerializeField] private GameObject transition;
@@ -39,11 +37,11 @@ public class SceneHelper : ScriptableObject {
 	}
 
 	public void LoadSceneWithTransition(string sceneName) {
-		DoExitTransition(SceneManager.GetSceneByName(sceneName).buildIndex);
+		DoExitTransition(SceneManager.GetSceneByName(sceneName).buildIndex, true);
 	}
 
-	public void LoadSceneWithTransition(int buildIndex) {
-		DoExitTransition(buildIndex);
+	public void LoadSceneWithTransition(int buildIndex, bool fadeAudio = true) {
+		DoExitTransition(buildIndex, fadeAudio);
 	}
 
 	public void ReloadScene() {
@@ -80,7 +78,7 @@ public class SceneHelper : ScriptableObject {
 			sceneToLoad = levels[levelIndex + 1];
 
 		if (doTransition)
-			LoadSceneWithTransition(sceneToLoad);
+			LoadSceneWithTransition(sceneToLoad, false);
 		else
 			LoadScene(sceneToLoad);
 	}
@@ -111,16 +109,10 @@ public class SceneHelper : ScriptableObject {
 		return -1;
 	}
 
-	private void DoExitTransition(int buildIndex) {
-		SceneManager.sceneLoaded += DoEntryTransition;
+	private void DoExitTransition(int buildIndex, bool fadeAudio = false) {
 		GameObject go = Instantiate(transition);
-		go.GetComponent<SceneTransitionHelper>().SceneToLoad = buildIndex;
-	}
-
-	private void DoEntryTransition(Scene scene, LoadSceneMode scenemode) {
-		SceneManager.sceneLoaded -= DoEntryTransition;
-
-		GameObject go = Instantiate(transition);
-		go.GetComponent<Animator>().SetTrigger(entryHash);
+		SceneTransitionHelper helper = go.GetComponent<SceneTransitionHelper>();
+		helper.SceneToLoad = buildIndex;
+		helper.DoFadeAudio = fadeAudio;
 	}
 }
