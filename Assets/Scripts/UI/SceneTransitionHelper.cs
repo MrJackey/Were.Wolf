@@ -32,6 +32,7 @@ public class SceneTransitionHelper : MonoBehaviour {
 			loadedScene.allowSceneActivation = false;
 		}
 		mixer.GetFloat("masterVolume", out baseVolume);
+		baseVolume = MathX.DecibelsToLinear(baseVolume);
 
 		StartCoroutine(CoTransition());
 	}
@@ -66,9 +67,12 @@ public class SceneTransitionHelper : MonoBehaviour {
 	}
 
 	private void FadeAudio(float time) {
+		float newVolume;
 		if (isFadingIn)
-			mixer.SetFloat("masterVolume", Mathf.Lerp(-80, baseVolume, time / transitionDuration));
+			newVolume = Mathf.Lerp(0, baseVolume, time / transitionDuration);
 		else
-			mixer.SetFloat("masterVolume", Mathf.Lerp(baseVolume, -80, time / transitionDuration));
+			newVolume = Mathf.Lerp(baseVolume, 0, time / transitionDuration);
+
+		mixer.SetFloat("masterVolume", MathX.LinearToDecibels(newVolume));
 	}
 }
