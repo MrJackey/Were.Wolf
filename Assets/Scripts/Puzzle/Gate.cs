@@ -15,6 +15,7 @@ public class Gate : SignalReceiver {
 	private float showDuration = 1f;
 	[SerializeField, EnableIf(nameof(panCamera))]
 	private float showCooldown = 7.5f;
+	[SerializeField] private VignetteHighlight highlightPrefab;
 
 	private static Queue<Gate> panningQueue = new Queue<Gate>();
 
@@ -52,14 +53,17 @@ public class Gate : SignalReceiver {
 		if (panCamera && camera != null && !isShowing && allowShow && isInitialized) {
 			panningQueue.Enqueue(this);
 
-			if (panningQueue.Count == 1)
-				StartCoroutine(CoShowEvent());
+			if (panningQueue.Count == 1) {
+				VignetteHighlight highlight = Instantiate(highlightPrefab, transform.position, Quaternion.identity);
+				StartCoroutine(CoShowEvent(highlight));
+			}
 		}
 		else if (animator.isInitialized)
 			animator.SetBool(isOpenHash, IsActivated);
 	}
 
-	private IEnumerator CoShowEvent() {
+	private IEnumerator CoShowEvent(VignetteHighlight highlight) {
+		highlight.WorldTarget = transform;
 		isShowing = true;
 		playerController.AllowControls = false;
 		Time.timeScale = 0;
@@ -78,11 +82,12 @@ public class Gate : SignalReceiver {
 		if (panningQueue.Count > 0) {
 			isShowing = false;
 			StartCoroutine(CoShowCooldown());
-			StartCoroutine(panningQueue.Peek().CoShowEvent());
+			StartCoroutine(panningQueue.Peek().CoShowEvent(highlight));
 			yield break;
 		}
 
 		camera.Target = player.transform;
+		highlight.FadeOut();
 
 		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
 		camera.TransitionDuration = cameraTransitionDuration;
