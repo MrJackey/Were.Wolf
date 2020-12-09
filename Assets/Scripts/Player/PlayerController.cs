@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour {
 	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
 	public float SpeedMultiplier { set => speedMultiplier = value; }
+	public Vector2 Velocity { set => velocity = value; }
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
