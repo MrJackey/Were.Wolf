@@ -7,7 +7,9 @@ using UnityEngine.InputSystem;
 
 public class DeathScreenHelper : MonoBehaviour {
 	private static readonly int showHash = Animator.StringToHash("Show");
-	private static readonly int isHumanHash = Animator.StringToHash("HumanDeath");
+	private static readonly int restartHash = Animator.StringToHash("Restart");
+	private static readonly int humanDeathHash = Animator.StringToHash("HumanDeath");
+	private static readonly int wolfDeathHash = Animator.StringToHash("WolfDeath");
 	private static readonly int regularHash = Animator.StringToHash("Regular");
 	private static readonly int piercingHash = Animator.StringToHash("Piercing");
 
@@ -69,17 +71,15 @@ public class DeathScreenHelper : MonoBehaviour {
 	}
 
 	private IEnumerator CoSelectBodyAnimation(Health.DamageType damageType) {
-		print("new body animation");
 		while (!bodyAnimator.isInitialized)
 			yield return null;
 
-		bodyAnimator.SetTrigger("Restart");
+		bodyAnimator.SetTrigger(restartHash);
 
 		if (playerTransformation.IsHuman)
-			bodyAnimator.SetTrigger("HumanDeath");
+			bodyAnimator.SetTrigger(humanDeathHash);
 		else
-			bodyAnimator.SetTrigger("WolfDeath");
-		// bodyAnimator.SetBool(isHumanHash, playerTransformation.IsHuman);
+			bodyAnimator.SetTrigger(wolfDeathHash);
 
 		switch (damageType) {
 			case Health.DamageType.Piercing:
