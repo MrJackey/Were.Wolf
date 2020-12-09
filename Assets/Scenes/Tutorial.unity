@@ -600,6 +600,7 @@ MonoBehaviour:
   - {fileID: 1420667514}
   - {fileID: 666851123}
   - {fileID: 1029280626}
+  - {fileID: 148310857}
 --- !u!4 &45083049
 Transform:
   m_ObjectHideFlags: 0
@@ -2423,12 +2424,19 @@ MonoBehaviour:
   textOffset: {x: -1.21, y: 0.5}
   triggerTag: Player
   ignoreTriggers: 1
-  forceShow: 0
-  message: "\"I'm dying... \nWe humans are so weak.\""
-  slowWrite: 1
   charactersPerSecond: 15
+  stopOnLeave: 1
   fadeOut: 1
   fadeDuration: 0.5
+  messages:
+  - message: Something is written on the wall.
+    slowWrite: 1
+    delay: 1
+  - message: '"I''m dying.
+
+      We humans are so weak..."'
+    slowWrite: 1
+    delay: 1
 --- !u!61 &337274168
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3912,17 +3920,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
-  textOffset: {x: -1.18, y: 0.13}
+  textOffset: {x: -0.02, y: 0.13}
   triggerTag: Player
   ignoreTriggers: 1
-  forceShow: 0
-  message: 'Have to get out. Have to get out!
-
-    ''She'' is coming for me...'
-  slowWrite: 1
   charactersPerSecond: 15
+  stopOnLeave: 0
   fadeOut: 1
   fadeDuration: 0.5
+  messages:
+  - message: I have to get out- I have to get out!
+    slowWrite: 1
+    delay: 1
+  - message: She is coming for me.
+    slowWrite: 1
+    delay: 1
+  - message: She is coming...
+    slowWrite: 1
+    delay: 1
 --- !u!61 &493992741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3936,7 +3950,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09, y: -0.5}
+  m_Offset: {x: -0.09, y: -1.06}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3947,7 +3961,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.74, y: 3.66}
+  m_Size: {x: 7.74, y: 4.04}
   m_EdgeRadius: 0
 --- !u!1001 &499711291
 PrefabInstance:
@@ -43097,7 +43111,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -44140,12 +44154,14 @@ MonoBehaviour:
   textOffset: {x: 0, y: 0.7}
   triggerTag: Player
   ignoreTriggers: 1
-  forceShow: 0
-  message: Press up to enter
-  slowWrite: 0
   charactersPerSecond: 15
+  stopOnLeave: 1
   fadeOut: 1
   fadeDuration: 0.5
+  messages:
+  - message: 
+    slowWrite: 0
+    delay: 1
 --- !u!1 &1549294416
 GameObject:
   m_ObjectHideFlags: 0
@@ -45296,8 +45312,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 755491027
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9ab3ba5b15a1a854a81da373df511551, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -45804,12 +45820,14 @@ MonoBehaviour:
   textOffset: {x: 0.05, y: 0.89}
   triggerTag: Player
   ignoreTriggers: 1
-  forceShow: 0
-  message: They're looking for werewolves...
-  slowWrite: 1
   charactersPerSecond: 15
+  stopOnLeave: 0
   fadeOut: 1
   fadeDuration: 0.5
+  messages:
+  - message: They're looking for werewolves...
+    slowWrite: 1
+    delay: 1
 --- !u!61 &1865757399
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -45823,7 +45841,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.87, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -45834,7 +45852,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.99, y: 2.5}
+  m_Size: {x: 5.68, y: 2.5}
   m_EdgeRadius: 0
 --- !u!1 &1868063788
 GameObject:

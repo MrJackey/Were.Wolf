@@ -14,19 +14,16 @@ public class SpeechZone : MonoBehaviour {
 	[SerializeField, Tag]
 	private string triggerTag = "Player";
 	[SerializeField] private bool ignoreTriggers = true;
-	[SerializeField] private bool forceShow = false;
 
 	[Space]
-	[SerializeField, TextArea]
-	private string message = null;
-
-	[SerializeField] private bool slowWrite = false;
-	[SerializeField, EnableIf(nameof(slowWrite))]
-	private float charactersPerSecond = 15;
-
+	[SerializeField] private float charactersPerSecond = 15;
+	[SerializeField] private bool stopOnLeave = true;
 	[SerializeField] private bool fadeOut = false;
 	[SerializeField, EnableIf(nameof(fadeOut))]
 	private float fadeDuration = 0.5f;
+
+	[Space]
+	[SerializeField] private MessageItem[] messages = new MessageItem[1];
 
 	private static Canvas canvas;
 
@@ -35,13 +32,11 @@ public class SpeechZone : MonoBehaviour {
 	private CanvasGroup messageBubbleCanvasGroup;
 	private Text messageText;
 	private bool isShowing;
-	private Coroutine slowWriteRoutine;
+	private Coroutine showRoutine;
 	private Coroutine fadeOutRoutine;
 
 	private void Start() {
 		mainCamera = Camera.main;
-		if (forceShow)
-			ShowMessage();
 	}
 
 	private void LateUpdate() {
@@ -56,8 +51,8 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		if (!forceShow && IsMatchingTarget(other))
-			HideMessage();
+		if (stopOnLeave && IsMatchingTarget(other))
+			HideMessage(fadeOut);
 	}
 
 	private void UpdateMessagePosition() {
@@ -87,26 +82,27 @@ public class SpeechZone : MonoBehaviour {
 		UpdateMessagePosition();
 		messageText = messageBubble.GetComponentInChildren<Text>();
 
-		if (slowWrite)
-			slowWriteRoutine = StartCoroutine(CoSlowWrite());
-		else
-			messageText.text = message;
+		showRoutine = StartCoroutine(CoShowMessages());
 
 		messageBubble.gameObject.SetActive(true);
 		isShowing = true;
 	}
 
-	private void HideMessage() {
+	private void HideMessage(bool fade) {
 		if (!isShowing) return;
-		if (slowWriteRoutine != null) {
-			StopCoroutine(slowWriteRoutine);
-			slowWriteRoutine = null;
+		if (showRoutine != null) {
+			StopCoroutine(showRoutine);
+			showRoutine = null;
 		}
 
-		if (fadeOut)
+		if (fade) {
 			fadeOutRoutine = StartCoroutine(CoFadeOut());
-		else
-			messageBubble.gameObject.SetActive(false);
+		}
+		else {
+			messageText.text = "";
+			messageText.gameObject.SetActive(false);
+		}
+
 		isShowing = false;
 	}
 
@@ -117,19 +113,38 @@ public class SpeechZone : MonoBehaviour {
 		canvas.worldCamera = mainCamera;
 	}
 
-	private IEnumerator CoSlowWrite() {
-		float charDelay = 1f / charactersPerSecond;
-		string msg = message;
+	private IEnumerator CoShowMessages() {
+		foreach (MessageItem item in messages) {
+			if (item.slowWrite) {
+				// Pass through to allow stopping.
+				IEnumerator slowWriteEnumerator = CoSlowWrite(item.message, charactersPerSecond);
+				while (slowWriteEnumerator.MoveNext())
+					yield return slowWriteEnumerator.Current;
+			}
+			else {
+				messageText.text = item.message;
+			}
+
+			if (item.delay > 0)
+				yield return new WaitForSeconds(item.delay);
+		}
+
+		if (!stopOnLeave)
+			HideMessage(fadeOut);
+	}
+
+	private IEnumerator CoSlowWrite(string message, float cps) {
+		float charDelay = 1f / cps;
 		int length = 0;
 
 		messageText.text = "";
 
-		while (length < msg.Length) {
+		while (length < message.Length) {
 			do
 				length++;
-			while (length < msg.Length && char.IsWhiteSpace(msg[length]));
+			while (length < message.Length && char.IsWhiteSpace(message[length]));
 
-			messageText.text = msg.Substring(0, length);
+			messageText.text = message.Substring(0, length);
 
 			yield return new WaitForSeconds(charDelay);
 		}
@@ -158,4 +173,13 @@ public class SpeechZone : MonoBehaviour {
 		Gizmos.DrawWireSphere(position, 0.2f);
 	}
 #endif
+
+
+	[Serializable]
+	public class MessageItem {
+		[TextArea]
+		public string message = "";
+		public bool slowWrite = false;
+		public float delay = 1f;
+	}
 }

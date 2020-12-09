@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,10 @@ using UnityEngine.SceneManagement;
 public class SceneHelper : ScriptableObject {
 	[SerializeField] private SceneReference menuScene;
 	[SerializeField] private SceneReference endScene;
+	[SerializeField] private SceneTransitionHelper transitionPrefab;
 	[SerializeField] private SceneReference[] levels;
+
+	private bool isTransitioning = false;
 
 	/// <summary>
 	/// Returns the index of the currently loaded level or -1 if the loaded scene is not in the list of levels.
@@ -34,6 +38,10 @@ public class SceneHelper : ScriptableObject {
 		SceneManager.LoadScene(scene);
 	}
 
+	public void LoadSceneWithTransition(int buildIndex, bool fadeAudio = true) {
+		DoSceneTransition(buildIndex, fadeAudio);
+	}
+
 	public void ReloadScene() {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
@@ -54,16 +62,23 @@ public class SceneHelper : ScriptableObject {
 	/// Load the next level. Loads the end scene if the current level is the last one, and loads the first level if
 	/// the current scene is not in the list of levels.
 	/// </summary>
-	public void LoadNextLevel() {
+	public void LoadNextLevel(bool doTransition = false) {
 		if (levels.Length == 0) return;
 
 		int levelIndex = CurrentLevel;
+		SceneReference sceneToLoad;
+
 		if (levelIndex == -1)
-			LoadScene(levels[0]);
+			sceneToLoad = levels[0];
 		else if (levelIndex == levels.Length - 1)
-			LoadScene(endScene);
+			sceneToLoad = endScene;
 		else
-			LoadScene(levels[levelIndex + 1]);
+			sceneToLoad = levels[levelIndex + 1];
+
+		if (doTransition)
+			LoadSceneWithTransition(sceneToLoad, false);
+		else
+			LoadScene(sceneToLoad);
 	}
 
 	/// <summary>
@@ -76,6 +91,13 @@ public class SceneHelper : ScriptableObject {
 		LoadScene(levels[levelIndex]);
 	}
 
+	public void LoadLevelWithTransition(int levelIndex) {
+		if (levelIndex < 0) throw new ArgumentOutOfRangeException(nameof(levelIndex));
+		if (levelIndex >= levels.Length) return;
+
+		LoadSceneWithTransition(levels[levelIndex]);
+	}
+
 	private int FindLevelByBuildIndex(int buildIndex) {
 		for (int i = 0; i < levels.Length; i++) {
 			if (levels[i].BuildIndex == buildIndex)
@@ -83,5 +105,16 @@ public class SceneHelper : ScriptableObject {
 		}
 
 		return -1;
+	}
+
+	private void DoSceneTransition(int buildIndex, bool fadeAudio = false) {
+		if (isTransitioning) return;
+
+		SceneTransitionHelper helper = Instantiate(transitionPrefab);
+		helper.SceneToLoad = buildIndex;
+		helper.DoFadeAudio = fadeAudio;
+		helper.CompletedCallback = () => isTransitioning = false;
+
+		isTransitioning = true;
 	}
 }
