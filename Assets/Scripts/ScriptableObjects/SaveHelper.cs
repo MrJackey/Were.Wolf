@@ -28,7 +28,7 @@ public class SaveHelper : ScriptableObject {
 		if (level >= sceneHelper.Levels.Length)
 			level = sceneHelper.Levels.Length - 1;
 
-		sceneHelper.LoadLevel(level);
+		sceneHelper.LoadLevelWithTransition(level);
 	}
 
 	public void Load() {
