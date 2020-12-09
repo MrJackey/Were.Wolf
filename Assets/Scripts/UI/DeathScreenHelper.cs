@@ -37,8 +37,8 @@ public class DeathScreenHelper : MonoBehaviour {
 
 	private void Start() {
 		GameObject go = GameObject.FindWithTag("CheckpointManager");
-			if (go != null)
-				checkpointManager = go.GetComponent<CheckpointManager>();
+		if (go != null)
+			checkpointManager = go.GetComponent<CheckpointManager>();
 	}
 
 	private void OnEnable() {
