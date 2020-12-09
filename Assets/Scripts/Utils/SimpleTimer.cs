@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[Serializable]
 public struct SimpleTimer {
 	public float Value { get; private set; }
 
@@ -12,6 +14,10 @@ public struct SimpleTimer {
 		if (Elapsed) return false;
 		Value = Mathf.Max(Value - Time.deltaTime, 0);
 		return Elapsed;
+	}
+
+	public void Stop() {
+		Value = 0;
 	}
 
 	public void Reset(float duration) {

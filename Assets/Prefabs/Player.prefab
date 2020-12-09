@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1140200243}
   - component: {fileID: 1880569388331343065}
   - component: {fileID: 5049653245362354755}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerHand
   m_TagString: PlayerHand
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ MonoBehaviour:
   deacceleration: 7
   maxSpeed: 5
   speedMultiplier: 1
-  groundedCollider: {fileID: 7474596574316978520}
+  groundedCollider: {fileID: 3060597533088857374}
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -527,7 +527,7 @@ MonoBehaviour:
   points: 3
   maxPoints: 3
   hitCollider: {fileID: 7782289118800930667}
-  groundCollider: {fileID: 7474596574316978520}
+  groundCollider: {fileID: 3060597533088857374}
   wolfHitCollider: {fileID: 5583893865885023150}
   wolfGroundCollider: {fileID: 4334596839167390589}
   humanHitCollider: {fileID: 5145285823690266723}
@@ -821,6 +821,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneHelper: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
+--- !u!1 &3844520840332786896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2389939951910205240}
+  - component: {fileID: 3060597533088857374}
+  m_Layer: 2
+  m_Name: Ground Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2389939951910205240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844520840332786896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7071930919852746780}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &3060597533088857374
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844520840332786896}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.4}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.875, y: 1.875}
+    newSize: {x: 1.875, y: 1.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.50422096, y: 0.0692333}
+  m_EdgeRadius: 0
 --- !u!1 &5812679119291105042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1094,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7071930919852746780}
   - component: {fileID: 7782289118800930667}
-  - component: {fileID: 7474596574316978520}
   m_Layer: 0
   m_Name: Colliders
   m_TagString: Untagged
@@ -1055,7 +1111,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2389939951910205240}
   m_Father: {fileID: 3326305250810700158}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1085,29 +1142,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53002715, y: 0.6191344}
   m_EdgeRadius: 0.09
---- !u!61 &7474596574316978520
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7943920797690068446}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.4}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.875, y: 1.875}
-    newSize: {x: 1.875, y: 1.875}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.50422096, y: 0.0692333}
-  m_EdgeRadius: 0
