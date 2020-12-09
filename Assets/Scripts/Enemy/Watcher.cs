@@ -11,14 +11,19 @@ public class Watcher : MonoBehaviour {
 	private int visionRayCount = 3;
 	[SerializeField] private LayerMask raycastLayers = -1;
 	[SerializeField] private bool ignoreTriggers = true;
+
 	[Space]
 	[SerializeField] private Transform lantern;
 	[SerializeField] private Transform point1, point2;
 	[SerializeField] private Collider2D wallCollider;
 	[SerializeField] private LayerMask wallLayer = 1 << 8;
+	[SerializeField] private bool doMovement = true;
 	[SerializeField] private float movementSpeed = 5f;
 	[SerializeField] private float minDistanceToPlayerWhenFollowing = 3f;
 	[SerializeField] private float playerLooseTime = 0.5f;
+	[SerializeField] private float damageTime = 5f;
+	[SerializeField] private float damage = 1f;
+	[SerializeField] private float lanternRechargeDuration = 5f;
 
 	[Header("Effect")]
 	[SerializeField] private GameObject detectionEffectPrefab = null;
@@ -48,9 +53,11 @@ public class Watcher : MonoBehaviour {
 	private float lanternAngle;
 	private Vector3 playerPosition;
 	private Vector2 playerDirection;
-	private float playerLooseTimer;
+	private SimpleTimer playerLooseTimer;
 
 	private bool isBlocked;
+	private SimpleTimer damageTimer;
+	private SimpleTimer rechargeTimer;
 
 
 	private void Start() {
@@ -77,29 +84,49 @@ public class Watcher : MonoBehaviour {
 		playerPosition = GameObject.FindWithTag("Player").transform.position;
 		playerDirection = (playerPosition - lantern.position).normalized;
 
-		UpdateMovement();
-
+		if (doMovement && state != State.Recharging)
+			UpdateMovement();
 
 		if (state == State.Tracking) {
-			playerLooseTimer = Mathf.Max(playerLooseTimer - Time.deltaTime, 0);
-			if (playerLooseTimer <= 0) {
+			if (playerLooseTimer.Tick()) {
 				state = State.Patrolling;
 				lanternAngle = 0;
 			}
 		}
 
-		if (state != State.Patrolling) {
+		if (state != State.Patrolling && state != State.Recharging) {
 			// Facing towards the player.
 			SetFacing(Mathf.Sign(playerPosition.x - transform.position.x));
 			// Angle lantern towards player.
 			lanternAngle = MathX.Angle(playerDirection) * Mathf.Rad2Deg;
+			if (facing < 0) lanternAngle = 180f - lanternAngle;
 		}
 
-		lantern.localRotation = Quaternion.AngleAxis(facing < 0 ? 180f - lanternAngle : lanternAngle, Vector3.forward);
-		UpdatePlayerVisibility();
+		lantern.localRotation = Quaternion.AngleAxis(lanternAngle, Vector3.forward);
+		if (state != State.Recharging)
+			UpdatePlayerVisibility();
 
-		// if (isPlayerVisible)
-		// 	playerHealth.TakeDamage(damagePerSecond * Time.deltaTime);
+
+		if (state == State.Following) {
+			Debug.Assert(isPlayerVisible);
+
+			if (damageTimer.Tick()) {
+				playerHealth.TakeDamage(damage);
+
+				state = State.Recharging;
+				lantern.gameObject.SetActive(false);
+				rechargeTimer.Reset(lanternRechargeDuration);
+				isPlayerVisible = false;
+				lanternAngle = 0;
+				OnLost();
+			}
+		}
+		else if (state == State.Recharging) {
+			if (rechargeTimer.Tick()) {
+				state = State.Patrolling;
+				lantern.gameObject.SetActive(true);
+			}
+		}
 	}
 
 	private void SetFacing(float direction) {
@@ -108,12 +135,6 @@ public class Watcher : MonoBehaviour {
 		localScale.x = facing;
 		transform.localScale = localScale;
 	}
-
-	// private void SetLanternAngle(float angle) {
-	// 	if (facing < 0)
-	// 		angle = 180f - angle;
-	// 	lanternAngle = angle;
-	// }
 
 	private void UpdateMovement() {
 		// // Do movement if we're too far from the player.
@@ -131,20 +152,9 @@ public class Watcher : MonoBehaviour {
 			}
 			else if (position.x >= point2.position.x) {
 				SetFacing(-1);
-				lanternAngle = 180;
+				lanternAngle = 0;
 			}
 		}
-	}
-
-	private void DoPatrollingMovement() {
-		Vector3 position = transform.position;
-		position.x += movementSpeed * facing * Time.deltaTime;
-		transform.position = position;
-
-		if (position.x <= point1.position.x)
-			SetFacing(1);
-		else if (position.x >= point2.position.x)
-			SetFacing(-1);
 	}
 
 	private void UpdatePlayerVisibility() {
@@ -152,9 +162,14 @@ public class Watcher : MonoBehaviour {
 		if (isPlayerVisible) {
 			playerObject = go;
 			playerHealth = playerObject.GetComponent<Health>();
+
+			state = State.Following;
+			damageTimer.Reset(damageTime);
 			OnDetected();
 		}
 		else {
+			state = State.Tracking;
+			playerLooseTimer.Reset(playerLooseTime);
 			OnLost();
 		}
 	}
@@ -205,8 +220,7 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnDetected() {
-		state = State.Following;
-
+		print("detect");
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
 		if (detectionEffectPrefab != null)
 			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
@@ -221,9 +235,7 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnLost() {
-		state = State.Tracking;
-		playerLooseTimer = playerLooseTime;
-
+		print("lost");
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = 1f;
 		if (activeEffect != null)
 			Destroy(activeEffect);
@@ -251,5 +263,6 @@ public class Watcher : MonoBehaviour {
 		Patrolling,
 		Following,
 		Tracking,
+		Recharging,
 	}
 }
