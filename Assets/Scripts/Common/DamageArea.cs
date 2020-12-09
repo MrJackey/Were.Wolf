@@ -10,7 +10,7 @@ public class DamageArea : MonoBehaviour {
 	}
 
 	[SerializeField] private DamageMode mode = DamageMode.Single;
-	[SerializeField] private Health.DamageType damageType = Health.DamageType.Regular;
+	[SerializeField] private DamageSource damageSource = DamageSource.Generic;
 	[SerializeField] private float damage = 10;
 	[SerializeField] private float damageCooldown = 0;
 	[SerializeField] private UnityEvent<Vector2> onDamageEffect = null;
@@ -51,7 +51,7 @@ public class DamageArea : MonoBehaviour {
 		if (healthComponent != null) {
 			cooldownTimer = damageCooldown;
 			Health health = healthComponent;
-			health.TakeDamage(isEnter ? damage : damage * Time.deltaTime, damageType);
+			health.TakeDamage(isEnter ? damage : damage * Time.deltaTime, damageSource);
 
 			if (effectTarget.Length != 0 && other.attachedRigidbody.CompareTag(effectTarget))
 				onDamageEffect.Invoke(avgContactPoint);

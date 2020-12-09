@@ -10,8 +10,8 @@ public class DeathScreenHelper : MonoBehaviour {
 	private static readonly int restartHash = Animator.StringToHash("Restart");
 	private static readonly int humanDeathHash = Animator.StringToHash("HumanDeath");
 	private static readonly int wolfDeathHash = Animator.StringToHash("WolfDeath");
-	private static readonly int regularHash = Animator.StringToHash("Regular");
-	private static readonly int piercingHash = Animator.StringToHash("Piercing");
+	private static readonly int genericHash = Animator.StringToHash("Generic");
+	private static readonly int spikeHash = Animator.StringToHash("Spike");
 
 	[SerializeField] private AnimationClip animationClip;
 	[SerializeField] private SceneHelper sceneHelper;
@@ -23,6 +23,7 @@ public class DeathScreenHelper : MonoBehaviour {
 	private CheckpointManager checkpointManager;
 
 	private float screenDuration = 0f;
+	private DamageSource damageSource;
 
 	private void Awake() {
 		screenDuration = animationClip.length;
@@ -35,7 +36,9 @@ public class DeathScreenHelper : MonoBehaviour {
 	}
 
 	private void Start() {
-		checkpointManager = FindObjectOfType<CheckpointManager>();
+		GameObject go = GameObject.FindWithTag("CheckpointManager");
+			if (go != null)
+				checkpointManager = go.GetComponent<CheckpointManager>();
 	}
 
 	private void OnEnable() {
@@ -48,13 +51,13 @@ public class DeathScreenHelper : MonoBehaviour {
 			playerHealth.OnDie.RemoveListener(OnDeath);
 	}
 
-	private void OnDeath(Health.DamageType damageType) {
-		StartCoroutine(CoShowDeath(damageType));
+	private void OnDeath(DamageSource source) {
+		damageSource = source;
+		StartCoroutine(CoShowDeath());
 	}
 
-	private IEnumerator CoShowDeath(Health.DamageType damageType) {
+	private IEnumerator CoShowDeath() {
 		Time.timeScale = 0;
-		StartCoroutine(CoSelectBodyAnimation(damageType));
 		animator.SetTrigger(showHash);
 
 		yield return new WaitForSecondsRealtime(screenDuration / 2);
@@ -70,10 +73,8 @@ public class DeathScreenHelper : MonoBehaviour {
 		sceneHelper.ReloadScene();
 	}
 
-	private IEnumerator CoSelectBodyAnimation(Health.DamageType damageType) {
-		while (!bodyAnimator.isInitialized)
-			yield return null;
-
+	// Run by animation event
+	public void StartBodyAnimation() {
 		bodyAnimator.SetTrigger(restartHash);
 
 		if (playerTransformation.IsHuman)
@@ -81,12 +82,12 @@ public class DeathScreenHelper : MonoBehaviour {
 		else
 			bodyAnimator.SetTrigger(wolfDeathHash);
 
-		switch (damageType) {
-			case Health.DamageType.Piercing:
-				bodyAnimator.SetTrigger(piercingHash);
+		switch (damageSource) {
+			case DamageSource.Spike:
+				bodyAnimator.SetTrigger(spikeHash);
 				break;
 			default:
-				bodyAnimator.SetTrigger(regularHash);
+				bodyAnimator.SetTrigger(genericHash);
 				break;
 		}
 	}

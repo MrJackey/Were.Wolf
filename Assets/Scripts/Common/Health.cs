@@ -11,7 +11,7 @@ public class Health : MonoBehaviour {
 	[SerializeField] private UnityEvent<float> onTakeDamage = null;
 	[SerializeField] private UnityEvent<float> onHeal = null;
 	[SerializeField] private UnityEvent onValueChange;
-	[SerializeField] private UnityEvent<DamageType> onDie = null;
+	[SerializeField] private UnityEvent<DamageSource> onDie = null;
 
 	public float Value {
 		get => health;
@@ -43,9 +43,13 @@ public class Health : MonoBehaviour {
 	public UnityEvent<float> OnTakeDamage => onTakeDamage;
 	public UnityEvent<float> OnHeal => onHeal;
 	public UnityEvent OnValueChange => onValueChange;
-	public UnityEvent<DamageType> OnDie => onDie;
+	public UnityEvent<DamageSource> OnDie => onDie;
 
-	public void TakeDamage(float amount, DamageType damageType = DamageType.Regular) {
+	public void TakeDamage(float amount) {
+		TakeDamage(amount, DamageSource.Generic);
+	}
+
+	public void TakeDamage(float amount, DamageSource damageSource) {
 		if (invincible) return;
 
 		float delta = SetHealth(health - amount);
@@ -53,7 +57,7 @@ public class Health : MonoBehaviour {
 		onTakeDamage.Invoke(delta);
 
 		if (health == 0)
-			Die(damageType);
+			Die(damageSource);
 	}
 
 	public void Heal(float amount) {
@@ -62,10 +66,10 @@ public class Health : MonoBehaviour {
 		onHeal.Invoke(delta);
 	}
 
-	public void Die(DamageType damageType = DamageType.Regular) {
+	public void Die(DamageSource damageSource = DamageSource.Generic) {
 		health = 0;
 		dead = true;
-		onDie.Invoke(damageType);
+		onDie.Invoke(damageSource);
 	}
 
 	public void RestoreHealth() {
@@ -83,10 +87,9 @@ public class Health : MonoBehaviour {
 		onValueChange.Invoke();
 		return oldValue - newValue;
 	}
+}
 
-
-	public enum DamageType {
-		Regular,
-		Piercing,
-	}
+public enum DamageSource {
+	Generic,
+	Spike,
 }
