@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour {
 	public float AirJumpLength => airJumpEndTime;
 	public float SpeedMultiplier { set => speedMultiplier = value; }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 	public bool NoClip {
 		get => noClip;
 		set {
