@@ -5,6 +5,11 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Watcher : MonoBehaviour {
+	private static readonly int speedHash = Animator.StringToHash("speed");
+	private static readonly int isAttackingHash = Animator.StringToHash("isAttacking");
+	private static readonly int fixLampHash = Animator.StringToHash("fixLamp");
+	private static readonly int endFixLampHash = Animator.StringToHash("endFixLamp");
+
 	[SerializeField] private Vector2 eyeOffset = Vector2.zero;
 	[SerializeField] private float visionConeAngle = 30f;
 	[SerializeField] private float visionDistance = 4f;
@@ -16,6 +21,7 @@ public class Watcher : MonoBehaviour {
 	[Space]
 	[SerializeField] private Transform lantern = null;
 	[SerializeField] private Collider2D wallCollider = null;
+	[SerializeField] private Collider2D groundCollider = null;
 	[SerializeField] private LayerMask wallLayer = 1 << 8;
 
 	[Space]
@@ -51,7 +57,7 @@ public class Watcher : MonoBehaviour {
 	[SerializeField] private UnityEvent onLost = null;
 
 	private GameObject activeEffect;
-	private GameObject playerObject;
+	private Transform playerTransform;
 	private Health playerHealth;
 	private SnappingCamera snappingCamera;
 	private Animator animator;
@@ -74,6 +80,10 @@ public class Watcher : MonoBehaviour {
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+
+		playerTransform = GameObject.FindWithTag("Player").transform;
+		playerHealth = playerTransform.GetComponent<Health>();
+
 		Camera mainCamera = Camera.main;
 		if (mainCamera != null)
 			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
@@ -84,25 +94,25 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		isBlocked = wallCollider.IsTouchingLayers(wallLayer);
+		isBlocked = wallCollider.IsTouchingLayers(wallLayer) || !groundCollider.IsTouchingLayers(wallLayer);
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		isBlocked = wallCollider.IsTouchingLayers(wallLayer);
+		isBlocked = wallCollider.IsTouchingLayers(wallLayer) || !groundCollider.IsTouchingLayers(wallLayer);
 	}
 
 	private void Update() {
 		lantern.localPosition = eyeOffset;
 		facing = Mathf.Sign(transform.localScale.x);
 
-		playerPosition = GameObject.FindWithTag("Player").transform.position;
+		playerPosition = playerTransform.position;
 		playerDirection = (playerPosition - lantern.position).normalized;
 
 		currentSpeed = 0f;
 		if (doMovement && state != State.Recharging)
 			UpdateMovement();
 
-		animator.SetFloat("speed", currentSpeed);
+		animator.SetFloat(speedHash, currentSpeed);
 
 		if (state == State.Tracking && !isPlayerVisible) {
 			if (playerLooseTimer.Tick()) {
@@ -130,22 +140,15 @@ public class Watcher : MonoBehaviour {
 			OnLost();
 		}
 
-		animator.SetBool("isAttacking", isPlayerVisible);
+		animator.SetBool(isAttackingHash, isPlayerVisible);
 
 		if (state == State.Following) {
-			Debug.Assert(isPlayerVisible);
+			Debug.Assert(isPlayerVisible, "isPlayerVisible && state == State.Following");
 
 			if (damageTimer.Tick()) {
 				playerHealth.TakeDamage(damage);
-
 				StartCoroutine(CoRechargeLantern());
 			}
-		}
-		else if (state == State.Recharging) {
-			// if (rechargeTimer.Tick()) {
-			// 	state = State.Patrolling;
-			// 	lantern.gameObject.SetActive(true);
-			// }
 		}
 	}
 
@@ -159,9 +162,10 @@ public class Watcher : MonoBehaviour {
 		lanternAngle = 0;
 		OnLost();
 
-		animator.SetTrigger("fixLamp");
+		animator.SetTrigger(fixLampHash);
 		yield return new WaitForSeconds(lanternRechargeDuration - standClip.length);
-		animator.SetTrigger("endFixLamp");
+
+		animator.SetTrigger(endFixLampHash);
 		yield return new WaitForSeconds(standClip.length);
 
 		state = State.Patrolling;
@@ -176,7 +180,6 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void UpdateMovement() {
-		// // Do movement if we're too far from the player.
 		if (state != State.Patrolling &&
 			(isBlocked || Mathf.Abs(playerPosition.x - transform.position.x) <= minFollowingDistance)) return;
 
@@ -199,12 +202,9 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void UpdatePlayerVisibility() {
-		if (isPlayerActuallyVisible == (isPlayerActuallyVisible = CheckPlayerVisible(out GameObject go))) return;
+		if (isPlayerActuallyVisible == (isPlayerActuallyVisible = CheckPlayerVisible(out _))) return;
 		if (isPlayerActuallyVisible) {
 			if (!isPlayerVisible) {
-				playerObject = go;
-				playerHealth = playerObject.GetComponent<Health>();
-
 				state = State.Following;
 				damageTimer.Reset(damageTime);
 				OnDetected();
@@ -248,6 +248,7 @@ public class Watcher : MonoBehaviour {
 	#if UNITY_EDITOR
 		float distance = hit.collider != null ? hit.distance : visionDistance;
 		Debug.DrawRay(origin, direction * distance, Color.red);
+
 		if (hit.collider != null)
 			Debug.DrawLine(hit.point, hit.point + hit.normal * 0.1f, Color.yellow);
 	#endif
@@ -267,14 +268,13 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnDetected() {
-		print("detect");
-		playerObject.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
+		playerTransform.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
 		if (detectionEffectPrefab != null)
-			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
+			activeEffect = Instantiate(detectionEffectPrefab, playerTransform, false);
 
 		if (cameraShake && snappingCamera != null) {
 			snappingCamera.BeginShake(shakeFrequency, shakeAmplitude);
-			if (playerObject.GetComponent<PlayerInput>().currentControlScheme == "Gamepad")
+			if (playerTransform.GetComponent<PlayerInput>().currentControlScheme == "Gamepad")
 				Gamepad.current?.SetMotorSpeeds(rumbleFrequencies.x, rumbleFrequencies.y);
 		}
 
@@ -282,8 +282,7 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnLost() {
-		print("lost");
-		playerObject.GetComponent<PlayerController>().SpeedMultiplier = 1f;
+		playerTransform.GetComponent<PlayerController>().SpeedMultiplier = 1f;
 		if (activeEffect != null)
 			Destroy(activeEffect);
 
