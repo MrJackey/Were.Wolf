@@ -15,5 +15,6 @@ public class CheckpointManager : MonoBehaviour {
 		GameObject playerObject = GameObject.FindWithTag("Player");
 		playerObject.GetComponent<Health>().RestoreHealth();
 		playerObject.GetComponent<Rigidbody2D>().position = checkpoint.transform.position;
+		playerObject.GetComponent<PlayerController>().Velocity = Vector2.zero;
 	}
 }
