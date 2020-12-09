@@ -25,8 +25,6 @@ public class Watcher : MonoBehaviour {
 	[SerializeField] private LayerMask wallLayer = 1 << 8;
 
 	[Space]
-	[SerializeField] private AnimationClip crouchClip;
-	[SerializeField] private AnimationClip pokeLampClip;
 	[SerializeField] private AnimationClip standClip;
 
 	[Header("AI")]
