@@ -19,7 +19,7 @@ public class CheatButtons : MonoBehaviour {
 		// Restore HP and TP.
 		if (kb.f2Key.wasPressedThisFrame) {
 			health.RestoreHealth();
-			transformation.Points = transformation.MaxPoints;
+			transformation.TransformationCooldown = 0f;
 		}
 
 		// Level switching.

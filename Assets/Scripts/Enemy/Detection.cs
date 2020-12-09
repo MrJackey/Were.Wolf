@@ -112,6 +112,7 @@ public class Detection : MonoBehaviour {
 
 	private void OnDetected() {
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
+		playerObject.GetComponent<Transformation>().AllowTransformation = false;
 		if (detectionEffectPrefab != null)
 			activeEffect = Instantiate(detectionEffectPrefab, playerObject.transform, false);
 
@@ -126,6 +127,7 @@ public class Detection : MonoBehaviour {
 
 	private void OnLost() {
 		playerObject.GetComponent<PlayerController>().SpeedMultiplier = 1f;
+		playerObject.GetComponent<Transformation>().AllowTransformation = true;
 		if (activeEffect != null)
 			Destroy(activeEffect);
 
