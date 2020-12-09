@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Canvas))]
 public class VignetteHighlight : MonoBehaviour {
 	private static readonly int centerID = Shader.PropertyToID("_Center");
 
@@ -12,8 +13,8 @@ public class VignetteHighlight : MonoBehaviour {
 	private new Camera camera = null;
 	private Transform worldTarget = null;
 	private Material material = null;
+	private Color baseColor;
 	private float baseAlpha = 0f;
-	private float alpha = 0f;
 	private float fadeTime = 0f;
 	private int fadeDirection = 1;
 
@@ -21,16 +22,12 @@ public class VignetteHighlight : MonoBehaviour {
 
 	private void Start() {
 		Canvas canvas = GetComponent<Canvas>();
-
-		if (canvas == null) {
-			Debug.LogError($"{nameof(VignetteHighlight)} requires a canvas");
-			return;
-		}
-
 		camera = canvas.worldCamera;
+
 		material = new Material(rawImage.material);
 		rawImage.material = material;
-		baseAlpha = material.color.a;
+		baseColor = material.color;
+		baseAlpha = baseColor.a;
 	}
 
 	private void LateUpdate() {
@@ -49,10 +46,9 @@ public class VignetteHighlight : MonoBehaviour {
 	}
 
 	private void FadeHighlight() {
-		alpha = MathX.EaseInQuad(0, baseAlpha, fadeTime / fadeDuration);
-		Mathf.Clamp(alpha, 0, baseAlpha);
+		baseColor.a = MathX.EaseOutQuad(0, baseAlpha, fadeTime / fadeDuration);
 
-		material.color = new Color(material.color.r, material.color.g, material.color.b, alpha);
+		material.color = baseColor;
 	}
 
 	public void FadeOut() {
