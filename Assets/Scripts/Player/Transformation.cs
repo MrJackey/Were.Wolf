@@ -11,8 +11,7 @@ public class Transformation : MonoBehaviour {
 	[SerializeField] private float humanFormDuration = 5f;
 	[SerializeField, Range(0, 1)]
 	private float cancelThreshold = 0.5f;
-	[SerializeField] private int points = 3;
-	[SerializeField] private int maxPoints = 3;
+	[SerializeField] private float transformCooldownDuration = 5f;
 
 	[Header("Colliders")]
 	[SerializeField] private BoxCollider2D hitCollider = null;
@@ -31,13 +30,14 @@ public class Transformation : MonoBehaviour {
 	[SerializeField] private UnityEvent onTransformStart = null;
 	[SerializeField] private UnityEvent<float> onTransformInterrupt = null;
 	[SerializeField] private UnityEvent onTransformEnd = null;
-	[SerializeField] private UnityEvent onPointSpent = null;
-	[SerializeField] private UnityEvent onPointsChanged = null;
 
 	private PlayerController playerController;
 	private TransformationState oldState;
 	private TransformationState state;
 	private Coroutine humanFormDurationCoroutine;
+	private bool transformationIsBlocked = false;
+	private float transformationCooldownTimer;
+	private bool isCoolingDown = true;
 
 	private ParticleSystem particleEffect;
 	private float wolfEmissionRate;
@@ -51,30 +51,34 @@ public class Transformation : MonoBehaviour {
 	}
 
 	public UnityEvent<float> OnTransformInterrupt => onTransformInterrupt;
-	public UnityEvent OnPointSpent => onPointSpent;
-	public UnityEvent OnPointsChanged => onPointsChanged;
-
+	public bool IsHuman => state == TransformationState.Human;
+	public bool IsTransforming => state == TransformationState.Transforming;
 	public float TransformDuration => transDuration;
 
-	public int Points {
-		get => points;
-		set {
-			int newValue = Mathf.Clamp(value, 0, maxPoints);
-			if (points == newValue) return;
+	public float TransformCooldownDuration => transformCooldownDuration;
 
-			points = newValue;
-			onPointsChanged.Invoke();
-		}
+	public float TransformationCooldown {
+		get => transformationCooldownTimer;
+		set => transformationCooldownTimer = value;
 	}
 
-	public int MaxPoints => maxPoints;
-
+	public bool AllowTransformation { get; set; } = true;
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
 		particleEffect = Instantiate(transformParticle, transform);
 		wolfEmissionRate = particleEffect.emission.rateOverTime.constant;
 		particleEffect.Stop();
+	}
+
+	private void Update() {
+		if (transformationIsBlocked && playerController.IsClearAbove) {
+			transformationIsBlocked = false;
+			TransformToWolf();
+		}
+
+		if (isCoolingDown)
+			transformationCooldownTimer = Mathf.Max(transformationCooldownTimer - Time.deltaTime, 0);
 	}
 
 	private void LateUpdate() {
@@ -84,10 +88,14 @@ public class Transformation : MonoBehaviour {
 
 	public void OnTransform(InputAction.CallbackContext ctx) {
 		if (ctx.phase == InputActionPhase.Started) {
-			if (ctx.started &&
-				playerController.AllowControls &&
-				state == TransformationState.Wolf &&
-				points > 0) TransformToHuman();
+			if (!playerController.AllowControls || !AllowTransformation) return;
+			if (state == TransformationState.Wolf) {
+				if (transformationCooldownTimer <= 0f)
+					TransformToHuman();
+			}
+			else if (state == TransformationState.Human) {
+				StartCoroutine(CoManualTransformToWolf());
+			}
 		}
 		else if (ctx.phase == InputActionPhase.Canceled) {
 			transformInputUp = ctx.canceled;
@@ -95,12 +103,23 @@ public class Transformation : MonoBehaviour {
 	}
 
 	private IEnumerator CoTransforming(TransformationState newState, float startTime = 0) {
+		if (playerController.IsCrouched && !playerController.IsClearAbove) {
+			transformationIsBlocked = true;
+			yield break;
+		}
+
 		oldState = state;
 		state = TransformationState.Transforming;
 		PlayParticles();
 		onTransformStart.Invoke();
 
+		if (newState == TransformationState.Human)
+			isCoolingDown = false;
+
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
+			if (newState == TransformationState.Human)
+				transformationCooldownTimer = transformCooldownDuration * transTimer / transDuration;
+
 			UpdateHitboxes(newState, transTimer / transDuration);
 
 			if (transformInputUp && oldState == TransformationState.Wolf && transTimer / transDuration < cancelThreshold) {
@@ -117,15 +136,11 @@ public class Transformation : MonoBehaviour {
 				StopCoroutine(humanFormDurationCoroutine);
 
 			humanFormDurationCoroutine = StartCoroutine(CoHumanFormDuration());
-
-			if (points > 0) {
-				points -= 1;
-				onPointSpent.Invoke();
-				onPointsChanged.Invoke();
-			}
+		}
+		else if (newState == TransformationState.Wolf) {
+			isCoolingDown = true;
 		}
 		state = newState;
-		playerController.HumanControls = state == TransformationState.Human;
 
 		particleEffect.Stop();
 		onTransformEnd.Invoke();
@@ -137,7 +152,8 @@ public class Transformation : MonoBehaviour {
 		PlayParticles();
 
 		yield return new WaitForSeconds(humanFormDuration * (1 - toWolfIndication));
-		StartCoroutine(CoTransforming(TransformationState.Wolf));
+		yield return StartCoroutine(CoTransforming(TransformationState.Wolf));
+		transformationCooldownTimer = transformCooldownDuration;
 	}
 
 	private void PlayParticles() {
@@ -155,21 +171,39 @@ public class Transformation : MonoBehaviour {
 		StartCoroutine(CoTransforming(TransformationState.Wolf, startTime));
 	}
 
+	private IEnumerator CoManualTransformToWolf() {
+		if (humanFormDurationCoroutine != null) {
+			StopCoroutine(humanFormDurationCoroutine);
+			humanFormDurationCoroutine = null;
+		}
+
+		yield return StartCoroutine(CoTransforming(TransformationState.Wolf));
+		transformationCooldownTimer = transformCooldownDuration;
+	}
+
 	private void UpdateHitboxes(TransformationState newState, float transformationTime) {
 		Vector2 newHitSize;
+		Vector2 newHitOffset;
 		Vector2 newGroundSize;
+		Vector2 newGroundOffset;
 
 		if (newState == TransformationState.Human) {
 			newHitSize = Vector2.Lerp(wolfHitCollider.size, humanHitCollider.size, transformationTime);
+			newHitOffset = Vector2.Lerp(wolfHitCollider.offset, humanHitCollider.offset, transformationTime);
 			newGroundSize = Vector2.Lerp(wolfGroundCollider.size, humanGroundCollider.size, transformationTime);
+			newGroundOffset = Vector2.Lerp(wolfGroundCollider.offset, humanGroundCollider.offset, transformationTime);
 		}
 		else {
 			newHitSize = Vector2.Lerp(humanHitCollider.size, wolfHitCollider.size, transformationTime);
+			newHitOffset = Vector2.Lerp(humanHitCollider.offset, wolfHitCollider.offset, transformationTime);
 			newGroundSize = Vector2.Lerp(humanGroundCollider.size, wolfGroundCollider.size, transformationTime);
+			newGroundOffset = Vector2.Lerp(humanGroundCollider.offset, wolfGroundCollider.offset, transformationTime);
 		}
 
 		hitCollider.size = newHitSize;
+		hitCollider.offset = newHitOffset;
 		groundCollider.size = newGroundSize;
+		groundCollider.offset = newGroundOffset;
 	}
 }
 

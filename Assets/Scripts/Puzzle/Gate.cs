@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -10,11 +11,12 @@ public class Gate : SignalReceiver {
 	[Header("Gate")]
 	[SerializeField] private Animator animator;
 	[SerializeField] private bool panCamera;
-	[SerializeField] private float showDuration = 1f;
-	[SerializeField] private InputActionReference enterActionReference;
-	[SerializeField, Range(0.125f, 1f)]
-	private float enterThreshold = 0.5f;
-	[SerializeField] private UnityEvent onEnter;
+	[SerializeField, EnableIf(nameof(panCamera))]
+	private float showDuration = 1f;
+	[SerializeField, EnableIf(nameof(panCamera))]
+	private float showCooldown = 7.5f;
+
+	private static Queue<Gate> panningQueue = new Queue<Gate>();
 
 	private new SnappingCamera camera;
 	private Transform player;
@@ -22,9 +24,7 @@ public class Gate : SignalReceiver {
 	private float cameraTransitionDuration;
 	private float cameraTransitionMultiplier = 0.10f;
 	private bool isShowing = false;
-	private bool allowShow = false;
-	private bool canEnter = false;
-	private bool isEntering;
+	private bool allowShow = true;
 
 	private void Awake() {
 		GameObject playerObj = GameObject.FindWithTag("Player");
@@ -34,38 +34,32 @@ public class Gate : SignalReceiver {
 		cameraTransitionDuration = camera.TransitionDuration;
 	}
 
-	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger)
-			canEnter = true;
+	private void OnEnable() => AddInternalListeners();
+
+	private void OnDisable() => RemoveInternalListeners();
+
+	protected void AddInternalListeners() {
+		onActivation.AddListener(Toggle);
+		onDeactivation.AddListener(Toggle);
 	}
 
-	private void OnTriggerExit2D(Collider2D other) {
-		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger)
-			canEnter = false;
-	}
-
-	private void OnEnable() {
-		if (enterActionReference == null) return;
-
-		enterActionReference.action.performed += OnEnterInput;
-	}
-
-	private void OnDisable() {
-		if (enterActionReference == null) return;
-
-		enterActionReference.action.performed -= OnEnterInput;
+	protected void RemoveInternalListeners() {
+		onActivation.RemoveListener(Toggle);
+		onDeactivation.RemoveListener(Toggle);
 	}
 
 	public void Toggle() {
-		if (panCamera && camera != null && !isShowing && allowShow)
-			StartCoroutine(ShowEvent());
+		if (panCamera && camera != null && !isShowing && allowShow && isInitialized) {
+			panningQueue.Enqueue(this);
+
+			if (panningQueue.Count == 1)
+				StartCoroutine(CoShowEvent());
+		}
 		else if (animator.isInitialized)
 			animator.SetBool(isOpenHash, IsActivated);
-
-		allowShow = true;
 	}
 
-	private IEnumerator ShowEvent() {
+	private IEnumerator CoShowEvent() {
 		isShowing = true;
 		playerController.AllowControls = false;
 		Time.timeScale = 0;
@@ -80,6 +74,14 @@ public class Gate : SignalReceiver {
 		animator.SetBool(isOpenHash, IsActivated);
 
 		yield return new WaitForSecondsRealtime(showDuration);
+		panningQueue.Dequeue();
+		if (panningQueue.Count > 0) {
+			isShowing = false;
+			StartCoroutine(CoShowCooldown());
+			StartCoroutine(panningQueue.Peek().CoShowEvent());
+			yield break;
+		}
+
 		camera.Target = player.transform;
 
 		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
@@ -87,20 +89,13 @@ public class Gate : SignalReceiver {
 		playerController.AllowControls = true;
 		Time.timeScale = 1;
 		isShowing = false;
+		StartCoroutine(CoShowCooldown());
 	}
 
-	private void OnEnterInput(InputAction.CallbackContext ctx) {
-		if (!canEnter) return;
+	private IEnumerator CoShowCooldown() {
+		allowShow = false;
+		yield return new WaitForSeconds(showCooldown);
 
-		Vector2 moveInput = ctx.ReadValue<Vector2>();
-		if (moveInput.y > enterThreshold) {
-			if (!isEntering) {
-				isEntering = true;
-				onEnter.Invoke();
-			}
-		}
-		else {
-			isEntering = false;
-		}
+		allowShow = true;
 	}
 }

@@ -148,7 +148,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5057004274208969140, guid: 9d3c3c182145cbd4f85520caefba6104, type: 3}
+  m_Sprite: {fileID: -2556168671853515686, guid: bc71f63044b1c2a4cbcd70fbc3d0bd47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -195,7 +195,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.375, y: 2.0625}
+    oldSize: {x: 0.375, y: 2}
     newSize: {x: 0.4375, y: 2.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -221,7 +221,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.375, y: 2.0625}
+    oldSize: {x: 0.375, y: 2}
     newSize: {x: 0.4375, y: 2.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -246,44 +246,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2629e2aace8af64e9586aa09969a82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActivated: 1
+  isActivated: 0
   logicGate: 0
   invert: 0
   emitters: []
   onActivation:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6077421675904292292}
-        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
-        m_MethodName: Toggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onDeactivation:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6077421675904292292}
-        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
-        m_MethodName: Toggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   animator: {fileID: 1868501750330856506}
   panCamera: 0
   showDuration: 1
-  enterActionReference: {fileID: 8802194908310570196, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
+  showCooldown: 7.5
