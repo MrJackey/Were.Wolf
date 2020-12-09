@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,13 +14,18 @@ public class Watcher : MonoBehaviour {
 	[SerializeField] private bool ignoreTriggers = true;
 
 	[Space]
-	[SerializeField] private Transform lantern;
-	[SerializeField] private Collider2D wallCollider;
+	[SerializeField] private Transform lantern = null;
+	[SerializeField] private Collider2D wallCollider = null;
 	[SerializeField] private LayerMask wallLayer = 1 << 8;
+
+	[Space]
+	[SerializeField] private AnimationClip crouchClip;
+	[SerializeField] private AnimationClip pokeLampClip;
+	[SerializeField] private AnimationClip standClip;
 
 	[Header("AI")]
 	[SerializeField] private bool doMovement = true;
-	[SerializeField] private Transform point1, point2;
+	[SerializeField] private Transform point1 = null, point2 = null;
 	[SerializeField] private float movementSpeed = 5f;
 	[Space]
 	[SerializeField] private float minFollowingDistance = 3f;
@@ -31,7 +37,6 @@ public class Watcher : MonoBehaviour {
 
 	[Header("Effect")]
 	[SerializeField] private GameObject detectionEffectPrefab = null;
-	[SerializeField] private float damagePerSecond = 10;
 	[SerializeField] private float playerSpeedMultiplier = 0.5f;
 	[SerializeField] private Vector2 rumbleFrequencies = new Vector2(0.25f, 0.75f);
 	[Space]
@@ -49,6 +54,7 @@ public class Watcher : MonoBehaviour {
 	private GameObject playerObject;
 	private Health playerHealth;
 	private SnappingCamera snappingCamera;
+	private Animator animator;
 
 	private State state = State.Patrolling;
 	private bool isPlayerActuallyVisible;
@@ -63,8 +69,11 @@ public class Watcher : MonoBehaviour {
 	private SimpleTimer rechargeTimer;
 	private SimpleTimer looseVisibilityTimer;
 
+	private float currentSpeed;
+
 
 	private void Start() {
+		animator = GetComponent<Animator>();
 		Camera mainCamera = Camera.main;
 		if (mainCamera != null)
 			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
@@ -83,13 +92,17 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void Update() {
+		lantern.localPosition = eyeOffset;
 		facing = Mathf.Sign(transform.localScale.x);
 
 		playerPosition = GameObject.FindWithTag("Player").transform.position;
 		playerDirection = (playerPosition - lantern.position).normalized;
 
+		currentSpeed = 0f;
 		if (doMovement && state != State.Recharging)
 			UpdateMovement();
+
+		animator.SetFloat("speed", currentSpeed);
 
 		if (state == State.Tracking && !isPlayerVisible) {
 			if (playerLooseTimer.Tick()) {
@@ -117,28 +130,42 @@ public class Watcher : MonoBehaviour {
 			OnLost();
 		}
 
+		animator.SetBool("isAttacking", isPlayerVisible);
+
 		if (state == State.Following) {
 			Debug.Assert(isPlayerVisible);
 
 			if (damageTimer.Tick()) {
 				playerHealth.TakeDamage(damage);
 
-				state = State.Recharging;
-				lantern.gameObject.SetActive(false);
-				rechargeTimer.Reset(lanternRechargeDuration);
-				looseVisibilityTimer.Stop();
-				isPlayerVisible = false;
-				isPlayerActuallyVisible = false;
-				lanternAngle = 0;
-				OnLost();
+				StartCoroutine(CoRechargeLantern());
 			}
 		}
 		else if (state == State.Recharging) {
-			if (rechargeTimer.Tick()) {
-				state = State.Patrolling;
-				lantern.gameObject.SetActive(true);
-			}
+			// if (rechargeTimer.Tick()) {
+			// 	state = State.Patrolling;
+			// 	lantern.gameObject.SetActive(true);
+			// }
 		}
+	}
+
+	private IEnumerator CoRechargeLantern() {
+		state = State.Recharging;
+		lantern.gameObject.SetActive(false);
+		rechargeTimer.Reset(lanternRechargeDuration);
+		looseVisibilityTimer.Stop();
+		isPlayerVisible = false;
+		isPlayerActuallyVisible = false;
+		lanternAngle = 0;
+		OnLost();
+
+		animator.SetTrigger("fixLamp");
+		yield return new WaitForSeconds(lanternRechargeDuration - standClip.length);
+		animator.SetTrigger("endFixLamp");
+		yield return new WaitForSeconds(standClip.length);
+
+		state = State.Patrolling;
+		lantern.gameObject.SetActive(true);
 	}
 
 	private void SetFacing(float direction) {
@@ -167,6 +194,8 @@ public class Watcher : MonoBehaviour {
 				lanternAngle = 0;
 			}
 		}
+
+		currentSpeed = movementSpeed;
 	}
 
 	private void UpdatePlayerVisibility() {
@@ -178,7 +207,6 @@ public class Watcher : MonoBehaviour {
 
 				state = State.Following;
 				damageTimer.Reset(damageTime);
-
 				OnDetected();
 			}
 
@@ -275,6 +303,10 @@ public class Watcher : MonoBehaviour {
 		Gizmos.DrawWireSphere(eyePosition, 0.2f);
 
 		CheckPlayerVisible(out _);
+	}
+
+	private void OnValidate() {
+		lantern.localPosition = eyeOffset;
 	}
 
 

@@ -84,7 +84,6 @@ GameObject:
   - component: {fileID: 1637389642820773740}
   - component: {fileID: 6868862530049889933}
   - component: {fileID: 1637389642820773747}
-  - component: {fileID: 1439026896}
   - component: {fileID: 2037320166}
   - component: {fileID: 2037320165}
   m_Layer: 2
@@ -204,6 +203,9 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
+  crouchClip: {fileID: 7400000, guid: 70555d5b3eb58f44d92f47f919345f1d, type: 2}
+  pokeLampClip: {fileID: 7400000, guid: 3206b232a4561674e9a96b425af75cf5, type: 2}
+  standClip: {fileID: 7400000, guid: 9b0816594af0d7f49a138e69893227ad, type: 2}
   doMovement: 1
   point1: {fileID: 0}
   point2: {fileID: 0}
@@ -215,7 +217,6 @@ MonoBehaviour:
   damage: 1
   damageTime: 4
   detectionEffectPrefab: {fileID: 7699973423790038968, guid: 515bdc3947a213140a5cb3d45f1ee466, type: 3}
-  damagePerSecond: 1
   playerSpeedMultiplier: 0.5
   rumbleFrequencies: {x: 0.25, y: 0.75}
   cameraShake: 1
@@ -223,47 +224,10 @@ MonoBehaviour:
   shakeAmplitude: 0.1
   onDetected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1439026896}
-        m_TargetAssemblyTypeName: EnemyAnimationController, Assembly-CSharp
-        m_MethodName: set_IsAttacking
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   onLost:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1439026896}
-        m_TargetAssemblyTypeName: EnemyAnimationController, Assembly-CSharp
-        m_MethodName: set_IsAttacking
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1439026896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637389642820773746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19643eeeeb5c486eb13dda69684fb111, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 0.8
+      m_Calls: []
 --- !u!50 &2037320166
 Rigidbody2D:
   serializedVersion: 4
@@ -335,7 +299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5224518095995961273}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4200001, y: -0.0309999, z: 0}
+  m_LocalPosition: {x: 0.42, y: -0.031, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1611447296}
