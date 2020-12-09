@@ -34,20 +34,6 @@ public class Gate : SignalReceiver {
 		cameraTransitionDuration = camera.TransitionDuration;
 	}
 
-	private void OnEnable() => AddInternalListeners();
-
-	private void OnDisable() => RemoveInternalListeners();
-
-	protected void AddInternalListeners() {
-		onActivation.AddListener(Toggle);
-		onDeactivation.AddListener(Toggle);
-	}
-
-	protected void RemoveInternalListeners() {
-		onActivation.RemoveListener(Toggle);
-		onDeactivation.RemoveListener(Toggle);
-	}
-
 	public void Toggle() {
 		if (panCamera && camera != null && !isShowing && allowShow && isInitialized) {
 			panningQueue.Enqueue(this);
