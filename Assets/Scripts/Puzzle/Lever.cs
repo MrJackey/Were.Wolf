@@ -5,6 +5,7 @@ using UnityEngine;
 public class Lever : SignalEmitter {
 	[SerializeField] private LeverType leverType = LeverType.Toggle;
 	[SerializeField] float timerEnd = 5f;
+	[SerializeField] private AudioSource audioSource;
 
 	private Animator animator;
 	private float leverTimer, timerStart = 0f;
@@ -23,6 +24,7 @@ public class Lever : SignalEmitter {
 	}
 
 	public void ToggleActivation() {
+		PlaySound();
 		if (IsActivated) 
 			Deactivate();
 		else
@@ -41,6 +43,10 @@ public class Lever : SignalEmitter {
 	public void Deactivate() {
 		animator.SetBool("Activation", false);
 		IsActivated = false;
+	}
+
+	public void PlaySound() {
+		audioSource.Play();
 	}
 }
 

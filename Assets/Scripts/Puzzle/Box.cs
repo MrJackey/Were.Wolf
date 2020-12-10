@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Box : MonoBehaviour {
-
 	[SerializeField] private BoxCollider2D boxCollider;
+	[SerializeField] private SoundRandomizer soundRandomizer;
+
 	private BoxCollider2D boxTrigger;
 	private Rigidbody2D rb2D;
 	private Vector2 startPos;
 	private Health health;
 	private Carryable carryable;
 	private Interactable interactable;
+	private bool isFirstSoundPlayed = false;
 
 	private void Awake() {
 		startPos = transform.position;
@@ -28,6 +30,13 @@ public class Box : MonoBehaviour {
 
 	private void OnDisable() {
 		interactable.OnInteract.RemoveListener(Interact);
+	}
+
+	private void OnCollisionEnter2D(Collision2D other) {
+		if (isFirstSoundPlayed) {
+			soundRandomizer.PlayRandom();
+		}
+		isFirstSoundPlayed = true;
 	}
 
 	public void Respawn() {

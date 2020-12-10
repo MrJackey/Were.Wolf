@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PressureButton : SignalEmitter {
 	[SerializeField] BoxCollider2D colliderUp;
+	[SerializeField] private AudioSource audioSource;
 
 	private Animator animator;
 
@@ -19,11 +20,11 @@ public class PressureButton : SignalEmitter {
 	}
 
 	private void Update() {
-		if (isDelayButtonDown) {
+		if (isDelayButtonDown && !IsActivated) {
 			delayTimer += Time.deltaTime;
 			PressureButtonDown();
 		}
-		else if (isDelayButtonUp) {
+		else if (isDelayButtonUp && IsActivated) {
 			delayTimer += Time.deltaTime;
 			PressureButtonUp();
 		}
@@ -50,6 +51,7 @@ public class PressureButton : SignalEmitter {
 
 	private void PressureButtonDown() {
 		if (delayTimer > delayEnd) {
+			PlaySound();
 			colliderUp.enabled = false;
 			animator.SetBool("IsPressed", true);
 			IsActivated = true;
@@ -59,10 +61,15 @@ public class PressureButton : SignalEmitter {
 
 	private void PressureButtonUp() {
 		if (delayTimer > delayEnd) {
+			PlaySound();
 			colliderUp.enabled = true;
 			animator.SetBool("IsPressed", false);
 			IsActivated = false;
 			isDelayButtonUp = false;
 		}
+	}
+
+	public void PlaySound() {
+		audioSource.Play();
 	}
 }
