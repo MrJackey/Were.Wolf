@@ -118,6 +118,21 @@ public class PlayerController : MonoBehaviour {
 	public float HumanJumpLength => humanJumpEndTime;
 	public float AirJumpLength => airJumpEndTime;
 	public float SpeedMultiplier { set => speedMultiplier = value; }
+	public Vector2 Velocity { set => velocity = value; }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+	public bool NoClip {
+		get => noClip;
+		set {
+			if (noClip == value) return;
+			noClip = value;
+			GetComponent<Health>().IsInvincible = noClip;
+			colliders.SetActive(!noClip);
+			rb2D.isKinematic = noClip;
+			rb2D.velocity = Vector2.zero;
+		}
+	}
+#endif
 
 	private void Start() {
 		rb2D = GetComponent<Rigidbody2D>();
@@ -141,14 +156,6 @@ public class PlayerController : MonoBehaviour {
 
 	private void UpdateMovement() {
 	#if UNITY_EDITOR || DEVELOPMENT_BUILD
-		if (Keyboard.current.f1Key.wasPressedThisFrame) {
-			noClip = !noClip;
-			GetComponent<Health>().IsInvincible = noClip;
-			colliders.SetActive(!noClip);
-			rb2D.isKinematic = noClip;
-			rb2D.velocity = Vector2.zero;
-		}
-
 		if (noClip) {
 			float x = moveInput.x;
 			float y = moveInput.y;
