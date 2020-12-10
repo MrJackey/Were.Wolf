@@ -175,18 +175,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2718195476832982812}
-        m_TargetAssemblyTypeName: EnterableGate, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   onDeactivation:
     m_PersistentCalls:
       m_Calls:
@@ -214,23 +202,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2718195476832982812}
-        m_TargetAssemblyTypeName: EnterableGate, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   animator: {fileID: 3624807340573450138}
   panCamera: 0
   showDuration: 1
   showCooldown: 7.5
   highlightPrefab: {fileID: 5521635976300897426, guid: d1acdd0eb83d2014c959fbb3fd9e36d8, type: 3}
+  audioSource: {fileID: 7614691196201489000}
   enterActionReference: {fileID: 8802194908310570196, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
   enterThreshold: 0.5
   onEnter:

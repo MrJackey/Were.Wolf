@@ -274,36 +274,13 @@ MonoBehaviour:
   isActivated: 0
   onActivation:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1341724110450495473}
-        m_TargetAssemblyTypeName: Lever, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onDeactivation:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1341724110450495473}
-        m_TargetAssemblyTypeName: Lever, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   leverType: 1
   timerEnd: 5
+  audioSource: {fileID: 331864370339740896}
 --- !u!114 &-5142818754406693408
 MonoBehaviour:
   m_ObjectHideFlags: 0

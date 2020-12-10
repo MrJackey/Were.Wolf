@@ -249,35 +249,12 @@ MonoBehaviour:
   isActivated: 0
   onActivation:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6393164262382363834}
-        m_TargetAssemblyTypeName: PressureButton, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onDeactivation:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6393164262382363834}
-        m_TargetAssemblyTypeName: PressureButton, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   colliderUp: {fileID: 5777445939231663278}
+  audioSource: {fileID: 6541194898106656215}
   delayTimer: 0
   delayEnd: 0.2
   overlappingColliders: []

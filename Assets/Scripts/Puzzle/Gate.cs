@@ -16,6 +16,7 @@ public class Gate : SignalReceiver {
 	[SerializeField, EnableIf(nameof(panCamera))]
 	private float showCooldown = 7.5f;
 	[SerializeField] private VignetteHighlight highlightPrefab;
+	[SerializeField] private AudioSource audioSource;
 
 	private static Queue<Gate> panningQueue = new Queue<Gate>();
 
@@ -45,8 +46,10 @@ public class Gate : SignalReceiver {
 				StartCoroutine(CoShowEvent(highlight));
 			}
 		}
-		else if (animator.isInitialized)
+		else if (animator.isInitialized) {
+			PlaySound();
 			animator.SetBool(isOpenHash, IsActivated);
+		}
 	}
 
 	private IEnumerator CoShowEvent(VignetteHighlight highlight) {
@@ -60,6 +63,8 @@ public class Gate : SignalReceiver {
 
 		camera.TransitionDuration = newTransitionDuration;
 		camera.Target = transform;
+		
+		PlaySound();
 
 		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
 		animator.SetBool(isOpenHash, IsActivated);
@@ -93,7 +98,6 @@ public class Gate : SignalReceiver {
 
 	public void PlaySound() {
 		if (isFirstSoundPlayed) {
-			AudioSource audioSource = GetComponentInChildren<AudioSource>();
 			audioSource.Play();
 		}
 		isFirstSoundPlayed = true;
