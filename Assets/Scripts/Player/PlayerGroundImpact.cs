@@ -2,17 +2,22 @@
 using Extensions;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class PlayerGroundImpact : MonoBehaviour {
 	[SerializeField] private LayerMask groundLayerMask = 1 << 8;
+	[SerializeField] private float minWeakImpactVelocity = 3f;
 	[SerializeField] private float minImpactVelocity = 8f;
 	[SerializeField] private float maxImpactVelocity = 15f;
 	[SerializeField] private float minImpactPower = 0f;
 	[SerializeField] private float maxImpactPower = 0.1f;
 	[SerializeField] private float impactDuration = 0.1f;
 	[SerializeField] private GameObject landingEffectPrefab;
+
 	[Space]
-	[SerializeField] private UnityEvent onImpact;
+	[SerializeField] private UnityEvent onHeavyImpact;
+	[SerializeField] private UnityEvent onWeakLanding;
+	[SerializeField] private UnityEvent onHeavyLanding;
 
 	private Transformation transformation;
 	private SnappingCamera snappingCamera;
@@ -26,24 +31,33 @@ public class PlayerGroundImpact : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter2D(Collision2D other) {
-		if (!groundLayerMask.IncludesLayer(other.gameObject.layer) || snappingCamera == null ||
-			transformation.State != TransformationState.Wolf) return;
+		if (!groundLayerMask.IncludesLayer(other.gameObject.layer) || snappingCamera == null)
+			return;
 
 		GetAverageContact(other, out Vector2 point, out Vector2 normal);
 		float impactVelocity = Vector2.Dot(other.relativeVelocity, normal);
+		float downVelocity = other.relativeVelocity.y;
 
 		if (impactVelocity >= minImpactVelocity)
-			OnImpact(point, normal, impactVelocity);
+			OnHeavyImpact(point, normal, impactVelocity);
+
+		if (downVelocity >= minImpactVelocity)
+			onHeavyLanding.Invoke();
+		else if (downVelocity >= minWeakImpactVelocity)
+			onWeakLanding.Invoke();
 	}
 
-	private void OnImpact(Vector2 point, Vector2 normal, float velocity) {
+	private void OnHeavyImpact(Vector2 point, Vector2 normal, float velocity) {
+		if (transformation.State != TransformationState.Wolf)
+			return;
+
 		float power = MathX.EaseInQuad(minImpactPower, maxImpactPower,
 		                               Mathf.InverseLerp(0, maxImpactVelocity, velocity));
 		snappingCamera.Impact(-normal, power, impactDuration);
 
 		if (Vector2.Dot(-normal, Vector2.up) <= 0.7f)
 			Instantiate(landingEffectPrefab, point, Quaternion.LookRotation(Vector3.forward, normal));
-		onImpact.Invoke();
+		onHeavyImpact.Invoke();
 	}
 
 	private static void GetAverageContact(Collision2D collision, out Vector2 point, out Vector2 normal) {
