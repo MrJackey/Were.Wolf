@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private BoxCollider2D crouchCollider;
 	[SerializeField] private BoxCollider2D crouchGroundCollider;
 
+	[Header("Sounds")]
+	[SerializeField] private SoundRandomizer wolfJumpSound;
+	[SerializeField] private SoundRandomizer humanJumpSound;
+
 	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
 	[SerializeField] private UnityEvent onAirJump;
@@ -224,6 +228,11 @@ public class PlayerController : MonoBehaviour {
 			if (isGrounded) {
 				BeginJump(onJump);
 				doJump = true;
+
+				if (transformation.IsHuman)
+					humanJumpSound.PlayRandom();
+				else
+					wolfJumpSound.PlayRandom();
 			}
 			else if (!transformation.IsHuman && airJumpsUsed < airJumpsAllowed) {
 				BeginJump(onAirJump);

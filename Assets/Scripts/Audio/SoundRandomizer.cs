@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 public class SoundRandomizer : MonoBehaviour {
-	[SerializeField] private AudioSource audioSource;
 	[SerializeField] private AudioClip[] sounds;
+
+	private AudioSource audioSource;
 
 	public AudioSource Source => audioSource;
 	public AudioClip CurrentClip { get; private set; }
-
 	public AudioClip[] Sounds => sounds;
 
 	private void Awake() {

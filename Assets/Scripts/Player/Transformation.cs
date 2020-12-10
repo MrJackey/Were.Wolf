@@ -26,6 +26,10 @@ public class Transformation : MonoBehaviour {
 	[SerializeField, Range(0, 1)] private float toWolfIndication = 0.75f;
 	[SerializeField] private float humanEmissionRate = 5f;
 
+	[Header("Sounds")]
+	[SerializeField] private AudioSource transformToHumanSound = null;
+	[SerializeField] private AudioSource transformToWerewolfSound = null;
+
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart = null;
 	[SerializeField] private UnityEvent<float> onTransformInterrupt = null;
@@ -103,6 +107,8 @@ public class Transformation : MonoBehaviour {
 	}
 
 	private IEnumerator CoTransforming(TransformationState newState, float startTime = 0) {
+		PlayTransformationSound(newState, startTime / transDuration);
+
 		if (playerController.IsCrouched && !playerController.IsClearAbove) {
 			transformationIsBlocked = true;
 			yield break;
@@ -144,6 +150,23 @@ public class Transformation : MonoBehaviour {
 
 		particleEffect.Stop();
 		onTransformEnd.Invoke();
+	}
+
+	private void PlayTransformationSound(TransformationState newState, float startTime) {
+		StopSounds();
+		if (newState == TransformationState.Human) {
+			transformToHumanSound.Play();
+			transformToHumanSound.time = startTime * transformToHumanSound.clip.length;
+		}
+		else if (newState == TransformationState.Wolf) {
+			transformToWerewolfSound.Play();
+			transformToWerewolfSound.time = startTime * transformToWerewolfSound.clip.length;
+		}
+	}
+
+	private void StopSounds() {
+		transformToHumanSound.Stop();
+		transformToWerewolfSound.Stop();
 	}
 
 	private IEnumerator CoHumanFormDuration() {
