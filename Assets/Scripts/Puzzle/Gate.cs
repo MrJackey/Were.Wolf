@@ -26,6 +26,7 @@ public class Gate : SignalReceiver {
 	private float cameraTransitionMultiplier = 0.10f;
 	private bool isShowing = false;
 	private bool allowShow = true;
+	private bool isFirstSoundPlayed = false;
 
 	private void Awake() {
 		GameObject playerObj = GameObject.FindWithTag("Player");
@@ -88,5 +89,13 @@ public class Gate : SignalReceiver {
 		yield return new WaitForSeconds(showCooldown);
 
 		allowShow = true;
+	}
+
+	public void PlaySound() {
+		if (isFirstSoundPlayed) {
+			AudioSource audioSource = GetComponentInChildren<AudioSource>();
+			audioSource.Play();
+		}
+		isFirstSoundPlayed = true;
 	}
 }

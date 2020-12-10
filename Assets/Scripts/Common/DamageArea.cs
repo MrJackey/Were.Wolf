@@ -75,8 +75,6 @@ public class DamageArea : MonoBehaviour {
 		int num = 0;
 
 		for (int i = 0; i < contactCount; i++) {
-			if (contacts[i].collider.gameObject != gameObject) continue;
-
 			avg += contacts[i].point;
 			num++;
 		}
