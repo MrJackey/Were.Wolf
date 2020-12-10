@@ -116,7 +116,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2938271411605442060, guid: d5cbaa40cdec63f44affda746ccc1f16, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8906b29382c40974fb8eb73bfb4fa50d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1512,7 +1512,6 @@ MonoBehaviour:
   maxImpactPower: 0.1
   impactDuration: 0.1
   landingEffectPrefab: {fileID: 1348722978759591406, guid: 748d31a99eaa03448a04f8067f4e1a9e, type: 3}
-  minDownFractionForLanding: 0.8
   onHeavyImpact:
     m_PersistentCalls:
       m_Calls: []
