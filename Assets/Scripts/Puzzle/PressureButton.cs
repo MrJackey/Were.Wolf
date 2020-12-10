@@ -65,4 +65,9 @@ public class PressureButton : SignalEmitter {
 			isDelayButtonUp = false;
 		}
 	}
+
+	public void PlaySound() {
+		AudioSource audioSource = GetComponentInChildren<AudioSource>();
+		audioSource.Play();
+	}
 }

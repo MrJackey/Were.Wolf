@@ -12,7 +12,7 @@ public class Box : MonoBehaviour {
 	private Carryable carryable;
 	private Interactable interactable;
 	private SoundRandomizer soundRandomizer;
-	private bool firstSoundPlayed = false;
+	private bool isFirstSoundPlayed = false;
 
 	private void Awake() {
 		startPos = transform.position;
@@ -33,11 +33,11 @@ public class Box : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter2D(Collision2D other) {
-		if (firstSoundPlayed) {
+		if (isFirstSoundPlayed) {
 			soundRandomizer = GetComponentInChildren<SoundRandomizer>();
 			soundRandomizer.PlayRandom();
 		}
-		firstSoundPlayed = true;
+		isFirstSoundPlayed = true;
 	}
 
 	public void Respawn() {

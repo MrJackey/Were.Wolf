@@ -42,6 +42,11 @@ public class Lever : SignalEmitter {
 		animator.SetBool("Activation", false);
 		IsActivated = false;
 	}
+
+	public void PlaySound() {
+		AudioSource audioSource = GetComponentInChildren<AudioSource>();
+		audioSource.Play();
+	}
 }
 
 public enum LeverType {
