@@ -30,14 +30,12 @@ public class EnterableGate : Gate {
 	}
 
 	private void OnEnable() {
-		base.AddInternalListeners();
 		if (enterActionReference == null) return;
 
 		enterActionReference.action.performed += OnEnterInput;
 	}
 
 	private void OnDisable() {
-		base.RemoveInternalListeners();
 		if (enterActionReference == null) return;
 
 		enterActionReference.action.performed -= OnEnterInput;
