@@ -57,12 +57,14 @@ public class Watcher : MonoBehaviour {
 	private GameObject activeEffect;
 	private Transform playerTransform;
 	private Health playerHealth;
+	private PlayerController playerController;
+	private Transformation playerTransformation;
 	private SnappingCamera snappingCamera;
 	private Animator animator;
 
 	private State state = State.Patrolling;
-	private bool isPlayerActuallyVisible;
 	private bool isPlayerVisible;
+	private bool isPlayerConsideredVisible;
 	private bool isBlocked;
 	private float facing = 1;
 	private float lanternAngle;
@@ -81,6 +83,8 @@ public class Watcher : MonoBehaviour {
 
 		playerTransform = GameObject.FindWithTag("Player").transform;
 		playerHealth = playerTransform.GetComponent<Health>();
+		playerController = playerTransform.GetComponent<PlayerController>();
+		playerTransformation = playerTransform.GetComponent<Transformation>();
 
 		Camera mainCamera = Camera.main;
 		if (mainCamera != null)
@@ -112,7 +116,7 @@ public class Watcher : MonoBehaviour {
 
 		animator.SetFloat(speedHash, currentSpeed);
 
-		if (state == State.Tracking && !isPlayerVisible) {
+		if (state == State.Tracking && !isPlayerConsideredVisible) {
 			if (playerLooseTimer.Tick()) {
 				state = State.Patrolling;
 				lanternAngle = 0;
@@ -133,48 +137,21 @@ public class Watcher : MonoBehaviour {
 
 		if (looseVisibilityTimer.Tick()) {
 			state = State.Tracking;
-			isPlayerVisible = false;
+			isPlayerConsideredVisible = false;
 			playerLooseTimer.Reset(playerForgetTime);
 			OnLost();
 		}
 
-		animator.SetBool(isAttackingHash, isPlayerVisible);
+		animator.SetBool(isAttackingHash, isPlayerConsideredVisible);
 
 		if (state == State.Following) {
-			Debug.Assert(isPlayerVisible, "isPlayerVisible && state == State.Following");
+			Debug.Assert(isPlayerConsideredVisible, "isPlayerVisible && state == State.Following");
 
 			if (damageTimer.Tick()) {
 				playerHealth.TakeDamage(damage);
 				StartCoroutine(CoRechargeLantern());
 			}
 		}
-	}
-
-	private IEnumerator CoRechargeLantern() {
-		state = State.Recharging;
-		lantern.gameObject.SetActive(false);
-		rechargeTimer.Reset(lanternRechargeDuration);
-		looseVisibilityTimer.Stop();
-		isPlayerVisible = false;
-		isPlayerActuallyVisible = false;
-		lanternAngle = 0;
-		OnLost();
-
-		animator.SetTrigger(fixLampHash);
-		yield return new WaitForSeconds(lanternRechargeDuration - standClip.length);
-
-		animator.SetTrigger(endFixLampHash);
-		yield return new WaitForSeconds(standClip.length);
-
-		state = State.Patrolling;
-		lantern.gameObject.SetActive(true);
-	}
-
-	private void SetFacing(float direction) {
-		facing = direction;
-		Vector3 localScale = transform.localScale;
-		localScale.x = facing;
-		transform.localScale = localScale;
 	}
 
 	private void UpdateMovement() {
@@ -199,16 +176,23 @@ public class Watcher : MonoBehaviour {
 		currentSpeed = movementSpeed;
 	}
 
+	private void SetFacing(float direction) {
+		facing = direction;
+		Vector3 localScale = transform.localScale;
+		localScale.x = facing;
+		transform.localScale = localScale;
+	}
+
 	private void UpdatePlayerVisibility() {
-		if (isPlayerActuallyVisible == (isPlayerActuallyVisible = CheckPlayerVisible(out _))) return;
-		if (isPlayerActuallyVisible) {
-			if (!isPlayerVisible) {
+		if (isPlayerVisible == (isPlayerVisible = CheckPlayerVisible())) return;
+		if (isPlayerVisible) {
+			if (!isPlayerConsideredVisible) {
 				state = State.Following;
 				damageTimer.Reset(damageTime);
 				OnDetected();
 			}
 
-			isPlayerVisible = true;
+			isPlayerConsideredVisible = true;
 			looseVisibilityTimer.Stop();
 		}
 		else {
@@ -217,7 +201,7 @@ public class Watcher : MonoBehaviour {
 		}
 	}
 
-	private bool CheckPlayerVisible(out GameObject go) {
+	private bool CheckPlayerVisible() {
 		Vector2 eyePosition = transform.TransformPoint(eyeOffset);
 		Vector2 forward = lantern.right * facing;
 		float angleStep = visionConeAngle / (visionRayCount - 1);
@@ -226,7 +210,7 @@ public class Watcher : MonoBehaviour {
 			float angle = -visionConeAngle / 2f + angleStep * i;
 			Vector2 direction = MathX.Rotate(forward, angle * Mathf.Deg2Rad);
 
-			if (DoSingleRaycast(eyePosition, direction, out go)) {
+			if (DoSingleRaycast(eyePosition, direction)) {
 			#if UNITY_EDITOR
 				if (!Application.isPlaying) continue;
 			#endif
@@ -235,12 +219,10 @@ public class Watcher : MonoBehaviour {
 			}
 		}
 
-		go = null;
 		return false;
 	}
 
-	private bool DoSingleRaycast(Vector2 origin, Vector2 direction, out GameObject go) {
-		go = null;
+	private bool DoSingleRaycast(Vector2 origin, Vector2 direction) {
 		RaycastHit2D hit = Physics2D.Raycast(origin, direction, visionDistance, raycastLayers);
 
 	#if UNITY_EDITOR
@@ -256,18 +238,16 @@ public class Watcher : MonoBehaviour {
 				return false;
 
 			Transformation transformation = hit.rigidbody.GetComponent<Transformation>();
-			if (transformation == null || transformation.State != TransformationState.Human) {
-				go = hit.rigidbody.gameObject;
+			if (transformation == null || transformation.State != TransformationState.Human)
 				return true;
-			}
 		}
 
 		return false;
 	}
 
 	private void OnDetected() {
-		playerTransform.GetComponent<PlayerController>().SpeedMultiplier = playerSpeedMultiplier;
-		playerTransform.GetComponent<Transformation>().AllowTransformation = false;
+		playerController.SpeedMultiplier = playerSpeedMultiplier;
+		playerTransformation.AllowTransformation = false;
 		if (detectionEffectPrefab != null)
 			activeEffect = Instantiate(detectionEffectPrefab, playerTransform, false);
 
@@ -281,8 +261,8 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnLost() {
-		playerTransform.GetComponent<PlayerController>().SpeedMultiplier = 1f;
-		playerTransform.GetComponent<Transformation>().AllowTransformation = true;
+		playerController.SpeedMultiplier = 1f;
+		playerTransformation.AllowTransformation = true;
 		if (activeEffect != null)
 			Destroy(activeEffect);
 
@@ -294,6 +274,26 @@ public class Watcher : MonoBehaviour {
 		onLost.Invoke();
 	}
 
+	private IEnumerator CoRechargeLantern() {
+		state = State.Recharging;
+		lantern.gameObject.SetActive(false);
+		rechargeTimer.Reset(lanternRechargeDuration);
+		looseVisibilityTimer.Stop();
+		isPlayerConsideredVisible = false;
+		isPlayerVisible = false;
+		lanternAngle = 0;
+		OnLost();
+
+		animator.SetTrigger(fixLampHash);
+		yield return new WaitForSeconds(lanternRechargeDuration - standClip.length);
+
+		animator.SetTrigger(endFixLampHash);
+		yield return new WaitForSeconds(standClip.length);
+
+		state = State.Patrolling;
+		lantern.gameObject.SetActive(true);
+	}
+
 	private void OnDrawGizmos() {
 		if (!enabled || Application.isPlaying) return;
 		Vector3 eyePosition = transform.TransformPoint(eyeOffset);
@@ -301,7 +301,7 @@ public class Watcher : MonoBehaviour {
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(eyePosition, 0.2f);
 
-		CheckPlayerVisible(out _);
+		CheckPlayerVisible();
 	}
 
 	private void OnValidate() {
