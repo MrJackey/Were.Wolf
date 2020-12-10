@@ -50,6 +50,10 @@ public class Watcher : MonoBehaviour {
 	[SerializeField, EnableIf(nameof(cameraShake))]
 	private float shakeAmplitude = 0.3f;
 
+	[Header("Sounds")]
+	[SerializeField] private AudioSource tinkerSound;
+	[SerializeField] private AudioSource floorSound;
+
 	[Header("Events")]
 	[SerializeField] private UnityEvent onDetected = null;
 	[SerializeField] private UnityEvent onLost = null;
@@ -293,6 +297,17 @@ public class Watcher : MonoBehaviour {
 		state = State.Patrolling;
 		lantern.gameObject.SetActive(true);
 	}
+
+
+	// Animation events
+	private void PlayTinkerSound() {
+		tinkerSound.Play();
+	}
+
+	private void PlayFloorSound() {
+		floorSound.Play();
+	}
+
 
 	private void OnDrawGizmos() {
 		if (!enabled || Application.isPlaying) return;
