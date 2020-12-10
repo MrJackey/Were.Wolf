@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Collider2D))]
 public class DamageArea : MonoBehaviour {
 	private enum DamageMode {
 		Single,
@@ -21,19 +20,32 @@ public class DamageArea : MonoBehaviour {
 	private float knockbackDuration = 0.2f;
 
 	[Header("Filters")]
+	[SerializeField] private bool useColliders = true;
+	[SerializeField] private bool useTriggers = true;
 	[SerializeField] private LayerMask layerMask = -1;
 	[SerializeField] private bool ignoreTriggers = true;
 	[SerializeField, Tag] private string effectTarget = null;
 
 	private float cooldownTimer;
-	private ContactPoint2D[] contacts = new ContactPoint2D[10];
+	private readonly ContactPoint2D[] contacts = new ContactPoint2D[10];
 
 	public UnityEvent<Vector2> OnDamageEffect => onDamageEffect;
 
-	private void OnTriggerEnter2D(Collider2D other) => OnCollisionEvent(other, true);
-	private void OnCollisionEnter2D(Collision2D collision) => OnCollisionEvent(collision.collider, true);
-	private void OnTriggerStay2D(Collider2D other) => OnCollisionEvent(other, false);
-	private void OnCollisionStay2D(Collision2D collision) => OnCollisionEvent(collision.collider, false);
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (useTriggers) OnCollisionEvent(other, true);
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision) {
+		if (useColliders) OnCollisionEvent(collision.collider, true);
+	}
+
+	private void OnTriggerStay2D(Collider2D other) {
+		if (useTriggers) OnCollisionEvent(other, false);
+	}
+
+	private void OnCollisionStay2D(Collision2D collision) {
+		if (useColliders) OnCollisionEvent(collision.collider, false);
+	}
 
 	private void Update() {
 		cooldownTimer = Mathf.Max(0, cooldownTimer - Time.deltaTime);
