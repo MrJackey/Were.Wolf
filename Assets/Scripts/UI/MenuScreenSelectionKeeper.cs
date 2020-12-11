@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MenuScreenSelectionKeeper : MonoBehaviour {
-	[SerializeField] private GameObject firstSelected = null;
+	[SerializeField] private Selectable firstSelected = null;
+	[SerializeField] private Selectable fallbackSelected = null;
 	[SerializeField] private bool rememberSelection = true;
 	[SerializeField] private bool tryMakeSelectionVisible = false;
 
-	private GameObject currentSelected;
+	private Selectable currentSelected;
 
 	private void OnEnable() {
 		EventSystem eventSystem = EventSystem.current;
-		eventSystem.SetSelectedGameObject(!rememberSelection || currentSelected == null ? firstSelected : currentSelected);
+		Debug.Assert(eventSystem != null, "eventSystem != null");
+
+		if (!rememberSelection || currentSelected == null) {
+			currentSelected = firstSelected;
+
+			if (currentSelected == null || !currentSelected.interactable)
+				currentSelected = fallbackSelected;
+		}
+
+		eventSystem.SetSelectedGameObject(currentSelected != null ? currentSelected.gameObject : null);
 
 		if (tryMakeSelectionVisible && eventSystem.currentSelectedGameObject != null)
 			StartCoroutine(CoNudgeSelection(eventSystem.currentSelectedGameObject));
@@ -19,11 +30,14 @@ public class MenuScreenSelectionKeeper : MonoBehaviour {
 
 	private void OnDisable() {
 		EventSystem eventSystem = EventSystem.current;
-		if (eventSystem != null)
-			currentSelected = eventSystem.currentSelectedGameObject;
+		if (eventSystem != null) {
+			GameObject selectedGameObject = eventSystem.currentSelectedGameObject;
+			if (selectedGameObject != null)
+				currentSelected = selectedGameObject.GetComponent<Selectable>();
+		}
 	}
 
-	private IEnumerator CoNudgeSelection(GameObject selection) {
+	private static IEnumerator CoNudgeSelection(GameObject selection) {
 		// Wait for the next frame to let things initialize.
 		yield return null;
 
