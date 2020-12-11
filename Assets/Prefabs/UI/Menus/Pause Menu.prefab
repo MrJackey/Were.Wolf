@@ -513,7 +513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930c972d6a8b4d7abdab764b2cdb64e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelected: {fileID: 3683049063297871311}
+  firstSelected: {fileID: 3683049063297871308}
+  fallbackSelected: {fileID: 0}
   rememberSelection: 0
   tryMakeSelectionVisible: 1
 --- !u!114 &1386871290997620445
@@ -1003,14 +1004,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21406db381fa07145ade32575dbc9768, type: 3}
+--- !u!114 &3683049063297871308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2995920493222241269, guid: 21406db381fa07145ade32575dbc9768, type: 3}
+  m_PrefabInstance: {fileID: 1913876239675248185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3683049063297871310 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2995920493222241271, guid: 21406db381fa07145ade32575dbc9768, type: 3}
-  m_PrefabInstance: {fileID: 1913876239675248185}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3683049063297871311 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2995920493222241270, guid: 21406db381fa07145ade32575dbc9768, type: 3}
   m_PrefabInstance: {fileID: 1913876239675248185}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5532900876100974244
