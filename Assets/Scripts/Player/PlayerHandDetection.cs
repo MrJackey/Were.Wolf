@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerHandDetection : MonoBehaviour {
 	[SerializeField] private GameObject interactArrowPrefab;
 	[SerializeField] private PlayerCarrying playerCarrying;
+	[SerializeField] private PlayerController playerController;
+
 	private Interactable detectedInteractItem;
 	private List<Interactable> interactableList = new List<Interactable>();
 	private GameObject interactArrow;
@@ -35,16 +37,16 @@ public class PlayerHandDetection : MonoBehaviour {
 	private void OnTriggerExit2D(Collider2D other) {
 		Interactable interactable = other.GetComponent<Interactable>();
 		if (interactable != null) {
-			interactableList.Remove(interactable);	
-			
+			interactableList.Remove(interactable);
+
 			detectedInteractItem = null;
 			if (interactableList.Count == 0)
 				interactArrow.SetActive(false);
-		}	
+		}
 	}
 
 	private void SetClosestItem() {
-		if (playerCarrying.IsCarryingItem) {
+		if (playerCarrying.IsCarryingItem || playerController.IsCrouched) {
 			detectedInteractItem = null;
 			interactArrow.SetActive(false);
 			return;
@@ -60,7 +62,7 @@ public class PlayerHandDetection : MonoBehaviour {
 				closestItem = interactable;
 			}
 		}
-		if (closestItem == null || closestItem == detectedInteractItem) 
+		if (closestItem == null || closestItem == detectedInteractItem)
 			return;
 
 		interactArrow.transform.position = closestItem.transform.position + new Vector3(0, closestItem.InteractableArrowHeight, 0);

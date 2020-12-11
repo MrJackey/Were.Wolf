@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactArrowPrefab: {fileID: 1708331852267391370, guid: b001ab34518fbf344876a8760a0d031d, type: 3}
   playerCarrying: {fileID: 2435196009969585088}
+  playerController: {fileID: 3326305250810700144}
 --- !u!1 &1511884738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,6 +1248,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5101940937189108370}
         m_TargetAssemblyTypeName: PlayerAnimationController, Assembly-CSharp
         m_MethodName: Crouch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2435196009969585088}
+        m_TargetAssemblyTypeName: PlayerCarrying, Assembly-CSharp
+        m_MethodName: DropItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
