@@ -175,6 +175,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d8ec4c16-db30-4907-a586-16bff64699c3",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6d841665-e19e-47ff-b1f2-8f72552fb9a1",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -329,11 +340,33 @@
                 },
                 {
                     "name": "",
+                    "id": "30f4eeb3-a5b7-492f-bbe3-2e21522f769c",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2ff80f2b-9d63-44e1-bfeb-e16fb7fff2da",
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "AxisDeadzone(min=0.5)",
                     "groups": "Gamepad",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75296918-ddee-425c-8327-f4f354fa4d7d",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
