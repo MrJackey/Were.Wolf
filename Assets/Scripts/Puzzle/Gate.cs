@@ -63,10 +63,9 @@ public class Gate : SignalReceiver {
 
 		camera.TransitionDuration = newTransitionDuration;
 		camera.Target = transform;
-		
-		PlaySound();
 
 		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
+		PlaySound();
 		animator.SetBool(isOpenHash, IsActivated);
 
 		yield return new WaitForSecondsRealtime(showDuration);
