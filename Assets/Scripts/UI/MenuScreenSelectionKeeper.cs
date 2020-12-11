@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MenuScreenSelectionKeeper : MonoBehaviour {
 	[SerializeField] private Selectable firstSelected = null;
-	[SerializeField] private Selectable fallbackSelected;
+	[SerializeField] private Selectable fallbackSelected = null;
 	[SerializeField] private bool rememberSelection = true;
 	[SerializeField] private bool tryMakeSelectionVisible = false;
 
