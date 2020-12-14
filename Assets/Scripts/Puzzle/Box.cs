@@ -24,6 +24,17 @@ public class Box : MonoBehaviour {
 		rb2D.isKinematic = false;
 	}
 
+	private void OnTriggerStay2D(Collider2D other) {
+		if (other.CompareTag("Lever")) {
+			float amount = 0.1f * Time.deltaTime;
+			float pushAwayZone = 0.2f;
+			if (transform.position.x >= other.transform.position.x - pushAwayZone && transform.position.x <= other.transform.position.x)
+				transform.Translate(-amount, 0, 0);
+			else if (transform.position.x <= other.transform.position.x + pushAwayZone && transform.position.x > other.transform.position.x)
+				transform.Translate(amount, 0, 0);
+		}
+	}
+
 	private void OnEnable() {
 		interactable.OnInteract.AddListener(Interact);
 	}
