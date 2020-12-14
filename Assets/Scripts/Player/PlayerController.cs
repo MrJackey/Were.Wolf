@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour {
 			rb2D.velocity = new Vector2(velocity.x, velocity.y * jumpCancel);
 		}
 
-		if (jumpInputDown) {
+		if (jumpInputDown && isClearAbove) {
 			if (isGrounded) {
 				BeginJump(onJump);
 				doJump = true;
@@ -411,6 +411,7 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = true;
 		isCrouched = true;
 		crouchTransitionTimer = 0f;
+		clearAboveCollider.enabled = true;
 		onCrouch.Invoke();
 	}
 
@@ -418,6 +419,7 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = true;
 		isCrouched = false;
 		crouchTransitionTimer = 0f;
+		clearAboveCollider.enabled = false;
 		onUncrouch.Invoke();
 	}
 
@@ -438,6 +440,7 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = false;
 		isCrouched = false;
 		crouchTransitionTimer = float.PositiveInfinity;
+		clearAboveCollider.enabled = false;
 		onUncrouch.Invoke();
 	}
 }
