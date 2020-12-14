@@ -15,10 +15,10 @@ public class CameraPeek : MonoBehaviour {
 			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
 	}
 
-	public void OnMoveInput(InputAction.CallbackContext ctx) {
-		float value = ctx.ReadValue<Vector2>().y;
-		snappingCamera.PeekOffset = Mathf.Abs(value) >= inputThreshold
-			? new Vector3(0, peekDistance * Mathf.Sign(value), 0)
+	public void OnPeekInput(InputAction.CallbackContext ctx) {
+		float value = ctx.ReadValue<float>();
+		snappingCamera.PeekOffset = value != 0
+			? new Vector3(0, peekDistance * value, 0)
 			: Vector3.zero;
 	}
 }
