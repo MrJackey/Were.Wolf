@@ -3636,7 +3636,6 @@ MonoBehaviour:
   speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
   textOffset: {x: -1.21, y: 0.5}
-  triggerTag: Player
   ignoreTriggers: 1
   charactersPerSecond: 15
   stopOnLeave: 1
@@ -3646,11 +3645,13 @@ MonoBehaviour:
   - message: Something is written on the wall.
     slowWrite: 0
     delay: 2
+    useInForm: 0
   - message: '"I''m dying.
 
       We humans are so weak..."'
     slowWrite: 1
     delay: 1
+    useInForm: 0
 --- !u!61 &337274168
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5989,7 +5990,6 @@ MonoBehaviour:
   speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
   textOffset: {x: -0.02, y: 0.13}
-  triggerTag: Player
   ignoreTriggers: 1
   charactersPerSecond: 15
   stopOnLeave: 0
@@ -5999,12 +5999,15 @@ MonoBehaviour:
   - message: I have to get out- I have to get out!
     slowWrite: 1
     delay: 1
+    useInForm: 0
   - message: She is coming for me.
     slowWrite: 1
     delay: 1
+    useInForm: 0
   - message: She is coming...
     slowWrite: 1
     delay: 1
+    useInForm: 0
 --- !u!61 &493992741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9513,7 +9516,6 @@ MonoBehaviour:
   speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
   textOffset: {x: 0.29, y: 1.35}
-  triggerTag: Player
   ignoreTriggers: 1
   charactersPerSecond: 15
   stopOnLeave: 1
@@ -9523,9 +9525,11 @@ MonoBehaviour:
   - message: Something is written on the wall.
     slowWrite: 0
     delay: 2
+    useInForm: 0
   - message: '"She has been changing all of us. Nothing is the same anymore."'
     slowWrite: 1
     delay: 1
+    useInForm: 0
 --- !u!61 &877928801
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13574,6 +13578,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 36, y: 14, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 67, y: 14, z: 0}
     second:
       serializedVersion: 2
@@ -13609,6 +13623,16 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 8
       m_TileSpriteIndex: 8
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 36, y: 15, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13654,6 +13678,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 36, y: 16, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 67, y: 16, z: 0}
     second:
       serializedVersion: 2
@@ -13669,6 +13703,16 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 7
       m_TileSpriteIndex: 7
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 36, y: 17, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 13
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13694,11 +13738,31 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 36, y: 18, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 5
+      m_TileSpriteIndex: 5
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 134, y: 18, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 5
       m_TileSpriteIndex: 5
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 36, y: 19, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 6
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13719,6 +13783,36 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 16
       m_TileSpriteIndex: 16
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 133, y: 20, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 12
+      m_TileSpriteIndex: 12
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 134, y: 20, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 12
+      m_TileSpriteIndex: 12
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 135, y: 20, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 12
+      m_TileSpriteIndex: 12
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13770,17 +13864,17 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 69615b44f44015d44b8aa5aa75e83e7f, type: 2}
   - m_RefCount: 16
     m_Data: {fileID: 11400000, guid: e389a3a2bbcf0bf4b982b840e7697c66, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 6
+  - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 5e78495d336e0dd47b151476dce815ee, type: 2}
-  - m_RefCount: 6
+  - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 610f65f49b59bd24fb84e2929744dfa5, type: 2}
-  - m_RefCount: 5
+  - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 845f2e45efa012f43a9995e015df0cb0, type: 2}
   - m_RefCount: 16
     m_Data: {fileID: 11400000, guid: 6eeb49806bbf4d7408bd3bf0a7128bb8, type: 2}
@@ -13790,10 +13884,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 3
+    m_Data: {fileID: 11400000, guid: 7cfad6589fa580f449073bdd9773f708, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 4d6343b24f808994c8908b585a33d9a3, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: ded4bca04e8d00941a90dfc60f68d8bc, type: 2}
   - m_RefCount: 2
@@ -13803,7 +13897,7 @@ Tilemap:
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 916e0edfd71596c43a3924d011832880, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: -6265947238683309280, guid: 51b963b6b35572548b11cdb8c6c9bae3, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -13813,11 +13907,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 6
+  - m_RefCount: 7
     m_Data: {fileID: 3532893474258622004, guid: 51b963b6b35572548b11cdb8c6c9bae3, type: 3}
-  - m_RefCount: 6
+  - m_RefCount: 7
     m_Data: {fileID: -8719914796851712087, guid: 51b963b6b35572548b11cdb8c6c9bae3, type: 3}
-  - m_RefCount: 5
+  - m_RefCount: 7
     m_Data: {fileID: -5314151999595772036, guid: 51b963b6b35572548b11cdb8c6c9bae3, type: 3}
   - m_RefCount: 16
     m_Data: {fileID: 2046839056291938315, guid: 51b963b6b35572548b11cdb8c6c9bae3, type: 3}
@@ -13827,10 +13921,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 3
+    m_Data: {fileID: -5742567151052360552, guid: f257d59a6df39e345ab20d97314a3d41, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 696611904092852172, guid: 51b963b6b35572548b11cdb8c6c9bae3, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -6918440489280541486, guid: f257d59a6df39e345ab20d97314a3d41, type: 3}
   - m_RefCount: 2
@@ -13840,7 +13934,7 @@ Tilemap:
   - m_RefCount: 4
     m_Data: {fileID: 7495668259896887827, guid: 51b963b6b35572548b11cdb8c6c9bae3, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 63
+  - m_RefCount: 72
     m_Data:
       e00: 1
       e01: 0
@@ -13859,7 +13953,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 63
+  - m_RefCount: 72
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -57715,26 +57809,14 @@ CompositeCollider2D:
       - X: 205000000
         Y: 120000000
       - X: 205000000
-        Y: 115000100
-      - X: 204999959
-        Y: 115000100
-      - X: 204999900
-        Y: 115000041
-      - X: 204999900
         Y: 115000000
       - X: 195000000
         Y: 115000000
       - X: 195000000
         Y: 111562496
-      - X: 204999900
+      - X: 205000000
         Y: 111562496
-      - X: 204999900
-        Y: 110000100
-      - X: 199999959
-        Y: 110000100
-      - X: 199999900
-        Y: 110000041
-      - X: 199999900
+      - X: 205000000
         Y: 110000000
       - X: 185000000
         Y: 110000000
@@ -58054,11 +58136,11 @@ CompositeCollider2D:
       - {x: 32, y: 9.50003}
       - {x: 31.999971, y: 12}
       - {x: 20.5, y: 11.99997}
-      - {x: 20.49996, y: 11.5}
+      - {x: 20.499971, y: 11.5}
       - {x: 19.5, y: 11.49997}
       - {x: 19.500029, y: 11.15625}
-      - {x: 20.49999, y: 11.15622}
-      - {x: 20.49996, y: 11.00001}
+      - {x: 20.5, y: 11.15622}
+      - {x: 20.499971, y: 11}
       - {x: 18.5, y: 10.99997}
       - {x: 18.500029, y: 10.65625}
       - {x: 19.5, y: 10.65622}
@@ -59210,7 +59292,6 @@ MonoBehaviour:
   speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
   textOffset: {x: 0, y: 0.7}
-  triggerTag: Player
   ignoreTriggers: 1
   charactersPerSecond: 15
   stopOnLeave: 1
@@ -59220,6 +59301,7 @@ MonoBehaviour:
   - message: 
     slowWrite: 0
     delay: 1
+    useInForm: 0
 --- !u!1 &1549294416
 GameObject:
   m_ObjectHideFlags: 0
@@ -61811,7 +61893,6 @@ MonoBehaviour:
   speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
   textOffset: {x: 0.09, y: 1.31}
-  triggerTag: Player
   ignoreTriggers: 1
   charactersPerSecond: 15
   stopOnLeave: 0
@@ -61821,6 +61902,7 @@ MonoBehaviour:
   - message: You won't get through in that form.
     slowWrite: 1
     delay: 1
+    useInForm: 0
 --- !u!61 &1763996599
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62684,7 +62766,6 @@ MonoBehaviour:
   speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
   textOffset: {x: 0.05, y: 0.89}
-  triggerTag: Player
   ignoreTriggers: 1
   charactersPerSecond: 15
   stopOnLeave: 0
@@ -62694,6 +62775,7 @@ MonoBehaviour:
   - message: They're looking for werewolves...
     slowWrite: 1
     delay: 1
+    useInForm: 0
 --- !u!61 &1865757399
 BoxCollider2D:
   m_ObjectHideFlags: 0
