@@ -1,70 +1,46 @@
 fileFormatVersion: 2
-guid: 550589cf814c97e40843da8ede3b7372
+guid: 22008f06a7c4041478ce34ac6200c98d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1674634885886233671
-    second: Kitchen Enemy Attack Down_0
+      213: -209826110773546138
+    second: Kitchen Enemy Attack Side_0
   - first:
-      213: 4450574700413821051
-    second: Kitchen Enemy Attack Down_1
+      213: -816816058023344159
+    second: Kitchen Enemy Attack Side_1
   - first:
-      213: 8505559501788141938
-    second: Kitchen Enemy Attack Down_2
+      213: -8697703037847853191
+    second: Kitchen Enemy Attack Side_2
   - first:
-      213: -7657685982311476429
-    second: Kitchen Enemy Attack Down_3
+      213: 6670380671265159379
+    second: Kitchen Enemy Attack Side_3
   - first:
-      213: 4159433200229807026
-    second: Kitchen Enemy Attack Down_4
+      213: 1030833256943084363
+    second: Kitchen Enemy Attack Side_4
   - first:
-      213: -8442605539659655525
-    second: Kitchen Enemy Attack Down_5
+      213: 6160815442001171547
+    second: Kitchen Enemy Attack Side_5
   - first:
-      213: -5877063470837954926
-    second: Kitchen Enemy Attack Down_6
+      213: -6308424642677300300
+    second: Kitchen Enemy Attack Side_6
   - first:
-      213: -8991928247303545171
-    second: Kitchen Enemy Attack Down_7
+      213: 1783325673339088932
+    second: Kitchen Enemy Attack Side_7
   - first:
-      213: -6793795881932263658
-    second: Kitchen Enemy Attack Down_8
+      213: -825168060998763065
+    second: Kitchen Enemy Attack Side_8
   - first:
-      213: 2287900868977957781
-    second: Kitchen Enemy Attack Down_9
+      213: -3897194129409956363
+    second: Kitchen Enemy Attack Side_9
   - first:
-      213: 4696282699968686453
-    second: Kitchen Enemy Attack Down_10
+      213: -5383194791071576980
+    second: Kitchen Enemy Attack Side_10
   - first:
-      213: -4292899898392481034
-    second: Kitchen Enemy Attack Down_0
+      213: 3380567639283164441
+    second: Kitchen Enemy Attack Side_11
   - first:
-      213: 4754088642892225216
-    second: Kitchen Enemy Attack Down_1
-  - first:
-      213: 9195326862995161139
-    second: Kitchen Enemy Attack Down_2
-  - first:
-      213: -2073351641952407013
-    second: Kitchen Enemy Attack Down_3
-  - first:
-      213: 823819378576720954
-    second: Kitchen Enemy Attack Down_4
-  - first:
-      213: 7430162135407695642
-    second: Kitchen Enemy Attack Down_5
-  - first:
-      213: -4522214927434591819
-    second: Kitchen Enemy Attack Down_6
-  - first:
-      213: -1131379522701888528
-    second: Kitchen Enemy Attack Down_7
-  - first:
-      213: 8440057210428702477
-    second: Kitchen Enemy Attack Down_8
-  - first:
-      213: -4067143973681020096
-    second: Kitchen Enemy Attack Down_9
+      213: 3950534526203945242
+    second: Kitchen Enemy Attack Side_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -152,7 +128,259 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_0
+      name: Kitchen Enemy Attack Side_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 663bdb2934c861df0800000000000000
+      internalID: -209826110773546138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e70fa67f161aa4f0800000000000000
+      internalID: -816816058023344159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_2
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9772e336b2d8b4780800000000000000
+      internalID: -8697703037847853191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_3
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d8346b11e3f19c50800000000000000
+      internalID: 6670380671265159379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4360c6b2614e4e00800000000000000
+      internalID: 1030833256943084363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_5
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b54983bc00d9f7550800000000000000
+      internalID: 6160815442001171547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_6
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b326e00639f378a0800000000000000
+      internalID: -6308424642677300300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_7
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 420f53e5045afb810800000000000000
+      internalID: 1783325673339088932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cdbb2c350a6c84f0800000000000000
+      internalID: -825168060998763065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_9
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f528c766926ae9c0800000000000000
+      internalID: -3897194129409956363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_10
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6c0271ebdc0b45b0800000000000000
+      internalID: -5383194791071576980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_11
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91567ae5b503aee20800000000000000
+      internalID: 3380567639283164441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side_12
       rect:
         serializedVersion: 2
         x: 0
@@ -166,197 +394,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f27104894e8c64c0800000000000000
-      internalID: -4292899898392481034
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_1
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0ca5f46be6ae9f140800000000000000
-      internalID: 4754088642892225216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_2
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3300f6e101d5c9f70800000000000000
-      internalID: 9195326862995161139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_3
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1234feaaa9f933e0800000000000000
-      internalID: -2073351641952407013
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_4
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a34062b2c5bce6b00800000000000000
-      internalID: 823819378576720954
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_5
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a179880781d3d1760800000000000000
-      internalID: 7430162135407695642
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_6
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5b1da44bb7ddd31c0800000000000000
-      internalID: -4522214927434591819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_7
-      rect:
-        serializedVersion: 2
-        x: 420
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f3f33381588c40f0800000000000000
-      internalID: -1131379522701888528
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_8
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d0fb397c05b112570800000000000000
-      internalID: 8440057210428702477
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Down_9
-      rect:
-        serializedVersion: 2
-        x: 540
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0434f56ca1a9e87c0800000000000000
-      internalID: -4067143973681020096
+      spriteID: a116d43883e13d630800000000000000
+      internalID: 3950534526203945242
       vertices: []
       indices: 
       edges: []
