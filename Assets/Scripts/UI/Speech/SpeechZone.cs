@@ -20,6 +20,8 @@ public class SpeechZone : MonoBehaviour {
 
 	[Space]
 	[SerializeField] private MessageItem[] messages = new MessageItem[1];
+	[SerializeField] private PlayerController playerController;
+	[SerializeField] private Animator playerAnimator;
 
 	private static Canvas canvas;
 
@@ -101,8 +103,12 @@ public class SpeechZone : MonoBehaviour {
 			messageText.text = "";
 			messageText.gameObject.SetActive(false);
 		}
-
 		isShowing = false;
+
+		if (playerController != null) {
+			playerController.enabled = true;
+			playerAnimator.enabled = true;
+		}
 	}
 
 	private void SetupCanvas() {
@@ -128,8 +134,9 @@ public class SpeechZone : MonoBehaviour {
 				messageText.text = item.message;
 			}
 
-			if (item.delay > 0)
+			if (item.delay > 0) {
 				yield return new WaitForSeconds(item.delay);
+			}
 		}
 
 		if (!stopOnLeave)
