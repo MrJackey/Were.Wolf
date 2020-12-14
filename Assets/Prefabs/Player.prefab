@@ -1085,6 +1085,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d8fc9e0b-f480-497c-8ec4-d1658656142a
     m_ActionName: Main/Crouch[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6186248558972205236}
+        m_TargetAssemblyTypeName: CameraPeek, Assembly-CSharp
+        m_MethodName: OnPeekInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 94ba20ea-0c57-4148-84ec-65608975fe26
+    m_ActionName: Main/Peek[/Keyboard/q,/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Main
@@ -1674,7 +1690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d117ddcbf74ba1946bc5bb9deba91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshold: 0.9
   peekDistance: 3
 --- !u!1 &3844520840332786896
 GameObject:
