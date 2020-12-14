@@ -9,10 +9,6 @@ public class SpeechZone : MonoBehaviour {
 	[SerializeField] private Canvas speechCanvasPrefab = null;
 	[SerializeField] private GameObject speechBubblePrefab = null;
 	[SerializeField] private Vector2 textOffset = default;
-
-	[Space]
-	[SerializeField, Tag]
-	private string triggerTag = "Player";
 	[SerializeField] private bool ignoreTriggers = true;
 
 	[Space]
@@ -35,8 +31,11 @@ public class SpeechZone : MonoBehaviour {
 	private Coroutine showRoutine;
 	private Coroutine fadeOutRoutine;
 
+	private Transformation playerTransformation;
+
 	private void Start() {
 		mainCamera = Camera.main;
+		playerTransformation = GameObject.FindWithTag("Player").GetComponentUnlessNull<Transformation>();
 	}
 
 	private void LateUpdate() {
@@ -61,7 +60,7 @@ public class SpeechZone : MonoBehaviour {
 
 	private bool IsMatchingTarget(Collider2D other) {
 		if (ignoreTriggers && other.isTrigger) return false;
-		return other.attachedRigidbody != null && other.attachedRigidbody.CompareTag(triggerTag);
+		return other.attachedRigidbody != null && other.attachedRigidbody.CompareTag("Player");
 	}
 
 	private void ShowMessage() {
@@ -115,6 +114,10 @@ public class SpeechZone : MonoBehaviour {
 
 	private IEnumerator CoShowMessages() {
 		foreach (MessageItem item in messages) {
+			if (item.useInForm != Form.Both && (
+				playerTransformation.State == TransformationState.Human && item.useInForm != Form.Human ||
+				playerTransformation.State == TransformationState.Wolf && item.useInForm != Form.Werewolf)) continue;
+
 			if (item.slowWrite) {
 				// Pass through to allow stopping.
 				IEnumerator slowWriteEnumerator = CoSlowWrite(item.message, charactersPerSecond);
@@ -175,11 +178,18 @@ public class SpeechZone : MonoBehaviour {
 #endif
 
 
+	public enum Form {
+		Both,
+		Human,
+		Werewolf,
+	}
+
 	[Serializable]
 	public class MessageItem {
 		[TextArea]
 		public string message = "";
 		public bool slowWrite = false;
 		public float delay = 1f;
+		public Form useInForm = Form.Both;
 	}
 }
