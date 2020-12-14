@@ -3,9 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraPeek : MonoBehaviour {
-	[SerializeField, Range(0.01f, 1f)]
-	private float inputThreshold = 0.9f;
-	[SerializeField] private float peekDistance;
+	[SerializeField, Range(0, 12)]
+	private float peekDistance;
 
 	private SnappingCamera snappingCamera;
 
