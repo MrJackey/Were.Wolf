@@ -3,16 +3,21 @@ using System.IO;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour {
-	[SerializeField] private SaveData data;
+	[SerializeField] private SaveData saveData;
+	[SerializeField] private SettingsData settingsData;
 
 	private string saveFile;
+	private string settingsFile;
 
-	public SaveData Data => data;
+	public SaveData Data => saveData;
+
+	public SettingsData Settings => settingsData;
 
 	public static SaveManager Instance { get; private set; }
 
 	private void Awake() {
 		saveFile = Path.Combine(Application.persistentDataPath, "save.json");
+		settingsFile = Path.Combine(Application.persistentDataPath, "settings.json");
 
 		Instance = this;
 		DontDestroyOnLoad(this);
@@ -25,50 +30,74 @@ public class SaveManager : MonoBehaviour {
 
 	[ContextMenu("Load Data")]
 	public void Load() {
-		if (!File.Exists(saveFile)) {
-			data = new SaveData();
-			return;
-		}
+		if (!DeserializeFile(saveFile, out saveData))
+			saveData = new SaveData();
 
-		string json;
-
-		try { json = File.ReadAllText(saveFile); }
-		catch (IOException e) {
-			Debug.LogError($"Failed to read save file: {e}");
-			return;
-		}
-
-		try { data = JsonUtility.FromJson<SaveData>(json) ?? new SaveData(); }
-		catch (Exception e) {
-			Debug.LogError($"Failed to deserialize save file: {e}");
-		}
+		if (!DeserializeFile(settingsFile, out settingsData))
+			settingsData = new SettingsData();
 	}
 
 	[ContextMenu("Save Data")]
 	public void Save() {
-		try {
-			string json = JsonUtility.ToJson(data);
-			File.WriteAllText(saveFile, json);
-		}
-		catch (IOException e) {
-			Debug.LogError($"Failed to write save file: {e}");
-		}
+		SerializeFile(saveFile, saveData);
+		SerializeFile(settingsFile, settingsData);
 	}
 
 	[ContextMenu("Clear Data")]
 	public void ClearData() {
-		data = new SaveData();
+		// TODO: Clear settings.
+		saveData = new SaveData();
 		File.Delete(saveFile);
 	}
 
 
+	private static bool DeserializeFile<T>(string path, out T data) where T : class, new() {
+		data = null;
+		if (!File.Exists(path)) return false;
+
+		string json;
+		try {
+			json = File.ReadAllText(path);
+		}
+		catch (IOException e) {
+			Debug.LogError($"Failed to read file: {e}");
+			return false;
+		}
+
+		try {
+			data = JsonUtility.FromJson<T>(json);
+			return data != null;
+		}
+		catch (Exception e) {
+			Debug.LogError($"Failed to deserialize file: {e}");
+			return false;
+		}
+	}
+
+	private static bool SerializeFile(string path, object data) {
+		try {
+			string json = JsonUtility.ToJson(data);
+			File.WriteAllText(path, json);
+			return true;
+		}
+		catch (IOException e) {
+			Debug.LogError($"Failed to write file: {e}");
+			return false;
+		}
+	}
+
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void OnLoad() {
-		new GameObject("Save Manager", typeof(SaveManager));
+		_ = new GameObject("Save Manager", typeof(SaveManager));
 	}
 
 #if UNITY_EDITOR
-	[UnityEditor.MenuItem("Tools/Clear Save Data")]
+	[UnityEditor.MenuItem("Tools/Open Save Directory", priority = 0)]
+	private static void OpenSaveDirectory() {
+		UnityEditor.EditorUtility.RevealInFinder(Application.persistentDataPath);
+	}
+
+	[UnityEditor.MenuItem("Tools/Clear Save Data", priority = 1)]
 	private static void ClearSaveData() {
 		if (Application.isPlaying) {
 			Instance.ClearData();
@@ -84,5 +113,12 @@ public class SaveManager : MonoBehaviour {
 	[Serializable]
 	public class SaveData {
 		public int completedLevel = -1;
+	}
+
+	[Serializable]
+	public class SettingsData {
+		public float masterVolume = 0.5f;
+		public float musicVolume = 0.5f;
+		public float sfxVolume = 0.5f;
 	}
 }
