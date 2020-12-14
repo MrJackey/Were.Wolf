@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: 226e55b700bb6e7448d07a370353265f
+guid: 3175caeac95ce054f8271696ca6af531
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6882946793401421586
-    second: Idle Crouch NPC_0
+      213: 6592589429614921620
+    second: Kitchen_enemy_design_0
   - first:
-      213: 8039242565278866861
-    second: Idle Crouch NPC_1
+      213: 6978814814044906177
+    second: Kitchen_enemy_design_1
   - first:
-      213: -5398016279397173955
-    second: Idle Crouch NPC_0
+      213: -5392083846281501444
+    second: Kitchen_enemy_design_2
   - first:
-      213: 1427413588332517335
-    second: Idle Crouch NPC_1
+      213: -1977946191632626046
+    second: Kitchen_enemy_design_3
+  - first:
+      213: -6795517944121907058
+    second: Kitchen_enemy_design_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -101,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle Crouch NPC_0
+      name: Kitchen_enemy_design_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 72
-        height: 40
+        y: 42
+        width: 32
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3571c63bc46615b0800000000000000
-      internalID: -5398016279397173955
+      spriteID: 497413e38259d7b50800000000000000
+      internalID: 6592589429614921620
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle Crouch NPC_1
+      name: Kitchen_enemy_design_1
       rect:
         serializedVersion: 2
-        x: 72
-        y: 0
-        width: 72
-        height: 40
+        x: 32
+        y: 42
+        width: 32
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,8 +139,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d7102888113fc310800000000000000
-      internalID: 1427413588332517335
+      spriteID: 1c26168191bb9d060800000000000000
+      internalID: 6978814814044906177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen_enemy_design_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 42
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf4e44f6f487b25b0800000000000000
+      internalID: -5392083846281501444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen_enemy_design_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28e86e61b6cec84e0800000000000000
+      internalID: -1977946191632626046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen_enemy_design_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8822db1f6871b1a0800000000000000
+      internalID: -6795517944121907058
       vertices: []
       indices: 
       edges: []
