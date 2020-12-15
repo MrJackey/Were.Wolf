@@ -15,6 +15,9 @@ public class Gate : SignalReceiver {
 	private float showDuration = 1f;
 	[SerializeField, EnableIf(nameof(panCamera))]
 	private float showCooldown = 7.5f;
+	[SerializeField, EnableIf(nameof(panCamera))]
+	private bool showOnEmitterUpdate;
+	[SerializeField] private UnityEvent onStateUpdate;
 	[SerializeField] private VignetteHighlight highlightPrefab;
 	[SerializeField] private AudioSource audioSource;
 
@@ -39,22 +42,27 @@ public class Gate : SignalReceiver {
 
 	public void Toggle() {
 		if (panCamera && camera != null && !isShowing && allowShow && isInitialized) {
-			panningQueue.Enqueue(this);
-
-			if (panningQueue.Count == 1) {
-				VignetteHighlight highlight = Instantiate(highlightPrefab, transform.position, Quaternion.identity);
-				StartCoroutine(CoShowEvent(highlight));
-			}
+			AddToPanningQueue();
 		}
 		else if (animator.isInitialized) {
 			PlaySound();
 			animator.SetBool(isOpenHash, IsActivated);
+			onStateUpdate.Invoke();
+		}
+	}
+
+	private void AddToPanningQueue() {
+		panningQueue.Enqueue(this);
+		isShowing = true;
+
+		if (panningQueue.Count == 1) {
+			VignetteHighlight highlight = Instantiate(highlightPrefab, transform.position, Quaternion.identity);
+			StartCoroutine(CoShowEvent(highlight));
 		}
 	}
 
 	private IEnumerator CoShowEvent(VignetteHighlight highlight) {
 		highlight.WorldTarget = transform;
-		isShowing = true;
 		playerController.AllowControls = false;
 		Time.timeScale = 0;
 		float newTransitionDuration = cameraTransitionDuration *
@@ -66,6 +74,7 @@ public class Gate : SignalReceiver {
 
 		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
 		PlaySound();
+		onStateUpdate.Invoke();
 		animator.SetBool(isOpenHash, IsActivated);
 
 		yield return new WaitForSecondsRealtime(showDuration);
@@ -100,5 +109,12 @@ public class Gate : SignalReceiver {
 			audioSource.Play();
 		}
 		isFirstSoundPlayed = true;
+	}
+
+	public void AtEmitterUpdate() {
+		if (panCamera && camera != null && showOnEmitterUpdate && !isShowing && allowShow)
+			AddToPanningQueue();
+		else
+			onStateUpdate.Invoke();
 	}
 }
