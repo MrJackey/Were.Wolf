@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour {
 	[SerializeField] private SceneHelper sceneHelper = null;
 	[SerializeField] private InputActionReference pauseActionReference = null;
+	[SerializeField] private MenuScreens menuScreens;
 	[SerializeField] private UnityEvent onPause = null;
 	[SerializeField] private UnityEvent onResume = null;
 
@@ -34,7 +35,7 @@ public class PauseMenu : MonoBehaviour {
 
 	private void OnPauseDown(InputAction.CallbackContext ctx) {
 		if (isPaused)
-			Resume();
+			GoBack();
 		else
 			Pause();
 	}
@@ -69,5 +70,12 @@ public class PauseMenu : MonoBehaviour {
 	public void ExitToMenu() {
 		Time.timeScale = 1;
 		sceneHelper.LoadSceneWithTransition(sceneHelper.MenuScene);
+	}
+
+	public void GoBack() {
+		if (menuScreens.NumMenusOnStack > 1)
+			menuScreens.PopScreen();
+		else
+			Resume();
 	}
 }
