@@ -45,7 +45,6 @@ public class SaveManager : MonoBehaviour {
 
 	[ContextMenu("Clear Data")]
 	public void ClearData() {
-		// TODO: Clear settings.
 		saveData = new SaveData();
 		File.Delete(saveFile);
 	}
