@@ -113,7 +113,7 @@ public class SnappingCamera : MonoBehaviour {
 		return (point - gridOrigin) / cellSize;
 	}
 
-	private Vector2 GridToWorld(Vector2 point) {
+	public Vector2 GridToWorld(Vector2 point) {
 		return gridOrigin + point * cellSize;
 	}
 
