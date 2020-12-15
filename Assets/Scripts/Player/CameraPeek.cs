@@ -7,6 +7,7 @@ public class CameraPeek : MonoBehaviour {
 	private float peekDistance;
 
 	private SnappingCamera snappingCamera;
+	private float peekOffsetY;
 
 	private void Start() {
 		Camera mainCamera = Camera.main;
@@ -14,10 +15,15 @@ public class CameraPeek : MonoBehaviour {
 			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
 	}
 
+	private void Update() {
+		if (Time.timeScale == 0 || peekOffsetY == 0)
+			snappingCamera.PeekOffset = Vector3.zero;
+		else
+			snappingCamera.PeekOffset = new Vector3(0, peekOffsetY, 0);
+	}
+
 	public void OnPeekInput(InputAction.CallbackContext ctx) {
 		float value = ctx.ReadValue<float>();
-		snappingCamera.PeekOffset = value != 0
-			? new Vector3(0, peekDistance * value, 0)
-			: Vector3.zero;
+		peekOffsetY = value != 0 ? peekDistance * value : 0;
 	}
 }
