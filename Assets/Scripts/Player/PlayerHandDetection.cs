@@ -6,6 +6,7 @@ public class PlayerHandDetection : MonoBehaviour {
 	[SerializeField] private GameObject interactArrowPrefab;
 	[SerializeField] private PlayerCarrying playerCarrying;
 	[SerializeField] private PlayerController playerController;
+	[SerializeField, Tag] private string priorityInteractableTag;
 
 	private Interactable detectedInteractItem;
 	private List<Interactable> interactableList = new List<Interactable>();
@@ -56,14 +57,9 @@ public class PlayerHandDetection : MonoBehaviour {
 		foreach (Interactable interactable in interactableList) {
 			float distance = (transform.position - interactable.transform.position).sqrMagnitude;
 
-			if (distance > lowestDistance && interactable.tag == "Box") {
+			if (distance < lowestDistance || interactable.CompareTag(priorityInteractableTag)) {
 				lowestDistance = distance;
 				closestItem = interactable;				
-			}
-
-			else if (distance < lowestDistance) {
-				lowestDistance = distance;
-				closestItem = interactable;
 			}
 		}
 		if (closestItem == null || closestItem == detectedInteractItem)
