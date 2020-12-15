@@ -58,10 +58,16 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	public void TransformInterrupt(float transformationDone) {
 		float timeRemaining = transformation.TransformDuration - transformationDone;
-		animator.Play("Human To Werewolf", 0, timeRemaining / transformation.TransformDuration);
 
-		transformation.State = TransformationState.Human;
-		transformation.TransformToWolf(timeRemaining);
+		if (transformation.OldState == TransformationState.Human) {
+			animator.Play("Werewolf To Human", 0, timeRemaining / transformation.TransformDuration);
+			transformation.TransformToHuman(timeRemaining);
+		}
+		else if (transformation.OldState == TransformationState.Wolf) {
+			animator.Play("Human To Werewolf", 0, timeRemaining / transformation.TransformDuration);
+			transformation.TransformToWolf(timeRemaining);
+		}
+
 	}
 
 	public void TransformEnd() {
