@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1763996598}
   - component: {fileID: 1763996603}
   - component: {fileID: 1763996601}
+  - component: {fileID: 1750964323}
   m_Layer: 0
   m_Name: Crawl Tutorial NPC 1_0
   m_TagString: Untagged
@@ -119,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: 0.58}
+  m_Offset: {x: -2.16, y: 0.51940453}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -130,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.81, y: 2.11}
+  m_Size: {x: 1.5279026, y: 2.231191}
   m_EdgeRadius: 0
 --- !u!114 &1763996598
 MonoBehaviour:
@@ -215,5 +216,31 @@ MonoBehaviour:
   playerController: {fileID: 0}
   playerRb2d: {fileID: 0}
   playerAnimator: {fileID: 0}
+  hasMetTrigger: {fileID: 1750964323}
   hasMetOnce: 0
-  doStopAnimator: 0
+--- !u!61 &1750964323
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053695448339817367}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.11}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.25, y: 1.25}
+    newSize: {x: 2.25, y: 1.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.78, y: 1.01}
+  m_EdgeRadius: 0
