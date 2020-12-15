@@ -12503,18 +12503,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3032012005023981314, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
-      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3032012005023981314, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
-      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Respawn
-      objectReference: {fileID: 0}
-    - target: {fileID: 3032012005023981314, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
-      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CheckpointManager, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700147, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_Name
       value: Player
