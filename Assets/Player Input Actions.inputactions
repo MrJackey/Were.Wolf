@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Peek",
+                    "type": "Value",
+                    "id": "94ba20ea-0c57-4148-84ec-65608975fe26",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -274,17 +282,6 @@
                 },
                 {
                     "name": "",
-                    "id": "451e3275-7de8-4dbe-99b6-289de02d2553",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d9b3905b-ced0-4cff-b36e-761ad4661beb",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -370,6 +367,50 @@
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "299d6f67-0107-4353-990d-78f0cffd0e9f",
+                    "path": "<Gamepad>/rightStick/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Peek",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Keyboard",
+                    "id": "38ed6e99-cac7-49c3-8032-2e6bc122ec6d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Peek",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d74f73d4-4829-44c7-8d1c-1aee03629f29",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Peek",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "9356dd5a-f98c-4b7c-974b-2dbf93a1e66e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Peek",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

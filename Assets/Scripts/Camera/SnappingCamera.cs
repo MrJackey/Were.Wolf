@@ -38,10 +38,13 @@ public class SnappingCamera : MonoBehaviour {
 	private Vector2 cellSize;
 
 	private Vector3 shakeOffset;
+	private Vector3 peekOffset;
 	private Coroutine impactRoutine;
 	private Coroutine shakeRoutine;
 
 	public Transform Target { set => target = value; }
+
+	public Vector3 PeekOffset { set => peekOffset = value; }
 
 	public float TransitionDuration {
 		get => transitionDuration;
@@ -74,7 +77,7 @@ public class SnappingCamera : MonoBehaviour {
 		float cameraSize = camera.orthographicSize;
 		cellSize = GetCameraWorldRect(camera).size;
 		gridOrigin = startPosition - new Vector2(cameraSize * camera.aspect, cameraSize);
-		Vector3 targetCameraPosition = CalculateTargetPosition();
+		Vector3 targetCameraPosition = CalculateTargetPosition() + peekOffset;
 
 		if (enableSmoothing) {
 			container.position = Vector3.SmoothDamp(container.position, targetCameraPosition,
