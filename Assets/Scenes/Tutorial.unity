@@ -2441,6 +2441,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8605157165283067763, guid: a5d9cf0bee066a346bd9a0dcb6e7cdcb, type: 3}
   m_PrefabInstance: {fileID: 807677534}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &208751064 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5561372523853325554, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
+  m_PrefabInstance: {fileID: 1080159931}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &223160241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3570,6 +3575,8 @@ MonoBehaviour:
     slowWrite: 1
     delay: 1
     useInForm: 0
+  playerController: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!61 &337274168
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6008,6 +6015,8 @@ MonoBehaviour:
     slowWrite: 1
     delay: 1
     useInForm: 0
+  playerController: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!61 &493992741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9448,6 +9457,8 @@ MonoBehaviour:
     slowWrite: 1
     delay: 1
     useInForm: 0
+  playerController: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!61 &877928801
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11217,6 +11228,22 @@ Transform:
   m_Father: {fileID: 930684875}
   m_RootOrder: 82
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &980582465 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 3326305250810700159, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
+  m_PrefabInstance: {fileID: 1080159931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &980582466 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3326305250810700144, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
+  m_PrefabInstance: {fileID: 1080159931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e942704372de51a41ae0fedf6b30283a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &982659946
 GameObject:
   m_ObjectHideFlags: 0
@@ -12513,11 +12540,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.38
+      value: 18.74
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.72
+      value: 11.8
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -59123,6 +59150,8 @@ MonoBehaviour:
     slowWrite: 0
     delay: 1
     useInForm: 0
+  playerController: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!1 &1549294416
 GameObject:
   m_ObjectHideFlags: 0
@@ -61694,108 +61723,6 @@ Transform:
   m_Father: {fileID: 930684875}
   m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1763996597 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2053695448339817367, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
-  m_PrefabInstance: {fileID: 2099406001652816871}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1763996598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763996597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1134cbbc17443a4a0317f4484ea20cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
-  speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
-  textOffset: {x: 0.09, y: 1.31}
-  ignoreTriggers: 1
-  charactersPerSecond: 15
-  stopOnLeave: 0
-  fadeOut: 1
-  fadeDuration: 0.5
-  messages:
-  - message: You won't get through in that form.
-    slowWrite: 1
-    delay: 1
-    useInForm: 0
---- !u!61 &1763996599
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763996597}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: 0.58}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.25, y: 1.25}
-    newSize: {x: 2.25, y: 1.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.81, y: 2.11}
-  m_EdgeRadius: 0
---- !u!95 &1763996600 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8116791090237561940, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
-  m_PrefabInstance: {fileID: 2099406001652816871}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1763996603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763996597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb9fa655fdc4b24a0ed2164e182f5cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTag: Player
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  ignoreTriggers: 1
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1763996600}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: play
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTriggerExit:
-    m_PersistentCalls:
-      m_Calls: []
-  onCollisionEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  onCollisionExit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1784335389
 GameObject:
   m_ObjectHideFlags: 0
@@ -62597,6 +62524,8 @@ MonoBehaviour:
     slowWrite: 1
     delay: 1
     useInForm: 0
+  playerController: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!61 &1865757399
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -66391,6 +66320,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1750964323, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 208751064}
+    - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 980582466}
+    - target: {fileID: 1763996599, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: m_Offset.x
+      value: -2.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996601, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: playerRb2d
+      value: 
+      objectReference: {fileID: 980582465}
+    - target: {fileID: 1763996601, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 208751064}
+    - target: {fileID: 1763996601, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 980582466}
     - target: {fileID: 2053695448339817367, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Name
       value: Crawl Tutorial NPC 1_0
@@ -66401,7 +66358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8629138106621198290, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.36
+      value: 14.696
       objectReference: {fileID: 0}
     - target: {fileID: 8629138106621198290, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_LocalPosition.y
