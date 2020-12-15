@@ -10,7 +10,8 @@ public class SignalReceiver : MonoBehaviour {
 	[SerializeField] private bool invert = false;
 	[SerializeField] private SignalEmitter[] emitters;
 
-	[Header("Events")] [SerializeField] protected UnityEvent onActivation;
+	[Header("Events")] 
+	[SerializeField] protected UnityEvent onActivation;
 	[SerializeField] protected UnityEvent onDeactivation;
 	[SerializeField] protected UnityEvent onEmitterUpdate;
 
