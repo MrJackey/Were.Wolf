@@ -16,7 +16,9 @@ public class Gate : SignalReceiver {
 	[SerializeField, EnableIf(nameof(panCamera))]
 	private float showCooldown = 7.5f;
 	[SerializeField, EnableIf(nameof(panCamera))]
-	private float cameraTransitionMultiplier = 3f;
+	private bool showOnEmitterUpdate;
+	[SerializeField] private UnityEvent onStateUpdate;
+	[SerializeField] private float cameraTransitionMultiplier = 3f;
 	[SerializeField] private VignetteHighlight highlightPrefab;
 	[SerializeField] private AudioSource audioSource;
 
@@ -40,23 +42,28 @@ public class Gate : SignalReceiver {
 
 	public void Toggle() {
 		if (panCamera && camera != null && !isShowing && allowShow && isInitialized) {
-			panningQueue.Enqueue(this);
-
-			if (panningQueue.Count == 1) {
-				VignetteHighlight highlight = Instantiate(highlightPrefab, transform.position, Quaternion.identity);
-				StartCoroutine(CoShowEvent(highlight));
-			}
+			AddToPanningQueue();
 		}
 		else if (animator.isInitialized) {
 			PlaySound();
 			animator.SetBool(isOpenHash, IsActivated);
+			onStateUpdate.Invoke();
+		}
+	}
+
+	private void AddToPanningQueue() {
+		panningQueue.Enqueue(this);
+		isShowing = true;
+
+		if (panningQueue.Count == 1) {
+			VignetteHighlight highlight = Instantiate(highlightPrefab, transform.position, Quaternion.identity);
+			StartCoroutine(CoShowEvent(highlight));
 		}
 	}
 
 	private IEnumerator CoShowEvent(VignetteHighlight highlight) {
 		Transform selfTransform = transform;
 		highlight.WorldTarget = selfTransform;
-		isShowing = true;
 		playerController.AllowControls = false;
 		Time.timeScale = 0;
 
@@ -69,6 +76,7 @@ public class Gate : SignalReceiver {
 		yield return new WaitForSecondsRealtime(camera.TransitionDuration * cameraTransitionMultiplier);
 
 		PlaySound();
+		onStateUpdate.Invoke();
 		animator.SetBool(isOpenHash, IsActivated);
 
 		yield return new WaitForSecondsRealtime(showClip.length);
@@ -105,5 +113,12 @@ public class Gate : SignalReceiver {
 			audioSource.Play();
 		}
 		isFirstSoundPlayed = true;
+	}
+
+	public void HandleEmitterUpdate() {
+		if (panCamera && camera != null && showOnEmitterUpdate && !isShowing && allowShow)
+			AddToPanningQueue();
+		else
+			onStateUpdate.Invoke();
 	}
 }
