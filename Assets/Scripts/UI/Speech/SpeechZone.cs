@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
@@ -20,6 +21,10 @@ public class SpeechZone : MonoBehaviour {
 
 	[Space]
 	[SerializeField] private MessageItem[] messages = new MessageItem[1];
+
+	[Header("Events")]
+	[SerializeField] private UnityEvent onSpeechStart;
+	[SerializeField] private UnityEvent onSpeechEnd;
 
 	private static Canvas canvas;
 
@@ -85,6 +90,7 @@ public class SpeechZone : MonoBehaviour {
 
 		messageBubble.gameObject.SetActive(true);
 		isShowing = true;
+		onSpeechStart.Invoke();
 	}
 
 	private void HideMessage(bool fade) {
@@ -103,6 +109,7 @@ public class SpeechZone : MonoBehaviour {
 		}
 
 		isShowing = false;
+		onSpeechEnd.Invoke();
 	}
 
 	private void SetupCanvas() {
