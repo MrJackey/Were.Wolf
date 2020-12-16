@@ -57,9 +57,9 @@ public class PlayerHandDetection : MonoBehaviour {
 		foreach (Interactable interactable in interactableList) {
 			float distance = (transform.position - interactable.transform.position).sqrMagnitude;
 
-			if (distance < lowestDistance || interactable.CompareTag(priorityInteractableTag)) {
+			if (distance < lowestDistance || (!string.IsNullOrEmpty(priorityInteractableTag) && interactable.CompareTag(priorityInteractableTag))) {
 				lowestDistance = distance;
-				closestItem = interactable;				
+				closestItem = interactable;
 			}
 		}
 		if (closestItem == null || closestItem == detectedInteractItem)
