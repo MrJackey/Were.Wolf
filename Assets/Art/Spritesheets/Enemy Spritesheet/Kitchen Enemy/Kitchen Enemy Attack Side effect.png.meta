@@ -1,64 +1,52 @@
 fileFormatVersion: 2
-guid: e684d43080b8ef84f93edf90670609c2
+guid: dd1af4ec5995d7d41b8bb19027c9964e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3987483870072402333
-    second: Kitchen Enemy Attack Side 1_0
+      213: 3686889686223325267
+    second: Kitchen Enemy Attack Side effect_0
   - first:
-      213: -6922815197556992461
-    second: Kitchen Enemy Attack Side 1_1
+      213: 3740557998665232313
+    second: Kitchen Enemy Attack Side effect_1
   - first:
-      213: 808204499469944763
-    second: Kitchen Enemy Attack Side 1_2
+      213: -5170422603828811394
+    second: Kitchen Enemy Attack Side effect_2
   - first:
-      213: 7008008277687173322
-    second: Kitchen Enemy Attack Side 1_3
+      213: -6853142611946677670
+    second: Kitchen Enemy Attack Side effect_3
   - first:
-      213: -513222672851755856
-    second: Kitchen Enemy Attack Side 1_4
+      213: -5030231593843960895
+    second: Kitchen Enemy Attack Side effect_4
   - first:
-      213: -3006778089096030593
-    second: Kitchen Enemy Attack Side 1_5
+      213: -5622128283427495379
+    second: Kitchen Enemy Attack Side effect_5
   - first:
-      213: -2221761883160730120
-    second: Kitchen Enemy Attack Side 1_6
+      213: -8626390458188305379
+    second: Kitchen Enemy Attack Side effect_6
   - first:
-      213: -8922786677091445028
-    second: Kitchen Enemy Attack Side 1_7
+      213: 2658020997925538750
+    second: Kitchen Enemy Attack Side effect_7
   - first:
-      213: 8057061793152244074
-    second: Kitchen Enemy Attack Side 1_8
+      213: 599350418018824581
+    second: Kitchen Enemy Attack Side effect_8
   - first:
-      213: -9206404429552256060
-    second: Kitchen Enemy Attack Side 1_9
+      213: 7858852726934642139
+    second: Kitchen Enemy Attack Side effect_9
   - first:
-      213: -3767303678736396984
-    second: Kitchen Enemy Attack Side 1_10
+      213: 6050109310460656767
+    second: Kitchen Enemy Attack Side effect_10
   - first:
-      213: 2861864359975921938
-    second: Kitchen Enemy Attack Side 1_11
+      213: 1277154900466520535
+    second: Kitchen Enemy Attack Side effect_11
   - first:
-      213: -4979075884406901844
-    second: Kitchen Enemy Attack Side 1_12
+      213: 266255902891097135
+    second: Kitchen Enemy Attack Side effect_12
   - first:
-      213: -8244143337849759463
-    second: Kitchen Enemy Attack Side 1_13
+      213: 8715280467662605431
+    second: Kitchen Enemy Attack Side effect_13
   - first:
-      213: 8826744004780155023
-    second: Kitchen Enemy Attack Side 1_14
-  - first:
-      213: -5137020873109399864
-    second: Kitchen Enemy Attack Side 1_15
-  - first:
-      213: 4126062093426241031
-    second: Kitchen Enemy Attack Side 1_16
-  - first:
-      213: 4679736307623113521
-    second: Kitchen Enemy Attack Side 1_17
-  - first:
-      213: -457218901561605527
-    second: Kitchen Enemy Attack Side 1_18
+      213: 2945110484417645252
+    second: Kitchen Enemy Attack Side effect_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -146,13 +134,76 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_0
+      name: Kitchen Enemy Attack Side effect_0
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 132
+        width: 168
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3588469b2a67a2330800000000000000
+      internalID: 3686889686223325267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side effect_1
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 132
+        width: 168
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bfef247ea129e330800000000000000
+      internalID: 3740557998665232313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side effect_2
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 132
+        width: 168
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7922203908fe38b0800000000000000
+      internalID: -5170422603828811394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side effect_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 180
-        width: 200
-        height: 60
+        y: 88
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +211,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d91f3470473665730800000000000000
-      internalID: 3987483870072402333
+      spriteID: a5a53db9a1fb4e0a0800000000000000
+      internalID: -6853142611946677670
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_1
+      name: Kitchen Enemy Attack Side effect_4
       rect:
         serializedVersion: 2
-        x: 200
-        y: 180
-        width: 200
-        height: 60
+        x: 168
+        y: 88
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +232,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33690f7a1483def90800000000000000
-      internalID: -6922815197556992461
+      spriteID: 1c3dbf64407013ab0800000000000000
+      internalID: -5030231593843960895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_2
+      name: Kitchen Enemy Attack Side effect_5
       rect:
         serializedVersion: 2
-        x: 400
-        y: 180
-        width: 200
-        height: 60
+        x: 336
+        y: 88
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,20 +253,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb747c0d5b1573b00800000000000000
-      internalID: 808204499469944763
+      spriteID: d22a0a01d103af1b0800000000000000
+      internalID: -5622128283427495379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_3
+      name: Kitchen Enemy Attack Side effect_6
       rect:
         serializedVersion: 2
-        x: 600
-        y: 180
-        width: 200
-        height: 60
+        x: 504
+        y: 88
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,41 +274,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac08a860662714160800000000000000
-      internalID: 7008008277687173322
+      spriteID: d1cedd53597e84880800000000000000
+      internalID: -8626390458188305379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_4
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 180
-        width: 200
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0bc9efdb2baa0e8f0800000000000000
-      internalID: -513222672851755856
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_5
+      name: Kitchen Enemy Attack Side effect_7
       rect:
         serializedVersion: 2
         x: 0
-        y: 120
-        width: 200
-        height: 60
+        y: 44
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,20 +295,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f76d0013247c546d0800000000000000
-      internalID: -3006778089096030593
+      spriteID: ebb81eac30033e420800000000000000
+      internalID: 2658020997925538750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_6
+      name: Kitchen Enemy Attack Side effect_8
       rect:
         serializedVersion: 2
-        x: 200
-        y: 120
-        width: 200
-        height: 60
+        x: 168
+        y: 44
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,20 +316,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f5a3b2b657ba21e0800000000000000
-      internalID: -2221761883160730120
+      spriteID: 5817ef99702515800800000000000000
+      internalID: 599350418018824581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_7
+      name: Kitchen Enemy Attack Side effect_9
       rect:
         serializedVersion: 2
-        x: 400
-        y: 120
-        width: 200
-        height: 60
+        x: 336
+        y: 44
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,20 +337,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd65069cac4eb2480800000000000000
-      internalID: -8922786677091445028
+      spriteID: bdd9c0bcae0401d60800000000000000
+      internalID: 7858852726934642139
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_8
+      name: Kitchen Enemy Attack Side effect_10
       rect:
         serializedVersion: 2
-        x: 600
-        y: 120
-        width: 200
-        height: 60
+        x: 504
+        y: 44
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,146 +358,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a691632430f60df60800000000000000
-      internalID: 8057061793152244074
+      spriteID: f7c7a4eec5e46f350800000000000000
+      internalID: 6050109310460656767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_9
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 120
-        width: 200
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4cb74fde2f74c3080800000000000000
-      internalID: -9206404429552256060
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_10
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 60
-        width: 200
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 84d05e3a349d7bbc0800000000000000
-      internalID: -3767303678736396984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_11
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 60
-        width: 200
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21927bbf87267b720800000000000000
-      internalID: 2861864359975921938
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_12
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 60
-        width: 200
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca376380dd4c6eab0800000000000000
-      internalID: -4979075884406901844
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_13
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 60
-        width: 200
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 919df06405be69d80800000000000000
-      internalID: -8244143337849759463
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_14
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 60
-        width: 200
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f80ea3008e4ee7a70800000000000000
-      internalID: 8826744004780155023
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_15
+      name: Kitchen Enemy Attack Side effect_11
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 200
-        height: 60
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -475,20 +379,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c61c86abb2a5b8b0800000000000000
-      internalID: -5137020873109399864
+      spriteID: 7d1d4758d9d59b110800000000000000
+      internalID: 1277154900466520535
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_16
+      name: Kitchen Enemy Attack Side effect_12
       rect:
         serializedVersion: 2
-        x: 200
+        x: 168
         y: 0
-        width: 200
-        height: 60
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -496,20 +400,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70e20e7fc97b24930800000000000000
-      internalID: 4126062093426241031
+      spriteID: f2cbc2f355ee1b300800000000000000
+      internalID: 266255902891097135
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_17
+      name: Kitchen Enemy Attack Side effect_13
       rect:
         serializedVersion: 2
-        x: 400
+        x: 336
         y: 0
-        width: 200
-        height: 60
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -517,20 +421,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 133bf52a063c1f040800000000000000
-      internalID: 4679736307623113521
+      spriteID: 77c0ee8e865e2f870800000000000000
+      internalID: 8715280467662605431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side 1_18
+      name: Kitchen Enemy Attack Side effect_14
       rect:
         serializedVersion: 2
-        x: 600
+        x: 504
         y: 0
-        width: 200
-        height: 60
+        width: 168
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -538,8 +442,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96283dbd4d1a7a9f0800000000000000
-      internalID: -457218901561605527
+      spriteID: 4ca0ef7b1622fd820800000000000000
+      internalID: 2945110484417645252
       vertices: []
       indices: 
       edges: []
