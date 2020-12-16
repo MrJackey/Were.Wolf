@@ -17,6 +17,21 @@ TextureImporter:
   - first:
       213: -6795517944121907058
     second: Kitchen_enemy_design_4
+  - first:
+      213: -7257726356664329262
+    second: Kitchen Enemy Idle_0
+  - first:
+      213: -3361624211282535541
+    second: Kitchen Enemy Idle_1
+  - first:
+      213: -4113519503767210888
+    second: Kitchen Enemy Idle_2
+  - first:
+      213: 7072539887018133691
+    second: Kitchen Enemy Idle_3
+  - first:
+      213: 6369257286984666510
+    second: Kitchen Enemy Idle_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -104,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kitchen_enemy_design_0
+      name: Kitchen Enemy Idle_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 42
-        width: 32
-        height: 42
+        y: 60
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 497413e38259d7b50800000000000000
-      internalID: 6592589429614921620
+      spriteID: 2db580ae450674b90800000000000000
+      internalID: -7257726356664329262
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen_enemy_design_1
+      name: Kitchen Enemy Idle_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 42
-        width: 32
-        height: 42
+        x: 60
+        y: 60
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,20 +154,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c26168191bb9d060800000000000000
-      internalID: 6978814814044906177
+      spriteID: b8bd62a279c1951d0800000000000000
+      internalID: -3361624211282535541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen_enemy_design_2
+      name: Kitchen Enemy Idle_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 42
-        width: 32
-        height: 42
+        x: 120
+        y: 60
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +175,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf4e44f6f487b25b0800000000000000
-      internalID: -5392083846281501444
+      spriteID: 87470514ec7d9e6c0800000000000000
+      internalID: -4113519503767210888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen_enemy_design_3
+      name: Kitchen Enemy Idle_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 42
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28e86e61b6cec84e0800000000000000
-      internalID: -1977946191632626046
+      spriteID: bb84f792e85b62260800000000000000
+      internalID: 7072539887018133691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen_enemy_design_4
+      name: Kitchen Enemy Idle_4
       rect:
         serializedVersion: 2
-        x: 32
+        x: 60
         y: 0
-        width: 32
-        height: 42
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,8 +217,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8822db1f6871b1a0800000000000000
-      internalID: -6795517944121907058
+      spriteID: e8d0ac9b1c5246850800000000000000
+      internalID: 6369257286984666510
       vertices: []
       indices: 
       edges: []
