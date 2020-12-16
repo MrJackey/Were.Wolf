@@ -13,6 +13,7 @@ public class SignalReceiver : MonoBehaviour {
 	[Header("Events")]
 	[SerializeField] protected UnityEvent onActivation;
 	[SerializeField] protected UnityEvent onDeactivation;
+	[SerializeField] protected UnityEvent onEmitterUpdate;
 
 	protected bool isInitialized = false;
 
@@ -20,6 +21,8 @@ public class SignalReceiver : MonoBehaviour {
 		get => isActivated;
 		set => isActivated = value;
 	}
+
+	public SignalEmitter[] Emitters => emitters;
 
 	private void Start() {
 		foreach (SignalEmitter emitter in emitters) {
@@ -64,6 +67,8 @@ public class SignalReceiver : MonoBehaviour {
 
 		if (invert)
 			isActivated = !isActivated;
+
+		onEmitterUpdate.Invoke();
 
 		if (oldState == isActivated)
 			return;
