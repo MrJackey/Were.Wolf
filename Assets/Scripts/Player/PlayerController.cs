@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float deacceleration = 5;
 	[SerializeField] private float maxSpeed = 3;
 	[SerializeField] private float speedMultiplier = 1;
+	[SerializeField, Range(0, 2)]
+	private float midairMultiplier = 0.75f;
 
 	[Header("Jumping")]
 	[SerializeField] private BoxCollider2D groundedCollider = null;
@@ -197,10 +199,11 @@ public class PlayerController : MonoBehaviour {
 
 		if (xInput != 0 && !isCrouching) {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
-			if (isCrouched)
-				velocity.x = Mathf.Clamp(newVelocityX, -crouchMaxSpeed, crouchMaxSpeed);
-			else
-				velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
+			float max = isCrouched ? crouchMaxSpeed : maxSpeed;
+			if (!isGrounded)
+				max *= midairMultiplier;
+
+			velocity.x = Mathf.Clamp(newVelocityX, -max, max);
 		}
 		else if ((allowControls || transformation.IsTransforming) && !doDash && velocity.x != 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
@@ -290,7 +293,9 @@ public class PlayerController : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (groundedCollider.IsTouchingLayers(groundLayer)) {
-			allowDashReset = true;
+			if (!isGrounded)
+				allowDashReset = true;
+
 			EndCoyote(true);
 		}
 
