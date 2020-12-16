@@ -20,9 +20,9 @@ public class SpeechZone : MonoBehaviour {
 
 	[Space]
 	[SerializeField] private MessageItem[] messages = new MessageItem[1];
-	[SerializeField] private PlayerController playerController;
 	[SerializeField] private Animator playerAnimator;
 
+	private PlayerController playerController;
 	private static Canvas canvas;
 
 	private Camera mainCamera;
@@ -38,6 +38,7 @@ public class SpeechZone : MonoBehaviour {
 	private void Start() {
 		mainCamera = Camera.main;
 		playerTransformation = GameObject.FindWithTag("Player").GetComponentUnlessNull<Transformation>();
+		playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 	}
 
 	private void LateUpdate() {
@@ -106,7 +107,7 @@ public class SpeechZone : MonoBehaviour {
 		isShowing = false;
 
 		if (playerController != null) {
-			playerController.enabled = true;
+			playerController.AllowControls = true;
 			playerAnimator.enabled = true;
 		}
 	}
@@ -134,9 +135,8 @@ public class SpeechZone : MonoBehaviour {
 				messageText.text = item.message;
 			}
 
-			if (item.delay > 0) {
+			if (item.delay > 0) 
 				yield return new WaitForSeconds(item.delay);
-			}
 		}
 
 		if (!stopOnLeave)

@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour {
 			else
 				velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
 		}
-		else if ((allowControls || transformation.IsTransforming) && !doDash && velocity.x != 0) {
+		else if ((allowControls || isGrounded) && !doDash && velocity.x != 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
