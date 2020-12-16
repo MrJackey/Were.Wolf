@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HaltPlayer : MonoBehaviour {
 	[SerializeField] private BoxCollider2D hasMetTrigger;
+	[SerializeField] private VignetteHighlight vignetteHighlightPrefab;
+
+	private VignetteHighlight highlight;
 
 	private PlayerController playerController;
 	private bool hasMetOnce = false;
@@ -23,8 +26,10 @@ public class HaltPlayer : MonoBehaviour {
 		if (playerController == null)
 			return;
 
+		highlight = Instantiate(vignetteHighlightPrefab);
+		highlight.WorldTarget = transform;
+
 		playerController.AllowControls = false;
-			
 		hasMetTrigger.enabled = true;
 		hasMetOnce = true;
 	}
@@ -32,7 +37,8 @@ public class HaltPlayer : MonoBehaviour {
 	public void EnableControls() {
 		if (playerController == null) 
 			return;
-			
+
+		highlight.FadeOut();
 		playerController.AllowControls = true;
 	}
 }
