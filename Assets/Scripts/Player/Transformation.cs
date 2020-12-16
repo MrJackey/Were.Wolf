@@ -48,6 +48,7 @@ public class Transformation : MonoBehaviour {
 	public TransformationState OldState => oldState;
 	public TransformationState State => state;
 	public UnityEvent<float> OnTransformInterrupt => onTransformInterrupt;
+	public UnityEvent OnTransformEnd => onTransformEnd;
 	public bool IsHuman => state == TransformationState.Human ||
 	                       (state == TransformationState.Transforming && oldState == TransformationState.Human);
 	public bool IsTransforming => state == TransformationState.Transforming;
