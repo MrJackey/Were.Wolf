@@ -202,10 +202,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onNoChangeUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   animator: {fileID: 3624807340573450138}
   panCamera: 0
-  showDuration: 1
+  showClip: {fileID: 7400000, guid: 67aa2e00e50adcc48a8c8e514dbef598, type: 2}
   showCooldown: 7.5
+  cameraTransitionMultiplier: 3
   highlightPrefab: {fileID: 5521635976300897426, guid: d1acdd0eb83d2014c959fbb3fd9e36d8, type: 3}
   audioSource: {fileID: 7614691196201489000}
   enterActionReference: {fileID: 8802194908310570196, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
