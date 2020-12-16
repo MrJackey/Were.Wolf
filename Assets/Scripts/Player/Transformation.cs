@@ -89,9 +89,10 @@ public class Transformation : MonoBehaviour {
 			if (transformationCooldownTimer <= 0f) {
 				if (state == TransformationState.Wolf)
 					TransformToHuman();
-				else if (state == TransformationState.Human)
-					TransformToWolf();
 			}
+
+			if (state == TransformationState.Human)
+				TransformToWolf();
 		}
 		else if (ctx.phase == InputActionPhase.Canceled) {
 			transformInputUp = ctx.canceled;
@@ -125,14 +126,17 @@ public class Transformation : MonoBehaviour {
 		for (float transTimer = startTime; transTimer < transDuration; transTimer += Time.deltaTime) {
 			float transformationProgress = transTimer / transDuration;
 
-			float cooldownMultiplier = isInterrupted ? (1 - transformationProgress) : transformationProgress;
-			transformationCooldownTimer = transformCooldownDuration * cooldownMultiplier;
+			if (!IsHuman) {
+				float cooldownMultiplier = isInterrupted ? (1 - transformationProgress) : transformationProgress;
+				transformationCooldownTimer = transformCooldownDuration * cooldownMultiplier;
+			}
 
 			UpdateHitboxes(newState, transformationProgress);
 
 			if (transformInputUp && !isInterrupted && transformationProgress < cancelThreshold) {
 				isInterrupted = true;
 				state = oldState;
+
 				onTransformInterrupt.Invoke(transTimer);
 
 				yield break;
@@ -147,7 +151,10 @@ public class Transformation : MonoBehaviour {
 			isInterrupted = false;
 		}
 
-		isCoolingDown = true;
+		if (newState == TransformationState.Human)
+			transformationCooldownTimer = transformCooldownDuration;
+
+		isCoolingDown = newState != TransformationState.Human;
 		state = newState;
 
 		particleEffect.Stop();
