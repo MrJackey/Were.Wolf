@@ -210,7 +210,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2718195476832982812}
         m_TargetAssemblyTypeName: Gate, Assembly-CSharp
-        m_MethodName: AtEmitterUpdate
+        m_MethodName: HandleEmitterUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -230,7 +230,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7831017359705174703}
         m_TargetAssemblyTypeName: ExitGateHelper, Assembly-CSharp
-        m_MethodName: AtStateUpdate
+        m_MethodName: HandleStateUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -111,7 +111,7 @@ public class Gate : SignalReceiver {
 		isFirstSoundPlayed = true;
 	}
 
-	public void AtEmitterUpdate() {
+	public void HandleEmitterUpdate() {
 		if (panCamera && camera != null && showOnEmitterUpdate && !isShowing && allowShow)
 			AddToPanningQueue();
 		else

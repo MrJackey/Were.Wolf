@@ -17,7 +17,7 @@ public class ExitGateHelper : MonoBehaviour {
 	[Space]
 	[SerializeField] private SignalReceiver signalReceiver;
 
-	public void AtStateUpdate() {
+	public void HandleStateUpdate() {
 		if (signalReceiver.IsActivated) {
 			ActivateEye(rightEyeSpriteRenderer, rightEyeParticleSystem);
 			ActivateEye(leftEyeSpriteRenderer, leftEyeParticleSystem);
