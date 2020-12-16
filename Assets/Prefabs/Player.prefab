@@ -1317,7 +1317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transDuration: 1.2
-  humanFormDuration: 5
   cancelThreshold: 0.6
   transformCooldownDuration: 5
   hitCollider: {fileID: 7782289118800930667}
@@ -1327,8 +1326,6 @@ MonoBehaviour:
   humanHitCollider: {fileID: 5145285823690266723}
   humanGroundCollider: {fileID: 5814764578376142764}
   transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f, type: 3}
-  toWolfIndication: 0.75
-  humanEmissionRate: 5
   transformToHumanSound: {fileID: 7706404480811097307}
   transformToWerewolfSound: {fileID: 9072912906911105511}
   onTransformStart:
@@ -2323,7 +2320,7 @@ GameObject:
   - component: {fileID: 6709035963052178592}
   m_Layer: 0
   m_Name: Colliders
-  m_TagString: PlayerCollider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
