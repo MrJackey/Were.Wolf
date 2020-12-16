@@ -149,6 +149,12 @@ TextureImporter:
   - first:
       213: 7405803245927143688
     second: Kitchen Enemy Attack effect_20
+  - first:
+      213: 8210632400555398407
+    second: Kitchen Enemy Attack effect_13
+  - first:
+      213: 8459414895258584287
+    second: Kitchen Enemy Attack effect_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -239,12 +245,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_0
       rect:
         serializedVersion: 2
-        x: 53
-        y: 564
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -260,12 +266,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_1
       rect:
         serializedVersion: 2
-        x: 106
-        y: 564
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 60
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -281,12 +287,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_2
       rect:
         serializedVersion: 2
-        x: 159
-        y: 564
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 120
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -302,12 +308,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 376
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 180
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -323,12 +329,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_4
       rect:
         serializedVersion: 2
-        x: 53
-        y: 376
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 240
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -344,12 +350,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_5
       rect:
         serializedVersion: 2
-        x: 106
-        y: 376
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 300
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -365,12 +371,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_6
       rect:
         serializedVersion: 2
-        x: 159
-        y: 376
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 360
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -386,12 +392,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 188
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 420
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -407,12 +413,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_8
       rect:
         serializedVersion: 2
-        x: 53
-        y: 188
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 480
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -428,12 +434,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_9
       rect:
         serializedVersion: 2
-        x: 106
-        y: 188
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 540
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -446,78 +452,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack effect_13
-      rect:
-        serializedVersion: 2
-        x: 106
-        y: 0
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 679224cb7b6d72c10800000000000000
-      internalID: 2028826241779509622
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack effect_14
-      rect:
-        serializedVersion: 2
-        x: 159
-        y: 0
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13b9f4cd481c61750800000000000000
-      internalID: 6275415907163413297
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack effect_10
-      rect:
-        serializedVersion: 2
-        x: 159
-        y: 188
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7cf635791ddd9910800000000000000
-      internalID: 1845874523702230139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Kitchen Enemy Attack effect_11
       rect:
         serializedVersion: 2
-        x: 0
+        x: 660
         y: 0
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -533,12 +476,12 @@ TextureImporter:
       name: Kitchen Enemy Attack effect_12
       rect:
         serializedVersion: 2
-        x: 53
+        x: 720
         y: 0
-        width: 53
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -546,6 +489,69 @@ TextureImporter:
       bones: []
       spriteID: 706eec1e85a64d9c0800000000000000
       internalID: -3903378047045278201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack effect_10
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9de4e923c2000510800000000000000
+      internalID: 1513212512041233823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack effect_13
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 705da60aaa602f170800000000000000
+      internalID: 8210632400555398407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack effect_14
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 0
+        width: 60
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd4498ff601e56570800000000000000
+      internalID: 8459414895258584287
       vertices: []
       indices: 
       edges: []
