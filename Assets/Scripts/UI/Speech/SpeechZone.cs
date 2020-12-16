@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Collider2D))]
 [DefaultExecutionOrder(101)]
 public class SpeechZone : MonoBehaviour {
 	[SerializeField] private Canvas speechCanvasPrefab = null;
@@ -13,6 +12,9 @@ public class SpeechZone : MonoBehaviour {
 	[SerializeField] private bool ignoreTriggers = true;
 
 	[Space]
+	[SerializeField, Tooltip("Always show the message.")]
+	private bool forceShow;
+
 	[SerializeField, Tooltip("Controls how to behave if the player transforms in the middle of a message.")]
 	private ReshowMode reshowOnTransform = ReshowMode.NoReshow;
 
@@ -60,8 +62,13 @@ public class SpeechZone : MonoBehaviour {
 		playerTransformation.OnTransformEnd.RemoveListener(OnTransformEnd);
 	}
 
+	private void Start() {
+		if (forceShow)
+			ShowMessage();
+	}
+
 	private void OnTransformEnd() {
-		if (!isPlayerInTrigger) return;
+		if (!forceShow && !isPlayerInTrigger) return;
 
 		switch (reshowOnTransform) {
 			case ReshowMode.Interrupt:
@@ -87,7 +94,7 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (IsMatchingTarget(other)) {
+		if (!forceShow && IsMatchingTarget(other)) {
 			reshow = false;
 			isPlayerInTrigger = true;
 			ShowMessage();
@@ -95,7 +102,7 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		if (IsMatchingTarget(other)) {
+		if (!forceShow && IsMatchingTarget(other)) {
 			isPlayerInTrigger = false;
 			if (stopOnLeave)
 				HideMessage(fadeOut);
@@ -201,7 +208,7 @@ public class SpeechZone : MonoBehaviour {
 			yield break;
 		}
 
-		if (!stopOnLeave)
+		if (!stopOnLeave && !forceShow)
 			HideMessage(fadeOut);
 	}
 
