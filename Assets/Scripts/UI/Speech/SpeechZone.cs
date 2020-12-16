@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
@@ -20,9 +21,11 @@ public class SpeechZone : MonoBehaviour {
 
 	[Space]
 	[SerializeField] private MessageItem[] messages = new MessageItem[1];
-	[SerializeField] private Animator playerAnimator;
 
-	private PlayerController playerController;
+	[Header("Events")]
+	[SerializeField] private UnityEvent onSpeechStart;
+	[SerializeField] private UnityEvent onSpeechEnd;
+
 	private static Canvas canvas;
 
 	private Camera mainCamera;
@@ -38,7 +41,6 @@ public class SpeechZone : MonoBehaviour {
 	private void Start() {
 		mainCamera = Camera.main;
 		playerTransformation = GameObject.FindWithTag("Player").GetComponentUnlessNull<Transformation>();
-		playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 	}
 
 	private void LateUpdate() {
@@ -88,6 +90,7 @@ public class SpeechZone : MonoBehaviour {
 
 		messageBubble.gameObject.SetActive(true);
 		isShowing = true;
+		onSpeechStart.Invoke();
 	}
 
 	private void HideMessage(bool fade) {
@@ -104,12 +107,9 @@ public class SpeechZone : MonoBehaviour {
 			messageText.text = "";
 			messageText.gameObject.SetActive(false);
 		}
-		isShowing = false;
 
-		if (playerController != null) {
-			playerController.AllowControls = true;
-			playerAnimator.enabled = true;
-		}
+		isShowing = false;
+		onSpeechEnd.Invoke();
 	}
 
 	private void SetupCanvas() {
@@ -135,7 +135,7 @@ public class SpeechZone : MonoBehaviour {
 				messageText.text = item.message;
 			}
 
-			if (item.delay > 0) 
+			if (item.delay > 0)
 				yield return new WaitForSeconds(item.delay);
 		}
 
