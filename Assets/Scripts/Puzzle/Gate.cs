@@ -12,9 +12,11 @@ public class Gate : SignalReceiver {
 	[SerializeField] private Animator animator;
 	[SerializeField] private bool panCamera;
 	[SerializeField, EnableIf(nameof(panCamera))]
-	private float showDuration = 1f;
+	private AnimationClip showClip;
 	[SerializeField, EnableIf(nameof(panCamera))]
 	private float showCooldown = 7.5f;
+	[SerializeField, EnableIf(nameof(panCamera))]
+	private float cameraTransitionMultiplier = 3f;
 	[SerializeField] private VignetteHighlight highlightPrefab;
 	[SerializeField] private AudioSource audioSource;
 
@@ -23,8 +25,7 @@ public class Gate : SignalReceiver {
 	private new SnappingCamera camera;
 	private Transform player;
 	private PlayerController playerController;
-	private float cameraTransitionDuration;
-	private float cameraTransitionMultiplier = 0.10f;
+	private float cameraBaseTransitionDuration;
 	private bool isShowing = false;
 	private bool allowShow = true;
 	private bool isFirstSoundPlayed = false;
@@ -34,7 +35,7 @@ public class Gate : SignalReceiver {
 		player = playerObj.transform;
 		playerController = playerObj.GetComponent<PlayerController>();
 		camera = Camera.main.GetComponent<SnappingCamera>();
-		cameraTransitionDuration = camera.TransitionDuration;
+		cameraBaseTransitionDuration = camera.TransitionDuration;
 	}
 
 	public void Toggle() {
@@ -53,22 +54,25 @@ public class Gate : SignalReceiver {
 	}
 
 	private IEnumerator CoShowEvent(VignetteHighlight highlight) {
-		highlight.WorldTarget = transform;
+		Transform selfTransform = transform;
+		highlight.WorldTarget = selfTransform;
 		isShowing = true;
 		playerController.AllowControls = false;
 		Time.timeScale = 0;
-		float newTransitionDuration = cameraTransitionDuration *
-		                              cameraTransitionMultiplier *
-		                              Vector2.Distance(transform.position, player.position);
 
-		camera.TransitionDuration = newTransitionDuration;
-		camera.Target = transform;
+		Vector2 selfGridPos = MathX.Floor(camera.WorldToGrid(selfTransform.position));
+		Vector2 targetGridPos = MathX.Floor(camera.WorldToGrid(camera.Target.position));
 
-		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
+		camera.TransitionDuration = Vector2.Distance(selfGridPos, targetGridPos) * cameraBaseTransitionDuration;
+		camera.Target = selfTransform;
+
+		yield return new WaitForSecondsRealtime(camera.TransitionDuration * cameraTransitionMultiplier);
+
 		PlaySound();
 		animator.SetBool(isOpenHash, IsActivated);
 
-		yield return new WaitForSecondsRealtime(showDuration);
+		yield return new WaitForSecondsRealtime(showClip.length);
+
 		panningQueue.Dequeue();
 		if (panningQueue.Count > 0) {
 			isShowing = false;
@@ -80,8 +84,9 @@ public class Gate : SignalReceiver {
 		camera.Target = player.transform;
 		highlight.FadeOut();
 
-		yield return new WaitForSecondsRealtime(newTransitionDuration * 2f);
-		camera.TransitionDuration = cameraTransitionDuration;
+		yield return new WaitForSecondsRealtime(camera.TransitionDuration * cameraTransitionMultiplier);
+
+		camera.TransitionDuration = cameraBaseTransitionDuration;
 		playerController.AllowControls = true;
 		Time.timeScale = 1;
 		isShowing = false;

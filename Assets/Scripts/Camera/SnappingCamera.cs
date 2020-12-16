@@ -42,7 +42,10 @@ public class SnappingCamera : MonoBehaviour {
 	private Coroutine impactRoutine;
 	private Coroutine shakeRoutine;
 
-	public Transform Target { set => target = value; }
+	public Transform Target {
+		get => target;
+		set => target = value;
+	}
 
 	public Vector3 PeekOffset { set => peekOffset = value; }
 
@@ -109,11 +112,11 @@ public class SnappingCamera : MonoBehaviour {
 		return new Rect(GridToWorld(MathX.Floor(gridPos)), cellSize);
 	}
 
-	private Vector2 WorldToGrid(Vector2 point) {
+	public Vector2 WorldToGrid(Vector2 point) {
 		return (point - gridOrigin) / cellSize;
 	}
 
-	private Vector2 GridToWorld(Vector2 point) {
+	public Vector2 GridToWorld(Vector2 point) {
 		return gridOrigin + point * cellSize;
 	}
 

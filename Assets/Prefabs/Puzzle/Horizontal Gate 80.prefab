@@ -393,9 +393,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onNoChangeUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   animator: {fileID: 8754635528472012612}
   panCamera: 0
-  showDuration: 1
+  showClip: {fileID: 7400000, guid: a206524dc1347dc42856ceb2f957010f, type: 2}
   showCooldown: 7.5
+  cameraTransitionMultiplier: 3
   highlightPrefab: {fileID: 5521635976300897426, guid: d1acdd0eb83d2014c959fbb3fd9e36d8, type: 3}
   audioSource: {fileID: 597872204165327658}
