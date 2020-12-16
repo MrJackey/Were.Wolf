@@ -9,19 +9,30 @@ public class HaltPlayer : MonoBehaviour {
 	private bool hasMetOnce = false;
 
 	private void Start() {
-		playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+		playerController = GameObject.FindWithTag("Player").GetComponentUnlessNull<PlayerController>();
 		hasMetOnce = false;
 		hasMetTrigger.enabled = false;
 	}
 
-	private void OnTriggerStay2D(Collider2D other) {
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger && !hasMetOnce)
+			DisableControls();
+	}
 
-		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger && playerController.IsGrounded && !hasMetOnce) {
-			playerController.AllowControls = false;
+	private void DisableControls() {
+		if (playerController == null)
+			return;
+
+		playerController.AllowControls = false;
 			
-			hasMetTrigger.enabled = true;
-			hasMetOnce = true;
-			this.enabled = false;
-		}
+		hasMetTrigger.enabled = true;
+		hasMetOnce = true;
+	}
+
+	public void EnableControls() {
+		if (playerController == null) 
+			return;
+			
+		playerController.AllowControls = true;
 	}
 }
