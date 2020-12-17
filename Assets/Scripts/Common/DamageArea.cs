@@ -24,7 +24,7 @@ public class DamageArea : MonoBehaviour {
 	[SerializeField] private bool useTriggers = true;
 	[SerializeField] private LayerMask layerMask = -1;
 	[SerializeField] private bool ignoreTriggers = true;
-	[SerializeField, Tag] private string effectTarget = null;
+	[SerializeField, Tag] private string effectTarget = "Player";
 
 	private float cooldownTimer;
 	private readonly ContactPoint2D[] contacts = new ContactPoint2D[10];

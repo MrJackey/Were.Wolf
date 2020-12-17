@@ -1,21 +1,27 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class KitchenEnemy : MonoBehaviour {
-	// TODO: Optimize animator.Play hashes.
+	private static readonly int speedHash = Animator.StringToHash("speed");
+	private static readonly int turnHash = Animator.StringToHash("Turn");
+	private static readonly int attackUpHash = Animator.StringToHash("Attack Up");
+	private static readonly int attackLeftHash = Animator.StringToHash("Attack Left");
+	private static readonly int isWalkingHash = Animator.StringToHash("isWalking");
 
-	[SerializeField] private Transform leftAttackPrefab;
-	[SerializeField] private Transform upAttackPrefab;
+	[Header("References")]
+	[SerializeField] private Transform leftAttackPrefab = null;
+	[SerializeField] private Transform upAttackPrefab = null;
+	[SerializeField] private Transform leftAttackPoint = null;
+	[SerializeField] private Transform upAttackPoint = null;
 
-	[SerializeField] private Transform leftAttackPoint;
-	[SerializeField] private Transform upAttackPoint;
+	[Header("Movement")]
+	[SerializeField] private Transform leftPoint = null;
+	[SerializeField] private Transform rightPoint = null;
+	[SerializeField] private float movementSpeed = 2f;
+	[SerializeField] private float animationSpeedMultiplier = 1f;
 
-
-	[SerializeField] private Transform point1 = null;
-	[SerializeField] private Transform point2 = null;
-
-	[SerializeField] private float movementSpeed;
-
+	[Header("Attack")]
+	[SerializeField] private AttackAction leftAttack = AttackAction.None;
+	[SerializeField] private AttackAction rightAttack = AttackAction.None;
 
 	private Animator animator;
 	private State state = State.Walking;
@@ -30,33 +36,49 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (state == State.Walking)
-			UpdateMovement();
+		UpdateMovement();
 	}
 
 	private void UpdateMovement() {
-		Vector3 position = transform.position;
-		position.x += movementSpeed * facing * Time.deltaTime;
-		transform.position = position;
+		animator.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
 
-		if (position.x <= point1.position.x) {
-			if (facing < 0) {
-				turnAfterAttack = true;
-				Attack(Direction.Left);
-			}
+		if (state != State.Walking) {
+			animator.SetBool(isWalkingHash, false);
+			return;
 		}
-		else if (position.x >= point2.position.x) {
-			if (facing >= 0) {
-				turnAfterAttack = true;
-				Attack(Direction.Right);
-			}
+
+		animator.SetBool(isWalkingHash, true);
+
+		Transform self = transform;
+		Vector3 position = self.position;
+		position.x += movementSpeed * facing * Time.deltaTime;
+		self.position = position;
+
+		if (position.x <= leftPoint.position.x) {
+			if (facing < 0)
+				OnReachPoint(Direction.Left);
+		}
+		else if (position.x >= rightPoint.position.x) {
+			if (facing >= 0)
+				OnReachPoint(Direction.Right);
+		}
+	}
+
+	private void OnReachPoint(Direction direction) {
+		AttackAction action = direction == Direction.Left ? leftAttack : rightAttack;
+		if (action == AttackAction.None) {
+			Turn(-facing);
+		}
+		else {
+			turnAfterAttack = true;
+			Attack((Direction)action);
 		}
 	}
 
 	private void Turn(float direction) {
 		if (facing == direction) return;
 
-		animator.Play("Turn");
+		animator.Play(turnHash);
 		state = State.Turning;
 		turnDirection = direction;
 	}
@@ -70,45 +92,32 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void Attack(Direction direction) {
-		if (direction == Direction.Up) {
-			animator.Play("Attack Up");
-		}
-		else {
-			animator.Play("Attack Left");
-		}
+		animator.Play(direction == Direction.Up ? attackUpHash : attackLeftHash);
 
 		attackDirection = direction;
 		state = State.Attacking;
 	}
 
-
-	// Animation events
-	private void OnTurnFinished() {
-		print("turn finished");
-		Debug.Assert(state == State.Turning);
-
-		state = State.Walking;
-		SetFacing(turnDirection);
-	}
+	#region Animation events
 
 	private void OnAttackStart() {
-		print("attack start");
 		Debug.Assert(state == State.Attacking);
 
 		if (attackDirection == Direction.Up) {
 			Instantiate(upAttackPrefab, upAttackPoint);
 		}
 		else {
-			float newFacing = attackDirection == Direction.Left ? -1 : 1;
-			if (facing != newFacing)
-				SetFacing(newFacing);
+			float attackFacing = attackDirection == Direction.Left ? -1 : 1;
+			if (facing != attackFacing) {
+				SetFacing(attackFacing);
+				turnAfterAttack = false;
+			}
 
 			Instantiate(leftAttackPrefab, leftAttackPoint);
 		}
 	}
 
 	private void OnAttackFinished() {
-		print("attack finished");
 		Debug.Assert(state == State.Attacking);
 
 		state = State.Walking;
@@ -116,16 +125,32 @@ public class KitchenEnemy : MonoBehaviour {
 			Turn(-facing);
 	}
 
+	private void OnTurnFinished() {
+		Debug.Assert(state == State.Turning);
 
-	public enum Direction {
-		Up,
-		Left,
-		Right,
+		state = State.Walking;
+		SetFacing(turnDirection);
 	}
+
+	#endregion
+
 
 	private enum State {
 		Walking,
 		Turning,
 		Attacking,
+	}
+
+	public enum Direction {
+		Up = 1,
+		Left = 2,
+		Right = 3,
+	}
+
+	public enum AttackAction {
+		None,
+		Up = 1,
+		Left = 2,
+		Right = 3,
 	}
 }

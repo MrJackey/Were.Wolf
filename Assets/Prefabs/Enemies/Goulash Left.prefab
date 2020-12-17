@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2945097175265127015}
   - component: {fileID: 7507672535749072376}
   - component: {fileID: -4735988578579929211}
+  - component: {fileID: -9213716763649727038}
+  - component: {fileID: 6834102499762218999}
   m_Layer: 0
   m_Name: Goulash Left
   m_TagString: Untagged
@@ -73,12 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 3686889686223325267, guid: dd1af4ec5995d7d41b8bb19027c9964e, type: 3}
+  m_Sprite: {fileID: -6853142611946677670, guid: dd1af4ec5995d7d41b8bb19027c9964e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.25, y: 1.375}
+  m_Size: {x: 6.25, y: 1.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -116,3 +118,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 7400000, guid: e3b6d811e7a9e294aa14db3b5ebda14e, type: 2}
+--- !u!61 &-9213716763649727038
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314488117132642731}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 1, y: 0.5}
+    oldSize: {x: 6.25, y: 1.875}
+    newSize: {x: 6.25, y: 1.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.0001, y: 0.0001}
+  m_EdgeRadius: 0
+--- !u!114 &6834102499762218999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314488117132642731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae89b5045ff1466eba451cfcdcf374ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  damageSource: 0
+  damage: 1
+  damageCooldown: 0
+  onDamageEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  enableKnockback: 1
+  knockbackForce: 5
+  knockbackDuration: 0.2
+  useColliders: 1
+  useTriggers: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  ignoreTriggers: 1
+  effectTarget: Player

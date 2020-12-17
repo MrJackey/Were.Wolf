@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3081101611404739545}
   - component: {fileID: 8670967434291926214}
   - component: {fileID: -7471832550640982343}
+  - component: {fileID: 3805198155095917600}
+  - component: {fileID: 8299556239850604324}
   m_Layer: 0
   m_Name: Goulash Up
   m_TagString: Untagged
@@ -116,3 +118,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 7400000, guid: 52568252becb6e2449ef0263f2fda64d, type: 2}
+--- !u!61 &3805198155095917600
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081101611404739547}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 3.125}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1.875, y: 6.25}
+    newSize: {x: 1.875, y: 6.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.875, y: 6.25}
+  m_EdgeRadius: 0
+--- !u!114 &8299556239850604324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081101611404739547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae89b5045ff1466eba451cfcdcf374ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  damageSource: 0
+  damage: 1
+  damageCooldown: 0
+  onDamageEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  enableKnockback: 1
+  knockbackForce: 5
+  knockbackDuration: 0.2
+  useColliders: 1
+  useTriggers: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  ignoreTriggers: 1
+  effectTarget: Player
