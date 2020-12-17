@@ -104,6 +104,9 @@ TextureImporter:
   - first:
       213: 7729595466508296739
     second: Kitchen Enemy Attack Side effect_18
+  - first:
+      213: 5420193443480200594
+    second: Kitchen Enemy Attack Side effect_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -195,7 +198,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 840
+        y: 660
         width: 200
         height: 60
       alignment: 5
@@ -216,7 +219,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 660
+        y: 480
         width: 200
         height: 60
       alignment: 5
@@ -237,7 +240,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 420
+        y: 240
         width: 200
         height: 60
       alignment: 5
@@ -254,7 +257,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_3
+      name: Kitchen Enemy Attack Side effect_0
       rect:
         serializedVersion: 2
         x: 0
@@ -268,14 +271,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5a53db9a1fb4e0a0800000000000000
-      internalID: -6853142611946677670
+      spriteID: 3588469b2a67a2330800000000000000
+      internalID: 3686889686223325267
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_5
+      name: Kitchen Enemy Attack Side effect_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 840
+        width: 200
+        height: 60
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bfef247ea129e330800000000000000
+      internalID: 3740557998665232313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side effect_2
       rect:
         serializedVersion: 2
         x: 0
@@ -289,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d22a0a01d103af1b0800000000000000
-      internalID: -5622128283427495379
+      spriteID: e7922203908fe38b0800000000000000
+      internalID: -5170422603828811394
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_6
+      name: Kitchen Enemy Attack Side effect_3
       rect:
         serializedVersion: 2
         x: 0
@@ -310,14 +334,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1cedd53597e84880800000000000000
-      internalID: -8626390458188305379
+      spriteID: b615b9bf67f3fb050800000000000000
+      internalID: 5818439023845921131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_8
+      name: Kitchen Enemy Attack Side effect_5
       rect:
         serializedVersion: 2
         x: 0
@@ -331,14 +355,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5817ef99702515800800000000000000
-      internalID: 599350418018824581
+      spriteID: b0c11010c0319dcf0800000000000000
+      internalID: -227129363928114165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_9
+      name: Kitchen Enemy Attack Side effect_6
       rect:
         serializedVersion: 2
         x: 0
@@ -352,18 +376,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdd9c0bcae0401d60800000000000000
-      internalID: 7858852726934642139
+      spriteID: a4fa55ca52ee1bcf0800000000000000
+      internalID: -238147459701428406
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_10
+      name: Kitchen Enemy Attack Side effect_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 480
+        y: 420
         width: 200
         height: 60
       alignment: 5
@@ -373,14 +397,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7c7a4eec5e46f350800000000000000
-      internalID: 6050109310460656767
+      spriteID: 9e05443dc7b27f750800000000000000
+      internalID: 6338582815667671273
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_12
+      name: Kitchen Enemy Attack Side effect_9
       rect:
         serializedVersion: 2
         x: 0
@@ -394,14 +418,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2cbc2f355ee1b300800000000000000
-      internalID: 266255902891097135
+      spriteID: 156ae1b86426de440800000000000000
+      internalID: 4966734019180799569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_13
+      name: Kitchen Enemy Attack Side effect_10
       rect:
         serializedVersion: 2
         x: 0
@@ -415,35 +439,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77c0ee8e865e2f870800000000000000
-      internalID: 8715280467662605431
+      spriteID: cb624a3e99d0d85c0800000000000000
+      internalID: -4211695121921202500
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_14
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 240
-        width: 200
-        height: 60
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ca0ef7b1622fd820800000000000000
-      internalID: 2945110484417645252
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_15
+      name: Kitchen Enemy Attack Side effect_12
       rect:
         serializedVersion: 2
         x: 0
@@ -457,14 +460,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7219bdf0186bbd7f0800000000000000
-      internalID: -586674661008633561
+      spriteID: 4326d257e703b1a90800000000000000
+      internalID: -7342221447807540684
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kitchen Enemy Attack Side effect_16
+      name: Kitchen Enemy Attack Side effect_13
       rect:
         serializedVersion: 2
         x: 0
@@ -478,8 +481,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 581c0fa2b5be54480800000000000000
-      internalID: -8915461110515056251
+      spriteID: dddfc177adc4a3950800000000000000
+      internalID: 6429535919209774557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side effect_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 200
+        height: 60
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28d57cb6d77f5a3f0800000000000000
+      internalID: -890033233284604542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kitchen Enemy Attack Side effect_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 60
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 295e98c2835683b40800000000000000
+      internalID: 5420193443480200594
       vertices: []
       indices: 
       edges: []
