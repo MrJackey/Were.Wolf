@@ -96775,13 +96775,14 @@ MonoBehaviour:
     slowWrite: 0
     delay: 2
     useInForm: 0
-  - message: '"I can''t remember when I last saw the sun.'
+  - message: '"The food I got today had a weird off-taste.'
     slowWrite: 1
-    delay: 1.5
+    delay: 1
     useInForm: 0
-  - message: "Makes sense. \nI can't even remember how I got here.\""
+  - message: But knowing what makes the food in this castle, maybe I shouldn't think
+      too much about it..."
     slowWrite: 1
-    delay: 1.5
+    delay: 1
     useInForm: 0
   onSpeechStart:
     m_PersistentCalls:
@@ -96802,7 +96803,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.29, y: 0.5}
+  m_Offset: {x: 0.29, y: 1.16}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -96813,7 +96814,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.67, y: 2.07}
+  m_Size: {x: 5.06, y: 2.46}
   m_EdgeRadius: 0
 --- !u!1 &1775208197
 GameObject:
