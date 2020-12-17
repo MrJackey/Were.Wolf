@@ -18,7 +18,7 @@ public class HaltPlayer : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger && !hasMetOnce)
+		if (!other.isTrigger && !hasMetOnce && other.attachedRigidbody.CompareTag("Player"))
 			DisableControls();
 	}
 
