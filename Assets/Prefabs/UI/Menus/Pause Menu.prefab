@@ -88,6 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6736291822245449552}
+  - component: {fileID: 7626362711751708815}
   m_Layer: 5
   m_Name: Menu Screen
   m_TagString: Untagged
@@ -116,6 +117,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 320, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7626362711751708815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827790135786494837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930c972d6a8b4d7abdab764b2cdb64e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSelected: {fileID: 3683049063297871308}
+  fallbackSelected: {fileID: 0}
+  rememberSelection: 1
+  tryMakeSelectionVisible: 1
 --- !u!1 &1093151994163101212
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2530752824447509749}
   - component: {fileID: 1800224795714504973}
+  - component: {fileID: 2328781949617504925}
   m_Layer: 5
   m_Name: Settings Screen
   m_TagString: Untagged
@@ -405,6 +423,22 @@ MonoBehaviour:
   musicSlider: {fileID: 1253879097715194290}
   sfxSlider: {fileID: 1253879096389939865}
   fullscreenToggle: {fileID: 2387653634195315094}
+--- !u!114 &2328781949617504925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4353374391417132538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930c972d6a8b4d7abdab764b2cdb64e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSelected: {fileID: 1253879096669137016}
+  fallbackSelected: {fileID: 0}
+  rememberSelection: 0
+  tryMakeSelectionVisible: 1
 --- !u!1 &5768903702537290902
 GameObject:
   m_ObjectHideFlags: 0
