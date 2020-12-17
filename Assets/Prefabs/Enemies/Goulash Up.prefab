@@ -166,6 +166,8 @@ MonoBehaviour:
   enableKnockback: 1
   knockbackForce: 5
   knockbackDuration: 0.2
+  overrideKnockbackDirection: 1
+  knockbackDirection: {x: 0, y: 1}
   useColliders: 1
   useTriggers: 1
   layerMask:
