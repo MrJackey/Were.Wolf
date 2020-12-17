@@ -95,6 +95,8 @@ public class Watcher : MonoBehaviour {
 		Camera mainCamera = Camera.main;
 		if (mainCamera != null)
 			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
+
+		animator.SetFloat(speedHash, movementSpeed * animationSpeedScale);
 	}
 
 	private void OnDisable() {
@@ -123,7 +125,6 @@ public class Watcher : MonoBehaviour {
 		}
 
 		animator.SetBool(isWalkingHash, isWalking);
-		animator.SetFloat(speedHash, movementSpeed * animationSpeedScale);
 
 		if (state == State.Tracking && !isPlayerConsideredVisible) {
 			if (playerLooseTimer.Tick()) {
@@ -341,6 +342,9 @@ public class Watcher : MonoBehaviour {
 
 	private void OnValidate() {
 		lantern.localPosition = eyeOffset;
+
+		if (Application.isPlaying)
+			animator.SetFloat(speedHash, movementSpeed * animationSpeedScale);
 	}
 
 
