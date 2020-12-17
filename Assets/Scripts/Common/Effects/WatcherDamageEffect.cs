@@ -8,17 +8,20 @@ public class WatcherDamageEffect : MonoBehaviour {
 	[SerializeField] private float fadeOutDuration = 1f;
 
 	private Watcher watcher;
-	private GameObject canvas;
-	private RawImage image;
-	private Material vignetteMaterial;
 	private Color vignetteColor;
+
+	private static GameObject canvas;
+	private static RawImage image;
+	private static Material vignetteMaterial;
 
 	private void Start() {
 		watcher = GetComponent<Watcher>();
 
-		canvas = Instantiate(vignetteCanvasPrefab).gameObject;
-		image = canvas.GetComponentInChildren<RawImage>();
-		vignetteMaterial = image.material = new Material(image.material);
+		if (canvas == null) {
+			canvas = Instantiate(vignetteCanvasPrefab).gameObject;
+			image = canvas.GetComponentInChildren<RawImage>();
+			vignetteMaterial = image.material = new Material(image.material);
+		}
 		vignetteColor = vignetteMaterial.color;
 
 		canvas.SetActive(false);
