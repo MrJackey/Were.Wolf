@@ -12,6 +12,7 @@ public class MenuScreens : MonoBehaviour {
 
 	public int CurrentIndex => stack.Peek();
 	public GameObject CurrentScreen => screens[stack.Peek()];
+	public int NumMenusOnStack => stack.Count;
 
 	public bool IsVisible {
 		get => isVisible;

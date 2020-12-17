@@ -8,6 +8,8 @@ public class SaveHelper : ScriptableObject {
 
 	public SaveManager.SaveData Data => SaveManager.Instance.Data;
 
+	public SaveManager.SettingsData Settings => SaveManager.Instance.Settings;
+
 	public int CompletedLevel {
 		get => Data.completedLevel;
 		set => Data.completedLevel = value;
