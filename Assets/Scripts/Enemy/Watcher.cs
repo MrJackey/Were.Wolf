@@ -9,6 +9,7 @@ public class Watcher : MonoBehaviour {
 	private static readonly int isAttackingHash = Animator.StringToHash("isAttacking");
 	private static readonly int fixLampHash = Animator.StringToHash("fixLamp");
 	private static readonly int endFixLampHash = Animator.StringToHash("endFixLamp");
+	private static readonly int turnHash = Animator.StringToHash("Turn");
 
 	[SerializeField] private Vector2 eyeOffset = Vector2.zero;
 	[SerializeField] private float visionConeAngle = 30f;
@@ -81,6 +82,7 @@ public class Watcher : MonoBehaviour {
 
 	private float currentSpeed;
 
+	private float turnDirection;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
@@ -115,7 +117,7 @@ public class Watcher : MonoBehaviour {
 		playerDirection = (playerPosition - lantern.position).normalized;
 
 		currentSpeed = 0f;
-		if (doMovement && state != State.Recharging)
+		if (doMovement && state != State.Recharging && state != State.Turning)
 			UpdateMovement();
 
 		animator.SetFloat(speedHash, currentSpeed);
@@ -127,7 +129,7 @@ public class Watcher : MonoBehaviour {
 			}
 		}
 
-		if (state != State.Patrolling && state != State.Recharging) {
+		if (state == State.Following || state == State.Tracking) {
 			// Facing towards the player.
 			SetFacing(Mathf.Sign(playerPosition.x - transform.position.x));
 			// Angle lantern towards player.
@@ -168,16 +170,24 @@ public class Watcher : MonoBehaviour {
 
 		if (state == State.Patrolling) {
 			if (position.x <= point1.position.x) {
-				SetFacing(1);
+				Turn(1);
 				lanternAngle = 0;
 			}
 			else if (position.x >= point2.position.x) {
-				SetFacing(-1);
+				Turn(-1);
 				lanternAngle = 0;
 			}
 		}
 
 		currentSpeed = movementSpeed;
+	}
+
+	private void Turn(float direction) {
+		if (facing == direction) return;
+
+		animator.Play(turnHash);
+		state = State.Turning;
+		turnDirection = direction;
 	}
 
 	private void SetFacing(float direction) {
@@ -206,6 +216,8 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private bool CheckPlayerVisible() {
+		if (state == State.Turning) return false;
+
 		Vector2 eyePosition = transform.TransformPoint(eyeOffset);
 		Vector2 forward = lantern.right * facing;
 		float angleStep = visionConeAngle / (visionRayCount - 1);
@@ -300,6 +312,11 @@ public class Watcher : MonoBehaviour {
 
 
 	// Animation events
+	private void OnTurnFinished() {
+		state = State.Patrolling;
+		SetFacing(turnDirection);
+	}
+
 	private void PlayTinkerSound() {
 		tinkerSound.Play();
 	}
@@ -329,5 +346,6 @@ public class Watcher : MonoBehaviour {
 		Following,
 		Tracking,
 		Recharging,
+		Turning,
 	}
 }
