@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Lever : SignalEmitter {
 	[SerializeField] private LeverType leverType = LeverType.Toggle;
-	[SerializeField] float timerEnd = 5f;
-	[SerializeField] private AudioSource audioSource;
+	[SerializeField] float timerEnd = 5f, fastTimeAudioStart;
+	[SerializeField] private AudioSource pullLeverAudio, slowTimeAudio, fastTimeAudio;
 
 	private Animator animator;
 	private float leverTimer, timerStart = 0f;
+	private bool hasStartedFastTimeSound;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+		fastTimeAudioStart = timerEnd * 0.75f;
+		hasStartedFastTimeSound = false;
 	}
 
 	private void Update() {
@@ -21,10 +24,17 @@ public class Lever : SignalEmitter {
 			if (leverTimer >= timerEnd)
 				Deactivate();
 		}
+
+		if (!hasStartedFastTimeSound && leverType == LeverType.Timed   // Should this maybe be reordered to test for the leverType first instead? maybe it acts like a boolean?
+								&& leverTimer >= fastTimeAudioStart) {
+			slowTimeAudio.Stop();
+			TimedLeverPlaySound();
+			hasStartedFastTimeSound = true;
+		}
 	}
 
 	public void ToggleActivation() {
-		PlaySound();
+		PullLeverPlaySound();
 		if (IsActivated) 
 			Deactivate();
 		else
@@ -32,21 +42,34 @@ public class Lever : SignalEmitter {
 	}
 
 	public void Activate() {
+		if (leverType == LeverType.Timed)
+			TimedLeverPlaySound();
+
 		animator.SetBool("Activation", true);
 		IsActivated = true; 
-
-		if (leverType == LeverType.Timed) {
-			leverTimer = timerStart;
-		}
 	}
 
 	public void Deactivate() {
 		animator.SetBool("Activation", false);
 		IsActivated = false;
+
+		if (leverType == LeverType.Timed) {
+			slowTimeAudio.Stop();
+			fastTimeAudio.Stop();
+			leverTimer = timerStart;
+			hasStartedFastTimeSound = false;
+		}
 	}
 
-	public void PlaySound() {
-		audioSource.Play();
+	private void PullLeverPlaySound() {
+		pullLeverAudio.Play();
+	}
+
+	private void TimedLeverPlaySound() {
+		if (leverTimer < fastTimeAudioStart)
+			slowTimeAudio.Play();
+		else if (leverTimer >= fastTimeAudioStart)
+			fastTimeAudio.Play();
 	}
 }
 
