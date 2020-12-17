@@ -60,6 +60,7 @@ public class Watcher : MonoBehaviour {
 	[Header("Events")]
 	[SerializeField] private UnityEvent onDetected = null;
 	[SerializeField] private UnityEvent onLost = null;
+	[SerializeField] private UnityEvent onDamage = null;
 
 	private GameObject activeEffect;
 	private Transform playerTransform;
@@ -83,6 +84,8 @@ public class Watcher : MonoBehaviour {
 	private SimpleTimer looseVisibilityTimer;
 
 	private float turnDirection;
+
+	public float DamageTime => damageTime;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
@@ -160,6 +163,8 @@ public class Watcher : MonoBehaviour {
 			if (damageTimer.Tick()) {
 				playerHealth.TakeDamage(damage);
 				StartCoroutine(CoRechargeLantern());
+
+				onDamage.Invoke();
 			}
 		}
 	}
@@ -330,6 +335,7 @@ public class Watcher : MonoBehaviour {
 	}
 
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos() {
 		if (!enabled || Application.isPlaying) return;
 		Vector3 eyePosition = transform.TransformPoint(eyeOffset);
@@ -344,8 +350,9 @@ public class Watcher : MonoBehaviour {
 		lantern.localPosition = eyeOffset;
 
 		if (Application.isPlaying)
-			animator.SetFloat(speedHash, movementSpeed * animationSpeedScale);
+			GetComponent<Animator>().SetFloat(speedHash, movementSpeed * animationSpeedScale);
 	}
+#endif
 
 
 	public enum State {
