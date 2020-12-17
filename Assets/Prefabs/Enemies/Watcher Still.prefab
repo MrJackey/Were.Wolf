@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 6868862530049889933}
   - component: {fileID: 1637389642820773747}
   - component: {fileID: 2037320166}
+  - component: {fileID: 5793375891933762347}
   m_Layer: 2
   m_Name: Watcher Still
   m_TagString: Untagged
@@ -210,6 +211,7 @@ MonoBehaviour:
   point1: {fileID: 0}
   point2: {fileID: 0}
   movementSpeed: 2
+  animationSpeedScale: 1
   minFollowingDistance: 3
   playerForgetTime: 1.5
   lanternRechargeDuration: 5
@@ -239,6 +241,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5793375891933762347}
+        m_TargetAssemblyTypeName: WatcherDamageEffect, Assembly-CSharp
+        m_MethodName: ShowVignette
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onLost:
     m_PersistentCalls:
       m_Calls:
@@ -254,6 +268,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5793375891933762347}
+        m_TargetAssemblyTypeName: WatcherDamageEffect, Assembly-CSharp
+        m_MethodName: HideVignette
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &2037320166
 Rigidbody2D:
   serializedVersion: 4
@@ -275,6 +304,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5793375891933762347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637389642820773746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04e85e6b31c04287800f4869d3587aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vignetteCanvasPrefab: {fileID: 4889370579662435594, guid: d8264e96027d09743bbbfd222ad8016c, type: 3}
+  fadeOutDuration: 0.4
 --- !u!1 &2356533616674600830
 GameObject:
   m_ObjectHideFlags: 0
