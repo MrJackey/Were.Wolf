@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1763996601}
   - component: {fileID: 1750964323}
   m_Layer: 0
-  m_Name: Crawl Tutorial NPC 1_0
+  m_Name: Waldu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,6 +149,8 @@ MonoBehaviour:
   speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
   textOffset: {x: 0.09, y: 1.31}
   ignoreTriggers: 1
+  forceShow: 0
+  reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 0
   fadeOut: 1
