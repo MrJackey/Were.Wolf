@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Watcher : MonoBehaviour {
 	private static readonly int speedHash = Animator.StringToHash("speed");
+	private static readonly int isWalkingHash = Animator.StringToHash("isWalking");
 	private static readonly int isAttackingHash = Animator.StringToHash("isAttacking");
 	private static readonly int fixLampHash = Animator.StringToHash("fixLamp");
 	private static readonly int endFixLampHash = Animator.StringToHash("endFixLamp");
@@ -32,6 +33,7 @@ public class Watcher : MonoBehaviour {
 	[SerializeField] private bool doMovement = true;
 	[SerializeField] private Transform point1 = null, point2 = null;
 	[SerializeField] private float movementSpeed = 5f;
+	[SerializeField] private float animationSpeedScale = 1f;
 	[Space]
 	[SerializeField] private float minFollowingDistance = 3f;
 	[SerializeField] private float playerForgetTime = 0.5f;
@@ -80,8 +82,6 @@ public class Watcher : MonoBehaviour {
 	private SimpleTimer rechargeTimer;
 	private SimpleTimer looseVisibilityTimer;
 
-	private float currentSpeed;
-
 	private float turnDirection;
 
 	private void Start() {
@@ -116,11 +116,14 @@ public class Watcher : MonoBehaviour {
 		playerPosition = playerTransform.position;
 		playerDirection = (playerPosition - lantern.position).normalized;
 
-		currentSpeed = 0f;
-		if (doMovement && state != State.Recharging && state != State.Turning)
-			UpdateMovement();
+		bool isWalking = false;
+		if (doMovement && state != State.Recharging && state != State.Turning) {
+			if (UpdateMovement())
+				isWalking = true;
+		}
 
-		animator.SetFloat(speedHash, currentSpeed);
+		animator.SetBool(isWalkingHash, isWalking);
+		animator.SetFloat(speedHash, movementSpeed * animationSpeedScale);
 
 		if (state == State.Tracking && !isPlayerConsideredVisible) {
 			if (playerLooseTimer.Tick()) {
@@ -160,9 +163,9 @@ public class Watcher : MonoBehaviour {
 		}
 	}
 
-	private void UpdateMovement() {
+	private bool UpdateMovement() {
 		if (state != State.Patrolling &&
-			(isBlocked || Mathf.Abs(playerPosition.x - transform.position.x) <= minFollowingDistance)) return;
+			(isBlocked || Mathf.Abs(playerPosition.x - transform.position.x) <= minFollowingDistance)) return false;
 
 		Vector3 position = transform.position;
 		position.x += movementSpeed * facing * Time.deltaTime;
@@ -179,7 +182,7 @@ public class Watcher : MonoBehaviour {
 			}
 		}
 
-		currentSpeed = movementSpeed;
+		return true;
 	}
 
 	private void Turn(float direction) {
