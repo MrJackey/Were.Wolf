@@ -32,6 +32,8 @@ public class Gate : SignalReceiver {
 	private bool allowShow = true;
 	private bool isFirstSoundPlayed = false;
 
+	public bool PanCamera { set => panCamera = value; }
+
 	private void Awake() {
 		GameObject playerObj = GameObject.FindWithTag("Player");
 		player = playerObj.transform;

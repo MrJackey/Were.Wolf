@@ -438,6 +438,7 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = true;
 		isCrouched = false;
 		crouchTransitionTimer = 0f;
+		crawlingSound.Stop();
 		onUncrouch.Invoke();
 	}
 
