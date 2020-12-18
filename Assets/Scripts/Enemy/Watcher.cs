@@ -349,8 +349,11 @@ public class Watcher : MonoBehaviour {
 	private void OnValidate() {
 		lantern.localPosition = eyeOffset;
 
-		if (Application.isPlaying)
-			GetComponent<Animator>().SetFloat(speedHash, movementSpeed * animationSpeedScale);
+		if (Application.isPlaying) {
+			Animator anim = GetComponent<Animator>();
+			if (anim.isInitialized)
+				anim.SetFloat(speedHash, movementSpeed * animationSpeedScale);
+		}
 	}
 #endif
 
