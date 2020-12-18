@@ -73,6 +73,7 @@ MonoBehaviour:
   interactArrowPrefab: {fileID: 1708331852267391370, guid: b001ab34518fbf344876a8760a0d031d, type: 3}
   playerCarrying: {fileID: 2435196009969585088}
   playerController: {fileID: 3326305250810700144}
+  priorityInteractableTag: Box
 --- !u!1 &1511884738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,6 +1114,7 @@ MonoBehaviour:
   deacceleration: 14
   maxSpeed: 5
   speedMultiplier: 1
+  midairMultiplier: 0.75
   groundedCollider: {fileID: 3060597533088857374}
   jumpCurve:
     serializedVersion: 2
@@ -1317,7 +1319,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transDuration: 1.2
-  humanFormDuration: 5
   cancelThreshold: 0.6
   transformCooldownDuration: 5
   hitCollider: {fileID: 7782289118800930667}
@@ -1327,8 +1328,6 @@ MonoBehaviour:
   humanHitCollider: {fileID: 5145285823690266723}
   humanGroundCollider: {fileID: 5814764578376142764}
   transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f, type: 3}
-  toWolfIndication: 0.75
-  humanEmissionRate: 5
   transformToHumanSound: {fileID: 7706404480811097307}
   transformToWerewolfSound: {fileID: 9072912906911105511}
   onTransformStart:
@@ -2376,7 +2375,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7943920797690068446}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

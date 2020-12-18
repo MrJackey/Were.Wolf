@@ -197,12 +197,11 @@ public class PlayerController : MonoBehaviour {
 
 		if (xInput != 0 && !isCrouching) {
 			float newVelocityX = velocity.x + xInput * acceleration * Time.deltaTime;
-			if (isCrouched)
-				velocity.x = Mathf.Clamp(newVelocityX, -crouchMaxSpeed, crouchMaxSpeed);
-			else
-				velocity.x = Mathf.Clamp(newVelocityX, -maxSpeed, maxSpeed);
+			float max = isCrouched ? crouchMaxSpeed : maxSpeed;
+
+			velocity.x = Mathf.Clamp(newVelocityX, -max, max);
 		}
-		else if ((allowControls || transformation.IsTransforming) && !doDash && velocity.x != 0) {
+		else if ((allowControls || isGrounded) && !doDash && velocity.x != 0) {
 			velocity.x -= velocity.x * deacceleration * Time.deltaTime;
 		}
 
@@ -224,7 +223,7 @@ public class PlayerController : MonoBehaviour {
 			rb2D.velocity = new Vector2(velocity.x, velocity.y * jumpCancel);
 		}
 
-		if (jumpInputDown && isClearAbove) {
+		if (jumpInputDown && !isCrouched && !isCrouching) {
 			if (isGrounded) {
 				BeginJump(onJump);
 				doJump = true;
@@ -290,7 +289,9 @@ public class PlayerController : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (groundedCollider.IsTouchingLayers(groundLayer)) {
-			allowDashReset = true;
+			if (!isGrounded)
+				allowDashReset = true;
+
 			EndCoyote(true);
 		}
 
@@ -303,6 +304,9 @@ public class PlayerController : MonoBehaviour {
 				StopCoroutine(coyoteRoutine);
 
 			coyoteRoutine = StartCoroutine(CoCoyoteDuration());
+
+			if (isCrouched)
+				Uncrouch();
 		}
 
 		isClearAbove = !clearAboveCollider.IsTouchingLayers(groundLayer);
@@ -408,18 +412,20 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void StartCrouch() {
+		if (isCrouching) return;
+
 		isCrouching = true;
 		isCrouched = true;
 		crouchTransitionTimer = 0f;
-		clearAboveCollider.enabled = true;
 		onCrouch.Invoke();
 	}
 
 	private void Uncrouch() {
+		if (!isCrouched) return;
+
 		isCrouching = true;
 		isCrouched = false;
 		crouchTransitionTimer = 0f;
-		clearAboveCollider.enabled = false;
 		onUncrouch.Invoke();
 	}
 
@@ -437,10 +443,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void InterruptCrouch() {
+		if (!isCrouched) return;
+
 		isCrouching = false;
 		isCrouched = false;
 		crouchTransitionTimer = float.PositiveInfinity;
-		clearAboveCollider.enabled = false;
 		onUncrouch.Invoke();
 	}
 }

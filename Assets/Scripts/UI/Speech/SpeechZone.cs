@@ -46,7 +46,7 @@ public class SpeechZone : MonoBehaviour {
 	private bool isShowing;
 	private bool reshow;
 	private bool isPlayerInTrigger;
-	private TransformationState showingTransformationState;
+	private bool showingForHuman;
 	private Coroutine showRoutine;
 	private Coroutine fadeOutRoutine;
 
@@ -144,7 +144,7 @@ public class SpeechZone : MonoBehaviour {
 		UpdateMessagePosition();
 		messageText = messageBubble.GetComponentInChildren<Text>();
 
-		showingTransformationState = playerTransformation.State;
+		showingForHuman = playerTransformation.IsHuman;
 		showRoutine = StartCoroutine(CoShowMessages());
 
 		messageBubble.gameObject.SetActive(true);
@@ -181,8 +181,8 @@ public class SpeechZone : MonoBehaviour {
 	private IEnumerator CoShowMessages() {
 		foreach (MessageItem item in messages) {
 			if (item.useInForm != Form.Both && (
-				showingTransformationState == TransformationState.Human && item.useInForm != Form.Human ||
-				showingTransformationState == TransformationState.Wolf && item.useInForm != Form.Werewolf)) continue;
+				showingForHuman && item.useInForm != Form.Human ||
+				!showingForHuman && item.useInForm != Form.Werewolf)) continue;
 
 			if (item.slowWrite) {
 				// Pass through to allow stopping.

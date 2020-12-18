@@ -6,6 +6,7 @@ public class PlayerHandDetection : MonoBehaviour {
 	[SerializeField] private GameObject interactArrowPrefab;
 	[SerializeField] private PlayerCarrying playerCarrying;
 	[SerializeField] private PlayerController playerController;
+	[SerializeField, Tag] private string priorityInteractableTag;
 
 	private Interactable detectedInteractItem;
 	private List<Interactable> interactableList = new List<Interactable>();
@@ -22,9 +23,8 @@ public class PlayerHandDetection : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		Interactable interactable = other.GetComponent<Interactable>();
-		if (interactable != null) {
+		if (interactable != null)
 			interactableList.Add(interactable);
-		}
 	}
 
 	private void Update() {
@@ -57,7 +57,7 @@ public class PlayerHandDetection : MonoBehaviour {
 		foreach (Interactable interactable in interactableList) {
 			float distance = (transform.position - interactable.transform.position).sqrMagnitude;
 
-			if (distance < lowestDistance) {
+			if (distance < lowestDistance || (!string.IsNullOrEmpty(priorityInteractableTag) && interactable.CompareTag(priorityInteractableTag))) {
 				lowestDistance = distance;
 				closestItem = interactable;
 			}
@@ -65,7 +65,8 @@ public class PlayerHandDetection : MonoBehaviour {
 		if (closestItem == null || closestItem == detectedInteractItem)
 			return;
 
-		interactArrow.transform.position = closestItem.transform.position + new Vector3(0, closestItem.InteractableArrowHeight, 0);
+		interactArrow.transform.parent = closestItem.transform;
+		interactArrow.transform.localPosition = new Vector3(0, closestItem.InteractableArrowHeight, 0);
 		interactArrowScript.Initialize();
 		detectedInteractItem = closestItem;
 		interactArrow.SetActive(true);

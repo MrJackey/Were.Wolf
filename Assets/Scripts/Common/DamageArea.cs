@@ -13,18 +13,23 @@ public class DamageArea : MonoBehaviour {
 	[SerializeField] private float damage = 10;
 	[SerializeField] private float damageCooldown = 0;
 	[SerializeField] private UnityEvent<Vector2> onDamageEffect = null;
+
 	[SerializeField] private bool enableKnockback = true;
 	[SerializeField, EnableIf(nameof(enableKnockback))]
 	private float knockbackForce = 5;
 	[SerializeField, EnableIf(nameof(enableKnockback))]
 	private float knockbackDuration = 0.2f;
+	[SerializeField, EnableIf(nameof(enableKnockback))]
+	private bool overrideKnockbackDirection = false;
+	[SerializeField, EnableIf(nameof(enableKnockback))]
+	private Vector2 knockbackDirection = Vector2.zero;
 
 	[Header("Filters")]
 	[SerializeField] private bool useColliders = true;
 	[SerializeField] private bool useTriggers = true;
 	[SerializeField] private LayerMask layerMask = -1;
 	[SerializeField] private bool ignoreTriggers = true;
-	[SerializeField, Tag] private string effectTarget = null;
+	[SerializeField, Tag] private string effectTarget = "Player";
 
 	private float cooldownTimer;
 	private readonly ContactPoint2D[] contacts = new ContactPoint2D[10];
@@ -76,7 +81,15 @@ public class DamageArea : MonoBehaviour {
 	private void DoKnockback(Collider2D other, Vector2 point) {
 		Knockbackable knockbackComponent = other.attachedRigidbody.GetComponent<Knockbackable>();
 		if (knockbackComponent != null) {
-			Vector2 direction = (Vector2)other.transform.position - point;
+			Vector2 direction;
+			if (overrideKnockbackDirection) {
+				Vector2 scale = transform.lossyScale;
+				direction = knockbackDirection * new Vector2(Mathf.Sign(scale.x), Mathf.Sign(scale.y));
+			}
+			else {
+				direction = (Vector2)other.transform.position - point;
+			}
+
 			knockbackComponent.Knockback(direction.normalized, knockbackForce, knockbackDuration);
 		}
 	}
