@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1454200776568444210}
-  - component: {fileID: 7178677405331018525}
-  - component: {fileID: 447416766918269883}
   m_Layer: 0
   m_Name: Moving Spikes
   m_TagString: Untagged
@@ -35,50 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7178677405331018525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454200776568444209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae89b5045ff1466eba451cfcdcf374ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 0
-  damageSource: 1
-  damage: 1
-  damageCooldown: 0
-  onDamageEffect:
-    m_PersistentCalls:
-      m_Calls: []
-  enableKnockback: 1
-  knockbackForce: 3
-  knockbackDuration: 0.2
-  overrideKnockbackDirection: 0
-  knockbackDirection: {x: 0, y: 0}
-  useColliders: 1
-  useTriggers: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  ignoreTriggers: 1
-  effectTarget: Player
---- !u!114 &447416766918269883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454200776568444209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbeb977ea31e9614cb6c70eecdc06141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageEffect: {fileID: 3457770546930717862, guid: f04e1cc299f165947b9e307e9bb8ae74, type: 3}
 --- !u!1 &1454200776725402227
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +109,50 @@ MonoBehaviour:
   point2: {fileID: 1454200777162875715}
   speed: 2
   snapToLine: 0
+--- !u!114 &1465292860640327533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2982787380228827179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbeb977ea31e9614cb6c70eecdc06141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageEffect: {fileID: 3457770546930717862, guid: f04e1cc299f165947b9e307e9bb8ae74, type: 3}
+--- !u!114 &7874170352988068520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2982787380228827179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae89b5045ff1466eba451cfcdcf374ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  damageSource: 1
+  damage: 1
+  damageCooldown: 0
+  onDamageEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  enableKnockback: 1
+  knockbackForce: 3
+  knockbackDuration: 0.2
+  overrideKnockbackDirection: 0
+  knockbackDirection: {x: 0, y: 0}
+  useColliders: 1
+  useTriggers: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  ignoreTriggers: 1
+  effectTarget: Player
 --- !u!1001 &1454200776417165490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -162,6 +160,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454200776568444210}
     m_Modifications:
+    - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_Size.x
+      value: 0.46861696
+      objectReference: {fileID: 0}
+    - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_Size.y
+      value: 0.41539907
+      objectReference: {fileID: 0}
+    - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0035927296
+      objectReference: {fileID: 0}
+    - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.00079762936
+      objectReference: {fileID: 0}
+    - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
+      propertyPath: m_UsedByComposite
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 822731389, guid: 61919dff458546f458b0b31803df6940, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 0.9375
