@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 	[Header("Sounds")]
 	[SerializeField] private SoundRandomizer wolfJumpSound;
 	[SerializeField] private SoundRandomizer humanJumpSound;
+	[SerializeField] private AudioSource crawlingSound;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
@@ -249,6 +250,17 @@ public class PlayerController : MonoBehaviour {
 				StartCrouch();
 			else if (isCrouched && !crouchInput && isClearAbove)
 				Uncrouch();
+		}
+
+
+		if (isCrouched) {
+			if (Mathf.Abs(xInput) > 0.1f) {
+				if (!crawlingSound.isPlaying)
+					crawlingSound.Play();
+			}
+			else {
+				crawlingSound.Stop();
+			}
 		}
 	}
 
