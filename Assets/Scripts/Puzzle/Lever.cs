@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Lever : SignalEmitter {
 	[SerializeField] private LeverType leverType = LeverType.Toggle;
-	[SerializeField] float timerEnd = 5f;
-	[SerializeField] private AudioSource audioSource;
+	[SerializeField] private float timerEnd = 5f;
+	[SerializeField, Range(0f, 1f)] private float fastTimeAudioStartAdjust = 0.75f;
+	[SerializeField] private AudioSource pullLeverAudio, slowTimeAudio, fastTimeAudio;
 
 	private Animator animator;
-	private float leverTimer, timerStart = 0f;
+	private float leverTimer, timerStart = 0f, fastTimeAudioStart;
+	private bool hasStartedFastTimeSound;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+		fastTimeAudioStart = timerEnd * fastTimeAudioStartAdjust;
 	}
 
 	private void Update() {
@@ -21,10 +24,16 @@ public class Lever : SignalEmitter {
 			if (leverTimer >= timerEnd)
 				Deactivate();
 		}
+
+		if (!hasStartedFastTimeSound && leverType == LeverType.Timed && leverTimer >= fastTimeAudioStart) {
+			slowTimeAudio.Stop();
+			PlayTimedLeverSound();
+			hasStartedFastTimeSound = true;
+		}
 	}
 
 	public void ToggleActivation() {
-		PlaySound();
+		PlayPullLeverSound();
 		if (IsActivated) 
 			Deactivate();
 		else
@@ -32,21 +41,34 @@ public class Lever : SignalEmitter {
 	}
 
 	public void Activate() {
+		if (leverType == LeverType.Timed)
+			PlayTimedLeverSound();
+
 		animator.SetBool("Activation", true);
 		IsActivated = true; 
-
-		if (leverType == LeverType.Timed) {
-			leverTimer = timerStart;
-		}
 	}
 
 	public void Deactivate() {
 		animator.SetBool("Activation", false);
 		IsActivated = false;
+
+		if (leverType == LeverType.Timed) {
+			slowTimeAudio.Stop();
+			fastTimeAudio.Stop();
+			leverTimer = timerStart;
+			hasStartedFastTimeSound = false;
+		}
 	}
 
-	public void PlaySound() {
-		audioSource.Play();
+	private void PlayPullLeverSound() {
+		pullLeverAudio.Play();
+	}
+
+	private void PlayTimedLeverSound() {
+		if (leverTimer < fastTimeAudioStart)
+			slowTimeAudio.Play();
+		else if (leverTimer >= fastTimeAudioStart)
+			fastTimeAudio.Play();
 	}
 }
 
