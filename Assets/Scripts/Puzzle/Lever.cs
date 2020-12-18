@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Lever : SignalEmitter {
 	[SerializeField] private LeverType leverType = LeverType.Toggle;
-	[SerializeField] float timerEnd = 5f, fastTimeAudioStart;
+	[SerializeField] private float timerEnd = 5f;
+	[SerializeField, Range(0f, 1f)] private float fastTimeAudioStartAdjust = 0.75f;
 	[SerializeField] private AudioSource pullLeverAudio, slowTimeAudio, fastTimeAudio;
 
 	private Animator animator;
-	private float leverTimer, timerStart = 0f;
+	private float leverTimer, timerStart = 0f, fastTimeAudioStart;
 	private bool hasStartedFastTimeSound;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
-		fastTimeAudioStart = timerEnd * 0.75f;
+		fastTimeAudioStart = timerEnd * fastTimeAudioStartAdjust;
 		hasStartedFastTimeSound = false;
 	}
 
@@ -25,16 +26,15 @@ public class Lever : SignalEmitter {
 				Deactivate();
 		}
 
-		if (!hasStartedFastTimeSound && leverType == LeverType.Timed   // Should this maybe be reordered to test for the leverType first instead? maybe it acts like a boolean?
-								&& leverTimer >= fastTimeAudioStart) {
+		if (!hasStartedFastTimeSound && leverType == LeverType.Timed && leverTimer >= fastTimeAudioStart) {
 			slowTimeAudio.Stop();
-			TimedLeverPlaySound();
+			PlayTimedLeverSound();
 			hasStartedFastTimeSound = true;
 		}
 	}
 
 	public void ToggleActivation() {
-		PullLeverPlaySound();
+		PlayPullLeverSound();
 		if (IsActivated) 
 			Deactivate();
 		else
@@ -43,7 +43,7 @@ public class Lever : SignalEmitter {
 
 	public void Activate() {
 		if (leverType == LeverType.Timed)
-			TimedLeverPlaySound();
+			PlayTimedLeverSound();
 
 		animator.SetBool("Activation", true);
 		IsActivated = true; 
@@ -61,11 +61,11 @@ public class Lever : SignalEmitter {
 		}
 	}
 
-	private void PullLeverPlaySound() {
+	private void PlayPullLeverSound() {
 		pullLeverAudio.Play();
 	}
 
-	private void TimedLeverPlaySound() {
+	private void PlayTimedLeverSound() {
 		if (leverTimer < fastTimeAudioStart)
 			slowTimeAudio.Play();
 		else if (leverTimer >= fastTimeAudioStart)
