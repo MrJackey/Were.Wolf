@@ -15,7 +15,6 @@ public class Lever : SignalEmitter {
 	private void Start() {
 		animator = GetComponent<Animator>();
 		fastTimeAudioStart = timerEnd * fastTimeAudioStartAdjust;
-		hasStartedFastTimeSound = false;
 	}
 
 	private void Update() {
