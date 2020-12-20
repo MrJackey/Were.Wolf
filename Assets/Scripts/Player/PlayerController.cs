@@ -415,7 +415,7 @@ public class PlayerController : MonoBehaviour {
 		dashTimer += Time.deltaTime;
 	}
 
-	private void InterruptDash() {
+	public void InterruptDash() {
 		allowControls = true;
 		doGravity = true;
 		dashTimer = 0;
