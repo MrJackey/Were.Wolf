@@ -144,12 +144,12 @@ public class SpeechZone : MonoBehaviour {
 		UpdateMessagePosition();
 		messageText = messageBubble.GetComponentInChildren<Text>();
 
-		showingForHuman = playerTransformation.IsHuman;
-		showRoutine = StartCoroutine(CoShowMessages());
-
 		messageBubble.gameObject.SetActive(true);
 		isShowing = true;
 		onSpeechStart.Invoke();
+
+		showingForHuman = playerTransformation.IsHuman;
+		showRoutine = StartCoroutine(CoShowMessages());
 	}
 
 	private void HideMessage(bool fade) {
@@ -179,6 +179,8 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private IEnumerator CoShowMessages() {
+		messageText.text = "";
+
 		foreach (MessageItem item in messages) {
 			if (item.useInForm != Form.Both && (
 				showingForHuman && item.useInForm != Form.Human ||
