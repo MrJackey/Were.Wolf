@@ -24,7 +24,7 @@ public class SpeechZone : MonoBehaviour {
 	[SerializeField, Tooltip("Stop showing the message when the player leaves the trigger.")]
 	private bool stopOnLeave = true;
 
-	[SerializeField, Tooltip("Keep the last message shown and don't restart.")]
+	[SerializeField, Tooltip("Keep the last message shown.")]
 	private bool textStays = false;
 
 	[SerializeField, Tooltip("Fade out the text after the last message.")]
