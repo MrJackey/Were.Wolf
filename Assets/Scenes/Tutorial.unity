@@ -6889,6 +6889,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 1
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -9353,6 +9354,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 0
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -13076,6 +13078,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 1
+  textStays: 0
   fadeOut: 0
   fadeDuration: 0.5
   messages:
@@ -16553,11 +16556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.89
+      value: -7.326
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.84
+      value: -1.504
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -135580,6 +135583,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 1
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -135782,6 +135786,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 0
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -139240,6 +139245,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 0
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -143012,6 +143018,10 @@ PrefabInstance:
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: forceShow
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: textStays
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: reshowOnTransform
