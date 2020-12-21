@@ -62,6 +62,8 @@ public class Transformation : MonoBehaviour {
 
 	public bool AllowTransformation { get; set; } = true;
 
+	public BoxCollider2D HitCollider => hitCollider;
+
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
 		particleEffect = Instantiate(transformParticle, transform);
