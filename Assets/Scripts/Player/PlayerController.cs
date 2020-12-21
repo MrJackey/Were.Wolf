@@ -346,7 +346,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void OnCrouchInput(InputAction.CallbackContext ctx) {
-		if (ctx.phase == InputActionPhase.Started)
+		if (ctx.phase == InputActionPhase.Performed && ctx.ReadValueAsButton())
 			crouchInput = true;
 		else if (ctx.phase == InputActionPhase.Canceled)
 			crouchInput = false;
