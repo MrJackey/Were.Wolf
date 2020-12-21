@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -23,6 +24,9 @@ public class SpeechZone : MonoBehaviour {
 
 	[SerializeField, Tooltip("Stop showing the message when the player leaves the trigger.")]
 	private bool stopOnLeave = true;
+
+	[SerializeField, Tooltip("Keep the last message shown and don't restart.")]
+	private bool textStays = false;
 
 	[SerializeField, Tooltip("Fade out the text after the last message.")]
 	private bool fadeOut = false;
@@ -68,23 +72,22 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private void OnTransformEnd() {
-		if (!forceShow && !isPlayerInTrigger) return;
+		if (forceShow || isPlayerInTrigger || textStays && isShowing)
+			switch (reshowOnTransform) {
+				case ReshowMode.Interrupt:
+					ReshowMessage();
+					break;
 
-		switch (reshowOnTransform) {
-			case ReshowMode.Interrupt:
-				ReshowMessage();
-				break;
+				case ReshowMode.AfterMessage:
+				case ReshowMode.WhenFinished:
+					if (isShowing)
+						reshow = true;
+					else {
+						ShowMessage();
+					}
 
-			case ReshowMode.AfterMessage:
-			case ReshowMode.WhenFinished:
-				if (isShowing)
-					reshow = true;
-				else {
-					ShowMessage();
-				}
-
-				break;
-		}
+					break;
+			}
 	}
 
 	private void LateUpdate() {
@@ -104,7 +107,7 @@ public class SpeechZone : MonoBehaviour {
 	private void OnTriggerExit2D(Collider2D other) {
 		if (!forceShow && IsMatchingTarget(other)) {
 			isPlayerInTrigger = false;
-			if (stopOnLeave)
+			if (!textStays && stopOnLeave)
 				HideMessage(fadeOut);
 		}
 	}
@@ -120,6 +123,8 @@ public class SpeechZone : MonoBehaviour {
 
 	private void ReshowMessage() {
 		reshow = false;
+		if (textStays && !HasAnyMessagesToShow(playerTransformation.IsHuman)) return;
+
 		if (isShowing)
 			HideMessage(false);
 		ShowMessage();
@@ -133,6 +138,7 @@ public class SpeechZone : MonoBehaviour {
 		if (messageBubble == null) {
 			messageBubble = (RectTransform)Instantiate(speechBubblePrefab, canvas.transform).transform;
 			messageBubbleCanvasGroup = messageBubble.GetComponent<CanvasGroup>();
+			messageText = messageBubble.GetComponentInChildren<Text>();
 		}
 
 		if (fadeOutRoutine != null) {
@@ -142,14 +148,18 @@ public class SpeechZone : MonoBehaviour {
 		}
 
 		UpdateMessagePosition();
-		messageText = messageBubble.GetComponentInChildren<Text>();
-
-		messageBubble.gameObject.SetActive(true);
-		isShowing = true;
-		onSpeechStart.Invoke();
-
 		showingForHuman = playerTransformation.IsHuman;
-		showRoutine = StartCoroutine(CoShowMessages());
+
+		if (HasAnyMessagesToShow(showingForHuman)) {
+			isShowing = true;
+			messageBubble.gameObject.SetActive(true);
+
+			onSpeechStart.Invoke();
+			showRoutine = StartCoroutine(CoShowMessages());
+		}
+		else {
+			messageBubble.gameObject.SetActive(false);
+		}
 	}
 
 	private void HideMessage(bool fade) {
@@ -181,10 +191,12 @@ public class SpeechZone : MonoBehaviour {
 	private IEnumerator CoShowMessages() {
 		messageText.text = "";
 
+		bool didShowAnyMessage = false;
+
 		foreach (MessageItem item in messages) {
-			if (item.useInForm != Form.Both && (
-				showingForHuman && item.useInForm != Form.Human ||
-				!showingForHuman && item.useInForm != Form.Werewolf)) continue;
+			if (!ShouldShowMessage(item, showingForHuman)) continue;
+
+			didShowAnyMessage = true;
 
 			if (item.slowWrite) {
 				// Pass through to allow stopping.
@@ -210,7 +222,9 @@ public class SpeechZone : MonoBehaviour {
 			yield break;
 		}
 
-		if (!stopOnLeave && !forceShow)
+		if (textStays)
+			onSpeechEnd.Invoke();
+		else if (!stopOnLeave && !forceShow)
 			HideMessage(fadeOut);
 	}
 
@@ -240,6 +254,20 @@ public class SpeechZone : MonoBehaviour {
 		messageBubble.gameObject.SetActive(false);
 		messageBubbleCanvasGroup.alpha = 1f;
 		fadeOutRoutine = null;
+	}
+
+	private bool HasAnyMessagesToShow(bool forHuman) {
+		foreach (MessageItem item in messages)
+			if (ShouldShowMessage(item, forHuman))
+				return true;
+
+		return false;
+	}
+
+	private static bool ShouldShowMessage(MessageItem message, bool forHuman) {
+		return message.useInForm == Form.Both ||
+		       message.useInForm == Form.Human && forHuman ||
+		       message.useInForm == Form.Werewolf && !forHuman;
 	}
 
 #if UNITY_EDITOR
