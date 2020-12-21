@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private SoundRandomizer wolfJumpSound;
 	[SerializeField] private SoundRandomizer humanJumpSound;
 	[SerializeField] private AudioSource crawlingSound;
+	[SerializeField] private AudioSource wolfRunningSound;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
@@ -261,6 +262,15 @@ public class PlayerController : MonoBehaviour {
 			else {
 				crawlingSound.Stop();
 			}
+		}
+
+		if (isGrounded && Mathf.Abs(xInput) > 0.1f) {
+			if (!wolfRunningSound.isPlaying) {
+				wolfRunningSound.Play();
+			}
+		}
+		else {
+			wolfRunningSound.Stop();
 		}
 	}
 
