@@ -1,9 +1,8 @@
-﻿using System;
-using Extensions;
+﻿using Extensions;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
+[DefaultExecutionOrder(1)]
 public class PlayerGroundImpact : MonoBehaviour {
 	[SerializeField] private LayerMask groundLayerMask = 1 << 8;
 	[SerializeField] private float minWeakImpactVelocity = 3f;
@@ -22,19 +21,49 @@ public class PlayerGroundImpact : MonoBehaviour {
 	private Transformation transformation;
 	private SnappingCamera snappingCamera;
 
+	private PlayerController playerController;
+	private bool wasGrounded;
+
 	private void Start() {
 		transformation = GetComponent<Transformation>();
+		playerController = GetComponent<PlayerController>();
 
 		Camera mainCamera = Camera.main;
 		if (mainCamera != null)
 			snappingCamera = mainCamera.GetComponent<SnappingCamera>();
 	}
 
+	private void FixedUpdate() {
+		wasGrounded = playerController.IsGrounded;
+	}
+
+	private void OnCollisionStay2D(Collision2D other) {
+		// This is used to cover an edge case where the player is landing while also touching a wall.
+		if (!wasGrounded && playerController.IsGrounded)
+			OnCollision(other, true);
+	}
+
 	private void OnCollisionEnter2D(Collision2D other) {
+		OnCollision(other, false);
+	}
+
+	private void OnCollision(Collision2D other, bool hitGroundInStay) {
 		if (!groundLayerMask.IncludesLayer(other.gameObject.layer) || snappingCamera == null)
 			return;
 
-		GetAverageContact(other, out Vector2 point, out Vector2 normal);
+		Vector2 point, normal;
+		if (hitGroundInStay) {
+			// We hit the ground but are also touching a wall. Instead of using the contact point here we treat things
+			// as if we hit just the ground.
+			BoxCollider2D hitCollider = transformation.HitCollider;
+			point = hitCollider.transform.position + (Vector3)hitCollider.offset;
+			point.y -= hitCollider.size.y * 0.5f + hitCollider.edgeRadius;
+			normal = Vector2.up;
+		}
+		else {
+			GetAverageContact(other, out point, out normal);
+		}
+
 		float impactVelocity = Vector2.Dot(other.relativeVelocity, normal);
 		float downVelocity = other.relativeVelocity.y;
 
