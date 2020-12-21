@@ -261,26 +261,26 @@ public class PlayerController : MonoBehaviour {
 					crawlingSound.Play();
 			}
 			else {
-				crawlingSound.Stop();
+				crawlingSound.Pause();
 			}
 		}
 
-		if (isGrounded && transformation.State == TransformationState.Wolf && Mathf.Abs(velocity.x) > 0.1f) {
+		if (isGrounded && transformation.State == TransformationState.Wolf && Mathf.Abs(xInput) > 0.1f) {
 			if (!wolfRunningSound.isPlaying) {
 				wolfRunningSound.Play();
 			}
 		}
 		else {
-			wolfRunningSound.Stop();
+			wolfRunningSound.Pause();
 		}
 
-		if (isGrounded && transformation.State == TransformationState.Human && Mathf.Abs(velocity.x) > 0.1f) {
+		if (!isCrouched && !isCrouching && isGrounded && transformation.State == TransformationState.Human && Mathf.Abs(xInput) > 0.1f) {
 			if (!humanRunningSound.isPlaying) {
 				humanRunningSound.Play();
 			}
 		}
 		else {
-			humanRunningSound.Stop();
+			humanRunningSound.Pause();
 		}
 	}
 
