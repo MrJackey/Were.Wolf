@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private SoundRandomizer humanJumpSound;
 	[SerializeField] private AudioSource crawlingSound;
 	[SerializeField] private AudioSource wolfRunningSound;
+	[SerializeField] private AudioSource humanRunningSound;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
@@ -264,13 +265,22 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		if (isGrounded && Mathf.Abs(xInput) > 0.1f) {
+		if (isGrounded && transformation.State == TransformationState.Wolf && Mathf.Abs(velocity.x) > 0.1f) {
 			if (!wolfRunningSound.isPlaying) {
 				wolfRunningSound.Play();
 			}
 		}
 		else {
 			wolfRunningSound.Stop();
+		}
+
+		if (isGrounded && transformation.State == TransformationState.Human && Mathf.Abs(velocity.x) > 0.1f) {
+			if (!humanRunningSound.isPlaying) {
+				humanRunningSound.Play();
+			}
+		}
+		else {
+			humanRunningSound.Stop();
 		}
 	}
 
