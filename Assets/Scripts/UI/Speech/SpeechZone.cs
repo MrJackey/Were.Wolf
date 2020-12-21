@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -191,12 +190,8 @@ public class SpeechZone : MonoBehaviour {
 	private IEnumerator CoShowMessages() {
 		messageText.text = "";
 
-		bool didShowAnyMessage = false;
-
 		foreach (MessageItem item in messages) {
 			if (!ShouldShowMessage(item, showingForHuman)) continue;
-
-			didShowAnyMessage = true;
 
 			if (item.slowWrite) {
 				// Pass through to allow stopping.
