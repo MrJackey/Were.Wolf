@@ -29,7 +29,9 @@ public class Gate : SignalReceiver {
 	private PlayerController playerController;
 	private float cameraBaseTransitionDuration;
 	private bool isShowing = false;
+	private bool inShowQueue = false;
 	private bool allowShow = true;
+	private bool prevIsActivated = false;
 	private bool isFirstSoundPlayed = false;
 
 	public bool PanCamera { set => panCamera = value; }
@@ -40,22 +42,29 @@ public class Gate : SignalReceiver {
 		playerController = playerObj.GetComponent<PlayerController>();
 		camera = Camera.main.GetComponent<SnappingCamera>();
 		cameraBaseTransitionDuration = camera.TransitionDuration;
+
+		prevIsActivated = IsActivated;
 	}
 
 	public void Toggle() {
-		if (panCamera && camera != null && !isShowing && allowShow && isInitialized) {
+		if (panCamera && camera != null && allowShow && isInitialized) {
 			AddToPanningQueue();
 		}
-		else if (animator.isInitialized) {
-			PlaySound();
+		else if (animator.isInitialized && !inShowQueue && !isShowing) {
+			if (!isFirstSoundPlayed || prevIsActivated != IsActivated)
+				PlaySound();
+
 			animator.SetBool(isOpenHash, IsActivated);
+			prevIsActivated = IsActivated;
 			onStateUpdate.Invoke();
 		}
 	}
 
 	private void AddToPanningQueue() {
+		if (inShowQueue) return;
+
 		panningQueue.Enqueue(this);
-		isShowing = true;
+		inShowQueue = true;
 
 		if (panningQueue.Count == 1) {
 			VignetteHighlight highlight = Instantiate(highlightPrefab, transform.position, Quaternion.identity);
@@ -64,6 +73,8 @@ public class Gate : SignalReceiver {
 	}
 
 	private IEnumerator CoShowEvent(VignetteHighlight highlight) {
+		isShowing = true;
+		inShowQueue = false;
 		Transform selfTransform = transform;
 		highlight.WorldTarget = selfTransform;
 		playerController.AllowControls = false;
@@ -77,15 +88,18 @@ public class Gate : SignalReceiver {
 
 		yield return new WaitForSecondsRealtime(camera.TransitionDuration * cameraTransitionMultiplier);
 
-		PlaySound();
-		onStateUpdate.Invoke();
+		if (prevIsActivated != IsActivated)
+			PlaySound();
+
 		animator.SetBool(isOpenHash, IsActivated);
+		onStateUpdate.Invoke();
 
 		yield return new WaitForSecondsRealtime(showClip.length);
 
 		panningQueue.Dequeue();
 		if (panningQueue.Count > 0) {
 			isShowing = false;
+			prevIsActivated = IsActivated;
 			StartCoroutine(CoShowCooldown());
 			StartCoroutine(panningQueue.Peek().CoShowEvent(highlight));
 			yield break;
@@ -100,6 +114,7 @@ public class Gate : SignalReceiver {
 		playerController.AllowControls = true;
 		Time.timeScale = 1;
 		isShowing = false;
+		prevIsActivated = IsActivated;
 		StartCoroutine(CoShowCooldown());
 	}
 
@@ -118,9 +133,9 @@ public class Gate : SignalReceiver {
 	}
 
 	public void HandleEmitterUpdate() {
-		if (panCamera && camera != null && showOnEmitterUpdate && !isShowing && allowShow)
+		if (panCamera && camera != null && showOnEmitterUpdate && allowShow)
 			AddToPanningQueue();
-		else
+		else if (!inShowQueue && !isShowing)
 			onStateUpdate.Invoke();
 	}
 }
