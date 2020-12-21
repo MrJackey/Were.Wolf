@@ -217,6 +217,34 @@ public class PlayerController : MonoBehaviour {
 			else
 				UpdateCrouchColliders(crouchCollider, humanCollider, crouchGroundCollider, humanGroundCollider);
 		}
+		
+
+		if (isGrounded && !transformation.IsTransforming && 
+			transformation.State == TransformationState.Wolf && Mathf.Abs(xInput) > 0.1f) {
+			if (!wolfRunningSound.isPlaying && wolfRunningSound.time == 0) {
+				wolfRunningSound.Play();
+			}
+			else {
+				wolfRunningSound.UnPause();
+			}
+		}
+		else {
+			wolfRunningSound.Pause();
+		}
+
+		if (!isCrouched && !isCrouching && isGrounded && !transformation.IsTransforming &&
+			transformation.State == TransformationState.Human && Mathf.Abs(xInput) > 0.1f) {
+			if (!humanRunningSound.isPlaying && humanRunningSound.time == 0) {
+				humanRunningSound.Play();
+			}
+			else {
+				humanRunningSound.UnPause();
+			}
+		}
+		else {
+			humanRunningSound.Pause();
+		}
+
 
 		if (!allowControls)
 			return;
@@ -263,24 +291,6 @@ public class PlayerController : MonoBehaviour {
 			else {
 				crawlingSound.Pause();
 			}
-		}
-
-		if (isGrounded && transformation.State == TransformationState.Wolf && Mathf.Abs(xInput) > 0.1f) {
-			if (!wolfRunningSound.isPlaying) {
-				wolfRunningSound.Play();
-			}
-		}
-		else {
-			wolfRunningSound.Pause();
-		}
-
-		if (!isCrouched && !isCrouching && isGrounded && transformation.State == TransformationState.Human && Mathf.Abs(xInput) > 0.1f) {
-			if (!humanRunningSound.isPlaying) {
-				humanRunningSound.Play();
-			}
-		}
-		else {
-			humanRunningSound.Pause();
 		}
 	}
 
