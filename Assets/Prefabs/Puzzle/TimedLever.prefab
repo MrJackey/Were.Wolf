@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1341724110450495473, guid: ea84000f640168144973836afabd90a8, type: 3}
       propertyPath: timerEnd
-      value: 30
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1341724110450495473, guid: ea84000f640168144973836afabd90a8, type: 3}
       propertyPath: leverType
@@ -63,10 +63,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1341724110450495476, guid: ea84000f640168144973836afabd90a8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -36841164734218719, guid: 9a8fd1d6778e2854bad9f9e46bb76cf2, type: 3}
     - target: {fileID: 1341724110450495477, guid: ea84000f640168144973836afabd90a8, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 784f3b7e66925ed4c96f14931a217c1a, type: 2}
+      objectReference: {fileID: 9100000, guid: 816001bb494ea9c419bf3d9f77c957e6, type: 2}
     - target: {fileID: 1341724110450495478, guid: ea84000f640168144973836afabd90a8, type: 3}
       propertyPath: m_Name
       value: TimedLever
