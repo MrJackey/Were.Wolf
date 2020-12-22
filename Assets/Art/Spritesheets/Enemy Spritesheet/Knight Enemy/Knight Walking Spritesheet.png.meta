@@ -1,22 +1,31 @@
 fileFormatVersion: 2
-guid: 2463a42322ef3ca429fdbbdea5fd2ebd
+guid: f45dd60d2ea5f9c4faf75a3f303d983e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1478991596273379532
-    second: Great Knight Idle_0
+      213: 3438678707807211842
+    second: Knight Walking Spritesheet_0
   - first:
-      213: 5970368720286062243
-    second: Great Knight Idle_1
+      213: -93950573774764457
+    second: Knight Walking Spritesheet_1
   - first:
-      213: 4496452596736062814
-    second: Great Knight Idle_2
+      213: -8557558056138959753
+    second: Knight Walking Spritesheet_2
   - first:
-      213: -4673193025497859688
-    second: Great Knight Idle_3
+      213: -8732752293719944766
+    second: Knight Walking Spritesheet_3
   - first:
-      213: -8381687940941777232
-    second: Great Knight Idle_4
+      213: -4227125601949128686
+    second: Knight Walking Spritesheet_4
+  - first:
+      213: -763725496135462306
+    second: Knight Walking Spritesheet_5
+  - first:
+      213: 6851499988027196862
+    second: Knight Walking Spritesheet_6
+  - first:
+      213: 7531772756105246593
+    second: Knight Walking Spritesheet_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -104,13 +113,139 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Great Knight Idle_0
+      name: Knight Walking Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 132
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2415c8bd014a8bf20800000000000000
+      internalID: 3438678707807211842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight Walking Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 132
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75606bf637832bef0800000000000000
+      internalID: -93950573774764457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight Walking Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 132
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7741e0fa9427d3980800000000000000
+      internalID: -8557558056138959753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight Walking Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c158559e080fc680800000000000000
+      internalID: -8732752293719944766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight Walking Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 66
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 218ecda49ab3655c0800000000000000
+      internalID: -4227125601949128686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight Walking Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 66
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52dfe825b3b665f0800000000000000
+      internalID: -763725496135462306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight Walking Spritesheet_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 42
-        height: 42
+        width: 66
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +253,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc8a9a1550f668410800000000000000
-      internalID: 1478991596273379532
+      spriteID: eb544f430fa651f50800000000000000
+      internalID: 6851499988027196862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Great Knight Idle_1
+      name: Knight Walking Spritesheet_7
       rect:
         serializedVersion: 2
-        x: 42
+        x: 66
         y: 0
-        width: 42
-        height: 42
+        width: 66
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,71 +274,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a611cef7b20bd250800000000000000
-      internalID: 5970368720286062243
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Great Knight Idle_2
-      rect:
-        serializedVersion: 2
-        x: 84
-        y: 0
-        width: 42
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e55f5d140db966e30800000000000000
-      internalID: 4496452596736062814
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Great Knight Idle_3
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 0
-        width: 42
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 899fd54f3bb752fb0800000000000000
-      internalID: -4673193025497859688
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Great Knight Idle_4
-      rect:
-        serializedVersion: 2
-        x: 168
-        y: 0
-        width: 42
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b67dfdc9334eab80800000000000000
-      internalID: -8381687940941777232
+      spriteID: 1873e98aa6b368860800000000000000
+      internalID: 7531772756105246593
       vertices: []
       indices: 
       edges: []
