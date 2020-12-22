@@ -51,7 +51,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 4
   MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
@@ -286,7 +286,6 @@ MonoBehaviour:
   leftAttack: 2
   rightAttack: 3
   cauldronSound: {fileID: 245200999282767231}
-  soupSplashSound: {fileID: 1966132848258504446}
   soupBeamSound: {fileID: 480046234978507524}
   gruntSounds: {fileID: 4920127695827924381}
 --- !u!1 &1947825028632532664
@@ -430,7 +429,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 4
   MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
@@ -590,7 +589,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 4
   MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
@@ -718,7 +717,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 4
   MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
