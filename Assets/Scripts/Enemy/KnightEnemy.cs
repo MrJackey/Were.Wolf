@@ -102,6 +102,7 @@ public class KnightEnemy : MonoBehaviour {
 		animator.Play(turnHash);
 		state = State.Turning;
 		turnDirection = direction;
+		detectionCone.enabled = false;
 	}
 
 	private void SetFacing(float direction) {
@@ -133,6 +134,7 @@ public class KnightEnemy : MonoBehaviour {
 	private void EndTurning() {
 		state = State.Walking;
 		SetFacing(turnDirection);
+		detectionCone.enabled = true;
 	}
 
 

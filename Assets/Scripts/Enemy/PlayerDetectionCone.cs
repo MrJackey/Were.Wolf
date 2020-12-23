@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerDetectionCone : MonoBehaviour {
@@ -25,6 +26,13 @@ public class PlayerDetectionCone : MonoBehaviour {
 	public UnityEvent OnBecomeVisible => onBecomeVisible;
 
 	public UnityEvent OnEndVisible => onEndVisible;
+
+	private void OnDisable() {
+		if (isPlayerVisible) {
+			isPlayerVisible = false;
+			onEndVisible.Invoke();
+		}
+	}
 
 	private void Update() {
 		if (isPlayerVisible == (isPlayerVisible = CheckPlayerVisible())) return;
