@@ -17,12 +17,11 @@ public class CutsceneHelper : MonoBehaviour {
 	[SerializeField] private UnityEvent onCutsceneStart;
 	[SerializeField] private UnityEvent onCutsceneEnd;
 
-	private SimpleTimer fadeTimer;
+	private SimpleTimer skipInfoFadeTimer;
 	private Animator animator;
 	private bool isSkipped = false;
 
 	private void Start() {
-		fadeTimer = new SimpleTimer();
 		animator = GetComponent<Animator>();
 	}
 
@@ -30,10 +29,10 @@ public class CutsceneHelper : MonoBehaviour {
 		if (isSkipped) return;
 
 		if (IsAnyButtonDown()) {
-			fadeTimer.Reset(skipStayDuration);
+			skipInfoFadeTimer.Reset(skipStayDuration);
 			skipInfo.enabled = true;
 		}
-		else if (fadeTimer.Tick())
+		else if (skipInfoFadeTimer.Tick())
 			skipInfo.enabled = false;
 	}
 
@@ -50,6 +49,8 @@ public class CutsceneHelper : MonoBehaviour {
 		skipInfo.enabled = false;
 	}
 
+	#region Animation events
+
 	private void HandleCutsceneStart() {
 		onCutsceneStart.Invoke();
 	}
@@ -58,4 +59,6 @@ public class CutsceneHelper : MonoBehaviour {
 		onCutsceneEnd.Invoke();
 		Destroy(gameObject);
 	}
+
+	#endregion
 }
