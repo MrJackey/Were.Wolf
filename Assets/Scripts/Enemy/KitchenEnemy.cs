@@ -53,14 +53,15 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void Update() {
+		if (isPlayerClose && state == State.Walking && !playerTransformation.IsHuman)
+			AttackPlayer();
+
 		UpdateMovement();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (!other.isTrigger && other.attachedRigidbody.CompareTag("Player") && !playerTransformation.IsHuman && state == State.Walking) {
-			if (isPlayerClose != (isPlayerClose = true))
-				OnDetectPlayer();
-		}
+		if (!other.isTrigger && other.attachedRigidbody.CompareTag("Player"))
+			isPlayerClose = true;
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
@@ -127,7 +128,7 @@ public class KitchenEnemy : MonoBehaviour {
 		state = State.Attacking;
 	}
 
-	private void OnDetectPlayer() {
+	private void AttackPlayer() {
 		Vector2 playerPosition = playerTransform.position;
 		Vector2 myPosition = transform.position;
 		Direction direction;
