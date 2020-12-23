@@ -62,6 +62,8 @@ public class Transformation : MonoBehaviour {
 
 	public bool AllowTransformation { get; set; } = true;
 
+	public BoxCollider2D HitCollider => hitCollider;
+
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
 		particleEffect = Instantiate(transformParticle, transform);
@@ -136,7 +138,9 @@ public class Transformation : MonoBehaviour {
 
 			if (transformInputUp && !isInterrupted && transformationProgress < cancelThreshold) {
 				isInterrupted = true;
-				state = oldState;
+
+				// Changes the state to newState due to interruption starting another transformation backwards
+				state = newState;
 
 				onTransformInterrupt.Invoke(transTimer);
 

@@ -6889,6 +6889,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 1
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -9353,6 +9354,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 0
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -13076,6 +13078,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 1
+  textStays: 0
   fadeOut: 0
   fadeDuration: 0.5
   messages:
@@ -14494,6 +14497,103 @@ Transform:
   m_Father: {fileID: 970985761}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &944865004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 944865005}
+  - component: {fileID: 944865007}
+  - component: {fileID: 944865006}
+  m_Layer: 0
+  m_Name: _Interact_E (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &944865005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944865004}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.932, y: 10.404, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1531313413}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &944865006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944865004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2f003e15584ea8a5a7437aea8a3c59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyboardSprite: {fileID: 21300000, guid: 615a7386d4ad7ad4ea761e56c445b53f, type: 3}
+  gamepadSprite: {fileID: 21300000, guid: df309623ef12d494bb9f050f346fb588, type: 3}
+--- !u!212 &944865007
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944865004}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 755491027
+  m_SortingLayer: -2
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 615a7386d4ad7ad4ea761e56c445b53f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.25, y: 1.25}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1001 &946482367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16456,11 +16556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.13
+      value: -7.326
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.72
+      value: -1.504
       objectReference: {fileID: 0}
     - target: {fileID: 3326305250810700158, guid: e40218b980f2fc94483a2a4660c7161b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -135315,6 +135415,7 @@ Transform:
   - {fileID: 890514889}
   - {fileID: 903961016}
   - {fileID: 939242415}
+  - {fileID: 944865005}
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135482,6 +135583,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 1
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -135684,6 +135786,7 @@ MonoBehaviour:
   reshowOnTransform: 0
   charactersPerSecond: 15
   stopOnLeave: 0
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -139139,9 +139242,10 @@ MonoBehaviour:
   textOffset: {x: 0.05, y: 0.78}
   ignoreTriggers: 1
   forceShow: 0
-  reshowOnTransform: 0
+  reshowOnTransform: 3
   charactersPerSecond: 15
   stopOnLeave: 0
+  textStays: 0
   fadeOut: 1
   fadeDuration: 0.5
   messages:
@@ -142916,6 +143020,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: textStays
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: reshowOnTransform
       value: 1
       objectReference: {fileID: 0}
@@ -142942,6 +143050,14 @@ PrefabInstance:
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[1].useInForm
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996599, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: m_Size.x
+      value: 7.516369
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996599, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.8342333
       objectReference: {fileID: 0}
     - target: {fileID: 2053695448339817367, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Name

@@ -19,6 +19,7 @@ public class DeathScreenHelper : MonoBehaviour {
 
 	private Health playerHealth;
 	private Transformation playerTransformation;
+	private PlayerController playerController;
 	private Animator animator;
 	private CheckpointManager checkpointManager;
 
@@ -33,6 +34,7 @@ public class DeathScreenHelper : MonoBehaviour {
 		GameObject go = GameObject.FindWithTag("Player");
 		playerHealth = go.GetComponent<Health>();
 		playerTransformation = go.GetComponent<Transformation>();
+		playerController = go.GetComponent<PlayerController>();
 	}
 
 	private void Start() {
@@ -58,17 +60,19 @@ public class DeathScreenHelper : MonoBehaviour {
 
 	private IEnumerator CoShowDeath() {
 		Time.timeScale = 0;
+		playerController.AllowControls = false;
 		animator.SetTrigger(showHash);
 
-		yield return new WaitForSecondsRealtime(screenDuration / 2);
-
 		if (checkpointManager != null) {
+			yield return new WaitForSecondsRealtime(screenDuration / 2);
 			checkpointManager.Respawn();
 			Time.timeScale = 1;
+			yield return new WaitForSeconds(screenDuration / 2);
+			playerController.AllowControls = true;
 			yield break;
 		}
 
-		yield return new WaitForSecondsRealtime(screenDuration / 2);
+		yield return new WaitForSecondsRealtime(screenDuration);
 		Time.timeScale = 1;
 		sceneHelper.ReloadScene();
 	}
