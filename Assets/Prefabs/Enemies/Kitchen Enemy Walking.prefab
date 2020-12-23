@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 1947825028204135956}
   - component: {fileID: 1947825028204135963}
   - component: {fileID: 1947825028204135958}
+  - component: {fileID: 1303129004524942874}
   m_Layer: 0
   m_Name: Kitchen Enemy
   m_TagString: Untagged
@@ -288,6 +289,22 @@ MonoBehaviour:
   cauldronSound: {fileID: 245200999282767231}
   soupBeamSound: {fileID: 480046234978507524}
   gruntSounds: {fileID: 4920127695827924381}
+--- !u!58 &1303129004524942874
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947825028204135962}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.24}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!1 &1947825028632532664
 GameObject:
   m_ObjectHideFlags: 0

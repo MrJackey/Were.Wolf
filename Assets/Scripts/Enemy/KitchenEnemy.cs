@@ -33,15 +33,39 @@ public class KitchenEnemy : MonoBehaviour {
 	private float facing = -1;
 	private float turnDirection;
 	private bool turnAfterAttack;
+	private bool attackAfterTurn;
 	private Direction attackDirection;
+
+	private bool isPlayerClose;
+	private Transform playerTransform;
+	private Transformation playerTransformation;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+
+		GameObject playerObject = GameObject.FindWithTag("Player");
+		if (playerObject != null) {
+			playerTransform = playerObject.transform;
+			playerTransformation = playerObject.GetComponent<Transformation>();
+		}
+
 		SetFacing(Mathf.Sign(transform.localScale.x));
 	}
 
 	private void Update() {
 		UpdateMovement();
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (!other.isTrigger && other.attachedRigidbody.CompareTag("Player") && !playerTransformation.IsHuman && state == State.Walking) {
+			if (isPlayerClose != (isPlayerClose = true))
+				OnDetectPlayer();
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D other) {
+		if (!other.isTrigger && other.attachedRigidbody.CompareTag("Player"))
+			isPlayerClose = false;
 	}
 
 	private void UpdateMovement() {
@@ -103,6 +127,37 @@ public class KitchenEnemy : MonoBehaviour {
 		state = State.Attacking;
 	}
 
+	private void OnDetectPlayer() {
+		Vector2 playerPosition = playerTransform.position;
+		Vector2 myPosition = transform.position;
+		Direction direction;
+
+		float angle = MathX.Angle(playerPosition - myPosition);
+		if (angle < 0)
+			angle += 2 * Mathf.PI;
+
+		const float d45 = Mathf.PI / 4;
+		if (angle <= d45 || angle > 7 * d45)
+			direction = Direction.Right;
+		else if (angle <= 3 * d45)
+			direction = Direction.Up;
+		else if (angle <= 5 * d45)
+			direction = Direction.Left;
+		else
+			return; // down
+
+		if (Mathf.Sign(playerPosition.x - myPosition.x) != facing) {
+			attackAfterTurn = true;
+			attackDirection = direction;
+			Turn(-facing);
+		}
+		else {
+			turnAfterAttack = false;
+			Attack(direction);
+		}
+	}
+
+
 	#region Animation events
 
 	private void OnAttackStart() {
@@ -137,6 +192,12 @@ public class KitchenEnemy : MonoBehaviour {
 
 		state = State.Walking;
 		SetFacing(turnDirection);
+
+		if (attackAfterTurn) {
+			attackAfterTurn = false;
+			turnAfterAttack = false;
+			Attack(attackDirection);
+		}
 	}
 
 	private void PlayGruntSound() {
