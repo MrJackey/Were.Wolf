@@ -139,13 +139,12 @@ public class KitchenEnemy : MonoBehaviour {
 		SetFacing(turnDirection);
 	}
 
-	public void PlayGruntSound() {
+	private void PlayGruntSound() {
 		gruntSounds.PlayRandom();
 	}
 
-	public void PlaySoupSound() {
+	private void PlaySoupSound() {
 		soupBeamSound.Play();
-
 	}
 
 	#endregion
