@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Knight Idle
+  m_Name: Knight Recharging
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.109375, y: -0.265625, z: 0}
+        value: {x: 0.078125, y: -0.234375, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: Infinity, y: Infinity, z: Infinity}
         tangentMode: 0
@@ -28,8 +28,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.2
-        value: {x: 0.109375, y: -0.296875, z: 0}
+        time: 0.7
+        value: {x: 0.078125, y: -0.265625, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: Infinity, y: Infinity, z: Infinity}
         tangentMode: 0
@@ -37,8 +37,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.4
-        value: {x: 0.109375, y: -0.265625, z: 0}
+        time: 0.8
+        value: {x: 0.078125, y: -0.296875, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: Infinity, y: Infinity, z: Infinity}
         tangentMode: 0
@@ -50,19 +50,48 @@ AnimationClip:
       m_RotationOrder: 4
     path: Detection Cone
   m_ScaleCurves: []
-  m_FloatCurves: []
+  m_FloatCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: Detection Cone/Light
+    classID: 1
+    script: {fileID: 0}
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -8152730470257852249, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
+      value: {fileID: -207942320972706344, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
     - time: 0.1
-      value: {fileID: -5225051980460460574, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
+      value: {fileID: 3185742708158542594, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
     - time: 0.2
-      value: {fileID: 5272386704139983904, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
+      value: {fileID: 8147932840933044098, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
     - time: 0.3
-      value: {fileID: -8930448982690445612, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
+      value: {fileID: -3869646334367472092, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
     - time: 0.4
-      value: {fileID: -4765777205276018364, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
+      value: {fileID: -8729219469095955906, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - time: 0.5
+      value: {fileID: -754387052924776967, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - time: 0.6
+      value: {fileID: 351112956271495581, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - time: 0.7
+      value: {fileID: -7916733517834660721, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - time: 0.8
+      value: {fileID: -7991307826492552226, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - time: 0.9
+      value: {fileID: 1006230157179107653, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -82,6 +111,13 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
+      path: 3299403489
+      attribute: 2086281974
+      script: {fileID: 0}
+      typeID: 1
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
       path: 0
       attribute: 0
       script: {fileID: 0}
@@ -89,17 +125,22 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -8152730470257852249, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
-    - {fileID: -5225051980460460574, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
-    - {fileID: 5272386704139983904, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
-    - {fileID: -8930448982690445612, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
-    - {fileID: -4765777205276018364, guid: 01e0a8602cfdb8b46bf59291fecb87f2, type: 3}
+    - {fileID: -207942320972706344, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: 3185742708158542594, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: 8147932840933044098, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: -3869646334367472092, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: -8729219469095955906, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: -754387052924776967, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: 351112956271495581, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: -7916733517834660721, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: -7991307826492552226, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
+    - {fileID: 1006230157179107653, guid: 4d6a7b37a9c1cb34da4c81cbabdb304c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -120,7 +161,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.109375
+        value: 0.078125
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -128,8 +169,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.2
-        value: 0.109375
+        time: 0.7
+        value: 0.078125
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -137,8 +178,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.4
-        value: 0.109375
+        time: 0.8
+        value: 0.078125
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -157,6 +198,15 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: -0.234375
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.7
         value: -0.265625
         inSlope: Infinity
         outSlope: Infinity
@@ -165,17 +215,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.2
+        time: 0.8
         value: -0.296875
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.4
-        value: -0.265625
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -202,7 +243,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.2
+        time: 0.7
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -211,7 +252,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.4
+        time: 0.8
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -225,6 +266,25 @@ AnimationClip:
     attribute: m_LocalPosition.z
     path: Detection Cone
     classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: Detection Cone/Light
+    classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0

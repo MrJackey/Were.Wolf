@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class KnightEnemy : MonoBehaviour {
@@ -6,6 +7,8 @@ public class KnightEnemy : MonoBehaviour {
 	private static readonly int isWalkingHash = Animator.StringToHash("isWalking");
 	private static readonly int turnHash = Animator.StringToHash("Turn");
 	private static readonly int attackHash = Animator.StringToHash("Attack");
+	private static readonly int rechargeHash = Animator.StringToHash("Recharge");
+	private static readonly int finishRechargeHash = Animator.StringToHash("Finish Recharge");
 
 	[SerializeField] private PlayerDetectionCone detectionCone;
 	[SerializeField] private Collider2D wallCollider = null;
@@ -52,7 +55,7 @@ public class KnightEnemy : MonoBehaviour {
 		UpdateMovement();
 
 		if (state == State.Cooldown && attackCooldownTimer.Tick())
-			EndCooldown();
+			animator.Play(finishRechargeHash);
 	}
 
 	private void OnPlayerBecomeVisible() {
@@ -121,6 +124,7 @@ public class KnightEnemy : MonoBehaviour {
 
 	private void BeginCooldown() {
 		state = State.Cooldown;
+		animator.Play(rechargeHash);
 		attackCooldownTimer.Reset(attackCooldown);
 	}
 
@@ -142,18 +146,22 @@ public class KnightEnemy : MonoBehaviour {
 
 	private void OnAttackAnimationFinished() {
 		Debug.Assert(state == State.Attacking);
-
 		BeginCooldown();
 	}
 
 	private void OnTurnAnimationFinished() {
 		Debug.Assert(state == State.Turning);
-
 		EndTurning();
 	}
 
-	private void OnDashAnimationEnd() {
+	private void OnDashAnimationFinished() {
+		Debug.Assert(isDashing);
 		isDashing = false;
+	}
+
+	private void OnCooldownAnimationFinished() {
+		Debug.Assert(state == State.Cooldown);
+		EndCooldown();
 	}
 
 	#endregion
