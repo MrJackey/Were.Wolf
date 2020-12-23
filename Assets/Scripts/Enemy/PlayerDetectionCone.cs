@@ -22,6 +22,10 @@ public class PlayerDetectionCone : MonoBehaviour {
 		set => transform.localEulerAngles = new Vector3(0, 0, value);
 	}
 
+	public UnityEvent OnBecomeVisible => onBecomeVisible;
+
+	public UnityEvent OnEndVisible => onEndVisible;
+
 	private void Update() {
 		if (isPlayerVisible == (isPlayerVisible = CheckPlayerVisible())) return;
 		if (isPlayerVisible)
