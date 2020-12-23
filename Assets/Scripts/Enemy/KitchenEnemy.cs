@@ -23,6 +23,11 @@ public class KitchenEnemy : MonoBehaviour {
 	[SerializeField] private AttackAction leftAttack = AttackAction.None;
 	[SerializeField] private AttackAction rightAttack = AttackAction.None;
 
+	[Header("Sounds")]
+	[SerializeField] private AudioSource cauldronSound;
+	[SerializeField] private AudioSource soupBeamSound;
+	[SerializeField] private SoundRandomizer gruntSounds;
+
 	private Animator animator;
 	private State state = State.Walking;
 	private float facing = -1;
@@ -105,6 +110,8 @@ public class KitchenEnemy : MonoBehaviour {
 
 		if (attackDirection == Direction.Up) {
 			Instantiate(upAttackPrefab, upAttackPoint);
+			cauldronSound.Play();
+			PlaySoupSound();
 		}
 		else {
 			float attackFacing = attackDirection == Direction.Left ? -1 : 1;
@@ -130,6 +137,14 @@ public class KitchenEnemy : MonoBehaviour {
 
 		state = State.Walking;
 		SetFacing(turnDirection);
+	}
+
+	private void PlayGruntSound() {
+		gruntSounds.PlayRandom();
+	}
+
+	private void PlaySoupSound() {
+		soupBeamSound.Play();
 	}
 
 	#endregion
