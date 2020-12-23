@@ -147,7 +147,7 @@ public class KitchenEnemy : MonoBehaviour {
 		else
 			return; // down
 
-		if (Mathf.Sign(playerPosition.x - myPosition.x) != facing) {
+		if (direction != Direction.Up && Mathf.Sign(playerPosition.x - myPosition.x) != facing) {
 			attackAfterTurn = true;
 			attackDirection = direction;
 			Turn(-facing);
