@@ -68,6 +68,14 @@
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SkipCutscene",
+                    "type": "Button",
+                    "id": "399e892a-16da-45ad-b371-88f16c0c252a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -411,6 +419,28 @@
                     "action": "Peek",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "aea474bb-2820-4343-89fb-9b92e5c457d9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold(duration=1.5)",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "SkipCutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ffdf708-39f4-4263-b824-eb084bb37058",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Hold(duration=1.5)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SkipCutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

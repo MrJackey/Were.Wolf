@@ -372,7 +372,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Jump(AnimationCurve curve, float endTime) {
-		isGrounded = false;
+		isGrounded = groundedCollider.IsTouchingLayers(groundLayer);
 		jumpTimer += Time.deltaTime;
 		float derivative =
 			(curve.Evaluate(jumpTimer + Time.deltaTime) -
