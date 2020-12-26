@@ -152,6 +152,10 @@ public class PlayerController : MonoBehaviour {
 		if (useSameCurve)
 			airJumpCurve = jumpCurve;
 		airJumpEndTime = airJumpCurve.keys[airJumpCurve.length - 1].time;
+
+		wolfRunningSound.Pause();
+		humanRunningSound.Pause();
+		crawlingSound.Pause();
 	}
 
 	private void Update() {
@@ -218,15 +222,16 @@ public class PlayerController : MonoBehaviour {
 				UpdateCrouchColliders(crouchCollider, humanCollider, crouchGroundCollider, humanGroundCollider);
 		}
 		
+		if (isCrouched && Mathf.Abs(xInput) > 0.1f) {
+					crawlingSound.UnPause();
+		}
+		else {
+			crawlingSound.Pause();
+		}
 
 		if (isGrounded && !transformation.IsTransforming && 
 			transformation.State == TransformationState.Wolf && Mathf.Abs(xInput) > 0.1f) {
-			if (!wolfRunningSound.isPlaying && wolfRunningSound.time == 0) {
-				wolfRunningSound.Play();
-			}
-			else {
-				wolfRunningSound.UnPause();
-			}
+			wolfRunningSound.UnPause();
 		}
 		else {
 			wolfRunningSound.Pause();
@@ -234,12 +239,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (!isCrouched && !isCrouching && isGrounded && !transformation.IsTransforming &&
 			transformation.State == TransformationState.Human && Mathf.Abs(xInput) > 0.1f) {
-			if (!humanRunningSound.isPlaying && humanRunningSound.time == 0) {
-				humanRunningSound.Play();
-			}
-			else {
-				humanRunningSound.UnPause();
-			}
+			humanRunningSound.UnPause();
 		}
 		else {
 			humanRunningSound.Pause();
@@ -280,17 +280,6 @@ public class PlayerController : MonoBehaviour {
 				StartCrouch();
 			else if (isCrouched && !crouchInput && isClearAbove)
 				Uncrouch();
-		}
-
-
-		if (isCrouched) {
-			if (Mathf.Abs(xInput) > 0.1f) {
-				if (!crawlingSound.isPlaying)
-					crawlingSound.Play();
-			}
-			else {
-				crawlingSound.Pause();
-			}
 		}
 	}
 
@@ -468,7 +457,7 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = true;
 		isCrouched = false;
 		crouchTransitionTimer = 0f;
-		crawlingSound.Stop();
+		crawlingSound.Pause();
 		onUncrouch.Invoke();
 	}
 
