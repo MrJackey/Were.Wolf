@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour {
-	[SerializeField] private bool isInteractable;
+	[SerializeField] private bool isInteractable = true;
 	[SerializeField] private float interactArrowHeight;
 	[SerializeField] private UnityEvent<GameObject> onInteract;
 
