@@ -222,26 +222,22 @@ public class PlayerController : MonoBehaviour {
 				UpdateCrouchColliders(crouchCollider, humanCollider, crouchGroundCollider, humanGroundCollider);
 		}
 		
-		if (isCrouched && Mathf.Abs(xInput) > 0.1f) {
-					crawlingSound.UnPause();
+		if (isGrounded && Mathf.Abs(xInput) > 0.1f) {
+			if (isCrouched) {
+				crawlingSound.UnPause();
+				humanRunningSound.Pause();
+			}
+			else if (transformation.State == TransformationState.Wolf) {
+				wolfRunningSound.UnPause();
+			}
+
+			else if (!isCrouching && transformation.State == TransformationState.Human) {
+				humanRunningSound.UnPause();
+			}
 		}
 		else {
 			crawlingSound.Pause();
-		}
-
-		if (isGrounded && !transformation.IsTransforming && 
-			transformation.State == TransformationState.Wolf && Mathf.Abs(xInput) > 0.1f) {
-			wolfRunningSound.UnPause();
-		}
-		else {
 			wolfRunningSound.Pause();
-		}
-
-		if (!isCrouched && !isCrouching && isGrounded && !transformation.IsTransforming &&
-			transformation.State == TransformationState.Human && Mathf.Abs(xInput) > 0.1f) {
-			humanRunningSound.UnPause();
-		}
-		else {
 			humanRunningSound.Pause();
 		}
 
