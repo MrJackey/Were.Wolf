@@ -6,9 +6,11 @@ public class Health : MonoBehaviour {
 	[SerializeField] private float maxHealth = 100;
 	[SerializeField] private bool invincible = false;
 	[SerializeField] private bool dead = false;
+	[SerializeField] private Transformation transformation;
 
 	[Header("Events")]
-	[SerializeField] private UnityEvent<float> onTakeDamage = null;
+	[SerializeField] private UnityEvent<float> onTakeDamageWolf = null;
+	[SerializeField] private UnityEvent<float> onTakeDamageHuman = null;
 	[SerializeField] private UnityEvent<float> onHeal = null;
 	[SerializeField] private UnityEvent onValueChange;
 	[SerializeField] private UnityEvent<DamageSource> onDie = null;
@@ -40,7 +42,7 @@ public class Health : MonoBehaviour {
 		set => dead = value;
 	}
 
-	public UnityEvent<float> OnTakeDamage => onTakeDamage;
+	public UnityEvent<float> OnTakeDamage => onTakeDamageWolf;
 	public UnityEvent<float> OnHeal => onHeal;
 	public UnityEvent OnValueChange => onValueChange;
 	public UnityEvent<DamageSource> OnDie => onDie;
@@ -54,7 +56,11 @@ public class Health : MonoBehaviour {
 
 		float delta = SetHealth(health - amount);
 		if (delta == 0) return;
-		onTakeDamage.Invoke(delta);
+
+		if (transformation.State == TransformationState.Wolf)
+			onTakeDamageWolf.Invoke(delta);
+		else if (transformation.State == TransformationState.Human)
+			onTakeDamageHuman.Invoke(delta);
 
 		if (health == 0)
 			Die(damageSource);
