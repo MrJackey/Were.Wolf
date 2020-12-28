@@ -31,6 +31,8 @@ public class Transformation : MonoBehaviour {
 	[SerializeField] private UnityEvent onTransformStart = null;
 	[SerializeField] private UnityEvent<float> onTransformInterrupt = null;
 	[SerializeField] private UnityEvent onTransformEnd = null;
+	[SerializeField] private UnityEvent onPlayWolfHurtSound = null;
+	[SerializeField] private UnityEvent onPlayHumanHurtSound = null;
 
 	private PlayerController playerController;
 	private TransformationState oldState;
@@ -206,6 +208,13 @@ public class Transformation : MonoBehaviour {
 		hitCollider.offset = newHitOffset;
 		groundCollider.size = newGroundSize;
 		groundCollider.offset = newGroundOffset;
+	}
+
+	public void PlayTakeDamageSound () {
+		if (IsHuman)
+			onPlayHumanHurtSound.Invoke();
+		else
+			onPlayWolfHurtSound.Invoke();
 	}
 }
 
