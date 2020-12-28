@@ -283,6 +283,7 @@ MonoBehaviour:
       m_Calls: []
   leverType: 1
   timerEnd: 5
+  noDeactivate: 1
   fastTimeAudioStartAdjust: 0.75
   pullLeverAudio: {fileID: 331864370339740896}
   slowTimeAudio: {fileID: 8342074530262994156}
@@ -299,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4a12c64bb080a4aa627d92fcff100c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteractable: 1
   interactArrowHeight: 0.7
   onInteract:
     m_PersistentCalls:
