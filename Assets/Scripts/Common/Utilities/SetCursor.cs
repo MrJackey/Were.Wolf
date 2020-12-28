@@ -8,4 +8,9 @@ public class SetCursor : MonoBehaviour {
 	private void Start() {
 		Cursor.SetCursor(texture, hotspot, mode);
 	}
+
+	private void OnApplicationFocus(bool hasFocus) {
+		if (hasFocus)
+			Cursor.SetCursor(texture, hotspot, mode);
+	}
 }
