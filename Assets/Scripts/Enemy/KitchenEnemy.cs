@@ -5,11 +5,13 @@ public class KitchenEnemy : MonoBehaviour {
 	private static readonly int turnHash = Animator.StringToHash("Turn");
 	private static readonly int attackUpHash = Animator.StringToHash("Attack Up");
 	private static readonly int attackLeftHash = Animator.StringToHash("Attack Left");
+	private static readonly int attackSplashHash = Animator.StringToHash("Attack Splash");
 	private static readonly int isWalkingHash = Animator.StringToHash("isWalking");
 
 	[Header("References")]
 	[SerializeField] private Transform leftAttackPrefab = null;
 	[SerializeField] private Transform upAttackPrefab = null;
+	[SerializeField] private Transform splashAttackPrefab = null;
 	[SerializeField] private Transform leftAttackPoint = null;
 	[SerializeField] private Transform upAttackPoint = null;
 
@@ -34,20 +36,18 @@ public class KitchenEnemy : MonoBehaviour {
 	private float turnDirection;
 	private bool turnAfterAttack;
 	private bool attackAfterTurn;
+	private bool doSplashAttack;
 	private Direction attackDirection;
 
 	private bool isPlayerClose;
-	private Transform playerTransform;
 	private Transformation playerTransformation;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
 
 		GameObject playerObject = GameObject.FindWithTag("Player");
-		if (playerObject != null) {
-			playerTransform = playerObject.transform;
+		if (playerObject != null)
 			playerTransformation = playerObject.GetComponent<Transformation>();
-		}
 
 		SetFacing(Mathf.Sign(transform.localScale.x));
 	}
@@ -122,40 +122,19 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void Attack(Direction direction) {
-		animator.Play(direction == Direction.Up ? attackUpHash : attackLeftHash);
+		if (doSplashAttack)
+			animator.Play(attackSplashHash);
+		else
+			animator.Play(direction == Direction.Up ? attackUpHash : attackLeftHash);
 
 		attackDirection = direction;
 		state = State.Attacking;
 	}
 
 	private void AttackPlayer() {
-		Vector2 playerPosition = playerTransform.position;
-		Vector2 myPosition = transform.position;
-		Direction direction;
-
-		float angle = MathX.Angle(playerPosition - myPosition);
-		if (angle < 0)
-			angle += 2 * Mathf.PI;
-
-		const float d45 = Mathf.PI / 4;
-		if (angle <= d45 || angle > 7 * d45)
-			direction = Direction.Right;
-		else if (angle <= 3 * d45)
-			direction = Direction.Up;
-		else if (angle <= 5 * d45)
-			direction = Direction.Left;
-		else
-			return; // down
-
-		if (direction != Direction.Up && Mathf.Sign(playerPosition.x - myPosition.x) != facing) {
-			attackAfterTurn = true;
-			attackDirection = direction;
-			Turn(-facing);
-		}
-		else {
-			turnAfterAttack = false;
-			Attack(direction);
-		}
+		doSplashAttack = true;
+		turnAfterAttack = false;
+		Attack(Direction.Up);
 	}
 
 
@@ -164,7 +143,13 @@ public class KitchenEnemy : MonoBehaviour {
 	private void OnAttackStart() {
 		Debug.Assert(state == State.Attacking);
 
-		if (attackDirection == Direction.Up) {
+		if (doSplashAttack) {
+			doSplashAttack = false;
+			Instantiate(splashAttackPrefab, upAttackPoint);
+			cauldronSound.Play();
+			PlaySoupSound();
+		}
+		else if (attackDirection == Direction.Up) {
 			Instantiate(upAttackPrefab, upAttackPoint);
 			cauldronSound.Play();
 			PlaySoupSound();
