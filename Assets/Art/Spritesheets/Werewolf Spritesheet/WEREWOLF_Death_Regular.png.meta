@@ -29,6 +29,33 @@ TextureImporter:
   - first:
       213: -5534717540030225068
     second: WEREWOLF_Death_Sprite_Sheet_8
+  - first:
+      213: 3803091609575690022
+    second: WEREWOLF_Death_Regular_0
+  - first:
+      213: 8371107397615618647
+    second: WEREWOLF_Death_Regular_1
+  - first:
+      213: 2861418565436629760
+    second: WEREWOLF_Death_Regular_2
+  - first:
+      213: 863565896816185895
+    second: WEREWOLF_Death_Regular_3
+  - first:
+      213: -8218263083029998399
+    second: WEREWOLF_Death_Regular_4
+  - first:
+      213: -5070976346244604007
+    second: WEREWOLF_Death_Regular_5
+  - first:
+      213: 8991794627473544412
+    second: WEREWOLF_Death_Regular_6
+  - first:
+      213: 8017701810967889539
+    second: WEREWOLF_Death_Regular_7
+  - first:
+      213: 5527067065937313834
+    second: WEREWOLF_Death_Regular_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -116,12 +143,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_0
+      name: WEREWOLF_Death_Regular_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -130,19 +157,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f4d246b3323ec130800000000000000
-      internalID: 3588861150743418105
+      spriteID: 62f07055bab47c430800000000000000
+      internalID: 3803091609575690022
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_1
+      name: WEREWOLF_Death_Regular_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 70
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -151,19 +178,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b29337bde21215850800000000000000
-      internalID: 6363904233585195307
+      spriteID: 75a068b73d52c2470800000000000000
+      internalID: 8371107397615618647
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_2
+      name: WEREWOLF_Death_Regular_2
       rect:
         serializedVersion: 2
-        x: 124
+        x: 140
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -172,19 +199,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d86ade01de6de7180800000000000000
-      internalID: -9115612282071701875
+      spriteID: 003ee8a560dc5b720800000000000000
+      internalID: 2861418565436629760
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_3
+      name: WEREWOLF_Death_Regular_3
       rect:
         serializedVersion: 2
-        x: 184
+        x: 210
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -193,19 +220,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37192833cdf51f940800000000000000
-      internalID: 5328145233517646195
+      spriteID: 722ded79b900cfb00800000000000000
+      internalID: 863565896816185895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_4
+      name: WEREWOLF_Death_Regular_4
       rect:
         serializedVersion: 2
-        x: 244
+        x: 280
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -214,19 +241,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1586aec9e08eda910800000000000000
-      internalID: 1850390171378935889
+      spriteID: 1c45a49a44dd2fd80800000000000000
+      internalID: -8218263083029998399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_5
+      name: WEREWOLF_Death_Regular_5
       rect:
         serializedVersion: 2
-        x: 304
+        x: 350
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -235,19 +262,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bec52767191700790800000000000000
-      internalID: -7565922504411030293
+      spriteID: 99f9ea951e540a9b0800000000000000
+      internalID: -5070976346244604007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_6
+      name: WEREWOLF_Death_Regular_6
       rect:
         serializedVersion: 2
-        x: 364
+        x: 420
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -256,19 +283,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46b5f7719af9577c0800000000000000
-      internalID: -4074174739294233756
+      spriteID: cd493d7b29549cc70800000000000000
+      internalID: 8991794627473544412
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_7
+      name: WEREWOLF_Death_Regular_7
       rect:
         serializedVersion: 2
-        x: 424
+        x: 490
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -277,19 +304,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86833920c13e42c50800000000000000
-      internalID: 6639681460092745832
+      spriteID: 3864fb54159944f60800000000000000
+      internalID: 8017701810967889539
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WEREWOLF_Death_Sprite_Sheet_8
+      name: WEREWOLF_Death_Regular_8
       rect:
         serializedVersion: 2
-        x: 484
+        x: 560
         y: 0
-        width: 60.11111
+        width: 70
         height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -298,8 +325,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 455ef56b8bbb033b0800000000000000
-      internalID: -5534717540030225068
+      spriteID: a2044fa763614bc40800000000000000
+      internalID: 5527067065937313834
       vertices: []
       indices: 
       edges: []
