@@ -51,17 +51,25 @@ public class PlayerHandDetection : MonoBehaviour {
 			interactArrow.SetActive(false);
 			return;
 		}
+
+		if (detectedInteractItem != null && !detectedInteractItem.IsInteractable) {
+			detectedInteractItem = null;
+			interactArrow.SetActive(false);
+		}
+
 		float lowestDistance = float.PositiveInfinity;
-		Interactable closestItem = detectedInteractItem;
+		Interactable closestItem = null;
 
 		foreach (Interactable interactable in interactableList) {
 			float distance = (transform.position - interactable.transform.position).sqrMagnitude;
 
-			if (distance < lowestDistance || (!string.IsNullOrEmpty(priorityInteractableTag) && interactable.CompareTag(priorityInteractableTag))) {
+			if (interactable.IsInteractable && (distance < lowestDistance ||
+				!string.IsNullOrEmpty(priorityInteractableTag) && interactable.CompareTag(priorityInteractableTag))) {
 				lowestDistance = distance;
 				closestItem = interactable;
 			}
 		}
+
 		if (closestItem == null || closestItem == detectedInteractItem)
 			return;
 

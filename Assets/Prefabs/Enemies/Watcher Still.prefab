@@ -192,15 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39285920e89d41a29ae557d3e7d00d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eyeOffset: {x: 0.42, y: -0.031}
-  visionConeAngle: 19
-  visionDistance: 4.9
-  visionRayCount: 3
-  raycastLayers:
-    serializedVersion: 2
-    m_Bits: 819
-  ignoreTriggers: 1
-  lantern: {fileID: 5092249485273736092}
+  lantern: {fileID: 2016760071}
   wallCollider: {fileID: 321011684147639838}
   groundCollider: {fileID: 598063240806511157}
   wallLayer:
@@ -571,6 +563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5092249485273736092}
+  - component: {fileID: 2016760071}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -593,6 +586,31 @@ Transform:
   m_Father: {fileID: 1637389642820773741}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2016760071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5224518095995961273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78deec9180744624859b71981145be0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionConeAngle: 19
+  visionDistance: 4.9
+  visionRayCount: 3
+  raycastLayers:
+    serializedVersion: 2
+    m_Bits: 307
+  ignoreTriggers: 1
+  onBecomeVisible:
+    m_PersistentCalls:
+      m_Calls: []
+  onEndVisible:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5761684349662431415
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,11 +5,13 @@ public class KitchenEnemy : MonoBehaviour {
 	private static readonly int turnHash = Animator.StringToHash("Turn");
 	private static readonly int attackUpHash = Animator.StringToHash("Attack Up");
 	private static readonly int attackLeftHash = Animator.StringToHash("Attack Left");
+	private static readonly int attackSplashHash = Animator.StringToHash("Attack Splash");
 	private static readonly int isWalkingHash = Animator.StringToHash("isWalking");
 
 	[Header("References")]
 	[SerializeField] private Transform leftAttackPrefab = null;
 	[SerializeField] private Transform upAttackPrefab = null;
+	[SerializeField] private Transform splashAttackPrefab = null;
 	[SerializeField] private Transform leftAttackPoint = null;
 	[SerializeField] private Transform upAttackPoint = null;
 
@@ -23,20 +25,48 @@ public class KitchenEnemy : MonoBehaviour {
 	[SerializeField] private AttackAction leftAttack = AttackAction.None;
 	[SerializeField] private AttackAction rightAttack = AttackAction.None;
 
+	[Header("Sounds")]
+	[SerializeField] private AudioSource cauldronSound;
+	[SerializeField] private AudioSource soupBeamSound;
+	[SerializeField] private SoundRandomizer gruntSounds;
+
 	private Animator animator;
 	private State state = State.Walking;
 	private float facing = -1;
 	private float turnDirection;
 	private bool turnAfterAttack;
+	private bool attackAfterTurn;
+	private bool doSplashAttack;
 	private Direction attackDirection;
+
+	private bool isPlayerClose;
+	private Transformation playerTransformation;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+
+		GameObject playerObject = GameObject.FindWithTag("Player");
+		if (playerObject != null)
+			playerTransformation = playerObject.GetComponent<Transformation>();
+
 		SetFacing(Mathf.Sign(transform.localScale.x));
 	}
 
 	private void Update() {
+		if (isPlayerClose && state == State.Walking && !playerTransformation.IsHuman)
+			AttackPlayer();
+
 		UpdateMovement();
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (!other.isTrigger && other.attachedRigidbody.CompareTag("Player"))
+			isPlayerClose = true;
+	}
+
+	private void OnTriggerExit2D(Collider2D other) {
+		if (!other.isTrigger && other.attachedRigidbody.CompareTag("Player"))
+			isPlayerClose = false;
 	}
 
 	private void UpdateMovement() {
@@ -92,19 +122,37 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void Attack(Direction direction) {
-		animator.Play(direction == Direction.Up ? attackUpHash : attackLeftHash);
+		if (doSplashAttack)
+			animator.Play(attackSplashHash);
+		else
+			animator.Play(direction == Direction.Up ? attackUpHash : attackLeftHash);
 
 		attackDirection = direction;
 		state = State.Attacking;
 	}
+
+	private void AttackPlayer() {
+		doSplashAttack = true;
+		turnAfterAttack = false;
+		Attack(Direction.Up);
+	}
+
 
 	#region Animation events
 
 	private void OnAttackStart() {
 		Debug.Assert(state == State.Attacking);
 
-		if (attackDirection == Direction.Up) {
+		if (doSplashAttack) {
+			doSplashAttack = false;
+			Instantiate(splashAttackPrefab, upAttackPoint);
+			cauldronSound.Play();
+			PlaySoupSound();
+		}
+		else if (attackDirection == Direction.Up) {
 			Instantiate(upAttackPrefab, upAttackPoint);
+			cauldronSound.Play();
+			PlaySoupSound();
 		}
 		else {
 			float attackFacing = attackDirection == Direction.Left ? -1 : 1;
@@ -130,6 +178,20 @@ public class KitchenEnemy : MonoBehaviour {
 
 		state = State.Walking;
 		SetFacing(turnDirection);
+
+		if (attackAfterTurn) {
+			attackAfterTurn = false;
+			turnAfterAttack = false;
+			Attack(attackDirection);
+		}
+	}
+
+	private void PlayGruntSound() {
+		gruntSounds.PlayRandom();
+	}
+
+	private void PlaySoupSound() {
+		soupBeamSound.Play();
 	}
 
 	#endregion

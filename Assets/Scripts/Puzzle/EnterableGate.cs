@@ -6,14 +6,12 @@ using UnityEngine.InputSystem;
 
 public class EnterableGate : Gate {
 	[SerializeField] private InputActionReference enterActionReference;
-	[SerializeField, Range(0.125f, 1f)]
-	private float enterThreshold = 0.5f;
 	[SerializeField] private UnityEvent onEnter;
 	[SerializeField] private UnityEvent onApproach;
 	[SerializeField] private UnityEvent onLeave;
 
-	private bool canEnter = false;
-	private bool isEntering = false;
+	private bool canEnter;
+	private bool isEntering;
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger) {
@@ -44,15 +42,9 @@ public class EnterableGate : Gate {
 	private void OnEnterInput(InputAction.CallbackContext ctx) {
 		if (!canEnter) return;
 
-		Vector2 moveInput = ctx.ReadValue<Vector2>();
-		if (moveInput.y > enterThreshold) {
-			if (!isEntering) {
-				isEntering = true;
-				onEnter.Invoke();
-			}
-		}
-		else {
-			isEntering = false;
+		if (!isEntering && ctx.performed && ctx.ReadValueAsButton()) {
+			isEntering = true;
+			onEnter.Invoke();
 		}
 	}
 }

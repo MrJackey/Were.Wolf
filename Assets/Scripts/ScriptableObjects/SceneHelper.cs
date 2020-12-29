@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(fileName = "Scene Helper", menuName = "Game/Scene Helper")]
 public class SceneHelper : ScriptableObject {
 	[SerializeField] private SceneReference menuScene;
+	[SerializeField] private SceneReference newGameScene;
 	[SerializeField] private SceneReference endScene;
 	[SerializeField] private SceneTransitionHelper transitionPrefab;
 	[SerializeField] private SceneReference[] levels;
@@ -23,8 +24,9 @@ public class SceneHelper : ScriptableObject {
 	}
 
 	public SceneReference MenuScene => menuScene;
-	public SceneReference[] Levels => levels;
+	public SceneReference NewGameScene => newGameScene;
 	public SceneReference EndScene => endScene;
+	public SceneReference[] Levels => levels;
 
 	public void LoadScene(string sceneName) {
 		SceneManager.LoadScene(sceneName);

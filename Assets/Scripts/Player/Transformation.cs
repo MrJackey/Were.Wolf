@@ -26,6 +26,8 @@ public class Transformation : MonoBehaviour {
 	[Header("Sounds")]
 	[SerializeField] private AudioSource transformToHumanSound = null;
 	[SerializeField] private AudioSource transformToWerewolfSound = null;
+	[SerializeField] private SoundRandomizer wolfHurtSound;
+	[SerializeField] private SoundRandomizer humanHurtSound;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart = null;
@@ -61,6 +63,8 @@ public class Transformation : MonoBehaviour {
 	}
 
 	public bool AllowTransformation { get; set; } = true;
+
+	public BoxCollider2D HitCollider => hitCollider;
 
 	private void Start() {
 		playerController = GetComponent<PlayerController>();
@@ -136,7 +140,9 @@ public class Transformation : MonoBehaviour {
 
 			if (transformInputUp && !isInterrupted && transformationProgress < cancelThreshold) {
 				isInterrupted = true;
-				state = oldState;
+
+				// Changes the state to newState due to interruption starting another transformation backwards
+				state = newState;
 
 				onTransformInterrupt.Invoke(transTimer);
 
@@ -202,6 +208,13 @@ public class Transformation : MonoBehaviour {
 		hitCollider.offset = newHitOffset;
 		groundCollider.size = newGroundSize;
 		groundCollider.offset = newGroundOffset;
+	}
+
+	public void PlayTakeDamageSound () {
+		if (IsHuman)
+			humanHurtSound.PlayRandom();
+		else
+			wolfHurtSound.PlayRandom();
 	}
 }
 

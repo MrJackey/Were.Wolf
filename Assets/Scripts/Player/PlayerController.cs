@@ -361,7 +361,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void OnCrouchInput(InputAction.CallbackContext ctx) {
-		if (ctx.phase == InputActionPhase.Started)
+		if (ctx.phase == InputActionPhase.Performed && ctx.ReadValueAsButton())
 			crouchInput = true;
 		else if (ctx.phase == InputActionPhase.Canceled)
 			crouchInput = false;
@@ -387,7 +387,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Jump(AnimationCurve curve, float endTime) {
-		isGrounded = false;
+		isGrounded = groundedCollider.IsTouchingLayers(groundLayer);
 		jumpTimer += Time.deltaTime;
 		float derivative =
 			(curve.Evaluate(jumpTimer + Time.deltaTime) -
@@ -430,7 +430,7 @@ public class PlayerController : MonoBehaviour {
 		dashTimer += Time.deltaTime;
 	}
 
-	private void InterruptDash() {
+	public void InterruptDash() {
 		allowControls = true;
 		doGravity = true;
 		dashTimer = 0;

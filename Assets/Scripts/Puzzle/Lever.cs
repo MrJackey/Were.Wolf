@@ -5,22 +5,26 @@ using UnityEngine;
 public class Lever : SignalEmitter {
 	[SerializeField] private LeverType leverType = LeverType.Toggle;
 	[SerializeField] private float timerEnd = 5f;
+	[SerializeField] private bool noDeactivate;
+	[Header("Audio")]
 	[SerializeField, Range(0f, 1f)] private float fastTimeAudioStartAdjust = 0.75f;
 	[SerializeField] private AudioSource pullLeverAudio, slowTimeAudio, fastTimeAudio;
 
 	private Animator animator;
+	private Interactable interactable;
 	private float leverTimer, timerStart = 0f, fastTimeAudioStart;
 	private bool hasStartedFastTimeSound;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+		interactable = GetComponent<Interactable>();
 		fastTimeAudioStart = timerEnd * fastTimeAudioStartAdjust;
 	}
 
 	private void Update() {
 		if (IsActivated && leverType == LeverType.Timed) {
 			leverTimer += Time.deltaTime;
-			
+
 			if (leverTimer >= timerEnd)
 				Deactivate();
 		}
@@ -30,11 +34,15 @@ public class Lever : SignalEmitter {
 			PlayTimedLeverSound();
 			hasStartedFastTimeSound = true;
 		}
+
+		interactable.IsInteractable = !(noDeactivate && IsActivated);
 	}
 
 	public void ToggleActivation() {
+		if (noDeactivate && IsActivated) return;
+
 		PlayPullLeverSound();
-		if (IsActivated) 
+		if (IsActivated)
 			Deactivate();
 		else
 			Activate();
@@ -45,7 +53,7 @@ public class Lever : SignalEmitter {
 			PlayTimedLeverSound();
 
 		animator.SetBool("Activation", true);
-		IsActivated = true; 
+		IsActivated = true;
 	}
 
 	public void Deactivate() {

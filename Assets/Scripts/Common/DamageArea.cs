@@ -64,6 +64,9 @@ public class DamageArea : MonoBehaviour {
 
 		Vector2 avgContactPoint = GetAvgContactPoint(other);
 
+		if (enableKnockback)
+			DoKnockback(other, avgContactPoint);
+
 		Health healthComponent = other.attachedRigidbody.GetComponent<Health>();
 		if (healthComponent != null) {
 			cooldownTimer = damageCooldown;
@@ -73,9 +76,6 @@ public class DamageArea : MonoBehaviour {
 			if (effectTarget.Length != 0 && other.attachedRigidbody.CompareTag(effectTarget))
 				onDamageEffect.Invoke(avgContactPoint);
 		}
-
-		if (enableKnockback)
-			DoKnockback(other, avgContactPoint);
 	}
 
 	private void DoKnockback(Collider2D other, Vector2 point) {

@@ -34,12 +34,21 @@ public class Knockbackable : MonoBehaviour {
 	private void FixedUpdate() {
 		if (doKnockback)
 			rb2D.velocity = velocity;
-}
+	}
 
 	private IEnumerator CoKnockbackDuration(float duration) {
 		yield return new WaitForSeconds(duration);
 		onKnockbackEnd.Invoke();
 		knockbackDurationRoutine = null;
 		doKnockback = false;
+	}
+
+	public void InterruptKnockback() {
+		if (!doKnockback) return;
+
+		doKnockback = false;
+
+		if (knockbackDurationRoutine != null)
+			StopCoroutine(knockbackDurationRoutine);
 	}
 }
