@@ -134850,13 +134850,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1750964323, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: forceShow
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Enabled
@@ -134868,23 +134864,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: textOffset.x
-      value: 0.1
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: textOffset.y
-      value: 0.69
+      value: 1.31
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].delay
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].message
-      value: 'Careful, spikes hurt! '
+      value: You won't get through in that form.
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].slowWrite
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: onSpeechEnd.m_PersistentCalls.m_Calls.Array.size
@@ -134898,25 +134894,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1763996601, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_SortingLayer
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_SortingOrder
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_SortingLayerID
-      value: 755491027
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2053695448339817367, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Name
@@ -134967,8 +134959,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 1750964323, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
-    - {fileID: 1763996601, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 1763996603, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
 --- !u!1 &1475963015
@@ -142686,15 +142678,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: textStays
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: reshowOnTransform
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[1].delay
@@ -142702,7 +142694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].message
-      value: You won't get through looking like that.
+      value: You won't get through in that form.
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[1].message
@@ -142710,7 +142702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].useInForm
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[1].slowWrite
@@ -142719,6 +142711,14 @@ PrefabInstance:
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[1].useInForm
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: onSpeechEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
+      propertyPath: onSpeechEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1763996599, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Size.x
