@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 331864370339740896, guid: ea84000f640168144973836afabd90a8, type: 3}
+      propertyPath: MaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 331864370339740896, guid: ea84000f640168144973836afabd90a8, type: 3}
+      propertyPath: MinDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 331864370339740896, guid: ea84000f640168144973836afabd90a8, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1341724110450495473, guid: ea84000f640168144973836afabd90a8, type: 3}
       propertyPath: timerEnd
       value: 35
