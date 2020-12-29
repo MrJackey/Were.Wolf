@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
+	[SerializeField] private SceneHelper sceneHelper;
 	[SerializeField] private SaveHelper saveHelper;
 	[SerializeField] private Button continueButton;
 
@@ -12,6 +13,11 @@ public class MainMenu : MonoBehaviour {
 
 	private void OnDisable() {
 		Cursor.visible = false;
+	}
+
+	public void NewGame() {
+		saveHelper.CompletedLevel = -1;
+		sceneHelper.LoadSceneWithTransition(sceneHelper.NewGameScene);
 	}
 
 	public void Exit() {

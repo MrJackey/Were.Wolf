@@ -1356,11 +1356,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -1377,11 +1377,11 @@ PrefabInstance:
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: 5111945fc06910f4c8e0358d548cc926, type: 2}
+      objectReference: {fileID: 1944377468}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1944377468}
+      objectReference: {fileID: 945869152}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -1408,11 +1408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_CompletedLevel
+      value: Play
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Play
+      value: NewGame
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -1424,11 +1424,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SaveHelper, Assembly-CSharp
+      value: UnityEngine.AudioSource, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.AudioSource, UnityEngine
+      value: MainMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -1440,7 +1440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4562834104822807665, guid: 0b1117f0f09b6444cb37839613abd7d9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2270,6 +2270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cf8f3a1f4e2a34fbf77956af1ada06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneHelper: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
   saveHelper: {fileID: 11400000, guid: 5111945fc06910f4c8e0358d548cc926, type: 2}
   continueButton: {fileID: 1721370254}
 --- !u!114 &945869153

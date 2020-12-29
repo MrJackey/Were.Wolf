@@ -1,28 +1,43 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-using UnityEngine.UI;
 
 public class CutsceneHelper : MonoBehaviour {
 	private static readonly int skipHash = Animator.StringToHash("Skip");
 
-	[SerializeField] private Image skipInfo;
+	[SerializeField] private InputActionReference skipAction;
+	[SerializeField] private GameObject skipInfo;
+	[SerializeField] private RectTransform skipProgressBar;
 	[SerializeField] private float skipStayDuration = 1.5f;
+	[SerializeField] private float skipHoldDuration = 1.5f;
 	[Space]
 	[SerializeField] private UnityEvent onCutsceneStart;
 	[SerializeField] private UnityEvent onCutsceneEnd;
 
 	private SimpleTimer skipInfoFadeTimer;
 	private Animator animator;
-	private bool isSkipped = false;
+	private bool isSkipped;
+	private bool isSkipBeingHeld;
+	private float skipHoldTimer;
+	private float maxSkipProgressBarWidth;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+		maxSkipProgressBarWidth = ((RectTransform)skipProgressBar.parent).sizeDelta.x;
+		SetSkipHoldProgressValue(0);
+	}
+
+	private void OnEnable() {
+		skipAction.action.performed += OnSkipInput;
+		skipAction.action.canceled += OnSkipInput;
+		skipAction.action.Enable();
+	}
+
+	private void OnDisable() {
+		skipAction.action.performed -= OnSkipInput;
+		skipAction.action.canceled -= OnSkipInput;
 	}
 
 	private void Update() {
@@ -30,10 +45,22 @@ public class CutsceneHelper : MonoBehaviour {
 
 		if (IsAnyButtonDown()) {
 			skipInfoFadeTimer.Reset(skipStayDuration);
-			skipInfo.enabled = true;
+			skipInfo.SetActive(true);
+			SetSkipHoldProgressValue(0);
 		}
-		else if (skipInfoFadeTimer.Tick())
-			skipInfo.enabled = false;
+		else if (skipInfoFadeTimer.Tick()) {
+			skipInfo.SetActive(false);
+		}
+
+		if (isSkipBeingHeld) {
+			skipHoldTimer += Time.deltaTime;
+
+			float t = Mathf.Clamp01(skipHoldTimer / skipHoldDuration);
+			SetSkipHoldProgressValue(t);
+
+			if (skipHoldTimer >= skipHoldDuration)
+				Skip();
+		}
 	}
 
 	private bool IsAnyButtonDown() {
@@ -43,10 +70,28 @@ public class CutsceneHelper : MonoBehaviour {
 			       button.isPressed);
 	}
 
-	public void HandleSkipCutsceneInput() {
+	private void SetSkipHoldProgressValue(float value) {
+		skipProgressBar.sizeDelta = new Vector2(value * maxSkipProgressBarWidth, skipProgressBar.sizeDelta.y);
+	}
+
+	private void Skip() {
 		animator.SetTrigger(skipHash);
 		isSkipped = true;
-		skipInfo.enabled = false;
+		skipInfo.SetActive(false);
+	}
+
+	private void OnSkipInput(InputAction.CallbackContext ctx) {
+		if (ctx.performed) {
+			if (!isSkipBeingHeld)
+				skipHoldTimer = 0;
+
+			isSkipBeingHeld = true;
+		}
+		else if (ctx.canceled) {
+			skipHoldTimer = 0;
+			isSkipBeingHeld = false;
+			SetSkipHoldProgressValue(0);
+		}
 	}
 
 	#region Animation events
