@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private SoundRandomizer wolfJumpSound;
 	[SerializeField] private SoundRandomizer humanJumpSound;
 	[SerializeField] private AudioSource crawlingSound;
+	[SerializeField] private AudioSource wolfRunningSound;
+	[SerializeField] private AudioSource humanRunningSound;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onJump;
@@ -150,6 +152,10 @@ public class PlayerController : MonoBehaviour {
 		if (useSameCurve)
 			airJumpCurve = jumpCurve;
 		airJumpEndTime = airJumpCurve.keys[airJumpCurve.length - 1].time;
+
+		wolfRunningSound.Pause();
+		humanRunningSound.Pause();
+		crawlingSound.Pause();
 	}
 
 	private void Update() {
@@ -215,6 +221,26 @@ public class PlayerController : MonoBehaviour {
 			else
 				UpdateCrouchColliders(crouchCollider, humanCollider, crouchGroundCollider, humanGroundCollider);
 		}
+		
+		if (isGrounded && Mathf.Abs(xInput) > 0.1f) {
+			if (isCrouched) {
+				crawlingSound.UnPause();
+				humanRunningSound.Pause();
+			}
+			else if (transformation.State == TransformationState.Wolf) {
+				wolfRunningSound.UnPause();
+			}
+
+			else if (!isCrouching && transformation.State == TransformationState.Human) {
+				humanRunningSound.UnPause();
+			}
+		}
+		else {
+			crawlingSound.Pause();
+			wolfRunningSound.Pause();
+			humanRunningSound.Pause();
+		}
+
 
 		if (!allowControls)
 			return;
@@ -250,17 +276,6 @@ public class PlayerController : MonoBehaviour {
 				StartCrouch();
 			else if (isCrouched && !crouchInput && isClearAbove)
 				Uncrouch();
-		}
-
-
-		if (isCrouched) {
-			if (Mathf.Abs(xInput) > 0.1f) {
-				if (!crawlingSound.isPlaying)
-					crawlingSound.Play();
-			}
-			else {
-				crawlingSound.Stop();
-			}
 		}
 	}
 
@@ -438,7 +453,7 @@ public class PlayerController : MonoBehaviour {
 		isCrouching = true;
 		isCrouched = false;
 		crouchTransitionTimer = 0f;
-		crawlingSound.Stop();
+		crawlingSound.Pause();
 		onUncrouch.Invoke();
 	}
 
