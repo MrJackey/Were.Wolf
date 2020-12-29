@@ -26,13 +26,13 @@ public class Transformation : MonoBehaviour {
 	[Header("Sounds")]
 	[SerializeField] private AudioSource transformToHumanSound = null;
 	[SerializeField] private AudioSource transformToWerewolfSound = null;
+	[SerializeField] private SoundRandomizer wolfHurtSound;
+	[SerializeField] private SoundRandomizer humanHurtSound;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart = null;
 	[SerializeField] private UnityEvent<float> onTransformInterrupt = null;
 	[SerializeField] private UnityEvent onTransformEnd = null;
-	[SerializeField] private UnityEvent onPlayWolfHurtSound = null;
-	[SerializeField] private UnityEvent onPlayHumanHurtSound = null;
 
 	private PlayerController playerController;
 	private TransformationState oldState;
@@ -212,9 +212,9 @@ public class Transformation : MonoBehaviour {
 
 	public void PlayTakeDamageSound () {
 		if (IsHuman)
-			onPlayHumanHurtSound.Invoke();
+			humanHurtSound.PlayRandom();
 		else
-			onPlayWolfHurtSound.Invoke();
+			wolfHurtSound.PlayRandom();
 	}
 }
 

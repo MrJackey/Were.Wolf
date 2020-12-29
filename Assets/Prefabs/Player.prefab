@@ -1610,6 +1610,8 @@ MonoBehaviour:
   transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f, type: 3}
   transformToHumanSound: {fileID: 7706404480811097307}
   transformToWerewolfSound: {fileID: 9072912906911105511}
+  wolfHurtSound: {fileID: 1511884740}
+  humanHurtSound: {fileID: 4952127624476702839}
   onTransformStart:
     m_PersistentCalls:
       m_Calls:
@@ -1702,36 +1704,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-  onPlayWolfHurtSound:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1511884740}
-        m_TargetAssemblyTypeName: SoundRandomizer, Assembly-CSharp
-        m_MethodName: PlayRandom
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPlayHumanHurtSound:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4952127624476702839}
-        m_TargetAssemblyTypeName: SoundRandomizer, Assembly-CSharp
-        m_MethodName: PlayRandom
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &3032012005023981314
 MonoBehaviour:
