@@ -9,10 +9,6 @@ public class PressureButton : SignalEmitter {
 	public List<Collider2D> overlappingColliders = new List<Collider2D>();
 
 
-	private void Start() {
-		animator = GetComponent<Animator>();
-	}
-
 	private void OnTriggerEnter2D(Collider2D other) {	
 		if (!other.isTrigger && (other.attachedRigidbody.CompareTag("Player") || other.attachedRigidbody.CompareTag("Box"))) {
 			overlappingColliders.Add(other);
@@ -29,15 +25,19 @@ public class PressureButton : SignalEmitter {
 	}
 
 	private void PressureButtonDown() {
-		PlaySound();
-		animator.SetBool("IsPressed", true);
-		IsActivated = true;
+		if (!animator.GetBool("IsPressed")) {
+			PlaySound();
+			animator.SetBool("IsPressed", true);
+			IsActivated = true;
+		}
 	}
 
 	private void PressureButtonUp() {
-		PlaySound();
-		animator.SetBool("IsPressed", false);
-		IsActivated = false;
+		if (animator.GetBool("IsPressed")) {
+			PlaySound();
+			animator.SetBool("IsPressed", false);
+			IsActivated = false;
+		}
 	}
 
 	public void PlaySound() {
