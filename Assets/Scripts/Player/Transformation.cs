@@ -26,6 +26,8 @@ public class Transformation : MonoBehaviour {
 	[Header("Sounds")]
 	[SerializeField] private AudioSource transformToHumanSound = null;
 	[SerializeField] private AudioSource transformToWerewolfSound = null;
+	[SerializeField] private SoundRandomizer wolfHurtSound;
+	[SerializeField] private SoundRandomizer humanHurtSound;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent onTransformStart = null;
@@ -206,6 +208,13 @@ public class Transformation : MonoBehaviour {
 		hitCollider.offset = newHitOffset;
 		groundCollider.size = newGroundSize;
 		groundCollider.offset = newGroundOffset;
+	}
+
+	public void PlayTakeDamageSound () {
+		if (IsHuman)
+			humanHurtSound.PlayRandom();
+		else
+			wolfHurtSound.PlayRandom();
 	}
 }
 

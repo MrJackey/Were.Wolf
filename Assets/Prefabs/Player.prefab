@@ -116,7 +116,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2938271411605442060, guid: d5cbaa40cdec63f44affda746ccc1f16, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 8906b29382c40974fb8eb73bfb4fa50d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4f37d5659027c334aaeae59f4b3bd459, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -215,9 +215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - {fileID: 8300000, guid: 8906b29382c40974fb8eb73bfb4fa50d, type: 3}
-  - {fileID: 8300000, guid: 44f8d7c502c1e614cbfa19fadf7eb304, type: 3}
-  - {fileID: 8300000, guid: da1b719db3792a8489d76439047293d8, type: 3}
+  - {fileID: 8300000, guid: 4f37d5659027c334aaeae59f4b3bd459, type: 3}
+  - {fileID: 8300000, guid: bbeff080ac336e5449aa32dbca86dc6e, type: 3}
+  - {fileID: 8300000, guid: c925cd0b21ca27949a7cea8fbfbfbd78, type: 3}
 --- !u!1 &413615719757318525
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +489,150 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c0f891210f6602248850e907b8bfbcd2, type: 3}
   - {fileID: 8300000, guid: fda7a953e82410d4486d478baed457b8, type: 3}
   - {fileID: 8300000, guid: a0f6cbc7a48033441915b2d5d3c68961, type: 3}
+--- !u!1 &956936551680855477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3714629134712518144}
+  - component: {fileID: 7956117893479124111}
+  - component: {fileID: 4952127624476702839}
+  m_Layer: 0
+  m_Name: Human Hurt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3714629134712518144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956936551680855477}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1231054178710118326}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &7956117893479124111
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956936551680855477}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -2938271411605442060, guid: d5cbaa40cdec63f44affda746ccc1f16, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 91c5367a56565494fb754fd7e05ae76e, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &4952127624476702839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956936551680855477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba21d75c1d8405bbb5a071eb035b9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 91c5367a56565494fb754fd7e05ae76e, type: 3}
+  - {fileID: 8300000, guid: b183a76d54c54c24bb50135970553493, type: 3}
+  - {fileID: 8300000, guid: 4893ab8a3af00844b9fdb615ee31fec8, type: 3}
 --- !u!1 &1069247915883532029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1610,8 @@ MonoBehaviour:
   transformParticle: {fileID: 8308832352987404300, guid: afe38ff5d7e88b446b8127f06048148f, type: 3}
   transformToHumanSound: {fileID: 7706404480811097307}
   transformToWerewolfSound: {fileID: 9072912906911105511}
+  wolfHurtSound: {fileID: 1511884740}
+  humanHurtSound: {fileID: 4952127624476702839}
   onTransformStart:
     m_PersistentCalls:
       m_Calls:
@@ -1578,9 +1724,9 @@ MonoBehaviour:
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1511884740}
-        m_TargetAssemblyTypeName: SoundRandomizer, Assembly-CSharp
-        m_MethodName: PlayRandom
+      - m_Target: {fileID: 1729414150543403562}
+        m_TargetAssemblyTypeName: Transformation, Assembly-CSharp
+        m_MethodName: PlayTakeDamageSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1945,6 +2091,7 @@ Transform:
   - {fileID: 7820061495355643360}
   - {fileID: 1511884739}
   - {fileID: 5405974315897048861}
+  - {fileID: 3714629134712518144}
   m_Father: {fileID: 3326305250810700158}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
