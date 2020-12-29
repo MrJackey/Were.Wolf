@@ -11,6 +11,7 @@ public class EnterableGate : Gate {
 	[SerializeField] private UnityEvent onLeave;
 
 	private bool canEnter;
+	private bool isEntering;
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger) {
@@ -41,8 +42,9 @@ public class EnterableGate : Gate {
 	private void OnEnterInput(InputAction.CallbackContext ctx) {
 		if (!canEnter) return;
 
-		if (ctx.phase == InputActionPhase.Performed && ctx.ReadValueAsButton())
-			// Can be invoked multiple times when using an analog stick.
+		if (!isEntering && ctx.performed && ctx.ReadValueAsButton()) {
+			isEntering = true;
 			onEnter.Invoke();
+		}
 	}
 }
