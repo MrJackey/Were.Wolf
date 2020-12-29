@@ -25,19 +25,17 @@ public class PressureButton : SignalEmitter {
 	}
 
 	private void PressureButtonDown() {
-		if (!animator.GetBool("IsPressed")) {
-			PlaySound();
-			animator.SetBool("IsPressed", true);
-			IsActivated = true;
-		}
+		if (IsActivated) return;
+		PlaySound();
+		animator.SetBool("IsPressed", true);
+		IsActivated = true;
 	}
 
 	private void PressureButtonUp() {
-		if (animator.GetBool("IsPressed")) {
-			PlaySound();
-			animator.SetBool("IsPressed", false);
-			IsActivated = false;
-		}
+		if (!IsActivated) return;
+		PlaySound();
+		animator.SetBool("IsPressed", false);
+		IsActivated = false;
 	}
 
 	public void PlaySound() {
