@@ -24,6 +24,10 @@ public class KnightEnemy : MonoBehaviour {
 	[SerializeField] private float dashSpeed = 2f;
 	[SerializeField] private float attackCooldown = 3f;
 
+	[Header("Sounds")]
+	[SerializeField] private SoundRandomizer attackSound;
+	[SerializeField] private SoundRandomizer walkSound;
+
 	private Animator animator;
 
 	private State state;
@@ -118,6 +122,7 @@ public class KnightEnemy : MonoBehaviour {
 
 	private void Attack() {
 		animator.Play(attackHash);
+		attackSound.PlayRandom();
 		state = State.Attacking;
 		isDashing = true;
 	}
@@ -162,6 +167,10 @@ public class KnightEnemy : MonoBehaviour {
 	private void OnCooldownAnimationFinished() {
 		Debug.Assert(state == State.Cooldown);
 		EndCooldown();
+	}
+
+	public void PlayWalkingSound() {
+		walkSound.PlayRandom();
 	}
 
 	#endregion
