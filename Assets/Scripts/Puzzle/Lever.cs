@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Lever : SignalEmitter {
+	private static readonly int activateHash = Animator.StringToHash("activate");
+	private static readonly int deactivateHash = Animator.StringToHash("deactivate");
+
 	[SerializeField] private LeverType leverType = LeverType.Toggle;
 	[SerializeField] private float timerEnd = 5f;
 	[SerializeField] private bool noDeactivate;
@@ -52,12 +55,12 @@ public class Lever : SignalEmitter {
 		if (leverType == LeverType.Timed)
 			PlayTimedLeverSound();
 
-		animator.SetBool("Activation", true);
+		animator.SetTrigger(activateHash);
 		IsActivated = true;
 	}
 
 	public void Deactivate() {
-		animator.SetBool("Activation", false);
+		animator.SetTrigger(deactivateHash);
 		IsActivated = false;
 
 		if (leverType == LeverType.Timed) {
