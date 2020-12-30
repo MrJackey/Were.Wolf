@@ -31,24 +31,17 @@ public class SignalReceiver : MonoBehaviour {
 			emitter.OnActivationChange.AddListener(EmitterUpdate);
 		}
 
-		if (isInitialized) return;
-
-		if (isActivated)
-			onActivation.Invoke();
-		else
-			onDeactivation.Invoke();
-
 		isInitialized = true;
 	}
 
 #if UNITY_EDITOR
 	private void OnValidate() {
-		if (isActivated)
-			onActivation.Invoke();
-		else
-			onDeactivation.Invoke();
-
-		isInitialized = true;
+		if (isInitialized) {
+			if (isActivated)
+				onActivation.Invoke();
+			else
+				onDeactivation.Invoke();
+		}
 	}
 #endif
 

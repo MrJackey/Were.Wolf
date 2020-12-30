@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 
 public class CheatButtons : MonoBehaviour {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 	[SerializeField] private SceneHelper sceneHelper;
 
 	private Health health;

@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 public class Gate : SignalReceiver {
-	private static readonly int isOpenHash = Animator.StringToHash("isOpen");
+	private static readonly int openHash = Animator.StringToHash("open");
+	private static readonly int closeHash = Animator.StringToHash("close");
 
 	[Header("Gate")]
 	[SerializeField] private Animator animator;
@@ -32,7 +32,6 @@ public class Gate : SignalReceiver {
 	private bool inShowQueue = false;
 	private bool allowShow = true;
 	private bool prevIsActivated = false;
-	private bool isFirstSoundPlayed = false;
 
 	public bool PanCamera { set => panCamera = value; }
 
@@ -42,7 +41,7 @@ public class Gate : SignalReceiver {
 		playerController = playerObj.GetComponent<PlayerController>();
 		camera = Camera.main.GetComponent<SnappingCamera>();
 		cameraBaseTransitionDuration = camera.TransitionDuration;
-
+		animator.Play(IsActivated ? openHash : closeHash, 0, 1);
 		prevIsActivated = IsActivated;
 	}
 
@@ -51,10 +50,10 @@ public class Gate : SignalReceiver {
 			AddToPanningQueue();
 		}
 		else if (animator.isInitialized && !inShowQueue && !isShowing) {
-			if (!isFirstSoundPlayed || prevIsActivated != IsActivated)
+			if (prevIsActivated != IsActivated)
 				PlaySound();
 
-			animator.SetBool(isOpenHash, IsActivated);
+			UpdateAnimation();
 			prevIsActivated = IsActivated;
 			onStateUpdate.Invoke();
 		}
@@ -91,7 +90,7 @@ public class Gate : SignalReceiver {
 		if (prevIsActivated != IsActivated)
 			PlaySound();
 
-		animator.SetBool(isOpenHash, IsActivated);
+		UpdateAnimation();
 		onStateUpdate.Invoke();
 
 		yield return new WaitForSecondsRealtime(showClip.length);
@@ -125,11 +124,12 @@ public class Gate : SignalReceiver {
 		allowShow = true;
 	}
 
-	public void PlaySound() {
-		if (isFirstSoundPlayed) {
-			audioSource.Play();
-		}
-		isFirstSoundPlayed = true;
+	private void UpdateAnimation() {
+		animator.Play(IsActivated ? openHash : closeHash);
+	}
+
+	private void PlaySound() {
+		audioSource.Play();
 	}
 
 	public void HandleEmitterUpdate() {
