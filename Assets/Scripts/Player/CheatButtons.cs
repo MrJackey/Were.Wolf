@@ -8,6 +8,7 @@ public class CheatButtons : MonoBehaviour {
 	private Health health;
 	private Transformation transformation;
 	private PlayerController playerController;
+	private GameObject hud;
 
 	private bool godMode;
 
@@ -15,6 +16,7 @@ public class CheatButtons : MonoBehaviour {
 		health = GetComponent<Health>();
 		transformation = GetComponent<Transformation>();
 		playerController = GetComponent<PlayerController>();
+		hud = GameObject.Find("Level UI/HUD");
 	}
 
 	private void Update() {
@@ -49,6 +51,12 @@ public class CheatButtons : MonoBehaviour {
 				Time.timeScale = 1;
 				sceneHelper.LoadNextLevel();
 			}
+		}
+
+		// Toggle HUD
+		if (kb.f4Key.wasPressedThisFrame) {
+			if (hud != null)
+				hud.SetActive(!hud.activeSelf);
 		}
 	}
 
