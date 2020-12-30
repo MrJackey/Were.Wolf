@@ -134436,7 +134436,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: forceShow
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Enabled
@@ -134448,11 +134448,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: textOffset.x
-      value: 0.09
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: textOffset.y
-      value: 1.31
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].delay
@@ -134460,7 +134460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].message
-      value: You won't get through in that form.
+      value: Careful, spikes hurt!
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[0].slowWrite
@@ -134480,19 +134480,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_FlipX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_SortingLayerID
-      value: 0
+      value: 755491027
       objectReference: {fileID: 0}
     - target: {fileID: 2053695448339817367, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Name
@@ -134504,11 +134504,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8629138106621198290, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.087
+      value: 35.098
       objectReference: {fileID: 0}
     - target: {fileID: 8629138106621198290, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.032
+      value: -7.001
       objectReference: {fileID: 0}
     - target: {fileID: 8629138106621198290, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -135214,7 +135214,7 @@ MonoBehaviour:
   fadeOut: 1
   fadeDuration: 0.5
   messages:
-  - message: '"Be careful, there''s an escaped werewolf somewhere in this dungeon."'
+  - message: Be careful, there's an escaped werewolf somewhere in this dungeon.
     slowWrite: 1
     delay: 2
     useInForm: 1
