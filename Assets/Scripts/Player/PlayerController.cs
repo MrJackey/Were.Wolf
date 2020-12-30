@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private UnityEvent onCrouch;
 	[SerializeField] private UnityEvent onUncrouch;
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 	[Header("Debug")]
 	[SerializeField] private bool noClip;
 	[SerializeField] private float noClipSpeed = 5f;
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour {
 	public float SpeedMultiplier { set => speedMultiplier = value; }
 	public Vector2 Velocity { set => velocity = value; }
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 	public bool NoClip {
 		get => noClip;
 		set {
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void UpdateMovement() {
-	#if UNITY_EDITOR || DEVELOPMENT_BUILD
+	#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 		if (noClip) {
 			float x = moveInput.x;
 			float y = moveInput.y;
@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour {
 			else
 				UpdateCrouchColliders(crouchCollider, humanCollider, crouchGroundCollider, humanGroundCollider);
 		}
-		
+
 		if (isGrounded && Mathf.Abs(xInput) > 0.1f) {
 			if (isCrouched) {
 				crawlingSound.UnPause();
@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-	#if UNITY_EDITOR || DEVELOPMENT_BUILD
+	#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 		if (noClip)
 			return;
 	#endif

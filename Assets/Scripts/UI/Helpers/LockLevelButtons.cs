@@ -5,12 +5,12 @@ public class LockLevelButtons : MonoBehaviour {
 	[SerializeField] private SaveHelper saveHelper;
 	[SerializeField] private Button[] buttons;
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 	[SerializeField] private bool onlyLockInRelease = true;
 #endif
 
 	private void OnEnable() {
-	#if UNITY_EDITOR || DEVELOPMENT_BUILD
+	#if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 		if (onlyLockInRelease) return;
 	#endif
 
