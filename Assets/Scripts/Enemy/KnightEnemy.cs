@@ -169,7 +169,7 @@ public class KnightEnemy : MonoBehaviour {
 		EndCooldown();
 	}
 
-	public void PlayWalkingSound() {
+	private void PlayWalkingSound() {
 		walkSound.PlayRandom();
 	}
 
