@@ -1370,6 +1370,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 94ba20ea-0c57-4148-84ec-65608975fe26
     m_ActionName: Main/Peek[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 399e892a-16da-45ad-b371-88f16c0c252a
+    m_ActionName: Main/SkipCutscene[/Keyboard/space,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7e657d21-aa90-4fa8-8f02-e4005d98d140
+    m_ActionName: Main/EnterDoor[/XInputControllerWindows/leftStick/up,/Keyboard/w,/Keyboard/upArrow,/Keyboard/f,/XInputControllerWindows/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Main
@@ -2240,8 +2248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - {fileID: 8300000, guid: 4fa0ba31e9480df418d6d26363b1e6fa, type: 3}
-  - {fileID: 8300000, guid: d1caf8c1448d2414eb160959b26865cc, type: 3}
+  - {fileID: 8300000, guid: af34ec25cd8fd044f928d53d16e43725, type: 3}
+  - {fileID: 8300000, guid: d10babe854370c647b95d3da3e8d12ba, type: 3}
   - {fileID: 8300000, guid: a6605c3da03f7b040abed8fb3291863c, type: 3}
   - {fileID: 8300000, guid: 6ae6f9f3d38bf264b968e6c25ff31e7f, type: 3}
   - {fileID: 8300000, guid: 60fe63747c518844caafd7a7d9992f26, type: 3}
@@ -2886,7 +2894,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2938271411605442060, guid: d5cbaa40cdec63f44affda746ccc1f16, type: 2}
-  m_audioClip: {fileID: 8300000, guid: db12d93a194b08f49ab49c8713e79b55, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 59a2124752cd01e41a4ebe8e29ca8448, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
