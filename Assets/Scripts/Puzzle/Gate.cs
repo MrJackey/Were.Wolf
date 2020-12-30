@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Gate : SignalReceiver {
+	private static readonly int openHash = Animator.StringToHash("open");
+	private static readonly int closeHash = Animator.StringToHash("close");
+
 	[Header("Gate")]
 	[SerializeField] private Animator animator;
 	[SerializeField] private bool panCamera;
@@ -38,7 +41,7 @@ public class Gate : SignalReceiver {
 		playerController = playerObj.GetComponent<PlayerController>();
 		camera = Camera.main.GetComponent<SnappingCamera>();
 		cameraBaseTransitionDuration = camera.TransitionDuration;
-		animator.Play(IsActivated ? "open" : "close", 0, 1);
+		animator.Play(IsActivated ? openHash : closeHash, 0, 1);
 		prevIsActivated = IsActivated;
 	}
 
@@ -122,7 +125,7 @@ public class Gate : SignalReceiver {
 	}
 
 	private void UpdateAnimation() {
-		animator.Play(IsActivated ? "open" : "close");
+		animator.Play(IsActivated ? openHash : closeHash);
 	}
 
 	private void PlaySound() {
