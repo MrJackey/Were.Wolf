@@ -53,7 +53,7 @@ namespace Editor {
 				scenes = EditorBuildSettings.scenes.Where(x => x.enabled).Select(x => x.path).ToArray(),
 				target = BuildTarget.StandaloneWindows64,
 				targetGroup = BuildTargetGroup.Standalone,
-				locationPathName = EditorUserBuildSettings.GetBuildLocation(BuildTarget.StandaloneWindows64),
+				locationPathName = outputPath,
 			};
 		}
 
