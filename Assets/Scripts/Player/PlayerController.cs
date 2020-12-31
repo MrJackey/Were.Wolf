@@ -308,6 +308,9 @@ public class PlayerController : MonoBehaviour {
 		if (doGravity)
 			velocity.y = rb2D.velocity.y + gravity * Time.deltaTime;
 
+		if (!doJump && !doAirJump && groundedCollider.IsTouchingLayers(groundLayer))
+			velocity.y = 0;
+
 		if (doKnockBack)
 			velocity = knockbackable.Velocity;
 
