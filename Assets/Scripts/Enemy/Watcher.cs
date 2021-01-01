@@ -94,7 +94,7 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnDisable() {
-		Gamepad.current?.SetMotorSpeeds(0, 0);
+		RumbleManager.Instance.StopRumble();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
@@ -151,8 +151,8 @@ public class Watcher : MonoBehaviour {
 			Debug.Assert(isPlayerConsideredVisible, "isPlayerVisible && state == State.Following");
 
 			if (damageTimer.Tick()) {
-				playerHealth.TakeDamage(damage);
 				StartCoroutine(CoRechargeLantern());
+				playerHealth.TakeDamage(damage);
 
 				onDamage.Invoke();
 			}
@@ -223,7 +223,7 @@ public class Watcher : MonoBehaviour {
 		if (cameraShake && snappingCamera != null) {
 			snappingCamera.BeginShake(shakeFrequency, shakeAmplitude);
 			if (playerTransform.GetComponent<PlayerInput>().currentControlScheme == "Gamepad")
-				Gamepad.current?.SetMotorSpeeds(rumbleFrequencies.x, rumbleFrequencies.y);
+				RumbleManager.Instance.StartRumble(rumbleFrequencies.x, rumbleFrequencies.y);
 		}
 
 		onDetected.Invoke();
@@ -237,7 +237,7 @@ public class Watcher : MonoBehaviour {
 
 		if (cameraShake && snappingCamera != null) {
 			snappingCamera.EndShake();
-			Gamepad.current?.SetMotorSpeeds(0, 0);
+			RumbleManager.Instance.StopRumble();
 		}
 
 		onLost.Invoke();
