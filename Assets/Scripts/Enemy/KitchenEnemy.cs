@@ -22,6 +22,7 @@ public class KitchenEnemy : MonoBehaviour {
 	[SerializeField] private float animationSpeedMultiplier = 1f;
 
 	[Header("Attack")]
+	[SerializeField] private bool attackPlayerIfClose = true;
 	[SerializeField] private AttackAction leftAttack = AttackAction.None;
 	[SerializeField] private AttackAction rightAttack = AttackAction.None;
 
@@ -53,7 +54,7 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (isPlayerClose && state == State.Walking && !playerTransformation.IsHuman)
+		if (attackPlayerIfClose && isPlayerClose && state == State.Walking && !playerTransformation.IsHuman)
 			AttackPlayer();
 
 		UpdateMovement();
