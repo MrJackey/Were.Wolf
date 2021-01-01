@@ -16,14 +16,33 @@ public class KitchenEnemy : MonoBehaviour {
 	[SerializeField] private Transform upAttackPoint = null;
 
 	[Header("Movement")]
-	[SerializeField] private Transform leftPoint = null;
-	[SerializeField] private Transform rightPoint = null;
-	[SerializeField] private float movementSpeed = 2f;
-	[SerializeField] private float animationSpeedMultiplier = 1f;
+	[SerializeField] private bool doMovement = true;
+
+	[SerializeField, EnableIf(nameof(doMovement))]
+	private Transform leftPoint = null;
+
+	[SerializeField, EnableIf(nameof(doMovement))]
+	private Transform rightPoint = null;
+
+	[SerializeField, EnableIf(nameof(doMovement))]
+	private float movementSpeed = 2f;
+
+	[SerializeField, EnableIf(nameof(doMovement))]
+	private float animationSpeedMultiplier = 1f;
 
 	[Header("Attack")]
+	[SerializeField] private bool attackPlayerIfClose = true;
 	[SerializeField] private AttackAction leftAttack = AttackAction.None;
 	[SerializeField] private AttackAction rightAttack = AttackAction.None;
+
+	[SerializeField, EnableIf(nameof(doMovement), false)]
+	private AttackAction stillAttack = AttackAction.Right;
+
+	[SerializeField, EnableIf(nameof(doMovement), false)]
+	private float stillInitialAttackDelay = 0f;
+
+	[SerializeField, EnableIf(nameof(doMovement), false)]
+	private float stillAttackDelay = 5f;
 
 	[Header("Sounds")]
 	[SerializeField] private AudioSource cauldronSound;
@@ -38,6 +57,7 @@ public class KitchenEnemy : MonoBehaviour {
 	private bool attackAfterTurn;
 	private bool doSplashAttack;
 	private Direction attackDirection;
+	private SimpleTimer stillAttackTimer;
 
 	private bool isPlayerClose;
 	private Transformation playerTransformation;
@@ -50,13 +70,28 @@ public class KitchenEnemy : MonoBehaviour {
 			playerTransformation = playerObject.GetComponent<Transformation>();
 
 		SetFacing(Mathf.Sign(transform.localScale.x));
+
+		if (!doMovement) {
+			animator.SetBool(isWalkingHash, false);
+			stillAttackTimer.Reset(stillInitialAttackDelay > 0 ? stillInitialAttackDelay : stillAttackDelay);
+		}
+
+		animator.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
 	}
 
 	private void Update() {
-		if (isPlayerClose && state == State.Walking && !playerTransformation.IsHuman)
+		if (attackPlayerIfClose && isPlayerClose && state == State.Walking && !playerTransformation.IsHuman)
 			AttackPlayer();
 
-		UpdateMovement();
+		if (doMovement) {
+			UpdateMovement();
+		}
+		else if (stillAttackTimer.Tick()) {
+			stillAttackTimer.Reset(stillAttackDelay);
+
+			if (stillAttack != AttackAction.None)
+				Attack((Direction)stillAttack);
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
@@ -70,8 +105,6 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void UpdateMovement() {
-		animator.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
-
 		if (state != State.Walking) {
 			animator.SetBool(isWalkingHash, false);
 			return;
@@ -196,6 +229,20 @@ public class KitchenEnemy : MonoBehaviour {
 
 	#endregion
 
+#if UNITY_EDITOR
+	private void OnValidate() {
+		if (!Application.isPlaying) return;
+		Animator anim = GetComponent<Animator>();
+
+		anim.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
+		if (!doMovement)
+			anim.SetBool(isWalkingHash, false);
+
+		if (stillAttackTimer.Elapsed)
+			stillAttackTimer.Reset(stillAttackDelay);
+	}
+#endif
+
 
 	private enum State {
 		Walking,
@@ -203,13 +250,13 @@ public class KitchenEnemy : MonoBehaviour {
 		Attacking,
 	}
 
-	public enum Direction {
+	private enum Direction {
 		Up = 1,
 		Left = 2,
 		Right = 3,
 	}
 
-	public enum AttackAction {
+	private enum AttackAction {
 		None,
 		Up = 1,
 		Left = 2,
