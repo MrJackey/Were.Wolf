@@ -156,6 +156,9 @@ public class PlayerController : MonoBehaviour {
 			airJumpCurve = jumpCurve;
 		airJumpEndTime = airJumpCurve.keys[airJumpCurve.length - 1].time;
 
+		wolfRunningSound.Play();
+		humanRunningSound.Play();
+		crawlingSound.Play();
 		wolfRunningSound.Pause();
 		humanRunningSound.Pause();
 		crawlingSound.Pause();
