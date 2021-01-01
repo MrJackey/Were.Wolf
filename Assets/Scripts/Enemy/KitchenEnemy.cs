@@ -247,13 +247,13 @@ public class KitchenEnemy : MonoBehaviour {
 		Attacking,
 	}
 
-	public enum Direction {
+	private enum Direction {
 		Up = 1,
 		Left = 2,
 		Right = 3,
 	}
 
-	public enum AttackAction {
+	private enum AttackAction {
 		None,
 		Up = 1,
 		Left = 2,
