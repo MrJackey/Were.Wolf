@@ -86,7 +86,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 3
-  MaxDistance: 20
+  MaxDistance: 16
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -230,7 +230,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 3
-  MaxDistance: 20
+  MaxDistance: 16
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -357,7 +357,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 3
-  MaxDistance: 20
+  MaxDistance: 16
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -595,6 +595,7 @@ MonoBehaviour:
   leftAttack: 2
   rightAttack: 3
   stillAttack: 3
+  stillInitialAttackDelay: 0
   stillAttackDelay: 5
   cauldronSound: {fileID: 7921463873396079493}
   soupBeamSound: {fileID: 7503251996936590846}
