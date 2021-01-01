@@ -18,8 +18,7 @@ public class RumbleManager : SingletonBehaviour<RumbleManager> {
 			StopRumble();
 		}
 
-		currentGamepad = Gamepad.current;
-		if (currentGamepad == null) return;
+		if ((currentGamepad = Gamepad.current) == null || !ControlSchemeManager.Instance.IsUsingGamepad) return;
 
 		isRumbling = true;
 		isEndlessRuble = false;
@@ -28,8 +27,7 @@ public class RumbleManager : SingletonBehaviour<RumbleManager> {
 
 	public void StartRumble(float lowFrequency, float highFrequency) {
 		StopRumble();
-		currentGamepad = Gamepad.current;
-		if (currentGamepad == null) return;
+		if ((currentGamepad = Gamepad.current) == null || !ControlSchemeManager.Instance.IsUsingGamepad) return;
 
 		isRumbling = true;
 		isEndlessRuble = true;
