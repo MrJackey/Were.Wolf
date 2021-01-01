@@ -73,8 +73,11 @@ public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 				Play();
 		}
 		else {
-			StopAllCoroutines();
-			StartCoroutine(CoFadeVolume(1));
+			if (allowFade) {
+				StopAllCoroutines();
+				StartCoroutine(CoFadeVolume(1));
+			}
+
 			SetTrack(track);
 			Play();
 		}
