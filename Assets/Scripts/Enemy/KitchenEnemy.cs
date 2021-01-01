@@ -39,6 +39,9 @@ public class KitchenEnemy : MonoBehaviour {
 	private AttackAction stillAttack = AttackAction.Right;
 
 	[SerializeField, EnableIf(nameof(doMovement), false)]
+	private float stillInitialAttackDelay = 0f;
+
+	[SerializeField, EnableIf(nameof(doMovement), false)]
 	private float stillAttackDelay = 5f;
 
 	[Header("Sounds")]
@@ -70,7 +73,7 @@ public class KitchenEnemy : MonoBehaviour {
 
 		if (!doMovement) {
 			animator.SetBool(isWalkingHash, false);
-			stillAttackTimer.Reset(stillAttackDelay);
+			stillAttackTimer.Reset(stillInitialAttackDelay);
 		}
 
 		animator.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
