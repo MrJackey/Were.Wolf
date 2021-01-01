@@ -73,7 +73,7 @@ public class KitchenEnemy : MonoBehaviour {
 
 		if (!doMovement) {
 			animator.SetBool(isWalkingHash, false);
-			stillAttackTimer.Reset(stillInitialAttackDelay);
+			stillAttackTimer.Reset(stillInitialAttackDelay > 0 ? stillInitialAttackDelay : stillAttackDelay);
 		}
 
 		animator.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
