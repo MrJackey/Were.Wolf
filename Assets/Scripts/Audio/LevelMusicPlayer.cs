@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 	[SerializeField] private SceneHelper sceneHelper;
+	[SerializeField] private float fadeDuration = 3f;
 	[SerializeField] private AudioClip[] tracks;
 
 	private AudioSource audioSource;
@@ -45,22 +47,24 @@ public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
+
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
 		OnSceneLoaded();
 	}
 
 	private void OnSceneLoaded() {
-		int currentLevelIndex = sceneHelper.CurrentLevel;
-
-		if (currentLevelIndex == -1)
-			Stop();
-		else if (currentLevelIndex < tracks.Length)
-			Play(tracks[currentLevelIndex]);
-		else
-			Stop();
+		AudioClip track = GetTrackForLevel(sceneHelper.CurrentLevel);
+		Play(track, true);
 	}
 
-	private void Play(AudioClip track) {
+	private AudioClip GetTrackForLevel(int levelIndex) {
+		if (levelIndex == -1 || levelIndex >= tracks.Length)
+			return null;
+
+		return tracks[levelIndex];
+	}
+
+	private void Play(AudioClip track, bool allowFade) {
 		if (track == null) {
 			Stop();
 		}
@@ -69,6 +73,8 @@ public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 				Play();
 		}
 		else {
+			StopAllCoroutines();
+			StartCoroutine(CoFadeVolume(1));
 			SetTrack(track);
 			Play();
 		}
@@ -88,5 +94,26 @@ public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 
 	private void SetTrack(AudioClip track) {
 		currentTrack = audioSource.clip = track;
+	}
+
+	private IEnumerator CoFadeVolume(int direction) {
+		if (fadeDuration > 0) {
+			for (float time = 0; time <= fadeDuration; time += Time.deltaTime) {
+				float t = Mathf.Clamp01(time / fadeDuration);
+				audioSource.volume = direction >= 0 ? t : 1f - t;
+
+				yield return null;
+			}
+		}
+
+		audioSource.volume = direction >= 0 ? 1 : 0;
+	}
+
+
+	public void OnBeginLevelTransition(int newLevel) {
+		if (isPlaying && currentTrack != GetTrackForLevel(newLevel)) {
+			StopAllCoroutines();
+			StartCoroutine(CoFadeVolume(-1));
+		}
 	}
 }
