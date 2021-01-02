@@ -32,8 +32,12 @@ public class KitchenEnemy : MonoBehaviour {
 
 	[Header("Attack")]
 	[SerializeField] private bool attackPlayerIfClose = true;
-	[SerializeField] private AttackAction leftAttack = AttackAction.None;
-	[SerializeField] private AttackAction rightAttack = AttackAction.None;
+
+	[SerializeField, EnableIf(nameof(doMovement))]
+	private AttackAction leftAttack = AttackAction.None;
+
+	[SerializeField, EnableIf(nameof(doMovement))]
+	private AttackAction rightAttack = AttackAction.None;
 
 	[SerializeField, EnableIf(nameof(doMovement), false)]
 	private AttackAction stillAttack = AttackAction.Right;
