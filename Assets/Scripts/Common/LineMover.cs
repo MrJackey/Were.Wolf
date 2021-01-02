@@ -4,6 +4,7 @@ public class LineMover : Mover {
 	[SerializeField] private Transform point1 = null, point2 = null;
 	[SerializeField, Range(0, 20)]
 	private float speed = 5f;
+	[SerializeField] private bool forwardFacing = true;
 	[SerializeField] private bool snapToLine = false;
 
 	private float facing = 1;
@@ -23,11 +24,11 @@ public class LineMover : Mover {
 		Vector2 pointOnLine = MathX.ClosestPointOnLineSegment(position, p1, p2);
 		initialOffsetToLine = (Vector2)position - pointOnLine;
 		positionOnLine = MathX.InverseLerp(position, p1, p2);
+
+		facing = Mathf.Sign(transform.localScale.x);
 	}
 
 	private void Update() {
-		facing = Mathf.Sign(transform.localScale.x);
-
 		Vector3 p1 = point1.position, p2 = point2.position;
 		lineLength = Vector2.Distance(p1, p2);
 		positionOnLine += facing * speed * Time.deltaTime / lineLength;
@@ -47,11 +48,13 @@ public class LineMover : Mover {
 	}
 
 	private void FlipDirection() {
-		facing = facing > 0 ? -1f : 1f;
+		facing = -facing;
 
-		Vector3 scale = transform.localScale;
-		scale.x = facing;
-		transform.localScale = scale;
+		if (forwardFacing) {
+			Vector3 scale = transform.localScale;
+			scale.x = facing;
+			transform.localScale = scale;
+		}
 	}
 
 	private void OnDrawGizmos() {
