@@ -238,9 +238,11 @@ public class KitchenEnemy : MonoBehaviour {
 		if (!Application.isPlaying) return;
 		Animator anim = GetComponent<Animator>();
 
-		anim.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
-		if (!doMovement)
-			anim.SetBool(isWalkingHash, false);
+		if (anim.isInitialized) {
+			anim.SetFloat(speedHash, movementSpeed * animationSpeedMultiplier);
+			if (!doMovement)
+				anim.SetBool(isWalkingHash, false);
+		}
 
 		if (stillAttackTimer.Elapsed)
 			stillAttackTimer.Reset(stillAttackDelay);
