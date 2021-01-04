@@ -90,9 +90,8 @@ public class SpeechZone : MonoBehaviour {
 	}
 
 	private void LateUpdate() {
-		if (!isShowing) return;
-
-		UpdateMessagePosition();
+		if (isShowing || fadeOutRoutine != null)
+			UpdateMessagePosition();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {

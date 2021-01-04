@@ -28,8 +28,16 @@ public class Lever : SignalEmitter {
 		if (IsActivated && leverType == LeverType.Timed) {
 			leverTimer += Time.deltaTime;
 
-			if (leverTimer >= timerEnd)
+			if (leverTimer >= timerEnd) {
 				Deactivate();
+			}
+			else {
+				AudioSource currentAudio = hasStartedFastTimeSound ? fastTimeAudio : slowTimeAudio;
+				if (Time.timeScale == 0)
+					currentAudio.Pause();
+				else
+					currentAudio.UnPause();
+			}
 		}
 
 		if (!hasStartedFastTimeSound && leverType == LeverType.Timed && leverTimer >= fastTimeAudioStart) {
