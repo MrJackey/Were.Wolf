@@ -51,6 +51,7 @@ public class KitchenEnemy : MonoBehaviour {
 	[Header("Sounds")]
 	[SerializeField] private AudioSource cauldronSound;
 	[SerializeField] private AudioSource soupBeamSound;
+	[SerializeField] private AudioSource soupSplashSound;
 	[SerializeField] private SoundRandomizer gruntSounds;
 
 	private Animator animator;
@@ -181,10 +182,10 @@ public class KitchenEnemy : MonoBehaviour {
 		Debug.Assert(state == State.Attacking);
 
 		if (doSplashAttack) {
-			doSplashAttack = false;
 			Instantiate(splashAttackPrefab, upAttackPoint);
 			cauldronSound.Play();
 			PlaySoupSound();
+			doSplashAttack = false;
 		}
 		else if (attackDirection == Direction.Up) {
 			Instantiate(upAttackPrefab, upAttackPoint);
@@ -228,7 +229,10 @@ public class KitchenEnemy : MonoBehaviour {
 	}
 
 	private void PlaySoupSound() {
-		soupBeamSound.Play();
+		if (doSplashAttack)
+			soupSplashSound.Play();
+		else
+			soupBeamSound.Play();
 	}
 
 	#endregion
