@@ -117,6 +117,9 @@ public class SceneHelper : ScriptableObject {
 		helper.DoFadeAudio = fadeAudio;
 		helper.CompletedCallback = () => isTransitioning = false;
 
+		if (LevelMusicPlayer.Instance != null)
+			LevelMusicPlayer.Instance.OnBeginLevelTransition(FindLevelByBuildIndex(buildIndex));
+
 		isTransitioning = true;
 	}
 }
