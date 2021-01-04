@@ -10,6 +10,10 @@ public class ControlSchemeManager : SingletonBehaviour<ControlSchemeManager> {
 
 	public string LastUsedControlScheme { get; private set; }
 
+	public bool IsUsingKeyboard => LastUsedControlScheme == "Keyboard";
+
+	public bool IsUsingGamepad => LastUsedControlScheme == "Gamepad";
+
 	public event Action<string> ControlSchemeChanged;
 
 	private void OnEnable() {
