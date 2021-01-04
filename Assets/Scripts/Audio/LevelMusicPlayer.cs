@@ -68,14 +68,16 @@ public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 		if (track == null) {
 			Stop();
 		}
-		else if (track == currentTrack) {
-			if (!isPlaying)
-				Play();
+		else if (isPlaying && track == currentTrack) {
+			audioSource.volume = 1;
 		}
 		else {
 			if (allowFade) {
 				StopAllCoroutines();
 				StartCoroutine(CoFadeVolume(1));
+			}
+			else {
+				audioSource.volume = 1;
 			}
 
 			SetTrack(track);
@@ -117,6 +119,7 @@ public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 		if (isPlaying && currentTrack != GetTrackForLevel(newLevel)) {
 			StopAllCoroutines();
 			StartCoroutine(CoFadeVolume(-1));
+			isPlaying = false;
 		}
 	}
 }
