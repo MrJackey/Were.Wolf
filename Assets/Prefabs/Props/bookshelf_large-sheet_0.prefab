@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 163270919278576398}
   - component: {fileID: 1732732163874903334}
   - component: {fileID: 6682841281051084822}
+  - component: {fileID: 616508820}
+  - component: {fileID: 616508819}
+  - component: {fileID: 616508824}
   m_Layer: 0
   m_Name: bookshelf_large-sheet_0
   m_TagString: Untagged
@@ -69,9 +72,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 755491027
+  m_SortingLayer: -2
+  m_SortingOrder: 2
   m_Sprite: {fileID: -8563492427611926163, guid: 46cd64b2027edad42ab38be247f57e52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,3 +105,108 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &616508820
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768318899750872426}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04, y: -0.03}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.125, y: 2.5}
+    newSize: {x: 3.125, y: 2.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.39, y: 2.5}
+  m_EdgeRadius: 0
+--- !u!114 &616508819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768318899750872426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1134cbbc17443a4a0317f4484ea20cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speechCanvasPrefab: {fileID: 1783358569213445434, guid: 0f4e87f51defa954e803231eb7db55b5, type: 3}
+  speechBubblePrefab: {fileID: 6223396628344545353, guid: 1a708277b926fad4fb492491be3232b8, type: 3}
+  textOffset: {x: -0.78, y: 0.38}
+  ignoreTriggers: 1
+  forceShow: 0
+  reshowOnTransform: 0
+  charactersPerSecond: 15
+  stopOnLeave: 1
+  textStays: 0
+  fadeOut: 1
+  fadeDuration: 0.5
+  messages:
+  - message: '"Turning people into mindless monsters requires a difficult curse,'
+    slowWrite: 1
+    delay: 1.5
+    useInForm: 0
+  - message: one that only the darkest of magick users can master."
+    slowWrite: 1
+    delay: 1.5
+    useInForm: 0
+  onSpeechStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onSpeechEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &616508824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768318899750872426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb9fa655fdc4b24a0ed2164e182f5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  ignoreTriggers: 1
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6682841281051084822}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Bookshelf
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
