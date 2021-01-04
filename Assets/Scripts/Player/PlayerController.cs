@@ -126,6 +126,9 @@ public class PlayerController : MonoBehaviour {
 	public float AirJumpLength => airJumpEndTime;
 	public float SpeedMultiplier { set => speedMultiplier = value; }
 	public Vector2 Velocity { set => velocity = value; }
+	public Vector2 MoveInput { set => moveInput = value; }
+	public bool JumpInputDown { set => jumpInputDown = value; }
+	public bool JumpInputUp { set => jumpInputUp = value; }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD || CHEATS
 	public bool NoClip {
@@ -153,6 +156,9 @@ public class PlayerController : MonoBehaviour {
 			airJumpCurve = jumpCurve;
 		airJumpEndTime = airJumpCurve.keys[airJumpCurve.length - 1].time;
 
+		wolfRunningSound.Play();
+		humanRunningSound.Play();
+		crawlingSound.Play();
 		wolfRunningSound.Pause();
 		humanRunningSound.Pause();
 		crawlingSound.Pause();
@@ -230,7 +236,6 @@ public class PlayerController : MonoBehaviour {
 			else if (transformation.State == TransformationState.Wolf) {
 				wolfRunningSound.UnPause();
 			}
-
 			else if (!isCrouching && transformation.State == TransformationState.Human) {
 				humanRunningSound.UnPause();
 			}
