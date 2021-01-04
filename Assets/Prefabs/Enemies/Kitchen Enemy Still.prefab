@@ -189,7 +189,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2111757697367634962}
   - component: {fileID: 7161761877996872118}
-  - component: {fileID: 5842218919439937267}
   m_Layer: 0
   m_Name: Soup Splash
   m_TagString: Untagged
@@ -223,7 +222,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2938271411605442060, guid: d5cbaa40cdec63f44affda746ccc1f16, type: 2}
   m_audioClip: {fileID: 8300000, guid: 42390e6e861480b40a2d954a99ce040b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -307,23 +306,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5842218919439937267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6137194051513633395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba21d75c1d8405bbb5a071eb035b9c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 8300000, guid: 8c30d5885f929d54ca792527ec87986f, type: 3}
-  - {fileID: 8300000, guid: cfec9a5beedc580459f00f44b668e916, type: 3}
-  - {fileID: 8300000, guid: e08106b304b8eae49ab0894888792e2c, type: 3}
-  - {fileID: 8300000, guid: 1b07d92ba585ee444a9f145ae2168acf, type: 3}
 --- !u!1 &7156965204187732574
 GameObject:
   m_ObjectHideFlags: 0
