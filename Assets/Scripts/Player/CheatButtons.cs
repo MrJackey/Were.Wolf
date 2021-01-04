@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CheatButtons : MonoBehaviour {
@@ -11,12 +12,18 @@ public class CheatButtons : MonoBehaviour {
 	private GameObject hud;
 
 	private bool godMode;
+	private static bool hideHud;
+
+	private void Awake() {
+		hud = GameObject.Find("Level UI/HUD");
+		if (hud != null)
+			hud.SetActive(!hideHud);
+	}
 
 	private void Start() {
 		health = GetComponent<Health>();
 		transformation = GetComponent<Transformation>();
 		playerController = GetComponent<PlayerController>();
-		hud = GameObject.Find("Level UI/HUD");
 	}
 
 	private void Update() {
@@ -55,13 +62,14 @@ public class CheatButtons : MonoBehaviour {
 
 		// Toggle HUD
 		if (kb.f4Key.wasPressedThisFrame) {
+			hideHud = !hideHud;
 			if (hud != null)
-				hud.SetActive(!hud.activeSelf);
+				hud.SetActive(!hideHud);
 		}
 	}
 
 	private void OnGUI() {
-		if (!(godMode || playerController.NoClip)) return;
+		if (hideHud || !(godMode || playerController.NoClip)) return;
 
 		GUILayout.BeginArea(new Rect(Screen.width - 120, 0, 120, Screen.height));
 		GUILayout.BeginVertical("Box");
