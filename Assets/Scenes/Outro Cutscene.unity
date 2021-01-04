@@ -309,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 244656390, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50.003654
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 734305948, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
       propertyPath: m_AnchorMax.y
@@ -357,7 +357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1013388789, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40.64021
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1194433920, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
       propertyPath: onStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -389,7 +389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1357923804, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -29.64021
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1550325113761549098, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
       propertyPath: m_Name
@@ -539,6 +539,21 @@ MonoBehaviour:
   onCutsceneStart:
     m_PersistentCalls:
       m_Calls: []
+  onCutsceneSkip:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
+        m_TargetAssemblyTypeName: SceneHelper, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onCutsceneEnd:
     m_PersistentCalls:
       m_Calls:
@@ -740,11 +755,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -4758658358509578475, guid: d5cbaa40cdec63f44affda746ccc1f16, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 999aef97fdb403946bbcc3b51b98dc76, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 46079f75d6660444ab2a5ecc2cfb40f4, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1234,7 +1249,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &1313557764
 RectTransform:

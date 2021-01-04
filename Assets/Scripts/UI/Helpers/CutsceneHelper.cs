@@ -14,6 +14,7 @@ public class CutsceneHelper : MonoBehaviour {
 	[SerializeField] private float skipHoldDuration = 1.5f;
 	[Space]
 	[SerializeField] private UnityEvent onCutsceneStart;
+	[SerializeField] private UnityEvent onCutsceneSkip;
 	[SerializeField] private UnityEvent onCutsceneEnd;
 
 	private SimpleTimer skipInfoFadeTimer;
@@ -78,6 +79,7 @@ public class CutsceneHelper : MonoBehaviour {
 		animator.SetTrigger(skipHash);
 		isSkipped = true;
 		skipInfo.SetActive(false);
+		onCutsceneSkip.Invoke();
 	}
 
 	private void OnSkipInput(InputAction.CallbackContext ctx) {
