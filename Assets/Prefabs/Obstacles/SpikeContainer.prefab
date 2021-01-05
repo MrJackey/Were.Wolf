@@ -50,13 +50,16 @@ MonoBehaviour:
   mode: 0
   damageSource: 1
   damage: 1
-  damageCooldown: 0
+  repeatSingleDamage: 1
+  repeatDamageTime: 1
   onDamageEffect:
     m_PersistentCalls:
       m_Calls: []
   enableKnockback: 1
   knockbackForce: 3
   knockbackDuration: 0.2
+  overrideKnockbackDirection: 0
+  knockbackDirection: {x: 0, y: 0}
   useColliders: 1
   useTriggers: 1
   layerMask:
