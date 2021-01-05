@@ -4,30 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EndAreaHelper : MonoBehaviour {
+	private LevelMusicPlayer musicPlayer;
 	private FadeVolumeInOut musicFade;
-	private AudioSource musicAudioSource;
 	private bool isEntered;
 	private float baseVolume;
 
 	private void Start() {
-		GameObject go = GameObject.FindWithTag("LevelMusicPlayer");
-		if (go != null) {
-			musicFade = go.GetComponent<FadeVolumeInOut>();
-			musicAudioSource = go.GetComponent<AudioSource>();
-		}
+		musicPlayer = LevelMusicPlayer.Instance;
+		musicFade = musicPlayer.gameObject.GetComponentUnlessNull<FadeVolumeInOut>();
 	}
 
 	private void OnDisable() {
-		if (!isEntered || musicAudioSource == null) return;
+		if (!isEntered || musicPlayer == null) return;
 
-		musicAudioSource.volume = baseVolume;
-		musicAudioSource.Play();
+		musicPlayer.AudioSource.volume = baseVolume;
+		musicPlayer.AudioSource.Play();
 	}
 
 	public void HandlePlayerEntry() {
-		if (musicFade == null || musicAudioSource == null || isEntered) return;
+		if (musicFade == null || musicPlayer == null || isEntered) return;
 
-		baseVolume = musicAudioSource.volume;
+		baseVolume = musicPlayer.AudioSource.volume;
 		musicFade.StopWithFade();
 		isEntered = true;
 	}
