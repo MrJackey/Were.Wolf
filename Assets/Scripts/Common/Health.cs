@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour {
@@ -6,12 +7,15 @@ public class Health : MonoBehaviour {
 	[SerializeField] private float maxHealth = 100;
 	[SerializeField] private bool invincible = false;
 	[SerializeField] private bool dead = false;
+	[SerializeField] private float iframeTime = 0;
 
 	[Header("Events")]
 	[SerializeField] private UnityEvent<float> onTakeDamage = null;
 	[SerializeField] private UnityEvent<float> onHeal = null;
 	[SerializeField] private UnityEvent onValueChange;
 	[SerializeField] private UnityEvent<DamageSource> onDie = null;
+
+	private SimpleTimer iframeTimer;
 
 	public float Value {
 		get => health;
@@ -45,19 +49,27 @@ public class Health : MonoBehaviour {
 	public UnityEvent OnValueChange => onValueChange;
 	public UnityEvent<DamageSource> OnDie => onDie;
 
-	public void TakeDamage(float amount) {
-		TakeDamage(amount, DamageSource.Generic);
+	private void Update() {
+		iframeTimer.Tick();
 	}
 
-	public void TakeDamage(float amount, DamageSource damageSource) {
-		if (invincible) return;
+	public bool TakeDamage(float amount) {
+		return TakeDamage(amount, DamageSource.Generic);
+	}
+
+	public bool TakeDamage(float amount, DamageSource damageSource) {
+		if (invincible || !iframeTimer.Elapsed) return false;
 
 		float delta = SetHealth(health - amount);
-		if (delta == 0) return;
+		if (delta == 0) return false;
 		onTakeDamage.Invoke(delta);
 
 		if (health == 0)
 			Die(damageSource);
+		else
+			iframeTimer.Reset(iframeTime);
+
+		return true;
 	}
 
 	public void Heal(float amount) {
