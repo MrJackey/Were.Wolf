@@ -30,6 +30,8 @@ public class LevelMusicPlayer : SingletonBehaviour<LevelMusicPlayer> {
 		}
 	}
 
+	public AudioSource AudioSource => audioSource;
+
 	protected override void Awake() {
 		base.Awake();
 		audioSource = GetComponent<AudioSource>();
