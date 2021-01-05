@@ -375,6 +375,10 @@ PrefabInstance:
       propertyPath: onStarted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: SceneHelper, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 1194433921, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f0767ad346a930c4a8e32f77af97be8b, type: 2}
     - target: {fileID: 1357923804, guid: 99d1288ba86856446b5b3b459235c457, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
