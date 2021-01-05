@@ -107,7 +107,6 @@ public class DamageArea : MonoBehaviour {
 
 		Health healthComponent = other.attachedRigidbody.GetComponent<Health>();
 		if (healthComponent != null) {
-			// cooldownTimer = damageCooldown;
 			Health health = healthComponent;
 
 			if (health.TakeDamage(mode == DamageMode.Single ? damage : damage * Time.deltaTime, damageSource)) {
