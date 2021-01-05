@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7475250565478829085}
   - component: {fileID: 7475250565478829084}
   - component: {fileID: 7475250565478829075}
+  - component: {fileID: 3620813914164871674}
   m_Layer: 0
   m_Name: Level Music Player
-  m_TagString: Untagged
+  m_TagString: LevelMusicPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,3 +164,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36a242027124616ade7938c4306d7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3620813914164871674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7475250565478829074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd4c72f4437412d9d58a7df4c6e8187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 1
