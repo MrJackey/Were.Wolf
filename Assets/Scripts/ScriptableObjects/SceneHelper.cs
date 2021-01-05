@@ -27,6 +27,7 @@ public class SceneHelper : ScriptableObject {
 	public SceneReference NewGameScene => newGameScene;
 	public SceneReference EndScene => endScene;
 	public SceneReference[] Levels => levels;
+	public bool IsTransitioning => isTransitioning;
 
 	public void LoadScene(string sceneName) {
 		SceneManager.LoadScene(sceneName);
