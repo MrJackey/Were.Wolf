@@ -94,7 +94,8 @@ public class Watcher : MonoBehaviour {
 	}
 
 	private void OnDisable() {
-		RumbleManager.Instance.StopRumble();
+		if (RumbleManager.Instance != null)
+			RumbleManager.Instance.StopRumble();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {

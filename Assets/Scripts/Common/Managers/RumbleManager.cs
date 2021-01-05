@@ -12,6 +12,10 @@ public class RumbleManager : SingletonBehaviour<RumbleManager> {
 		base.Awake();
 	}
 
+	private void OnDisable() {
+		StopRumble();
+	}
+
 	public void StartRumble(float lowFrequency, float highFrequency, float duration) {
 		if (isRumbling) {
 			if (isEndlessRuble) return; // Endless takes priority
