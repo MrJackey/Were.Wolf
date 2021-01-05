@@ -13,7 +13,7 @@ public class Checkpoint : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.attachedRigidbody.CompareTag("Player")) {
+		if (other.attachedRigidbody.CompareTag("Player") && !other.isTrigger) {
 			if (!isActivated) {
 				isActivated = true;
 				onActivated.Invoke();
