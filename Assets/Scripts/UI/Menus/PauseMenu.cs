@@ -41,7 +41,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	public void Pause() {
-		if (isPaused || Time.timeScale == 0) return;
+		if (isPaused || sceneHelper.IsTransitioning || Time.timeScale == 0) return;
 		isPaused = true;
 		Time.timeScale = 0;
 		Cursor.visible = true;
