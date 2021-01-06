@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1299329085114494227}
   - component: {fileID: 822731389}
   - component: {fileID: 2674321443278132332}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Spike_Obstacle
   m_TagString: Spike
   m_Icon: {fileID: 0}
@@ -123,9 +123,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
+  damageSource: 0
   damage: 1
-  damageCooldown: 1
+  repeatSingleDamage: 0
+  repeatDamageTime: 1
+  onDamageEffect:
+    m_PersistentCalls:
+      m_Calls: []
+  enableKnockback: 1
+  knockbackForce: 5
+  knockbackDuration: 0.2
+  overrideKnockbackDirection: 0
+  knockbackDirection: {x: 0, y: 0}
+  useColliders: 1
+  useTriggers: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   ignoreTriggers: 1
+  effectTarget: Player
