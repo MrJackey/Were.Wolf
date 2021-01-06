@@ -559,12 +559,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed0bea986249e34cae996727a715ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneHelper: {fileID: 11400000, guid: 692a16753472ad946984312747c75dc8, type: 2}
   skipAction: {fileID: -274706801573067314, guid: 289410948cd3ef44c9fa57193b1dad9c, type: 3}
   skipInfo: {fileID: 447503000}
   skipProgressBar: {fileID: 1389529860}
   skipStayDuration: 1.5
   skipHoldDuration: 1
   onCutsceneStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onCutsceneSkip:
     m_PersistentCalls:
       m_Calls: []
   onCutsceneEnd:

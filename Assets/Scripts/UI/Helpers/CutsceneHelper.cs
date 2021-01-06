@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.Controls;
 public class CutsceneHelper : MonoBehaviour {
 	private static readonly int skipHash = Animator.StringToHash("Skip");
 
+	[SerializeField] private SceneHelper sceneHelper;
 	[SerializeField] private InputActionReference skipAction;
 	[SerializeField] private GameObject skipInfo;
 	[SerializeField] private RectTransform skipProgressBar;
@@ -53,7 +54,7 @@ public class CutsceneHelper : MonoBehaviour {
 			skipInfo.SetActive(false);
 		}
 
-		if (isSkipBeingHeld) {
+		if (isSkipBeingHeld && !sceneHelper.IsTransitioning) {
 			skipHoldTimer += Time.deltaTime;
 
 			float t = Mathf.Clamp01(skipHoldTimer / skipHoldDuration);
