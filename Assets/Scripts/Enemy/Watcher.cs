@@ -188,6 +188,7 @@ public class Watcher : MonoBehaviour {
 		animator.Play(turnHash);
 		state = State.Turning;
 		turnDirection = direction;
+		lantern.enabled = false;
 	}
 
 	private void SetFacing(float direction) {
@@ -269,6 +270,7 @@ public class Watcher : MonoBehaviour {
 	private void OnTurnFinished() {
 		state = State.Patrolling;
 		SetFacing(turnDirection);
+		lantern.enabled = true;
 	}
 
 	private void PlayTinkerSound() {
