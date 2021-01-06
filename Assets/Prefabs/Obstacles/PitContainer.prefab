@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2745086459994908009}
   - component: {fileID: 2745086459994908008}
   - component: {fileID: 2745086459994908010}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PitContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,13 +69,16 @@ MonoBehaviour:
   mode: 0
   damageSource: 1
   damage: 999
-  damageCooldown: 0
+  repeatSingleDamage: 0
+  repeatDamageTime: 1
   onDamageEffect:
     m_PersistentCalls:
       m_Calls: []
   enableKnockback: 0
   knockbackForce: 5
   knockbackDuration: 0.2
+  overrideKnockbackDirection: 0
+  knockbackDirection: {x: 0, y: 0}
   useColliders: 1
   useTriggers: 1
   layerMask:
