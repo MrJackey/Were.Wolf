@@ -408,13 +408,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onNoChangeUpdate:
+  onEmitterUpdate:
     m_PersistentCalls:
       m_Calls: []
   animator: {fileID: 1868501750330856506}
   panCamera: 0
   showClip: {fileID: 7400000, guid: af2702747174265498084124e6ea25d4, type: 2}
   showCooldown: 7.5
+  showOnEmitterUpdate: 0
+  onStateUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   cameraTransitionMultiplier: 3
   highlightPrefab: {fileID: 5521635976300897426, guid: d1acdd0eb83d2014c959fbb3fd9e36d8, type: 3}
   audioSource: {fileID: 4321549237083087286}
+  animationClip: {fileID: 7400000, guid: af2702747174265498084124e6ea25d4, type: 2}
+  clipCurrentTime: 0
