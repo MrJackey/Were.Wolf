@@ -117,8 +117,11 @@ public class PlayerController : MonoBehaviour {
 		set {
 			doKnockBack = value;
 
-			if (doKnockBack)
+			if (doKnockBack) {
 				InterruptJump();
+				if (airJumpsUsed > 0)
+					airJumpsUsed--;
+			}
 		}
 	}
 	public float JumpLength => jumpEndTime;
@@ -315,8 +318,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (!doJump &&
 		    !doAirJump &&
-		    groundedCollider.IsTouchingLayers(groundLayer) &&
-		    hitCollider.IsTouchingLayers(groundLayer))
+		    groundedCollider.IsTouchingLayers(groundLayer))
 			velocity.y = 0;
 
 		if (doKnockBack)
