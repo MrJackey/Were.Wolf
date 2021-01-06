@@ -117398,7 +117398,7 @@ MonoBehaviour:
 
       the wall.'
     slowWrite: 0
-    delay: 2
+    delay: 1.5
     useInForm: 0
   - message: '"The food I got today had a weird off-taste.'
     slowWrite: 1
@@ -119231,7 +119231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[1].message
-      value: Keep an eye out for me and other interesting things up ahead!
+      value: There's more to come, watch your step.
       objectReference: {fileID: 0}
     - target: {fileID: 1763996598, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: messages.Array.data[2].message
@@ -119391,11 +119391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763996599, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Size.x
-      value: 3.01
+      value: 4.50344
       objectReference: {fileID: 0}
     - target: {fileID: 1763996599, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_Offset.x
-      value: -1.34
+      value: -0.5932803
       objectReference: {fileID: 0}
     - target: {fileID: 1685857625290210036, guid: d8622456100dc9243936f0f1b8d6e21b, type: 3}
       propertyPath: m_SortingLayer
