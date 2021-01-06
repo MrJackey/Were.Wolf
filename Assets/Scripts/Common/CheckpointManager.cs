@@ -14,7 +14,10 @@ public class CheckpointManager : MonoBehaviour {
 
 		GameObject playerObject = GameObject.FindWithTag("Player");
 		playerObject.GetComponent<Health>().RestoreHealth();
+		playerObject.GetComponent<Knockbackable>().InterruptKnockback();
 		playerObject.GetComponent<Rigidbody2D>().position = checkpoint.transform.position;
-		playerObject.GetComponent<PlayerController>().Velocity = Vector2.zero;
+		PlayerController playerController = playerObject.GetComponent<PlayerController>();
+		playerController.Velocity = Vector2.zero;
+		playerController.DoKnockBack = false;
 	}
 }
