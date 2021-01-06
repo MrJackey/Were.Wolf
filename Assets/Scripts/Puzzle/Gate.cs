@@ -133,9 +133,9 @@ public class Gate : SignalReceiver {
 
 	private void UpdateAnimationTime() {
 		if (doCountUp) 
-			animationClipCurrentTime += Time.deltaTime;
+			animationClipCurrentTime += Time.unscaledDeltaTime;
 		else if (doCountDown)
-			animationClipCurrentTime -= Time.deltaTime;
+			animationClipCurrentTime -= Time.unscaledDeltaTime;
 
 		animationClipCurrentTime = Mathf.Clamp(animationClipCurrentTime, 0, animationClip.length);
 
