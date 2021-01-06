@@ -21,6 +21,7 @@ public class Gate : SignalReceiver {
 	[SerializeField] private float cameraTransitionMultiplier = 3f;
 	[SerializeField] private VignetteHighlight highlightPrefab;
 	[SerializeField] private AudioSource audioSource;
+	[SerializeField] private AnimationClip animationClip;
 
 	private static Queue<Gate> panningQueue = new Queue<Gate>();
 
@@ -32,7 +33,9 @@ public class Gate : SignalReceiver {
 	private bool inShowQueue = false;
 	private bool allowShow = true;
 	private bool prevIsActivated = false;
-
+	private float animationClipCurrentTime;
+	private bool doCountUp = false, doCountDown = false;
+	
 	public bool PanCamera { set => panCamera = value; }
 
 	private void Awake() {
@@ -43,6 +46,10 @@ public class Gate : SignalReceiver {
 		cameraBaseTransitionDuration = camera.TransitionDuration;
 		animator.Play(IsActivated ? openHash : closeHash, 0, 1);
 		prevIsActivated = IsActivated;
+	}
+
+	private void Update() {
+		UpdateAnimationTime();
 	}
 
 	public void Toggle() {
@@ -124,8 +131,32 @@ public class Gate : SignalReceiver {
 		allowShow = true;
 	}
 
+	private void UpdateAnimationTime() {
+		if (doCountUp) 
+			animationClipCurrentTime += Time.deltaTime;
+		else if (doCountDown)
+			animationClipCurrentTime -= Time.deltaTime;
+
+		animationClipCurrentTime = Mathf.Clamp(animationClipCurrentTime, 0, animationClip.length);
+
+		if (animationClipCurrentTime >= animationClip.length)
+			doCountUp = false;
+		else if (animationClipCurrentTime <= 0)
+			doCountDown = false;
+	}
+
 	private void UpdateAnimation() {
-		animator.Play(IsActivated ? openHash : closeHash);
+		float animationClipTimeUpdate = animationClipCurrentTime / animationClip.length;
+		if (IsActivated) {
+			animator.Play(openHash, 0, animationClipTimeUpdate);
+			doCountDown = false;
+			doCountUp = true;
+		}
+		else {
+			animator.Play(closeHash, 0, 1 - animationClipTimeUpdate);
+			doCountUp = false;
+			doCountDown = true;
+		}
 	}
 
 	private void PlaySound() {
