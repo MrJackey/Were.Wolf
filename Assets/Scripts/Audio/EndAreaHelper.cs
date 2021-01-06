@@ -11,7 +11,8 @@ public class EndAreaHelper : MonoBehaviour {
 
 	private void Start() {
 		musicPlayer = LevelMusicPlayer.Instance;
-		musicFade = musicPlayer.gameObject.GetComponentUnlessNull<FadeVolumeInOut>();
+		if (musicPlayer != null)
+			musicFade = musicPlayer.gameObject.GetComponent<FadeVolumeInOut>();
 	}
 
 	private void OnDisable() {
