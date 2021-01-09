@@ -16,53 +16,80 @@ namespace Editor {
 			window.Show();
 		}
 
-		[SerializeField] private string outputPath;
-		[SerializeField] private bool runOnFinished;
-
-		private void OnEnable() {
-			outputPath = EditorUserBuildSettings.GetBuildLocation(BuildTarget.StandaloneWindows64);
-			if (string.IsNullOrEmpty(outputPath))
-				outputPath = Path.GetFullPath(Path.Combine(Application.dataPath, "../Build/Were.Wolf.exe"));
-		}
+		[SerializeField] private bool developmentBuild;
 
 		private void OnGUI() {
-			outputPath = EditorGUILayout.TextField("Output Path", outputPath);
-			runOnFinished = EditorGUILayout.Toggle("Start When Finished", runOnFinished);
+			developmentBuild = EditorGUILayout.Toggle("Development Build", developmentBuild);
 
-			if (GUILayout.Button("Development Build")) {
-				BuildPlayerOptions buildOptions = DefaultOptions();
-				buildOptions.options = BuildOptions.Development;
-				DoBuild(buildOptions);
-			}
+			if (GUILayout.Button("Windows Build"))
+				DoBuild(BuildTarget.StandaloneWindows64, developmentBuild);
 
-			if (GUILayout.Button("Release Build")) {
-				BuildPlayerOptions buildOptions = DefaultOptions();
-				DoBuild(buildOptions);
-			}
+			if (GUILayout.Button("Windows Build (cheats)"))
+				DoBuild(BuildTarget.StandaloneWindows64, developmentBuild, new[] {"CHEATS"});
 
-			if (GUILayout.Button("Release Build (cheats)")) {
-				BuildPlayerOptions buildOptions = DefaultOptions();
-				buildOptions.extraScriptingDefines = new[] {"CHEATS"};
-				DoBuild(buildOptions);
-			}
+			if (GUILayout.Button("Multiplatform Build"))
+				BuildMultiplatform();
+
+			GUILayout.Space(10);
+
+			if (GUILayout.Button("Open Build Directory"))
+				EditorUtility.RevealInFinder(Path.GetFullPath(Application.dataPath + "/../Build"));
 		}
 
-		private BuildPlayerOptions DefaultOptions() {
-			return new BuildPlayerOptions {
-				options = BuildOptions.None,
-				scenes = EditorBuildSettings.scenes.Where(x => x.enabled).Select(x => x.path).ToArray(),
-				target = BuildTarget.StandaloneWindows64,
-				targetGroup = BuildTargetGroup.Standalone,
-				locationPathName = outputPath,
-			};
+		private void BuildMultiplatform() {
+			if (DoBuild(BuildTarget.StandaloneWindows64, developmentBuild) == BuildResult.Cancelled) return;
+			if (DoBuild(BuildTarget.StandaloneOSX, developmentBuild) == BuildResult.Cancelled) return;
+			if (DoBuild(BuildTarget.StandaloneLinux64, developmentBuild) == BuildResult.Cancelled) return;
 		}
 
-		private void DoBuild(BuildPlayerOptions buildOptions) {
+		private static string[] GetActiveBuildScenes() {
+			return EditorBuildSettings.scenes
+				.Where(x => x.enabled)
+				.Select(x => x.path)
+				.ToArray();
+		}
+
+		private static BuildResult DoBuild(BuildPlayerOptions buildOptions) {
 			BuildReport report = BuildPipeline.BuildPlayer(buildOptions);
-			Debug.Log($"Build finished with result: {report.summary.result}");
+			Debug.Log($"Build for {buildOptions.target} finished with result {report.summary.result}");
+			return report.summary.result;
+		}
 
-			if (runOnFinished && report.summary.result == BuildResult.Succeeded)
-				Process.Start(outputPath);
+		private static BuildResult DoBuild(BuildTarget target, bool developmentBuild, string[] extraDefines = null) {
+			string buildDirPath = Path.GetFullPath(Application.dataPath + "/../Build");
+
+			BuildPlayerOptions options = new BuildPlayerOptions {
+				scenes = GetActiveBuildScenes(),
+				target = target,
+				targetGroup = BuildTargetGroup.Standalone,
+				options = developmentBuild ? BuildOptions.Development : BuildOptions.None,
+				extraScriptingDefines = extraDefines,
+			};
+
+			switch (target) {
+				case BuildTarget.StandaloneWindows64:
+					string windowsDir = $"{buildDirPath}/Win64/{Application.productName}";
+					options.locationPathName = windowsDir + $"/{Application.productName}.exe";
+					Directory.CreateDirectory(windowsDir);
+					return DoBuild(options);
+
+				case BuildTarget.StandaloneOSX:
+					string macDir = $"{buildDirPath}/Mac/{Application.productName}.app";
+					options.locationPathName = macDir;
+
+					Directory.CreateDirectory(macDir);
+					return DoBuild(options);
+
+				case BuildTarget.StandaloneLinux64:
+					string linuxDir = $"{buildDirPath}/Linux/{Application.productName}";
+					options.locationPathName = linuxDir + $"/{Application.productName}.x86_64";
+
+					Directory.CreateDirectory(linuxDir);
+					return DoBuild(options);
+
+				default:
+					throw new ArgumentException("Unsupported build target.");
+			}
 		}
 	}
 }
