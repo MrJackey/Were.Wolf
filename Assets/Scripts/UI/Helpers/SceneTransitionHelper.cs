@@ -48,6 +48,7 @@ public class SceneTransitionHelper : MonoBehaviour {
 			yield return null;
 
 		loadOperation.allowSceneActivation = true;
+		Time.timeScale = 1;
 		StartCoroutine(CoEnter());
 	}
 
