@@ -32,7 +32,6 @@ public class SceneTransitionHelper : MonoBehaviour {
 		mixer.GetFloat("masterVolume", out baseVolume);
 		baseVolume = MathX.DecibelsToLinear(baseVolume);
 
-		Time.timeScale = 0;
 		StartCoroutine(CoExit());
 	}
 
