@@ -66,6 +66,7 @@ public class DeathScreenHelper : MonoBehaviour {
 		if (checkpointManager != null) {
 			yield return new WaitForSecondsRealtime(screenDuration / 2);
 			checkpointManager.Respawn();
+			playerTransformation.ResetTransformation();
 			Time.timeScale = 1;
 			yield return new WaitForSeconds(screenDuration / 2);
 			playerController.AllowControls = true;
