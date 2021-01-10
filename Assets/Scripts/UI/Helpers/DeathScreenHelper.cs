@@ -78,7 +78,16 @@ public class DeathScreenHelper : MonoBehaviour {
 	}
 
 	// Run by animation event
-	public void StartBodyAnimation() {
+	private void StartBodyAnimation() {
+		StartCoroutine(CoStartBodyAnimation());
+	}
+
+	private IEnumerator CoStartBodyAnimation() {
+		// Sometimes the animator has not initialized yet when this function is called. To avoid the death animation
+		// not being played at all, we wait for the animator to initialize first.
+		while (!bodyAnimator.isInitialized)
+			yield return null;
+
 		bodyAnimator.SetTrigger(restartHash);
 
 		if (playerTransformation.IsHuman)
