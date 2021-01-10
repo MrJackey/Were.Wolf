@@ -11,6 +11,7 @@ public class PlayerAnimationController : MonoBehaviour {
 	private static readonly int doDropHash = Animator.StringToHash("doDrop");
 	private static readonly int isTransformingHash = Animator.StringToHash("isTransforming");
 	private static readonly int isCrouchedHash = Animator.StringToHash("isCrouched");
+	private static readonly int respawnHash = Animator.StringToHash("respawn");
 
 	[SerializeField] private AnimationClip transformAnimation;
 	[SerializeField] private AnimationClip jumpAnimation;
@@ -88,5 +89,10 @@ public class PlayerAnimationController : MonoBehaviour {
 
 	public void CrouchEnd() {
 		animator.SetBool(isCrouchedHash, false);
+	}
+
+	public void Respawn() {
+		animator.SetTrigger(respawnHash);
+		animator.SetBool(isHumanHash, transformation.OldState != TransformationState.Human);
 	}
 }

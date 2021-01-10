@@ -6,6 +6,8 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Transformation : MonoBehaviour {
+	[SerializeField] private PlayerAnimationController playerAnimationController;
+
 	[Header("Values")]
 	[SerializeField] private float transDuration = 1.2f;
 	[SerializeField, Range(0, 1)]
@@ -215,6 +217,13 @@ public class Transformation : MonoBehaviour {
 			humanHurtSound.PlayRandom();
 		else
 			wolfHurtSound.PlayRandom();
+	}
+
+	public void ResetTransformation() {
+		state = TransformationState.Wolf;
+		oldState = TransformationState.Human;
+		transformationCooldownTimer = 0;
+		playerAnimationController.Respawn();
 	}
 }
 
