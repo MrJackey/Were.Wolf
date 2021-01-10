@@ -94,5 +94,6 @@ public class PlayerAnimationController : MonoBehaviour {
 	public void Respawn() {
 		animator.SetTrigger(respawnHash);
 		animator.SetBool(isHumanHash, transformation.OldState != TransformationState.Human);
+		animator.SetBool(isTransformingHash, false);
 	}
 }

@@ -220,6 +220,8 @@ public class Transformation : MonoBehaviour {
 	}
 
 	public void ResetTransformation() {
+		StopAllCoroutines();
+		particleEffect.Stop();
 		state = TransformationState.Wolf;
 		oldState = TransformationState.Human;
 		transformationCooldownTimer = 0;
