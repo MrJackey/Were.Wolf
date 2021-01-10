@@ -101,7 +101,7 @@ public class SceneHelper : ScriptableObject {
 		LoadSceneWithTransition(levels[levelIndex]);
 	}
 
-	private int FindLevelByBuildIndex(int buildIndex) {
+	public int FindLevelByBuildIndex(int buildIndex) {
 		for (int i = 0; i < levels.Length; i++) {
 			if (levels[i].BuildIndex == buildIndex)
 				return i;
